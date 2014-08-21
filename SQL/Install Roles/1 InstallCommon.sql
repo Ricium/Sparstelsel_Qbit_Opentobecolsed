@@ -26,7 +26,7 @@ DECLARE @dbname nvarchar(128)
 DECLARE @dboptions nvarchar(1024)
 
 SET @dboptions = N'/**/'
-SET @dbname = N'4DNetLive'
+SET @dbname = N'Spar_Database'
 
 IF (NOT EXISTS (SELECT name
                 FROM master.dbo.sysdatabases
@@ -39,7 +39,7 @@ BEGIN
 END
 GO
 
-USE [4DNetLive]
+USE [Spar_Database]
 GO
 
 /*************************************************************/

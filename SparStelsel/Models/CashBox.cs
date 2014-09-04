@@ -9,18 +9,19 @@ using System.Web.Mvc;
 namespace SparStelsel.Models
 {
     /// <summary>
-    /// Transit model links to l_Transit. 
-    /// Transit table is used to save transit
     /// 
-    /// Used by: FK
     /// 
-    /// Uses: Sy eie FK
+    /// 
+    /// 
+    /// 
+    ///
     /// </summary>
-    public class Transit
+
+    public class CashBox
     {
-        [DisplayName("Transit ID")]
-        [Required(ErrorMessage = "Transit ID is required.")]
-        public int TransitID { get; set; }
+        [DisplayName("Cash Box ID")]
+        [Required(ErrorMessage = "Cash Box ID is required.")]
+        public int CashBoxID { get; set; }
 
         [DisplayName("Actual Date")]
         [Required(ErrorMessage = "Actual Date is required.")]
@@ -32,5 +33,9 @@ namespace SparStelsel.Models
         [DisplayName("Amount")]
         [Required(ErrorMessage = "Amount is required.")]
         public decimal Amount { get; set; }
+
+        [DisplayName("Movement Type ID")]
+        [Required(ErrorMessage = "Movement Type ID is required.")]
+        public int MovementTypeID { get; set; }
     }
 }

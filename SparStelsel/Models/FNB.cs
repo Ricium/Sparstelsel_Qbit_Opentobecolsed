@@ -9,18 +9,19 @@ using System.Web.Mvc;
 namespace SparStelsel.Models
 {
     /// <summary>
-    /// Transit model links to l_Transit. 
-    /// Transit table is used to save transit
     /// 
-    /// Used by: FK
     /// 
-    /// Uses: Sy eie FK
+    /// 
+    /// 
+    /// 
+    ///
     /// </summary>
-    public class Transit
+
+    public class FNB
     {
-        [DisplayName("Transit ID")]
-        [Required(ErrorMessage = "Transit ID is required.")]
-        public int TransitID { get; set; }
+        [DisplayName("FNB ID")]
+        [Required(ErrorMessage = "FNB ID is required.")]
+        public int FNBID { get; set; }
 
         [DisplayName("Actual Date")]
         [Required(ErrorMessage = "Actual Date is required.")]
@@ -32,5 +33,17 @@ namespace SparStelsel.Models
         [DisplayName("Amount")]
         [Required(ErrorMessage = "Amount is required.")]
         public decimal Amount { get; set; }
+
+        [DisplayName("FNB Type ID")]
+        [Required(ErrorMessage = "FNB Type ID is required.")]
+        public int FNBTypeID { get; set; }
+
+        [DisplayName("Employee ID")]
+        [Required(ErrorMessage = "Employee ID is required.")]
+        public int EmployeeID { get; set; }
+
+        [DisplayName("Employee Type ID")]
+        [Required(ErrorMessage = "Employee Type ID is required.")]
+        public int EmployeeTypeID { get; set; }
     }
 }

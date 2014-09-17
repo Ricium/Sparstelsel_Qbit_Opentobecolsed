@@ -12,5 +12,9 @@ namespace SparStelsel
     public class StoredProcedures
     {       
         public static readonly string InsertUser = "Insert_User";
+
+        public static readonly string KwikPayInsert = "Insert_Kwikpay";
+        public static readonly string KwikPayUpdate = "Update_Kwikpay";
+        public static readonly string KwikPayRemove = "Remove_Kwikpay";
     }
 }

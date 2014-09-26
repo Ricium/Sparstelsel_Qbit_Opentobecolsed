@@ -65,7 +65,7 @@ namespace SparStelsel.Models
 
         [DisplayName("GRV Type ID")]
         [Required(ErrorMessage = "GRV Type ID is required.")]
-        public int Number { get; set; }
+        public int GRVTypeID { get; set; }
 
         [DisplayName("Supplier ID")]
         [Required(ErrorMessage = "Supplier ID is required.")]

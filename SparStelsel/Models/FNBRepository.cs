@@ -90,7 +90,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<FNB> GetFNBsPerEmployee(int EmployeeId)
+        public List<FNB> GetFNBsPerFNBType(int FNBTypeID)
         {
             //...Create New Instance of Object...
             List<FNB> list = new List<FNB>();
@@ -102,7 +102,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_FNB WHERE EmployeeID = " + EmployeeId, con);
+            cmdI = new SqlCommand("SELECT * FROM t_FNB WHERE FNBTypeID = " + FNBTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -132,7 +132,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<FNB> GetInstantMoneysPerType(int FNBTypeId)
+        public List<FNB> GetFNBsPerEmployee(int EmployeeID)
         {
             //...Create New Instance of Object...
             List<FNB> list = new List<FNB>();
@@ -144,7 +144,49 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_InstantMoney WHERE InstantMoneyID = " + FNBID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_FNB WHERE EmployeeID = " + EmployeeID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new FNB();
+                    ins.FNBID = Convert.ToInt32(drI["FNBID"]);
+                    ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.FNBTypeID = Convert.ToInt32(drI["FNBTypeID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<FNB> GetFNBsPerEmployeeType(int EmployeeTypeID)
+        {
+            //...Create New Instance of Object...
+            List<FNB> list = new List<FNB>();
+            FNB ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_FNB WHERE EmployeeTypeID = " + EmployeeTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

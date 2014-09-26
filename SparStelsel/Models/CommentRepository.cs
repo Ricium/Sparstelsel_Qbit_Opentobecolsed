@@ -82,6 +82,44 @@ namespace SparStelsel.Models
             return list;
         }
 
+        public List<Comment> GetCommentsPerCommentType(int CommentTypeID)
+        {
+            //...Create New Instance of Object...
+            List<Comment> list = new List<Comment>();
+            Comment ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_Comment WHERE CommentTypeID = " + CommentTypeID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new Comment();
+                    ins.CommentID = Convert.ToInt32(drI["CommentID"]);
+                    ins.Comment = Convert.ToChar(drI["Comment"]);
+                    ins.CommentTypeID = Convert.ToInt32(drI["CommentTypeID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
         public Comment Insert(Comment ins)
         {
             //...Get User and Date Data...

@@ -101,6 +101,147 @@ namespace SparStelsel.Models
             return list;
         }
 
+        public List<GRVList> GetGRVListsPerGRVType(int GRVTypeID)
+        {
+            //...Create New Instance of Object...
+            List<GRVList> list = new List<GRVList>();
+            GRVList ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_GRVList WHERE GRVTypeID = " + GRVTypeID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new GRVList();
+                    ins.GRVListID = Convert.ToInt32(drI["GRVListID"]);
+                    ins.InvoiceNumber = Convert.ToChar(drI["InvoiceNumber"]);
+                    ins.StateDate = Convert.ToDateTime(drI["StateDate"]);
+                    ins.Number = Convert.ToChar(drI["Number"]);
+                    ins.PayDate = Convert.ToDateTime(drI["PayDate"]);
+                    ins.GRVDate = Convert.ToDateTime(drI["GRVDate"]);
+                    ins.InvoiceDate = Convert.ToDateTime(drI["InvoiceDate"]);
+                    ins.ExcludingVat = Convert.ToDecimal(drI["ExcludingVat"]);
+                    ins.ExcludingVat = Convert.ToDecimal(drI["IncludingVat"]);
+                    ins.GRVTypeID = Convert.ToInt32(drI["GRVTypeID"]);
+                    ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
+                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<GRVList> GetGRVListsPerSupplier(int SupplierID)
+        {
+            //...Create New Instance of Object...
+            List<GRVList> list = new List<GRVList>();
+            GRVList ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_GRVList WHERE SupplierID = " + SupplierID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new GRVList();
+                    ins.GRVListID = Convert.ToInt32(drI["GRVListID"]);
+                    ins.InvoiceNumber = Convert.ToChar(drI["InvoiceNumber"]);
+                    ins.StateDate = Convert.ToDateTime(drI["StateDate"]);
+                    ins.Number = Convert.ToChar(drI["Number"]);
+                    ins.PayDate = Convert.ToDateTime(drI["PayDate"]);
+                    ins.GRVDate = Convert.ToDateTime(drI["GRVDate"]);
+                    ins.InvoiceDate = Convert.ToDateTime(drI["InvoiceDate"]);
+                    ins.ExcludingVat = Convert.ToDecimal(drI["ExcludingVat"]);
+                    ins.ExcludingVat = Convert.ToDecimal(drI["IncludingVat"]);
+                    ins.GRVTypeID = Convert.ToInt32(drI["GRVTypeID"]);
+                    ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
+                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<GRVList> GetGRVListsPerSupplierType(int SupplierTypeID)
+        {
+            //...Create New Instance of Object...
+            List<GRVList> list = new List<GRVList>();
+            GRVList ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_GRVList WHERE SupplierTypeID = " + SupplierTypeID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new GRVList();
+                    ins.GRVListID = Convert.ToInt32(drI["GRVListID"]);
+                    ins.InvoiceNumber = Convert.ToChar(drI["InvoiceNumber"]);
+                    ins.StateDate = Convert.ToDateTime(drI["StateDate"]);
+                    ins.Number = Convert.ToChar(drI["Number"]);
+                    ins.PayDate = Convert.ToDateTime(drI["PayDate"]);
+                    ins.GRVDate = Convert.ToDateTime(drI["GRVDate"]);
+                    ins.InvoiceDate = Convert.ToDateTime(drI["InvoiceDate"]);
+                    ins.ExcludingVat = Convert.ToDecimal(drI["ExcludingVat"]);
+                    ins.ExcludingVat = Convert.ToDecimal(drI["IncludingVat"]);
+                    ins.GRVTypeID = Convert.ToInt32(drI["GRVTypeID"]);
+                    ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
+                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
         public GRVList Insert(GRVList ins)
         {
             //...Get User and Date Data...

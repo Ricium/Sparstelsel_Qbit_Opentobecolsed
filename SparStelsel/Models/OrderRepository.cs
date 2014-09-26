@@ -94,12 +94,188 @@ namespace SparStelsel.Models
             return list;
         }
 
+        public List<Order> GetOrdersPerSupplier(int SupplierID)
+        {
+            //...Create New Instance of Object...
+            List<Order> list = new List<Order>();
+            Order ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_Order WHERE SupplierID = " + SupplierID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new Order();
+                    ins.OrderID = Convert.ToInt32(drI["OrderID"]);
+                    ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
+                    ins.ExspectedDeliveryDate = Convert.ToDateTime(drI["ExspectedDeliveryDate"]);
+                    ins.Amount = Convert.ToChar(drI["Amount"]);
+                    ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
+                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
+                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.CommentID = Convert.ToInt32(drI["CommentID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<Order> GetOrdersPerSupplierType(int SupplierTypeID)
+        {
+            //...Create New Instance of Object...
+            List<Order> list = new List<Order>();
+            Order ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_Order WHERE SupplierTypeID = " + SupplierTypeID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new Order();
+                    ins.OrderID = Convert.ToInt32(drI["OrderID"]);
+                    ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
+                    ins.ExspectedDeliveryDate = Convert.ToDateTime(drI["ExspectedDeliveryDate"]);
+                    ins.Amount = Convert.ToChar(drI["Amount"]);
+                    ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
+                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
+                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.CommentID = Convert.ToInt32(drI["CommentID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<Order> GetOrdersPerEmployeeType(int EmployeeTypeID)
+        {
+            //...Create New Instance of Object...
+            List<Order> list = new List<Order>();
+            Order ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_Order WHERE EmployeeTypeID = " + EmployeeTypeID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new Order();
+                    ins.OrderID = Convert.ToInt32(drI["OrderID"]);
+                    ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
+                    ins.ExspectedDeliveryDate = Convert.ToDateTime(drI["ExspectedDeliveryDate"]);
+                    ins.Amount = Convert.ToChar(drI["Amount"]);
+                    ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
+                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
+                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.CommentID = Convert.ToInt32(drI["CommentID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<Order> GetOrdersPerEmployee(int EmployeeID)
+        {
+            //...Create New Instance of Object...
+            List<Order> list = new List<Order>();
+            Order ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_Order WHERE EmployeeID = " + EmployeeID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new Order();
+                    ins.OrderID = Convert.ToInt32(drI["OrderID"]);
+                    ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
+                    ins.ExspectedDeliveryDate = Convert.ToDateTime(drI["ExspectedDeliveryDate"]);
+                    ins.Amount = Convert.ToChar(drI["Amount"]);
+                    ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
+                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
+                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.CommentID = Convert.ToInt32(drI["CommentID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
         public Order Insert(Order ins)
         {
             //...Get User and Date Data...
             // string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
             // int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
-            // string strTrx = "KwikPayIns_" + EmployeeId;
+            // string strTrx = "OrderIns_" + EmployeeId;
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();

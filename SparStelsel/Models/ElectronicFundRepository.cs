@@ -88,7 +88,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<ElectronicFund> GetElectronicFundsPerEmployee(int EmployeeId)
+        public List<ElectronicFund> GetElectronicFundsPerElectronicType(int ElectronicTypeID)
         {
             //...Create New Instance of Object...
             List<ElectronicFund> list = new List<ElectronicFund>();
@@ -100,7 +100,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_ElectronicFund WHERE EmployeeID = " + EmployeeId, con);
+            cmdI = new SqlCommand("SELECT * FROM t_ElectronicFund WHERE ElectronicTypeID = " + ElectronicTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -129,7 +129,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<ElectronicFund> GetElectronicFundsPerType(int ElectronicFundId)
+        public List<ElectronicFund> GetElectronicFundsPerEmployee(int EmployeeID)
         {
             //...Create New Instance of Object...
             List<ElectronicFund> list = new List<ElectronicFund>();
@@ -141,7 +141,48 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_ElectronicFund WHERE ElectronicFundID = " + ElectronicFundId, con);
+            cmdI = new SqlCommand("SELECT * FROM t_ElectronicFund WHERE EmployeeID = " + EmployeeID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new ElectronicFund();
+                    ins.ElectronicFundID = Convert.ToInt32(drI["ElectronicFundID"]);
+                    ins.ElectronicFund = Convert.ToChar(drI["ElectronicFund"]);
+                    ins.Total = Convert.ToDecimal(drI["Total"]);
+                    ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicFundTypeID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<ElectronicFund> GetElectronicFundsPerType(int EmployeeTypeID)
+        {
+            //...Create New Instance of Object...
+            List<ElectronicFund> list = new List<ElectronicFund>();
+            ElectronicFund ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_ElectronicFund WHERE EmployeeTypeID = " + EmployeeTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

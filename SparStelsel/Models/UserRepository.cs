@@ -90,6 +90,48 @@ namespace SparStelsel.Models
             return list;
         }
 
+        public List<User> GetUsersPerUser(int UserTypeID)
+        {
+            //...Create New Instance of Object...
+            List<User> list = new List<User>();
+            User ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_User WHERE UserTypeID = " + UserTypeID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new User();
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserName = Convert.ToChar(drI["UserName"]);
+                    ins.UserSurname = Convert.ToChar(drI["UserSurname"]);
+                    ins.ID = Convert.ToChar(drI["ID"]);
+                    ins.UserCell = Convert.ToChar(drI["UserCell"]);
+                    ins.UserEmail = Convert.ToChar(drI["UserEmail"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
         public User Insert(User ins)
         {
             //...Get User and Date Data...

@@ -20,7 +20,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_CashMovement WHERE CashMovementId =" + CashMovementID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_CashMovement WHERE CashMovementID =" + CashMovementID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -49,7 +49,7 @@ namespace SparStelsel.Models
             return ins;
         }
 
-        public List<CashMovement> GetAllCoinMovement()
+        public List<CashMovement> GetAllCashMovement()
         {
             //...Create New Instance of Object...
             List<CashMovement> list = new List<CashMovement>();
@@ -92,7 +92,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<CashMovement> GetCashMovementsPerEmployee(int EmployeeId)
+        public List<CashMovement> GetCashMovementsPerCashType(int CashTypeID)
         {
             //...Create New Instance of Object...
             List<CashMovement> list = new List<CashMovement>();
@@ -104,7 +104,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_CashMovement WHERE EmployeeID = " + EmployeeId, con);
+            cmdI = new SqlCommand("SELECT * FROM t_CashMovement WHERE CashTypeID = " + CashTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -135,7 +135,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<CashMovement> GetCashMovementsPerType(int CashMovementID)
+        public List<CashMovement> MoneyUnit(int MoneyUnitID)
         {
             //...Create New Instance of Object...
             List<CashMovement> list = new List<CashMovement>();
@@ -147,7 +147,93 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_CoinMovement WHERE CoinMovementID = " + CoinMovementID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_CashMovement WHERE MoneyUnitID = " + MoneyUnitID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new CashMovement();
+                    ins.CashMovementID = Convert.ToInt32(drI["CashMovementID"]);
+                    ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
+                    ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<CashMovement> GetCashMovementsPerEmployee(int EmployeeID)
+        {
+            //...Create New Instance of Object...
+            List<CashMovement> list = new List<CashMovement>();
+            CashMovement ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_CashMovement WHERE EmployeeID = " + EmployeeID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new CashMovement();
+                    ins.CashMovementID = Convert.ToInt32(drI["CashMovementID"]);
+                    ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
+                    ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<CashMovement> GetCashMovementsPerEmployeeType(int EmployeeTypeID)
+        {
+            //...Create New Instance of Object...
+            List<CashMovement> list = new List<CashMovement>();
+            CashMovement ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_CashMovement WHERE EmployeeTypeID = " + EmployeeTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

@@ -92,7 +92,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<CoinMovement> GetCoinMovementsPerEmployee(int EmployeeId)
+        public List<CoinMovement> GetCoinMovementsPerMovementType(int MovementTypeID)
         {
             //...Create New Instance of Object...
             List<CoinMovement> list = new List<CoinMovement>();
@@ -104,7 +104,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_CoinMovement WHERE EmployeeID = " + EmployeeId, con);
+            cmdI = new SqlCommand("SELECT * FROM t_CoinMovement WHERE MovementTypeID = " + MovementTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -135,7 +135,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<CoinMovement> GetCoinMovementsPerType(int CoinMovementID)
+        public List<CoinMovement> GetCoinMovementsPerMoneyUnit(int MoneyUnitID)
         {
             //...Create New Instance of Object...
             List<CoinMovement> list = new List<CoinMovement>();
@@ -147,7 +147,93 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_CoinMovement WHERE CoinMovementID = " + CoinMovementID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_CoinMovement WHERE MoneyUnitID = " + MoneyUnitID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new CoinMovement();
+                    ins.CoinMovementID = Convert.ToInt32(drI["CoinMovementID"]);
+                    ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
+                    ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<CoinMovement> GetCoinMovementsPerEmployee(int EmployeeID)
+        {
+            //...Create New Instance of Object...
+            List<CoinMovement> list = new List<CoinMovement>();
+            CoinMovement ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_CoinMovement WHERE EmployeeID = " + EmployeeID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new CoinMovement();
+                    ins.CoinMovementID = Convert.ToInt32(drI["CoinMovementID"]);
+                    ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
+                    ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<CoinMovement> GetCoinMovementsPerEmployeeType(int EmployeeTypeID)
+        {
+            //...Create New Instance of Object...
+            List<CoinMovement> list = new List<CoinMovement>();
+            CoinMovement ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_CoinMovement WHERE EmployeeTypeID = " + EmployeeTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

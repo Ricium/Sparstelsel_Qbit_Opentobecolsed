@@ -68,7 +68,89 @@ namespace SparStelsel.Models
             {
                 while (drI.Read())
                 {
-                    ins = new MovementType();
+                    ins = new Supplier();
+                    ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
+                    ins.Supplier = Convert.ToChar(drI["Supplier"]);
+                    ins.StockCondition = Convert.ToChar(drI["StockCondition"]);
+                    ins.Term = Convert.ToChar(drI["Term"]);
+                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
+                    ins.ProductID = Convert.ToInt32(drI["ProductID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<Supplier> GetSuppliersPerSupplierType(int SupplierTypeID)
+        {
+            //...Create New Instance of Object...
+            List<Supplier> list = new List<Supplier>();
+            Supplier ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_Supplier WHERE SupplierTypeID = " + SupplierTypeID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new Supplier();
+                    ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
+                    ins.Supplier = Convert.ToChar(drI["Supplier"]);
+                    ins.StockCondition = Convert.ToChar(drI["StockCondition"]);
+                    ins.Term = Convert.ToChar(drI["Term"]);
+                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
+                    ins.ProductID = Convert.ToInt32(drI["ProductID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<Supplier> GetSuppliersPerProduct(int ProductID)
+        {
+            //...Create New Instance of Object...
+            List<Supplier> list = new List<Supplier>();
+            Supplier ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_Supplier WHERE ProductID = " + ProductID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new Supplier();
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.Supplier = Convert.ToChar(drI["Supplier"]);
                     ins.StockCondition = Convert.ToChar(drI["StockCondition"]);

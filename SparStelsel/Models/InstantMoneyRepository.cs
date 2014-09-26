@@ -90,7 +90,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<InstantMoney> GetInstantMoneysPerEmployee(int EmployeeId)
+        public List<InstantMoney> GetInstantMoneysPerInstantMoneyType(int InstantMoneyTypeID)
         {
             //...Create New Instance of Object...
             List<InstantMoney> list = new List<InstantMoney>();
@@ -102,7 +102,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_InstantMoney WHERE EmployeeID = " + EmployeeId, con);
+            cmdI = new SqlCommand("SELECT * FROM t_InstantMoney WHERE InstantMoneyTypeID = " + InstantMoneyTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -132,7 +132,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<InstantMoney> GetInstantMoneysPerType(int InstantMoneyID)
+        public List<InstantMoney> GetInstantMoneysPerEmployee(int EmployeeID)
         {
             //...Create New Instance of Object...
             List<InstantMoney> list = new List<InstantMoney>();
@@ -144,7 +144,49 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_InstantMoney WHERE InstantMoneyID = " + InstantMoneyID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_InstantMoney WHERE EmployeeID = " + EmployeeID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new InstantMoney();
+                    ins.InstantMoneyID = Convert.ToInt32(drI["InstantMoneyID"]);
+                    ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.InstantMoneyTypeID = Convert.ToInt32(drI["InstantMoneyTypeID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<InstantMoney> GetInstantMoneysPerEmployeeType(int EmployeeTypeID)
+        {
+            //...Create New Instance of Object...
+            List<InstantMoney> list = new List<InstantMoney>();
+            InstantMoney ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_InstantMoney WHERE EmployeeTypeID = " + EmployeeTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

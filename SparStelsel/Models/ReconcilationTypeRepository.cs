@@ -32,8 +32,7 @@ namespace SparStelsel.Models
                     ins.ReconcilationTypeID = Convert.ToInt32(drI["ReconcilationTypeID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
-                    ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
+                    ins.CashReconcilationID = Convert.ToInt32(drI["CashReconcilationID"]);
                     ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
                     ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
                 }
@@ -48,11 +47,11 @@ namespace SparStelsel.Models
             return ins;
         }
 
-        public List<PickUp> GetAllPickUp()
+        public List<ReconcilationType> GetAllPickUp()
         {
             //...Create New Instance of Object...
-            List<PickUp> list = new List<PickUp>();
-            PickUp ins;
+            List<ReconcilationType> list = new List<ReconcilationType>();
+            ReconcilationType ins;
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -90,7 +89,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<PickUp> GetPickUpsPerEmployee(int EmployeeID)
+        public List<PickUp> GetPickUpsPerCashReconcilation(int CashReconcilationID)
         {
             //...Create New Instance of Object...
             List<PickUp> list = new List<PickUp>();
@@ -102,7 +101,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_KwikPay WHERE EmployeeID = " + EmployeeID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_PickUp WHERE CashReconcilationID = " + CashReconcilationID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

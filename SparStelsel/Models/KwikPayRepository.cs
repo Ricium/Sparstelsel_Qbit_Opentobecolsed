@@ -90,7 +90,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<KwikPay> GetKwikPaysPerEmployee(int EmployeeId)
+        public List<KwikPay> GetKwikPaysPerKwikPayType(int KwikPayTypeID)
         {
             //...Create New Instance of Object...
             List<KwikPay> list = new List<KwikPay>();
@@ -102,7 +102,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_KwikPay WHERE EmployeeID = " + EmployeeId, con);
+            cmdI = new SqlCommand("SELECT * FROM t_KwikPay WHERE KwikPayTypeID = " + KwikPayTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -132,7 +132,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<KwikPay> GetKwikPaysPerType(int KwikPayTypeId)
+        public List<KwikPay> GetKwikPaysPerEmployee(int EmployeeID)
         {
             //...Create New Instance of Object...
             List<KwikPay> list = new List<KwikPay>();
@@ -144,7 +144,49 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_KwikPay WHERE KwikPayTypeID = " + KwikPayTypeId, con);
+            cmdI = new SqlCommand("SELECT * FROM t_KwikPay WHERE EmployeeID = " + EmployeeID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new KwikPay();
+                    ins.KwikPayID = Convert.ToInt32(drI["KwikPayID"]);
+                    ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.KwikPayTypeID = Convert.ToInt32(drI["KwikPayTypeID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<KwikPay> GetKwikPaysPerEmployeeType(int EmployeeTypeID)
+        {
+            //...Create New Instance of Object...
+            List<KwikPay> list = new List<KwikPay>();
+            KwikPay ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_KwikPay WHERE EmployeeTypeID = " + EmployeeTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

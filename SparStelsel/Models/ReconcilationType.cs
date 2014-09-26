@@ -30,9 +30,9 @@ namespace SparStelsel.Models
         [DisplayName("Modified Date")]
         public DateTime ModifiedDate { get; set; }
 
-        [DisplayName("Cash Reconcilation Type ID")]
+        [DisplayName("Cash Reconcilation ID")]
         [Required(ErrorMessage = "Proof Of Payment ID is required.")]
-        public int ProofOfPaymentID { get; set; }
+        public int CashReconcilationID { get; set; }
 
         [DisplayName("Employee ID")]
         [Required(ErrorMessage = "Employee ID is required.")]

@@ -82,6 +82,44 @@ namespace SparStelsel.Models
             return list;
         }
 
+        public List<UserTypePermission> GetUsersPerUserType(int UserTypeID)
+        {
+            //...Create New Instance of Object...
+            List<UserTypePermission> list = new List<UserTypePermission>();
+            UserTypePermission ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_UserTypePermission WHERE UserTypeID = " + UserTypeID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new UserTypePermission();
+                    ins.UserTypePermissionID = Convert.ToInt32(drI["UserTypePermissionID"]);
+                    ins.PermissionID = Convert.ToChar(drI["PermissionID"]);
+                    ins.UserTypeID = Convert.ToChar(drI["UserTypeID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
         public UserTypePermission Insert(UserTypePermission ins)
         {
             //...Get User and Date Data...

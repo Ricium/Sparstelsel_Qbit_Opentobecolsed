@@ -86,7 +86,45 @@ namespace SparStelsel.Models
             return list;
         }
 
+        public List<CashBox> GetCashBoxsPerMovementType(int MovementTypeID)
+        {
+            //...Create New Instance of Object...
+            List<CashBox> list = new List<CashBox>();
+            CashBox ins;
 
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_CashBox WHERE MovementTypeID = " + MovementTypeID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new CashBox();
+                    ins.CashBoxID = Convert.ToInt32(drI["CashBoxID"]);
+                    ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
 
         public CashBox Insert(CashBox ins)
         {

@@ -88,7 +88,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<CashReconcilation> GetCashReconcilationsPerEmployee(int EmployeeId)
+        public List<CashReconcilation> GetCashReconcilationsPerReconcilationType(int ReconcilationTypeID)
         {
             //...Create New Instance of Object...
             List<CashReconcilation> list = new List<CashReconcilation>();
@@ -100,7 +100,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_CashReconcilation WHERE EmployeeID = " + EmployeeId, con);
+            cmdI = new SqlCommand("SELECT * FROM t_CashReconcilation WHERE ReconcilationTypeID = " + ReconcilationTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -129,7 +129,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<CashReconcilation> GetCashReconcilationsPerType(int CashReconcilationID)
+        public List<CashReconcilation> GetCashReconcilationsPerEmployee(int EmployeeID)
         {
             //...Create New Instance of Object...
             List<CashReconcilation> list = new List<CashReconcilation>();
@@ -141,7 +141,48 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_CashReconcilation WHERE CashReconcilationID = " + CashReconcilationID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_CashReconcilation WHERE EmployeeID = " + EmployeeID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new CashReconcilation();
+                    ins.CashReconcilationID = Convert.ToInt32(drI["CashReconcilationID"]);
+                    ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ReconcilationTypeID = Convert.ToInt32(drI["ReconcilationTypeID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<CashReconcilation> GetCashReconcilationsPerEmployeeType(int EmployeeTypeID)
+        {
+            //...Create New Instance of Object...
+            List<CashReconcilation> list = new List<CashReconcilation>();
+            CashReconcilation ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_CashReconcilation WHERE EmployeeTypeID = " + EmployeeTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

@@ -201,7 +201,7 @@ namespace SparStelsel.Models
             {
                 //...Remove Record...
                 cmdI.Parameters.Clear();
-                cmdI.CommandText = StoredProcedures.KwikPayRemove;
+                cmdI.CommandText = StoredProcedures.KwikPayTypeRemove;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 cmdI.Parameters.AddWithValue("@KwikPayTypeID", ID);
                 cmdI.ExecuteNonQuery();

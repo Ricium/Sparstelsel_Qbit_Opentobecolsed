@@ -26,7 +26,7 @@ namespace SparStelsel.Models
         [DisplayName("Supplier")]
         [Required(ErrorMessage = "Supplier is required.")]
         [StringLength(20, ErrorMessage = "Supplier may not be longer than 20 characters")]
-        public int Supplier { get; set; }
+        public int Suppliers { get; set; }
 
         [DisplayName("Stock Condition")]
         [Required(ErrorMessage = "Stock Condition is required.")]

@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
-                    ins.MovementType = Convert.ToChar(drI["MovementType"]);
+                    ins.MovementTypes = Convert.ToChar(drI["MovementType"]);
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SparStelsel.Models
                 {
                     ins = new MovementType();
                     ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
-                    ins.MovementType = Convert.ToChar(drI["MovementType"]);
+                    ins.MovementTypes = Convert.ToChar(drI["MovementType"]);
                     list.Add(ins);
                 }
             }
@@ -105,7 +105,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.MovementTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@MovementTypeID", ins.MovementTypeID);             
-                cmdI.Parameters.AddWithValue("@MovementType", ins.MovementType);
+                cmdI.Parameters.AddWithValue("@MovementType", ins.MovementTypes);
 
                 //...Return new ID
                 ins.MovementTypeID = (int)cmdI.ExecuteScalar();
@@ -150,7 +150,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.MovementTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@MovementTypeID", ins.MovementTypeID);
-            cmdI.Parameters.AddWithValue("@MovementType", ins.MovementType);
+            cmdI.Parameters.AddWithValue("@MovementType", ins.MovementTypes);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

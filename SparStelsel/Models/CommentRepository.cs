@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
-                    ins.Comment = Convert.ToChar(drI["Comment"]);
+                    ins.Comments = Convert.ToChar(drI["Comment"]);
                     ins.CommentTypeID = Convert.ToChar(drI["CommentTypeID"]);
                 }
             }
@@ -67,8 +67,8 @@ namespace SparStelsel.Models
                 {
                     ins = new Comment();
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
-                    ins.Comment = Convert.ToChar(drI["Comment"]);
-                    ins.Comment = Convert.ToChar(drI["CommentTypeID"]);
+                    ins.Comments = Convert.ToChar(drI["Comment"]);
+                    ins.Comments = Convert.ToChar(drI["CommentTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -105,7 +105,7 @@ namespace SparStelsel.Models
                 {
                     ins = new Comment();
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
-                    ins.Comment = Convert.ToChar(drI["Comment"]);
+                    ins.Comments = Convert.ToChar(drI["Comment"]);
                     ins.CommentTypeID = Convert.ToInt32(drI["CommentTypeID"]);
                     list.Add(ins);
                 }
@@ -145,7 +145,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.CommentInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@CommentID", ins.CommentID);             
-                cmdI.Parameters.AddWithValue("@Comment", ins.Comment);
+                cmdI.Parameters.AddWithValue("@Comment", ins.Comments);
 
                 //...Return new ID
                 ins.CommentTypeID = (int)cmdI.ExecuteScalar();
@@ -190,7 +190,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.CommentUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@CommentID", ins.CommentID);
-            cmdI.Parameters.AddWithValue("@Comment", ins.Comment);
+            cmdI.Parameters.AddWithValue("@Comment", ins.Comments);
             cmdI.Parameters.AddWithValue("@CommentTypeID", ins.CommentTypeID);
 
             cmdI.ExecuteNonQuery();

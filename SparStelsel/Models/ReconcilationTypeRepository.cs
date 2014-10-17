@@ -68,12 +68,9 @@ namespace SparStelsel.Models
             {
                 while (drI.Read())
                 {
-                    ins = new PickUp();
-                    ins.PickUpID = Convert.ToInt32(drI["PickUpID"]);
+                    ins = new ReconcilationType();
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
-                    ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
                     ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
                     ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
                     list.Add(ins);

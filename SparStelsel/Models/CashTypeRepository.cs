@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
-                    ins.CashType = Convert.ToChar(drI["CashType"]);
+                    ins.CashTypes = Convert.ToChar(drI["CashType"]);
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SparStelsel.Models
                 {
                     ins = new CashType();
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
-                    ins.CashType = Convert.ToChar(drI["CashType"]);
+                    ins.CashTypes = Convert.ToChar(drI["CashType"]);
                     list.Add(ins);
                 }
             }
@@ -105,7 +105,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.CashTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);             
-                cmdI.Parameters.AddWithValue("@CashType", ins.CashType);
+                cmdI.Parameters.AddWithValue("@CashType", ins.CashTypes);
 
                 //...Return new ID
                 ins.CashTypeID = (int)cmdI.ExecuteScalar();
@@ -150,7 +150,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.CashTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);
-            cmdI.Parameters.AddWithValue("@CashType", ins.CashType);
+            cmdI.Parameters.AddWithValue("@CashType", ins.CashTypes);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

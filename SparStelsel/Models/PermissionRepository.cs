@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.PermissionID = Convert.ToInt32(drI["PermissionID"]);
-                    ins.Permission = Convert.ToChar(drI["Permission"]);
+                    ins.Permissions = Convert.ToChar(drI["Permission"]);
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SparStelsel.Models
                 {
                     ins = new Permission();
                     ins.PermissionID = Convert.ToInt32(drI["PermissionID"]);
-                    ins.Permission = Convert.ToChar(drI["Permission"]);
+                    ins.Permissions = Convert.ToChar(drI["Permission"]);
                     list.Add(ins);
                 }
             }
@@ -105,7 +105,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.PermissionInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@PermissionID", ins.PermissionID);             
-                cmdI.Parameters.AddWithValue("@Permission", ins.Permission);
+                cmdI.Parameters.AddWithValue("@Permission", ins.Permissions);
 
                 //...Return new ID
                 ins.PermissionID = (int)cmdI.ExecuteScalar();
@@ -150,7 +150,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.PermissionUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@PermissionID", ins.PermissionID);
-            cmdI.Parameters.AddWithValue("@Permission", ins.Permission);
+            cmdI.Parameters.AddWithValue("@Permission", ins.Permissions);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

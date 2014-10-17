@@ -26,6 +26,6 @@ namespace SparStelsel.Models
         [DisplayName("GRV Type")]
         [Required(ErrorMessage = "GRV Type is required.")]
         [StringLength(20, ErrorMessage = "GRV Type may not be longer than 20 characters")]
-        public int GRVType { get; set; }
+        public int GRVTypes { get; set; }
     }
 }

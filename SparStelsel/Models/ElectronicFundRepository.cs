@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.ElectronicFundID = Convert.ToInt32(drI["ElectronicFundID"]);
-                    ins.ElectronicFund = Convert.ToChar(drI["ElectronicFund"]);
+                    ins.ElectronicFunds = Convert.ToChar(drI["ElectronicFund"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
                     ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
@@ -70,7 +70,7 @@ namespace SparStelsel.Models
                 {
                     ins = new ElectronicFund();
                     ins.ElectronicFundID = Convert.ToInt32(drI["ElectronicFundID"]);
-                    ins.ElectronicFund = Convert.ToChar(drI["ElectronicFund"]);
+                    ins.ElectronicFunds = Convert.ToChar(drI["ElectronicFund"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
                     ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
@@ -111,7 +111,7 @@ namespace SparStelsel.Models
                 {
                     ins = new ElectronicFund();
                     ins.ElectronicFundID = Convert.ToInt32(drI["ElectronicFundID"]);
-                    ins.ElectronicFund = Convert.ToChar(drI["ElectronicFund"]);
+                    ins.ElectronicFunds = Convert.ToChar(drI["ElectronicFund"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicFundTypeID"]);
                     ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
@@ -152,7 +152,7 @@ namespace SparStelsel.Models
                 {
                     ins = new ElectronicFund();
                     ins.ElectronicFundID = Convert.ToInt32(drI["ElectronicFundID"]);
-                    ins.ElectronicFund = Convert.ToChar(drI["ElectronicFund"]);
+                    ins.ElectronicFunds = Convert.ToChar(drI["ElectronicFund"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicFundTypeID"]);
                     ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
@@ -193,7 +193,7 @@ namespace SparStelsel.Models
                 {
                     ins = new ElectronicFund();
                     ins.ElectronicFundID = Convert.ToInt32(drI["ElectronicFundID"]);
-                    ins.ElectronicFund = Convert.ToChar(drI["ElectronicFund"]);
+                    ins.ElectronicFunds = Convert.ToChar(drI["ElectronicFund"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
                     ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
@@ -236,7 +236,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.ElectronicFundInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@ElectronicFundID", ins.ElectronicFundID);             
-                cmdI.Parameters.AddWithValue("@ElectronicFund", ins.ElectronicFund);
+                cmdI.Parameters.AddWithValue("@ElectronicFund", ins.ElectronicFunds);
                 cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
                 cmdI.Parameters.AddWithValue("@Total", ins.Total);
                 cmdI.Parameters.AddWithValue("@ElectronicTypeID", ins.ElectronicTypeID);
@@ -286,7 +286,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.ElectronicFundUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@ElectronicFundID", ins.ElectronicFundID);
-            cmdI.Parameters.AddWithValue("@ElectronicFund", ins.ElectronicFund);
+            cmdI.Parameters.AddWithValue("@ElectronicFund", ins.ElectronicFunds);
             cmdI.Parameters.AddWithValue("@Total", ins.Total);
             cmdI.Parameters.AddWithValue("@ElectronicTypeID", ins.ElectronicTypeID);
             cmdI.Parameters.AddWithValue("@EmployeeID", EmployeeId);

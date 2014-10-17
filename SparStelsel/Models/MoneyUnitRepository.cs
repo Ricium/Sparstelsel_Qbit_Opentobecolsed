@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
-                    ins.MoneyUnit = Convert.ToChar(drI["MoneyUnit"]);
+                    ins.MoneyUnits = Convert.ToChar(drI["MoneyUnit"]);
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SparStelsel.Models
                 {
                     ins = new MoneyUnit();
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
-                    ins.MoneyUnit = Convert.ToChar(drI["MoneyUnit"]);
+                    ins.MoneyUnits = Convert.ToChar(drI["MoneyUnit"]);
                     list.Add(ins);
                 }
             }
@@ -105,7 +105,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.MoneyUnitInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@MoneyUnitID", ins.MoneyUnitID);             
-                cmdI.Parameters.AddWithValue("@MoneyUnit", ins.MoneyUnit);
+                cmdI.Parameters.AddWithValue("@MoneyUnit", ins.MoneyUnits);
 
                 //...Return new ID
                 ins.MoneyUnitID = (int)cmdI.ExecuteScalar();
@@ -150,7 +150,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.MoneyUnitUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@MoneyUnitID", ins.MoneyUnitID);
-            cmdI.Parameters.AddWithValue("@MoneyUnit", ins.MoneyUnit);
+            cmdI.Parameters.AddWithValue("@MoneyUnit", ins.MoneyUnits);
 
 
             cmdI.ExecuteNonQuery();

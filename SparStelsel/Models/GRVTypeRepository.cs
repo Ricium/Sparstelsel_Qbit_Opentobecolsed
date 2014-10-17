@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.GRVTypeID = Convert.ToInt32(drI["GRVTypeID"]);
-                    ins.GRVType = Convert.ToChar(drI["GRVType"]);
+                    ins.GRVTypes = Convert.ToChar(drI["GRVType"]);
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SparStelsel.Models
                 {
                     ins = new GRVType();
                     ins.GRVTypeID = Convert.ToInt32(drI["GRVTypeID"]);
-                    ins.GRVType = Convert.ToChar(drI["GRVType"]);
+                    ins.GRVTypes = Convert.ToChar(drI["GRVType"]);
                     list.Add(ins);
                 }
             }
@@ -105,7 +105,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.GRVTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@GRVTypeID", ins.GRVTypeID);             
-                cmdI.Parameters.AddWithValue("@GRVType", ins.GRVType);
+                cmdI.Parameters.AddWithValue("@GRVType", ins.GRVTypes);
 
                 //...Return new ID
                 ins.GRVTypeID = (int)cmdI.ExecuteScalar();
@@ -150,7 +150,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.GRVTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@GRVTypeID", ins.GRVTypeID);
-            cmdI.Parameters.AddWithValue("@GRVType", ins.GRVType);
+            cmdI.Parameters.AddWithValue("@GRVType", ins.GRVTypes);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

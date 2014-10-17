@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.SupplierType = Convert.ToChar(drI["SupplierType"]);
+                    ins.SupplierTypes = Convert.ToChar(drI["SupplierType"]);
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SparStelsel.Models
                 {
                     ins = new SupplierType();
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.SupplierType = Convert.ToChar(drI["SupplierType"]);
+                    ins.SupplierTypes = Convert.ToChar(drI["SupplierType"]);
                     list.Add(ins);
                 }
             }
@@ -105,7 +105,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.SupplierTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@SupplierTypeID", ins.SupplierTypeID);             
-                cmdI.Parameters.AddWithValue("@SupplierType", ins.SupplierType);
+                cmdI.Parameters.AddWithValue("@SupplierType", ins.SupplierTypes);
 
                 //...Return new ID
                 ins.SupplierTypeID = (int)cmdI.ExecuteScalar();
@@ -150,7 +150,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.SupplierTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@SupplierTypeID", ins.SupplierTypeID);
-            cmdI.Parameters.AddWithValue("@SupplierType", ins.SupplierType);
+            cmdI.Parameters.AddWithValue("@SupplierType", ins.SupplierTypes);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

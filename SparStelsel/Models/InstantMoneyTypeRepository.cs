@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.InstantMoneyTypeID = Convert.ToInt32(drI["InstantMoneyTypeID"]);
-                    ins.InstantMoneyType = Convert.ToChar(drI["InstantMoneyType"]);
+                    ins.InstantMoneyTypes = Convert.ToChar(drI["InstantMoneyType"]);
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SparStelsel.Models
                 {
                     ins = new InstantMoneyType();
                     ins.InstantMoneyTypeID = Convert.ToInt32(drI["InstantMoneyTypeID"]);
-                    ins.InstantMoneyType = Convert.ToChar(drI["InstantMoneyType"]);
+                    ins.InstantMoneyTypes = Convert.ToChar(drI["InstantMoneyType"]);
                     list.Add(ins);
                 }
             }
@@ -105,7 +105,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.InstantMoneyTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@InstantMoneyTypeID", ins.InstantMoneyTypeID);             
-                cmdI.Parameters.AddWithValue("@InstantMoneyType", ins.InstantMoneyType);
+                cmdI.Parameters.AddWithValue("@InstantMoneyType", ins.InstantMoneyTypes);
 
                 //...Return new ID
                 ins.InstantMoneyTypeID = (int)cmdI.ExecuteScalar();
@@ -150,7 +150,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.InstantMoneyTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@InstantMoneyTypeID", ins.InstantMoneyTypeID);
-            cmdI.Parameters.AddWithValue("@InstantMoneyType", ins.InstantMoneyType);
+            cmdI.Parameters.AddWithValue("@InstantMoneyType", ins.InstantMoneyTypes);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

@@ -8,14 +8,6 @@ using System.Web.Mvc;
 
 namespace SparStelsel.Models
 {
-    /// <summary>
-    /// 
-    /// 
-    /// 
-    /// 
-    /// 
-    ///
-    /// </summary>
 
     public class Comment
     {
@@ -25,7 +17,7 @@ namespace SparStelsel.Models
 
         [DisplayName("Comment")]
         [Required(ErrorMessage = "Comment.")]
-        public int Comment { get; set; }
+        public int Comments { get; set; }
 
         [DisplayName("Comment Type ID")]
         [Required(ErrorMessage = "Comment Type ID is required.")]

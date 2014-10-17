@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.CommentTypeID = Convert.ToInt32(drI["CommentTypeID"]);
-                    ins.CommentType = Convert.ToChar(drI["CommentType"]);
+                    ins.CommentTypes = Convert.ToChar(drI["CommentType"]);
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SparStelsel.Models
                 {
                     ins = new CommentType();
                     ins.CommentTypeID = Convert.ToInt32(drI["CommentTypeID"]);
-                    ins.CommentType = Convert.ToChar(drI["CommentType"]);
+                    ins.CommentTypes = Convert.ToChar(drI["CommentType"]);
                     list.Add(ins);
                 }
             }
@@ -105,7 +105,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.CommentTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@CommentTypeID", ins.CommentTypeID);             
-                cmdI.Parameters.AddWithValue("@CommentType", ins.CommentType);
+                cmdI.Parameters.AddWithValue("@CommentType", ins.CommentTypes);
 
                 //...Return new ID
                 ins.CommentTypeID = (int)cmdI.ExecuteScalar();
@@ -150,7 +150,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.CommentTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@CommentTypeID", ins.CommentTypeID);
-            cmdI.Parameters.AddWithValue("@CommentType", ins.CommentType);
+            cmdI.Parameters.AddWithValue("@CommentType", ins.CommentTypes);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

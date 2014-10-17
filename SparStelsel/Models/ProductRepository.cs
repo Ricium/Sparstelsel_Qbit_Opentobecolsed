@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.ProductID = Convert.ToInt32(drI["ProductID"]);
-                    ins.Product = Convert.ToChar(drI["Product"]);
+                    ins.Products = Convert.ToChar(drI["Product"]);
                     ins.ProductDescription = Convert.ToChar(drI["ProductDescription"]);
                     ins.Price = Convert.ToDecimal(drI["Price"]);
                     ins.Quantity = Convert.ToInt32(drI["Quantity"]);
@@ -71,7 +71,7 @@ namespace SparStelsel.Models
                 {
                     ins = new Product();
                     ins.ProductID = Convert.ToInt32(drI["ProductID"]);
-                    ins.Product = Convert.ToChar(drI["Product"]);
+                    ins.Products = Convert.ToChar(drI["Product"]);
                     ins.ProductDescription = Convert.ToChar(drI["ProductDescription"]);
                     ins.Price = Convert.ToDecimal(drI["Price"]);
                     ins.Quantity = Convert.ToInt32(drI["Quantity"]);
@@ -115,7 +115,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.ProductInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@ProductID", ins.ProductID);             
-                cmdI.Parameters.AddWithValue("@Product", ins.Product);
+                cmdI.Parameters.AddWithValue("@Product", ins.Products);
                 cmdI.Parameters.AddWithValue("@ProductDescription", ins.ProductDescription);
                 cmdI.Parameters.AddWithValue("@Price", ins.Price);
                 cmdI.Parameters.AddWithValue("@Quantity", ins.Quantity);
@@ -165,7 +165,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.ProductUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@ProductID", ins.ProductID);
-            cmdI.Parameters.AddWithValue("@Product", ins.Product);
+            cmdI.Parameters.AddWithValue("@Product", ins.Products);
             cmdI.Parameters.AddWithValue("@ProductDescription", ins.ProductDescription);
             cmdI.Parameters.AddWithValue("@Price", ins.Price);
             cmdI.Parameters.AddWithValue("@Quantity", ins.Quantity);

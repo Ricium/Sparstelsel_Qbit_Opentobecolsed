@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
-                    ins.UserType = Convert.ToChar(drI["UserType"]);
+                    ins.UserTypes = Convert.ToChar(drI["UserType"]);
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SparStelsel.Models
                 {
                     ins = new UserType();
                     ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
-                    ins.UserType = Convert.ToChar(drI["UserType"]);
+                    ins.UserTypes = Convert.ToChar(drI["UserType"]);
                     list.Add(ins);
                 }
             }
@@ -105,7 +105,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.UserTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);             
-                cmdI.Parameters.AddWithValue("@UserType", ins.UserType);
+                cmdI.Parameters.AddWithValue("@UserType", ins.UserTypes);
 
                 //...Return new ID
                 ins.UserTypeID = (int)cmdI.ExecuteScalar();
@@ -150,7 +150,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.UserTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
-            cmdI.Parameters.AddWithValue("@UserType", ins.UserType);
+            cmdI.Parameters.AddWithValue("@UserType", ins.UserTypes);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

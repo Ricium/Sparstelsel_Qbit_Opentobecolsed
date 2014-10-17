@@ -202,3 +202,6 @@ D:\dev\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\bin\zh-CN\Kendo.Mvc.resources
 D:\dev\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\obj\Debug\SparStelsel.csprojResolveAssemblyReference.cache
 D:\dev\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\obj\Debug\SparStelsel.dll
 D:\dev\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\obj\Debug\SparStelsel.pdb
+C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\obj\Debug\SparStelsel.csprojResolveAssemblyReference.cache
+C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\obj\Debug\SparStelsel.dll
+C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\obj\Debug\SparStelsel.pdb

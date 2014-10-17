@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.KwikPayTypeID = Convert.ToInt32(drI["KwikPayTypeID"]);
-                    ins.KwikPayType = Convert.ToChar(drI["KwikPayType"]);
+                    ins.KwikPayTypes = Convert.ToChar(drI["KwikPayType"]);
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SparStelsel.Models
                 {
                     ins = new KwikPayType();
                     ins.KwikPayTypeID = Convert.ToInt32(drI["KwikPayTypeID"]);
-                    ins.KwikPayType = Convert.ToChar(drI["KwikPayType"]);
+                    ins.KwikPayTypes = Convert.ToChar(drI["KwikPayType"]);
                     list.Add(ins);
                 }
             }
@@ -105,7 +105,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.KwikPayTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@KwikPayID", ins.KwikPayID);             
-                cmdI.Parameters.AddWithValue("@KwikPayType", ins.KwikPayType);
+                cmdI.Parameters.AddWithValue("@KwikPayType", ins.KwikPayTypes);
 
                 //...Return new ID
                 ins.KwikPayTypeID = (int)cmdI.ExecuteScalar();
@@ -150,7 +150,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.KwikPayTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@KwikPayTypeID", ins.KwikPayTypeID);
-            cmdI.Parameters.AddWithValue("@KwikPayType", ins.KwikPayType);
+            cmdI.Parameters.AddWithValue("@KwikPayType", ins.KwikPayTypes);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

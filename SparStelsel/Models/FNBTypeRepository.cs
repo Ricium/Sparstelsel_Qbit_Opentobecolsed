@@ -7,12 +7,12 @@ using System.Web;
 
 namespace SparStelsel.Models
 {
-    public class UserTypeRepository
+    public class FNBTypeRepository
     {
-        public UserType GetUserType(int UserTypeID)
+        public FNBType GetFNBType(int FNBTypeID)
         {
             //...Create New Instance of Object...
-            UserType ins = new UserType();
+            FNBType ins = new FNBType();
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -20,7 +20,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM UserType WHERE UserTypeID =" + UserTypeID, con);
+            cmdI = new SqlCommand("SELECT * FROM FNBType WHERE FNBTypeID =" + FNBTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -29,8 +29,8 @@ namespace SparStelsel.Models
             {
                 while (drI.Read())
                 {
-                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
-                    ins.UserTypes = Convert.ToString(drI["UserType"]);
+                    ins.FNBTypeID = Convert.ToInt32(drI["FNBTypeID"]);
+                    ins.FNBTypes = Convert.ToString(drI["FNBTypes"]);
                 }
             }
 
@@ -43,11 +43,11 @@ namespace SparStelsel.Models
             return ins;
         }
 
-        public List<UserType> GetAllUserType()
+        public List<FNBType> GetAllFNBType()
         {
             //...Create New Instance of Object...
-            List<UserType> list = new List<UserType>();
-            UserType ins;
+            List<FNBType> list = new List<FNBType>();
+            FNBType ins;
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -55,7 +55,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM l_UserType", con);
+            cmdI = new SqlCommand("SELECT * FROM l_FNBType", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -64,9 +64,9 @@ namespace SparStelsel.Models
             {
                 while (drI.Read())
                 {
-                    ins = new UserType();
-                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
-                    ins.UserTypes = Convert.ToString(drI["UserType"]);
+                    ins = new FNBType();
+                    ins.FNBTypeID = Convert.ToInt32(drI["FNBTypeID"]);
+                    ins.FNBTypes = Convert.ToString(drI["FNBTypes"]);
                     list.Add(ins);
                 }
             }
@@ -80,12 +80,12 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public UserType Insert(UserType ins)
+        public FNBType Insert(FNBType ins)
         {
             //...Get User and Date Data...
             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-             int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
-             string strTrx = "UserTypeIns_" + EmployeeId;
+            int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+            string strTrx = "FNBTypeIns_" + EmployeeId;
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -102,13 +102,13 @@ namespace SparStelsel.Models
             try
             {
                 //...Insert Record...
-                cmdI.CommandText = StoredProcedures.UserTypeInsert;
+                cmdI.CommandText = StoredProcedures.FNBTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                //cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);             
-                cmdI.Parameters.AddWithValue("@UserType", ins.UserTypes);
+                //cmdI.Parameters.AddWithValue("@FNBTypeID", ins.FNBTypeID);             
+                cmdI.Parameters.AddWithValue("@FNBTypes", ins.FNBTypes);
 
                 //...Return new ID
-                ins.UserTypeID = (int)cmdI.ExecuteScalar();
+                ins.FNBTypeID = (int)cmdI.ExecuteScalar();
 
                 trx.Commit();
                 cmdI.Connection.Close();
@@ -132,7 +132,7 @@ namespace SparStelsel.Models
             return ins;
         }
 
-        public UserType Update(UserType ins)
+        public FNBType Update(FNBType ins)
         {
             //...Get User and Date Data...
             // string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
@@ -147,10 +147,10 @@ namespace SparStelsel.Models
 
             //...Update Record...
             cmdI.Parameters.Clear();
-            cmdI.CommandText = StoredProcedures.UserTypeUpdate;
+            cmdI.CommandText = StoredProcedures.FNBTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-            cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
-            cmdI.Parameters.AddWithValue("@UserType", ins.UserTypes);
+            cmdI.Parameters.AddWithValue("@FNBTypeID", ins.FNBTypeID);
+            cmdI.Parameters.AddWithValue("@FNBTypes", ins.FNBTypes);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
@@ -159,7 +159,7 @@ namespace SparStelsel.Models
 
         }
 
-        public void Remove(int UserTypeID)
+        public void Remove(int FNBTypeID)
         {
             //...Get User and Date Data...
             //string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
@@ -176,15 +176,15 @@ namespace SparStelsel.Models
             cmdI.Parameters.Clear();
             cmdI.CommandText = StoredProcedures.UserTypeRemove;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-            cmdI.Parameters.AddWithValue("@UserTypeID", UserTypeID);
+            cmdI.Parameters.AddWithValue("@FNBTypeID", FNBTypeID);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
         }
 
-        public void Remove(string UserTypeIds)
+        public void Remove(string FNBTypeIds)
         {
-            List<int> RemoveIds = UserTypeIds.Split(',').ToList().Select(int.Parse).ToList();
+            List<int> RemoveIds = FNBTypeIds.Split(',').ToList().Select(int.Parse).ToList();
 
             //...Get Date and Current User
             //string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
@@ -203,7 +203,7 @@ namespace SparStelsel.Models
                 cmdI.Parameters.Clear();
                 cmdI.CommandText = StoredProcedures.UserTypeRemove;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                cmdI.Parameters.AddWithValue("@UserTypeID", ID);
+                cmdI.Parameters.AddWithValue("@FNBTypeID", ID);
                 cmdI.ExecuteNonQuery();
             }
 

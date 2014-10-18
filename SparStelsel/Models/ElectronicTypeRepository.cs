@@ -7,12 +7,12 @@ using System.Web;
 
 namespace SparStelsel.Models
 {
-    public class UserTypeRepository
+    public class ElectronicTypeRepository
     {
-        public UserType GetUserType(int UserTypeID)
+        public ElectronicType GetElectronicType(int ElectronicTypeID)
         {
             //...Create New Instance of Object...
-            UserType ins = new UserType();
+            ElectronicType ins = new ElectronicType();
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -20,7 +20,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM UserType WHERE UserTypeID =" + UserTypeID, con);
+            cmdI = new SqlCommand("SELECT * FROM ElectronicType WHERE ElectronicTypeID =" + ElectronicTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -29,8 +29,8 @@ namespace SparStelsel.Models
             {
                 while (drI.Read())
                 {
-                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
-                    ins.UserTypes = Convert.ToString(drI["UserType"]);
+                    ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
+                    ins.ElectronicTypes = Convert.ToString(drI["ElectronicTypes"]);
                 }
             }
 
@@ -43,11 +43,11 @@ namespace SparStelsel.Models
             return ins;
         }
 
-        public List<UserType> GetAllUserType()
+        public List<ElectronicType> GetAllElectronicType()
         {
             //...Create New Instance of Object...
-            List<UserType> list = new List<UserType>();
-            UserType ins;
+            List<ElectronicType> list = new List<ElectronicType>();
+            ElectronicType ins;
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -64,9 +64,9 @@ namespace SparStelsel.Models
             {
                 while (drI.Read())
                 {
-                    ins = new UserType();
-                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
-                    ins.UserTypes = Convert.ToString(drI["UserType"]);
+                    ins = new ElectronicType();
+                    ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
+                    ins.ElectronicTypes = Convert.ToString(drI["ElectronicTypes"]);
                     list.Add(ins);
                 }
             }
@@ -80,12 +80,12 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public UserType Insert(UserType ins)
+        public ElectronicType Insert(ElectronicType ins)
         {
             //...Get User and Date Data...
             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-             int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
-             string strTrx = "UserTypeIns_" + EmployeeId;
+            int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+            string strTrx = "ElectronicTypeIns_" + EmployeeId;
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -102,13 +102,13 @@ namespace SparStelsel.Models
             try
             {
                 //...Insert Record...
-                cmdI.CommandText = StoredProcedures.UserTypeInsert;
+                cmdI.CommandText = StoredProcedures.ElectronicTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                //cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);             
-                cmdI.Parameters.AddWithValue("@UserType", ins.UserTypes);
+                //cmdI.Parameters.AddWithValue("@ElectronicTypeID", ins.ElectronicTypeID);             
+                cmdI.Parameters.AddWithValue("@ElectronicTypes", ins.ElectronicTypes);
 
                 //...Return new ID
-                ins.UserTypeID = (int)cmdI.ExecuteScalar();
+                ins.ElectronicTypeID = (int)cmdI.ExecuteScalar();
 
                 trx.Commit();
                 cmdI.Connection.Close();
@@ -132,7 +132,7 @@ namespace SparStelsel.Models
             return ins;
         }
 
-        public UserType Update(UserType ins)
+        public ElectronicType Update(ElectronicType ins)
         {
             //...Get User and Date Data...
             // string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
@@ -147,10 +147,10 @@ namespace SparStelsel.Models
 
             //...Update Record...
             cmdI.Parameters.Clear();
-            cmdI.CommandText = StoredProcedures.UserTypeUpdate;
+            cmdI.CommandText = StoredProcedures.ElectronicTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-            cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
-            cmdI.Parameters.AddWithValue("@UserType", ins.UserTypes);
+            cmdI.Parameters.AddWithValue("@ElectronicTypeID", ins.ElectronicTypeID);
+            cmdI.Parameters.AddWithValue("@ElectronicTypes", ins.ElectronicTypes);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
@@ -159,7 +159,7 @@ namespace SparStelsel.Models
 
         }
 
-        public void Remove(int UserTypeID)
+        public void Remove(int ElectronicTypeID)
         {
             //...Get User and Date Data...
             //string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
@@ -174,17 +174,17 @@ namespace SparStelsel.Models
 
             //...Update Record...
             cmdI.Parameters.Clear();
-            cmdI.CommandText = StoredProcedures.UserTypeRemove;
+            cmdI.CommandText = StoredProcedures.ElectronicTypeRemove;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-            cmdI.Parameters.AddWithValue("@UserTypeID", UserTypeID);
+            cmdI.Parameters.AddWithValue("@ElectronicTypeID", ElectronicTypeID);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
         }
 
-        public void Remove(string UserTypeIds)
+        public void Remove(string ElectronicTypeIds)
         {
-            List<int> RemoveIds = UserTypeIds.Split(',').ToList().Select(int.Parse).ToList();
+            List<int> RemoveIds = ElectronicTypeIds.Split(',').ToList().Select(int.Parse).ToList();
 
             //...Get Date and Current User
             //string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
@@ -201,9 +201,9 @@ namespace SparStelsel.Models
             {
                 //...Remove Record...
                 cmdI.Parameters.Clear();
-                cmdI.CommandText = StoredProcedures.UserTypeRemove;
+                cmdI.CommandText = StoredProcedures.ElectronicTypeRemove;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                cmdI.Parameters.AddWithValue("@UserTypeID", ID);
+                cmdI.Parameters.AddWithValue("@ElectronicTypeID", ID);
                 cmdI.ExecuteNonQuery();
             }
 

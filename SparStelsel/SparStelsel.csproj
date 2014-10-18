@@ -362,8 +362,12 @@
     <Compile Include="Models\CommentTypeRepository.cs" />
     <Compile Include="Models\ElectronicFund.cs" />
     <Compile Include="Models\ElectronicFundRepository.cs" />
+    <Compile Include="Models\ElectronicType.cs" />
+    <Compile Include="Models\ElectronicTypeRepository.cs" />
     <Compile Include="Models\FNB.cs" />
     <Compile Include="Models\FNBRepository.cs" />
+    <Compile Include="Models\FNBType.cs" />
+    <Compile Include="Models\FNBTypeRepository.cs" />
     <Compile Include="Models\GRVList.cs" />
     <Compile Include="Models\GRVListRepository.cs" />
     <Compile Include="Models\GRVType.cs" />

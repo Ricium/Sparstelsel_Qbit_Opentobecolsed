@@ -135,9 +135,9 @@ namespace SparStelsel.Models
         public User Insert(User ins)
         {
             //...Get User and Date Data...
-            // string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            // int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
-            // string strTrx = "UserIns_" + EmployeeId;
+             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
+             int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+             string strTrx = "UserIns_" + EmployeeId;
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -147,7 +147,7 @@ namespace SparStelsel.Models
             //...Command Interface...
             SqlCommand cmdI = con.CreateCommand();
             SqlTransaction trx;
-            // trx = con.BeginTransaction(strTrx);
+             trx = con.BeginTransaction(strTrx);
             cmdI.Connection = con;
             cmdI.Transaction = trx;
 

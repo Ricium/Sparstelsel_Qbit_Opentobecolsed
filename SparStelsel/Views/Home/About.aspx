@@ -30,20 +30,6 @@
             Use this area to provide additional information.
         </p>
 
-        <%= Html.Kendo().TreeView()
-            .Name("LinksTreeView")
-            .Items(items =>
-            {
-                items.Add()
-                    .Text("Home")
-                    .Action("Index", "Home");
-                items.Add()
-                    .Text("About")
-                    .Action("About", "Home");
-                items.Add()
-                    .Text("Contact")
-                    .Action("Contact", "Home");
-            })
-        %>
+        
     </aside>
 </asp:Content>

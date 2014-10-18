@@ -33,7 +33,7 @@ namespace SparStelsel.Models
         [DisplayName("Payment Description")]
         [Required(ErrorMessage = "Payment Description is required.")]
         [StringLength(50, ErrorMessage = "Payment Description may not be longer than 50 characters")]
-        public int PaymentDescription { get; set; }
+        public string PaymentDescription { get; set; }
 
         [DisplayName("Supplier ID")]
         [Required(ErrorMessage = "Supplier ID is required.")]

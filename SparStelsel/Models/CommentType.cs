@@ -26,6 +26,6 @@ namespace SparStelsel.Models
         [DisplayName("Comment Type")]
         [Required(ErrorMessage = "Comment Type is required.")]
         [StringLength(20, ErrorMessage = "Comment Type may not be longer than 20 characters")]
-        public int CommentTypes { get; set; }
+        public string CommentTypes { get; set; }
     }
 }

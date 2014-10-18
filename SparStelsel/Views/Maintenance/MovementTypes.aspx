@@ -3,7 +3,7 @@
 <%@ Import Namespace="SparStelsel.Models"%>
 <%@ Import Namespace="SparStelsel.Controllers"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-   CashType
+   MovementTypes
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -12,7 +12,8 @@
         <tr>
             <td>
                 <h2>
-                     CashType
+                        MovementTypes
+
                 </h2>
             </td>
         </tr>
@@ -20,15 +21,15 @@
             <td>
              <%
                 
-                     Html.Telerik().Grid<CashType>()
-                    .Name("CashTypes")
-                    .DataKeys(keys => keys.Add(s => s.CashTypeID))
-                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add CashType"))
+                 Html.Telerik().Grid<MovementType>()
+                    .Name("MovementTypes")
+                    .DataKeys(keys => keys.Add(s => s.MovementTypeID))
+                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add MovementType"))
                     .Columns(columns =>
                     {
 
-                        columns.Bound(model => model.CashTypeID);
-                        columns.Bound(model => model.CashTypes);
+                        columns.Bound(model => model.MovementTypeID);
+                        columns.Bound(model => model.MovementTypes);
                         
                    
                             columns.Command(commands =>
@@ -46,10 +47,10 @@
                     .DataBinding(dataBinding =>
                     {
                         dataBinding.Ajax()
-                                   .Select("_ListCashTypes", "Maintenance")
-                                   .Insert("_InsertCashTypes", "Maintenance")
-                                   .Update("_UpdateCashTypes", "Maintenance")
-                                   .Delete("_RemoveCashTypes", "Maintenance");
+                                   .Select("_ListMovementTypes", "Maintenance")
+                                   .Insert("_InsertMovementTypes", "Maintenance")
+                                   .Update("_UpdateMovementTypes", "Maintenance")
+                                   .Delete("_RemoveMovementTypes", "Maintenance");
                     })
 
                     .Pageable(paging => paging.PageSize(50))

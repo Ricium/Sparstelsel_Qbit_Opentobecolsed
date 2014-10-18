@@ -28,7 +28,7 @@ namespace SparStelsel.Models
 
         [DisplayName("Invoice Number")]
         [Required(ErrorMessage = "Invoice Number is required.")]
-        public int InvoiceNumber { get; set; }
+        public string InvoiceNumber { get; set; }
 
         [DisplayName("State Date")]
         [Required(ErrorMessage = "State Date is required.")]
@@ -45,7 +45,7 @@ namespace SparStelsel.Models
         [DisplayName("Pink Slip Number")]
         [Required(ErrorMessage = "Pink Slip Number is required.")]
         [StringLength(20, ErrorMessage = "Pink Slip Number may not be longer than 20 characters")]
-        public int PinkSlipNumber { get; set; }
+        public string PinkSlipNumber { get; set; }
 
         [DisplayName("GRV Date")]
         [Required(ErrorMessage = "GRV Date is required.")]

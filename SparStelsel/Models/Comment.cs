@@ -17,7 +17,7 @@ namespace SparStelsel.Models
 
         [DisplayName("Comment")]
         [Required(ErrorMessage = "Comment.")]
-        public int Comments { get; set; }
+        public string Comments { get; set; }
 
         [DisplayName("Comment Type ID")]
         [Required(ErrorMessage = "Comment Type ID is required.")]

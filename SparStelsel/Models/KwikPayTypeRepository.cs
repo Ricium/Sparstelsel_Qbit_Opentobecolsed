@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.KwikPayTypeID = Convert.ToInt32(drI["KwikPayTypeID"]);
-                    ins.KwikPayTypes = Convert.ToChar(drI["KwikPayType"]);
+                    ins.KwikPayTypes = Convert.ToString(drI["KwikPayType"]);
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SparStelsel.Models
                 {
                     ins = new KwikPayType();
                     ins.KwikPayTypeID = Convert.ToInt32(drI["KwikPayTypeID"]);
-                    ins.KwikPayTypes = Convert.ToChar(drI["KwikPayType"]);
+                    ins.KwikPayTypes = Convert.ToString(drI["KwikPayType"]);
                     list.Add(ins);
                 }
             }

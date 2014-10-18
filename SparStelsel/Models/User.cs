@@ -26,27 +26,27 @@ namespace SparStelsel.Models
         [DisplayName("User Name")]
         [Required(ErrorMessage = "User Name is required.")]
         [StringLength(20, ErrorMessage = "User Name may not be longer than 20 characters")]
-        public int UserName { get; set; }
+        public string UserName { get; set; }
 
         [DisplayName("User Surname")]
         [Required(ErrorMessage = "User Surname is required.")]
         [StringLength(20, ErrorMessage = "User Surname may not be longer than 20 characters")]
-        public int UserSurname { get; set; }
+        public string UserSurname { get; set; }
 
         [DisplayName("ID")]
         [Required(ErrorMessage = "ID is required.")]
         [StringLength(20, ErrorMessage = "ID may not be longer than 20 characters")]
-        public int ID { get; set; }
+        public string ID { get; set; }
 
         [DisplayName("UserCell")]
         [Required(ErrorMessage = "UserCell is required.")]
         [StringLength(20, ErrorMessage = "UserCell may not be longer than 20 characters")]
-        public int UserCell { get; set; }
+        public string UserCell { get; set; }
 
         [DisplayName("UserEmail")]
         [Required(ErrorMessage = "UserEmail is required.")]
         [StringLength(20, ErrorMessage = "UserEmail may not be longer than 20 characters")]
-        public int UserEmail { get; set; }
+        public string UserEmail { get; set; }
 
         [DisplayName("User Type ID")]
         [Required(ErrorMessage = "User Type ID is required.")]

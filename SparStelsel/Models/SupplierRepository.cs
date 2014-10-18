@@ -30,9 +30,9 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.Suppliers = Convert.ToChar(drI["Supplier"]);
-                    ins.StockCondition = Convert.ToChar(drI["StockCondition"]);
-                    ins.Term = Convert.ToChar(drI["Term"]);
+                    ins.Suppliers = (drI["Supplier"]).ToString();
+                    ins.StockCondition = (drI["StockCondition"]).ToString();
+                    ins.Term = Convert.ToString(drI["Term"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     ins.ProductID = Convert.ToInt32(drI["ProductID"]);
                 }
@@ -70,9 +70,9 @@ namespace SparStelsel.Models
                 {
                     ins = new Supplier();
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.Suppliers= Convert.ToChar(drI["Supplier"]);
-                    ins.StockCondition = Convert.ToChar(drI["StockCondition"]);
-                    ins.Term = Convert.ToChar(drI["Term"]);
+                    ins.Suppliers= Convert.ToString(drI["Supplier"]);
+                    ins.StockCondition = Convert.ToString(drI["StockCondition"]);
+                    ins.Term = Convert.ToString(drI["Term"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     ins.ProductID = Convert.ToInt32(drI["ProductID"]);
                     list.Add(ins);
@@ -111,9 +111,9 @@ namespace SparStelsel.Models
                 {
                     ins = new Supplier();
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.Suppliers = Convert.ToChar(drI["Supplier"]);
-                    ins.StockCondition = Convert.ToChar(drI["StockCondition"]);
-                    ins.Term = Convert.ToChar(drI["Term"]);
+                    ins.Suppliers = Convert.ToString(drI["Supplier"]);
+                    ins.StockCondition = Convert.ToString(drI["StockCondition"]);
+                    ins.Term = Convert.ToString(drI["Term"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     ins.ProductID = Convert.ToInt32(drI["ProductID"]);
                     list.Add(ins);
@@ -152,9 +152,9 @@ namespace SparStelsel.Models
                 {
                     ins = new Supplier();
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.Suppliers = Convert.ToChar(drI["Supplier"]);
-                    ins.StockCondition = Convert.ToChar(drI["StockCondition"]);
-                    ins.Term = Convert.ToChar(drI["Term"]);
+                    ins.Suppliers = Convert.ToString(drI["Supplier"]);
+                    ins.StockCondition = Convert.ToString(drI["StockCondition"]);
+                    ins.Term = Convert.ToString(drI["Term"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     ins.ProductID = Convert.ToInt32(drI["ProductID"]);
                     list.Add(ins);

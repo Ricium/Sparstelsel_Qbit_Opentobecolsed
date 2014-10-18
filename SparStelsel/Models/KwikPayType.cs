@@ -26,6 +26,6 @@ namespace SparStelsel.Models
         [DisplayName("Kwik Pay Type")]
         [Required(ErrorMessage = "Kwik Pay Type is required.")]
         [StringLength(20, ErrorMessage = "Kwik Pay Type may not be longer than 20 characters")]
-        public int KwikPayTypes { get; set; }
+        public string KwikPayTypes { get; set; }
     }
 }

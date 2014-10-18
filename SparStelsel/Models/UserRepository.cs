@@ -30,11 +30,11 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
-                    ins.UserName = Convert.ToChar(drI["UserName"]);
-                    ins.UserSurname = Convert.ToChar(drI["UserSurname"]);
-                    ins.ID = Convert.ToChar(drI["ID"]);
-                    ins.UserCell = Convert.ToChar(drI["UserCell"]);
-                    ins.UserEmail = Convert.ToChar(drI["UserEmail"]);
+                    ins.UserName = (drI["UserName"]).ToString();
+                    ins.UserSurname = (drI["UserSurname"]).ToString();
+                    ins.ID = (drI["ID"]).ToString();
+                    ins.UserCell = (drI["UserCell"]).ToString();
+                    ins.UserEmail = (drI["UserEmail"]).ToString();
                     ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                 }
             }
@@ -71,11 +71,11 @@ namespace SparStelsel.Models
                 {
                     ins = new User();
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
-                    ins.UserName = Convert.ToChar(drI["UserName"]);
-                    ins.UserSurname = Convert.ToChar(drI["UserSurname"]);
-                    ins.ID = Convert.ToChar(drI["ID"]);
-                    ins.UserCell = Convert.ToChar(drI["UserCell"]);
-                    ins.UserEmail = Convert.ToChar(drI["UserEmail"]);
+                    ins.UserName = (drI["UserName"]).ToString();
+                    ins.UserSurname = (drI["UserSurname"]).ToString();
+                    ins.ID = (drI["ID"]).ToString();
+                    ins.UserCell = (drI["UserCell"]).ToString();
+                    ins.UserEmail = (drI["UserEmail"]).ToString();
                     ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
@@ -113,11 +113,11 @@ namespace SparStelsel.Models
                 {
                     ins = new User();
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
-                    ins.UserName = Convert.ToChar(drI["UserName"]);
-                    ins.UserSurname = Convert.ToChar(drI["UserSurname"]);
-                    ins.ID = Convert.ToChar(drI["ID"]);
-                    ins.UserCell = Convert.ToChar(drI["UserCell"]);
-                    ins.UserEmail = Convert.ToChar(drI["UserEmail"]);
+                    ins.UserName = (drI["UserName"]).ToString();
+                    ins.UserSurname = (drI["UserSurname"]).ToString();
+                    ins.ID = (drI["ID"]).ToString();
+                    ins.UserCell = (drI["UserCell"]).ToString();
+                    ins.UserEmail = (drI["UserEmail"]).ToString();
                     ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }

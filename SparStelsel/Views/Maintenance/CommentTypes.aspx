@@ -12,7 +12,7 @@
         <tr>
             <td>
                 <h2>
-                     CashType
+                     CommentType
                 </h2>
             </td>
         </tr>
@@ -20,15 +20,15 @@
             <td>
              <%
                 
-                     Html.Telerik().Grid<CashType>()
-                    .Name("CashTypes")
-                    .DataKeys(keys => keys.Add(s => s.CashTypeID))
-                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add CashType"))
+                     Html.Telerik().Grid<CommentType>()
+                    .Name("CommentTypes")
+                    .DataKeys(keys => keys.Add(s => s.CommentTypeID))
+                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add CommentType"))
                     .Columns(columns =>
                     {
 
-                        columns.Bound(model => model.CashTypeID);
-                        columns.Bound(model => model.CashTypes);
+                        columns.Bound(model => model.CommentTypeID);
+                        columns.Bound(model => model.CommentTypes);
                         
                    
                             columns.Command(commands =>
@@ -46,10 +46,10 @@
                     .DataBinding(dataBinding =>
                     {
                         dataBinding.Ajax()
-                                   .Select("_ListCashTypes", "Maintenance")
-                                   .Insert("_InsertCashTypes", "Maintenance")
-                                   .Update("_UpdateCashTypes", "Maintenance")
-                                   .Delete("_RemoveCashTypes", "Maintenance");
+                                   .Select("_ListCommentTypes", "Maintenance")
+                                   .Insert("_InsertCommentTypes", "Maintenance")
+                                   .Update("_UpdateCommentTypes", "Maintenance")
+                                   .Delete("_RemoveCommentTypes", "Maintenance");
                     })
 
                     .Pageable(paging => paging.PageSize(50))

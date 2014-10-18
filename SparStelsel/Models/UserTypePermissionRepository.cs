@@ -30,8 +30,8 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.UserTypePermissionID = Convert.ToInt32(drI["UserTypePermissionID"]);
-                    ins.PermissionID = Convert.ToChar(drI["PermissionID"]);
-                    ins.UserTypeID = Convert.ToChar(drI["UserTypeID"]);
+                    ins.PermissionID = Convert.ToString(drI["PermissionID"]);
+                    ins.UserTypeID = Convert.ToString(drI["UserTypeID"]);
                 }
             }
 
@@ -67,8 +67,8 @@ namespace SparStelsel.Models
                 {
                     ins = new UserTypePermission();
                     ins.UserTypePermissionID = Convert.ToInt32(drI["UserTypePermissionID"]);
-                    ins.PermissionID = Convert.ToChar(drI["PermissionID"]);
-                    ins.UserTypeID = Convert.ToChar(drI["UserTypeID"]);
+                    ins.PermissionID = Convert.ToString(drI["PermissionID"]);
+                    ins.UserTypeID = Convert.ToString(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -105,8 +105,8 @@ namespace SparStelsel.Models
                 {
                     ins = new UserTypePermission();
                     ins.UserTypePermissionID = Convert.ToInt32(drI["UserTypePermissionID"]);
-                    ins.PermissionID = Convert.ToChar(drI["PermissionID"]);
-                    ins.UserTypeID = Convert.ToChar(drI["UserTypeID"]);
+                    ins.PermissionID = Convert.ToString(drI["PermissionID"]);
+                    ins.UserTypeID = Convert.ToString(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }

@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
-                    ins.MovementTypes = Convert.ToChar(drI["MovementType"]);
+                    ins.MovementTypes = Convert.ToString(drI["MovementType"]);
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SparStelsel.Models
                 {
                     ins = new MovementType();
                     ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
-                    ins.MovementTypes = Convert.ToChar(drI["MovementType"]);
+                    ins.MovementTypes = Convert.ToString(drI["MovementType"]);
                     list.Add(ins);
                 }
             }

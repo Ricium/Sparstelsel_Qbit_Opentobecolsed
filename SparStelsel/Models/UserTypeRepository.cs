@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
-                    ins.UserTypes = Convert.ToChar(drI["UserType"]);
+                    ins.UserTypes = Convert.ToString(drI["UserType"]);
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SparStelsel.Models
                 {
                     ins = new UserType();
                     ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
-                    ins.UserTypes = Convert.ToChar(drI["UserType"]);
+                    ins.UserTypes = Convert.ToString(drI["UserType"]);
                     list.Add(ins);
                 }
             }

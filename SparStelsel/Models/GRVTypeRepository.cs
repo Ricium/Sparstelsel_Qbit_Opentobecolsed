@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.GRVTypeID = Convert.ToInt32(drI["GRVTypeID"]);
-                    ins.GRVTypes = Convert.ToChar(drI["GRVType"]);
+                    ins.GRVTypes = (drI["GRVType"]).ToString();
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SparStelsel.Models
                 {
                     ins = new GRVType();
                     ins.GRVTypeID = Convert.ToInt32(drI["GRVTypeID"]);
-                    ins.GRVTypes = Convert.ToChar(drI["GRVType"]);
+                    ins.GRVTypes = (drI["GRVType"]).ToString();
                     list.Add(ins);
                 }
             }

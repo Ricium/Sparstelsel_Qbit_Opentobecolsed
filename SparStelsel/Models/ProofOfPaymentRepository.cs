@@ -32,7 +32,7 @@ namespace SparStelsel.Models
                     ins.ProofOfPaymentID = Convert.ToInt32(drI["ProofOfPaymentID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.PaymentDescription = Convert.ToChar(drI["PaymentDescription"]);
+                    ins.PaymentDescription = Convert.ToString(drI["PaymentDescription"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                 }
@@ -72,7 +72,7 @@ namespace SparStelsel.Models
                     ins.ProofOfPaymentID = Convert.ToInt32(drI["ProofOfPaymentID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.PaymentDescription = Convert.ToInt32(drI["PaymentDescription"]);
+                    ins.PaymentDescription = drI["PaymentDescription"].ToString();
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     list.Add(ins);
@@ -113,7 +113,7 @@ namespace SparStelsel.Models
                     ins.ProofOfPaymentID = Convert.ToInt32(drI["ProofOfPaymentID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.PaymentDescription = Convert.ToChar(drI["PaymentDescription"]);
+                    ins.PaymentDescription = Convert.ToString(drI["PaymentDescription"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     list.Add(ins);
@@ -154,7 +154,7 @@ namespace SparStelsel.Models
                     ins.ProofOfPaymentID = Convert.ToInt32(drI["ProofOfPaymentID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.PaymentDescription = Convert.ToChar(drI["PaymentDescription"]);
+                    ins.PaymentDescription = Convert.ToString(drI["PaymentDescription"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     list.Add(ins);

@@ -30,11 +30,11 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.GRVListID = Convert.ToInt32(drI["GRVListID"]);
-                    ins.InvoiceNumber = Convert.ToChar(drI["InvoiveNumber"]);
+                    ins.InvoiceNumber = Convert.ToString(drI["InvoiveNumber"]);
                     ins.StateDate = Convert.ToDateTime(drI["StateDate"]);
-                    ins.Number = Convert.ToChar(drI["Number"]);
+                    ins.Number = Convert.ToInt32(drI["Number"]);
                     ins.PayDate = Convert.ToDateTime(drI["PayDate"]);
-                    ins.PinkSlipNumber = Convert.ToChar(drI["PinkSlipNumber"]);
+                    ins.PinkSlipNumber = Convert.ToString(drI["PinkSlipNumber"]);
                     ins.GRVDate = Convert.ToDateTime(drI["GRVDate"]);
                     ins.InvoiceDate = Convert.ToDateTime(drI["InvoiceDate"]);
                     ins.ExcludingVat = Convert.ToDecimal(drI["ExcludingVat"]);
@@ -77,9 +77,9 @@ namespace SparStelsel.Models
                 {
                     ins = new GRVList();
                     ins.GRVListID = Convert.ToInt32(drI["GRVListID"]);
-                    ins.InvoiceNumber = Convert.ToChar(drI["InvoiceNumber"]);
+                    ins.InvoiceNumber = Convert.ToString(drI["InvoiceNumber"]);
                     ins.StateDate = Convert.ToDateTime(drI["StateDate"]);
-                    ins.Number = Convert.ToChar(drI["Number"]);
+                    ins.Number = Convert.ToInt32(drI["Number"]);
                     ins.PayDate = Convert.ToDateTime(drI["PayDate"]);
                     ins.GRVDate = Convert.ToDateTime(drI["GRVDate"]);
                     ins.InvoiceDate = Convert.ToDateTime(drI["InvoiceDate"]);
@@ -124,9 +124,9 @@ namespace SparStelsel.Models
                 {
                     ins = new GRVList();
                     ins.GRVListID = Convert.ToInt32(drI["GRVListID"]);
-                    ins.InvoiceNumber = Convert.ToChar(drI["InvoiceNumber"]);
+                    ins.InvoiceNumber = Convert.ToString(drI["InvoiceNumber"]);
                     ins.StateDate = Convert.ToDateTime(drI["StateDate"]);
-                    ins.Number = Convert.ToChar(drI["Number"]);
+                    ins.Number = Convert.ToInt32(drI["Number"]);
                     ins.PayDate = Convert.ToDateTime(drI["PayDate"]);
                     ins.GRVDate = Convert.ToDateTime(drI["GRVDate"]);
                     ins.InvoiceDate = Convert.ToDateTime(drI["InvoiceDate"]);
@@ -171,9 +171,9 @@ namespace SparStelsel.Models
                 {
                     ins = new GRVList();
                     ins.GRVListID = Convert.ToInt32(drI["GRVListID"]);
-                    ins.InvoiceNumber = Convert.ToChar(drI["InvoiceNumber"]);
+                    ins.InvoiceNumber = Convert.ToString(drI["InvoiceNumber"]);
                     ins.StateDate = Convert.ToDateTime(drI["StateDate"]);
-                    ins.Number = Convert.ToChar(drI["Number"]);
+                    ins.Number = Convert.ToInt32(drI["Number"]);
                     ins.PayDate = Convert.ToDateTime(drI["PayDate"]);
                     ins.GRVDate = Convert.ToDateTime(drI["GRVDate"]);
                     ins.InvoiceDate = Convert.ToDateTime(drI["InvoiceDate"]);
@@ -218,9 +218,9 @@ namespace SparStelsel.Models
                 {
                     ins = new GRVList();
                     ins.GRVListID = Convert.ToInt32(drI["GRVListID"]);
-                    ins.InvoiceNumber = Convert.ToChar(drI["InvoiceNumber"]);
+                    ins.InvoiceNumber = Convert.ToString(drI["InvoiceNumber"]);
                     ins.StateDate = Convert.ToDateTime(drI["StateDate"]);
-                    ins.Number = Convert.ToChar(drI["Number"]);
+                    ins.Number = Convert.ToInt32(drI["Number"]);
                     ins.PayDate = Convert.ToDateTime(drI["PayDate"]);
                     ins.GRVDate = Convert.ToDateTime(drI["GRVDate"]);
                     ins.InvoiceDate = Convert.ToDateTime(drI["InvoiceDate"]);

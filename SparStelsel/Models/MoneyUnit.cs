@@ -26,6 +26,6 @@ namespace SparStelsel.Models
         [DisplayName("Money Unit")]
         [Required(ErrorMessage = "Money Unit is required.")]
         [StringLength(20, ErrorMessage = "Money Unit may not be longer than 20 characters")]
-        public int MoneyUnits { get; set; }
+        public string MoneyUnits { get; set; }
     }
 }

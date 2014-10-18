@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.InstantMoneyTypeID = Convert.ToInt32(drI["InstantMoneyTypeID"]);
-                    ins.InstantMoneyTypes = Convert.ToChar(drI["InstantMoneyType"]);
+                    ins.InstantMoneyTypes = Convert.ToString(drI["InstantMoneyType"]);
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SparStelsel.Models
                 {
                     ins = new InstantMoneyType();
                     ins.InstantMoneyTypeID = Convert.ToInt32(drI["InstantMoneyTypeID"]);
-                    ins.InstantMoneyTypes = Convert.ToChar(drI["InstantMoneyType"]);
+                    ins.InstantMoneyTypes = Convert.ToString(drI["InstantMoneyType"]);
                     list.Add(ins);
                 }
             }

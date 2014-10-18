@@ -26,7 +26,7 @@ namespace SparStelsel.Models
         [DisplayName("Electronic Fund")]
         [Required(ErrorMessage = "Electronic Fund is required.")]
         [StringLength(20, ErrorMessage = "Electronic Fund may not be longer than 20 characters")]
-        public int ElectronicFunds { get; set; }
+        public string ElectronicFunds { get; set; }
 
         [DisplayName("Total")]
         [Required(ErrorMessage = "Total is required.")]

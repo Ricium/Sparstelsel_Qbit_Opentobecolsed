@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.PermissionID = Convert.ToInt32(drI["PermissionID"]);
-                    ins.Permissions = Convert.ToChar(drI["Permission"]);
+                    ins.Permissions = Convert.ToString(drI["Permission"]);
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SparStelsel.Models
                 {
                     ins = new Permission();
                     ins.PermissionID = Convert.ToInt32(drI["PermissionID"]);
-                    ins.Permissions = Convert.ToChar(drI["Permission"]);
+                    ins.Permissions = Convert.ToString(drI["Permission"]);
                     list.Add(ins);
                 }
             }

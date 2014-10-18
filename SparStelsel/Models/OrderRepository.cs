@@ -32,7 +32,7 @@ namespace SparStelsel.Models
                     ins.OrderID = Convert.ToInt32(drI["MovementTypeID"]);
                     ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
                     ins.ExspectedDeliveryDate = Convert.ToDateTime(drI["ExspectedDeliveryDate"]);
-                    ins.Amount = Convert.ToChar(drI["Amount"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
@@ -75,7 +75,7 @@ namespace SparStelsel.Models
                     ins.OrderID = Convert.ToInt32(drI["OrderID"]);
                     ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
                     ins.ExspectedDeliveryDate = Convert.ToDateTime(drI["ExspectedDeliveryDate"]);
-                    ins.Amount = Convert.ToChar(drI["Amount"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
@@ -119,7 +119,7 @@ namespace SparStelsel.Models
                     ins.OrderID = Convert.ToInt32(drI["OrderID"]);
                     ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
                     ins.ExspectedDeliveryDate = Convert.ToDateTime(drI["ExspectedDeliveryDate"]);
-                    ins.Amount = Convert.ToChar(drI["Amount"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
@@ -163,7 +163,7 @@ namespace SparStelsel.Models
                     ins.OrderID = Convert.ToInt32(drI["OrderID"]);
                     ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
                     ins.ExspectedDeliveryDate = Convert.ToDateTime(drI["ExspectedDeliveryDate"]);
-                    ins.Amount = Convert.ToChar(drI["Amount"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
@@ -207,7 +207,7 @@ namespace SparStelsel.Models
                     ins.OrderID = Convert.ToInt32(drI["OrderID"]);
                     ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
                     ins.ExspectedDeliveryDate = Convert.ToDateTime(drI["ExspectedDeliveryDate"]);
-                    ins.Amount = Convert.ToChar(drI["Amount"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
@@ -251,7 +251,7 @@ namespace SparStelsel.Models
                     ins.OrderID = Convert.ToInt32(drI["OrderID"]);
                     ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
                     ins.ExspectedDeliveryDate = Convert.ToDateTime(drI["ExspectedDeliveryDate"]);
-                    ins.Amount = Convert.ToChar(drI["Amount"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);

@@ -30,12 +30,12 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.ProductID = Convert.ToInt32(drI["ProductID"]);
-                    ins.Products = Convert.ToChar(drI["Product"]);
-                    ins.ProductDescription = Convert.ToChar(drI["ProductDescription"]);
+                    ins.Products = (drI["Product"]).ToString();
+                    ins.ProductDescription = (drI["ProductDescription"]).ToString();
                     ins.Price = Convert.ToDecimal(drI["Price"]);
                     ins.Quantity = Convert.ToInt32(drI["Quantity"]);
-                    ins.Total = Convert.ToChar(drI["Total"]);
-                    ins.BTW = Convert.ToChar(drI["BTW"]);
+                    ins.Total = Convert.ToDecimal(drI["Total"]);
+                    ins.BTW = Convert.ToDecimal(drI["BTW"]);
                 }
             }
 
@@ -71,8 +71,8 @@ namespace SparStelsel.Models
                 {
                     ins = new Product();
                     ins.ProductID = Convert.ToInt32(drI["ProductID"]);
-                    ins.Products = Convert.ToChar(drI["Product"]);
-                    ins.ProductDescription = Convert.ToChar(drI["ProductDescription"]);
+                    ins.Products = (drI["Product"]).ToString();
+                    ins.ProductDescription = (drI["ProductDescription"]).ToString();
                     ins.Price = Convert.ToDecimal(drI["Price"]);
                     ins.Quantity = Convert.ToInt32(drI["Quantity"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);

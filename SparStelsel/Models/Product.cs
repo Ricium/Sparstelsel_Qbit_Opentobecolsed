@@ -26,12 +26,12 @@ namespace SparStelsel.Models
         [DisplayName("Product")]
         [Required(ErrorMessage = "Product is required.")]
         [StringLength(20, ErrorMessage = "Product may not be longer than 20 characters")]
-        public int Products { get; set; }
+        public string Products { get; set; }
 
         [DisplayName("Product Description")]
         [Required(ErrorMessage = "Product Description is required.")]
         [StringLength(50, ErrorMessage = "Product Description may not be longer than 50 characters")]
-        public int ProductDescription { get; set; }
+        public string ProductDescription { get; set; }
 
         [DisplayName("Price")]
         [Required(ErrorMessage = "Price is required.")]

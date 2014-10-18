@@ -340,6 +340,7 @@
       <DependentUpon>UploadLocalization.zh-CN.resx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -654,6 +655,22 @@
     <Content Include="Views\Home\About.aspx" />
     <Content Include="Views\Home\Contact.aspx" />
     <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Maintenance\CashTypes.aspx" />
+    <Content Include="Views\Maintenance\CommentTypes.aspx" />
+    <Content Include="Views\Maintenance\GRVTypes.aspx" />
+    <Content Include="Views\Maintenance\InstantMoneyTypes.aspx" />
+    <Content Include="Views\Maintenance\KwikPayTypes.aspx" />
+    <Content Include="Views\Maintenance\MoneyUnits.aspx" />
+    <Content Include="Views\Maintenance\MovementTypes.aspx" />
+    <Content Include="Views\Maintenance\UserTypes.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\CashType.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\CommentType.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\GRVType.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\InstantMoneyType.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\KwikPayType.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\MoneyUnit.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\MovementType.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\UserType.aspx" />
     <Content Include="Views\Shared\_MainMenu.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -676,6 +693,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

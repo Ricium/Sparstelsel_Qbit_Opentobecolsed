@@ -26,10 +26,10 @@ namespace SparStelsel.Models
         [DisplayName("Permission ID")]
         [Required(ErrorMessage = "Permission is required.")]
         [StringLength(20, ErrorMessage = "Permission may not be longer than 20 characters")]
-        public int PermissionID { get; set; }
+        public string PermissionID { get; set; }
 
         [DisplayName("User Type ID")]
         [Required(ErrorMessage = "User Type ID is required.")]
-        public int UserTypeID { get; set; }
+        public string UserTypeID { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.ElectronicFundID = Convert.ToInt32(drI["ElectronicFundID"]);
-                    ins.ElectronicFunds = Convert.ToChar(drI["ElectronicFund"]);
+                    ins.ElectronicFunds = Convert.ToString(drI["ElectronicFund"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
                     ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
@@ -70,7 +70,7 @@ namespace SparStelsel.Models
                 {
                     ins = new ElectronicFund();
                     ins.ElectronicFundID = Convert.ToInt32(drI["ElectronicFundID"]);
-                    ins.ElectronicFunds = Convert.ToChar(drI["ElectronicFund"]);
+                    ins.ElectronicFunds = Convert.ToString(drI["ElectronicFund"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
                     ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
@@ -111,7 +111,7 @@ namespace SparStelsel.Models
                 {
                     ins = new ElectronicFund();
                     ins.ElectronicFundID = Convert.ToInt32(drI["ElectronicFundID"]);
-                    ins.ElectronicFunds = Convert.ToChar(drI["ElectronicFund"]);
+                    ins.ElectronicFunds = Convert.ToString(drI["ElectronicFund"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicFundTypeID"]);
                     ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
@@ -152,7 +152,7 @@ namespace SparStelsel.Models
                 {
                     ins = new ElectronicFund();
                     ins.ElectronicFundID = Convert.ToInt32(drI["ElectronicFundID"]);
-                    ins.ElectronicFunds = Convert.ToChar(drI["ElectronicFund"]);
+                    ins.ElectronicFunds = Convert.ToString(drI["ElectronicFund"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicFundTypeID"]);
                     ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
@@ -193,7 +193,7 @@ namespace SparStelsel.Models
                 {
                     ins = new ElectronicFund();
                     ins.ElectronicFundID = Convert.ToInt32(drI["ElectronicFundID"]);
-                    ins.ElectronicFunds = Convert.ToChar(drI["ElectronicFund"]);
+                    ins.ElectronicFunds = Convert.ToString(drI["ElectronicFund"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
                     ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);

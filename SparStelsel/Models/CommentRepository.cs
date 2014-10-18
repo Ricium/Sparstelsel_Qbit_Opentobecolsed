@@ -30,8 +30,8 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
-                    ins.Comments = Convert.ToChar(drI["Comment"]);
-                    ins.CommentTypeID = Convert.ToChar(drI["CommentTypeID"]);
+                    ins.Comments = Convert.ToString(drI["Comment"]);
+                    ins.CommentTypeID = Convert.ToInt32(drI["CommentTypeID"]);
                 }
             }
 
@@ -67,8 +67,8 @@ namespace SparStelsel.Models
                 {
                     ins = new Comment();
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
-                    ins.Comments = Convert.ToChar(drI["Comment"]);
-                    ins.Comments = Convert.ToChar(drI["CommentTypeID"]);
+                    ins.Comments = Convert.ToString(drI["Comment"]);
+                    ins.Comments = Convert.ToString(drI["CommentTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -105,7 +105,7 @@ namespace SparStelsel.Models
                 {
                     ins = new Comment();
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
-                    ins.Comments = Convert.ToChar(drI["Comment"]);
+                    ins.Comments = Convert.ToString(drI["Comment"]);
                     ins.CommentTypeID = Convert.ToInt32(drI["CommentTypeID"]);
                     list.Add(ins);
                 }

@@ -26,6 +26,6 @@ namespace SparStelsel.Models
         [DisplayName("Instant Money Type")]
         [Required(ErrorMessage = "Instant Money Type is required.")]
         [StringLength(20, ErrorMessage = "Instant Money Type may not be longer than 20 characters")]
-        public int InstantMoneyTypes { get; set; }
+        public string InstantMoneyTypes { get; set; }
     }
 }

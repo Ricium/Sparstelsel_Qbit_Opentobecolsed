@@ -6,7 +6,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h3>Telerik UI for ASP.NET MVC PanelBar</h3>
+    <h3></h3>
     <br />
 
     

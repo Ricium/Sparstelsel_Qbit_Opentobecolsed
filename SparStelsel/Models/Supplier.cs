@@ -26,17 +26,17 @@ namespace SparStelsel.Models
         [DisplayName("Supplier")]
         [Required(ErrorMessage = "Supplier is required.")]
         [StringLength(20, ErrorMessage = "Supplier may not be longer than 20 characters")]
-        public int Suppliers { get; set; }
+        public string Suppliers { get; set; }
 
         [DisplayName("Stock Condition")]
         [Required(ErrorMessage = "Stock Condition is required.")]
         [StringLength(50, ErrorMessage = "Stock Condition may not be longer than 50 characters")]
-        public int StockCondition { get; set; }
+        public string StockCondition { get; set; }
 
         [DisplayName("Term")]
         [Required(ErrorMessage = "Term is required.")]
         [StringLength(50, ErrorMessage = "Term may not be longer than 50 characters")]
-        public int Term { get; set; }
+        public string Term { get; set; }
 
         [DisplayName("Supplier Type ID")]
         [Required(ErrorMessage = "Supplier Type ID is required.")]

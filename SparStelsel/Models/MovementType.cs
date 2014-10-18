@@ -26,6 +26,6 @@ namespace SparStelsel.Models
         [DisplayName("Movement Type")]
         [Required(ErrorMessage = "Movement Type is required.")]
         [StringLength(20, ErrorMessage = "Movement Type may not be longer than 20 characters")]
-        public int MovementTypes { get; set; }
+        public string MovementTypes { get; set; }
     }
 }

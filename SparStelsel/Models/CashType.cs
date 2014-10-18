@@ -19,6 +19,6 @@ namespace SparStelsel.Models
         [DisplayName("Cash Type")]
         [Required(ErrorMessage = "Cash Type is required.")]
         [StringLength(20, ErrorMessage = "Cash Type may not be longer than 20 characters")]
-        public int CashTypes { get; set; }
+        public string CashTypes { get; set; }
     }
 }

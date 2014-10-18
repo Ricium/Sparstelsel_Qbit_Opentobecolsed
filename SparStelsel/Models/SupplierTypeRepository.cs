@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.SupplierTypes = Convert.ToChar(drI["SupplierType"]);
+                    ins.SupplierTypes = Convert.ToString(drI["SupplierType"]);
                 }
             }
 
@@ -66,7 +66,7 @@ namespace SparStelsel.Models
                 {
                     ins = new SupplierType();
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.SupplierTypes = Convert.ToChar(drI["SupplierType"]);
+                    ins.SupplierTypes = Convert.ToString(drI["SupplierType"]);
                     list.Add(ins);
                 }
             }

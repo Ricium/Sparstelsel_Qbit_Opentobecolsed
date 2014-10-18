@@ -27,6 +27,6 @@ namespace SparStelsel.Models
         [DisplayName("User Type")]
         [Required(ErrorMessage = "User Type is required.")]
         [StringLength(20, ErrorMessage = "User Type may not be longer than 20 characters")]
-        public int UserTypes { get; set; }
+        public string UserTypes { get; set; }
     }
 }

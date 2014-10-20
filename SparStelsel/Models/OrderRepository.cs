@@ -35,8 +35,8 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
                 }
             }
@@ -78,8 +78,8 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
                     list.Add(ins);
                 }
@@ -122,8 +122,8 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
                     list.Add(ins);
                 }
@@ -166,8 +166,8 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
                     list.Add(ins);
                 }
@@ -182,7 +182,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<Order> GetOrdersPerEmployeeType(int EmployeeTypeID)
+        public List<Order> GetOrdersPerEmployeeType(int UserTypeID)
         {
             //...Create New Instance of Object...
             List<Order> list = new List<Order>();
@@ -194,7 +194,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_Order WHERE EmployeeTypeID = " + EmployeeTypeID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_Order WHERE UserTypeID = " + UserTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -210,8 +210,8 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
                     list.Add(ins);
                 }
@@ -226,7 +226,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<Order> GetOrdersPerEmployee(int EmployeeID)
+        public List<Order> GetOrdersPerEmployee(int UserID)
         {
             //...Create New Instance of Object...
             List<Order> list = new List<Order>();
@@ -238,7 +238,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_Order WHERE EmployeeID = " + EmployeeID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_Order WHERE UserID = " + UserID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -254,8 +254,8 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
                     list.Add(ins);
                 }
@@ -300,8 +300,8 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
                 cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
                 cmdI.Parameters.AddWithValue("@SupplierTypeID", ins.SupplierTypeID);
-                cmdI.Parameters.AddWithValue("@EmployeeTypeID", ins.EmployeeTypeID);
-                cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
+                cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
+                cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
                 cmdI.Parameters.AddWithValue("@CommentID", ins.CommentID);
 
                 //...Return new ID
@@ -352,8 +352,8 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
             cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
             cmdI.Parameters.AddWithValue("@SupplierTypeID", ins.SupplierTypeID);
-            cmdI.Parameters.AddWithValue("@EmployeeTypeID", ins.EmployeeTypeID);
-            cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
+            cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
+            cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
             cmdI.Parameters.AddWithValue("@CommentID", ins.CommentID);
 
             cmdI.ExecuteNonQuery();

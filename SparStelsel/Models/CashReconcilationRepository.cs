@@ -33,8 +33,8 @@ namespace SparStelsel.Models
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ReconcilationTypeID = Convert.ToInt32(drI["ReconcilationTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                 }
             }
 
@@ -73,8 +73,8 @@ namespace SparStelsel.Models
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ReconcilationTypeID = Convert.ToInt32(drI["ReconcilationTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -114,8 +114,8 @@ namespace SparStelsel.Models
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ReconcilationTypeID = Convert.ToInt32(drI["ReconcilationTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -129,7 +129,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<CashReconcilation> GetCashReconcilationsPerEmployee(int EmployeeID)
+        public List<CashReconcilation> GetCashReconcilationsPerEmployee(int UserID)
         {
             //...Create New Instance of Object...
             List<CashReconcilation> list = new List<CashReconcilation>();
@@ -141,7 +141,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_CashReconcilation WHERE EmployeeID = " + EmployeeID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_CashReconcilation WHERE UserID = " + UserID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -155,8 +155,8 @@ namespace SparStelsel.Models
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ReconcilationTypeID = Convert.ToInt32(drI["ReconcilationTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -170,7 +170,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<CashReconcilation> GetCashReconcilationsPerEmployeeType(int EmployeeTypeID)
+        public List<CashReconcilation> GetCashReconcilationsPerEmployeeType(int UserTypeID)
         {
             //...Create New Instance of Object...
             List<CashReconcilation> list = new List<CashReconcilation>();
@@ -182,7 +182,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_CashReconcilation WHERE EmployeeTypeID = " + EmployeeTypeID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_CashReconcilation WHERE UserTypeID = " + UserTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -196,8 +196,8 @@ namespace SparStelsel.Models
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ReconcilationTypeID = Convert.ToInt32(drI["ReconcilationTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -239,8 +239,8 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
                 cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
                 cmdI.Parameters.AddWithValue("@ReconcilationTypeID", ins.ReconcilationTypeID);
-                cmdI.Parameters.AddWithValue("@EmployeeID", EmployeeId);
-                cmdI.Parameters.AddWithValue("@EmployeeTypeID", ins.EmployeeTypeID);
+                cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
+                cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
 
                 //...Return new ID
                 ins.CashReconcilationID = (int)cmdI.ExecuteScalar();
@@ -288,8 +288,8 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
             cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
             cmdI.Parameters.AddWithValue("@ReconcilationTypeID", ins.ReconcilationTypeID);
-            cmdI.Parameters.AddWithValue("@EmployeeID", EmployeeId);
-            cmdI.Parameters.AddWithValue("@EmployeeTypeID", ins.EmployeeTypeID);
+            cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
+            cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

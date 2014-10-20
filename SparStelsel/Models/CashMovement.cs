@@ -42,12 +42,12 @@ namespace SparStelsel.Models
         [Required(ErrorMessage = "Money Unit ID is required.")]
         public int MoneyUnitID { get; set; }
 
-        [DisplayName("Employee ID")]
-        [Required(ErrorMessage = "Employee ID is required.")]
-        public int EmployeeID { get; set; }
+        [DisplayName("User ID")]
+        [Required(ErrorMessage = "User ID is required.")]
+        public int UserID { get; set; }
 
-        [DisplayName("Employee Type ID")]
-        [Required(ErrorMessage = "Employee Type ID is required.")]
-        public int EmployeeTypeID { get; set; }
+        [DisplayName("User Type ID")]
+        [Required(ErrorMessage = "User Type ID is required.")]
+        public int UserTypeID { get; set; }
     }
 }

@@ -33,8 +33,8 @@ namespace SparStelsel.Models
                     ins.ElectronicFunds = Convert.ToString(drI["ElectronicFund"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                 }
             }
 
@@ -73,8 +73,8 @@ namespace SparStelsel.Models
                     ins.ElectronicFunds = Convert.ToString(drI["ElectronicFund"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -114,8 +114,8 @@ namespace SparStelsel.Models
                     ins.ElectronicFunds = Convert.ToString(drI["ElectronicFund"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicFundTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -129,7 +129,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<ElectronicFund> GetElectronicFundsPerEmployee(int EmployeeID)
+        public List<ElectronicFund> GetElectronicFundsPerEmployee(int UserID)
         {
             //...Create New Instance of Object...
             List<ElectronicFund> list = new List<ElectronicFund>();
@@ -141,7 +141,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_ElectronicFund WHERE EmployeeID = " + EmployeeID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_ElectronicFund WHERE UserID = " + UserID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -155,8 +155,8 @@ namespace SparStelsel.Models
                     ins.ElectronicFunds = Convert.ToString(drI["ElectronicFund"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicFundTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -170,7 +170,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<ElectronicFund> GetElectronicFundsPerType(int EmployeeTypeID)
+        public List<ElectronicFund> GetElectronicFundsPerType(int UserTypeID)
         {
             //...Create New Instance of Object...
             List<ElectronicFund> list = new List<ElectronicFund>();
@@ -182,7 +182,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_ElectronicFund WHERE EmployeeTypeID = " + EmployeeTypeID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_ElectronicFund WHERE UserTypeID = " + UserTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -196,8 +196,8 @@ namespace SparStelsel.Models
                     ins.ElectronicFunds = Convert.ToString(drI["ElectronicFund"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -240,8 +240,8 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
                 cmdI.Parameters.AddWithValue("@Total", ins.Total);
                 cmdI.Parameters.AddWithValue("@ElectronicTypeID", ins.ElectronicTypeID);
-                cmdI.Parameters.AddWithValue("@EmployeeID", EmployeeId);
-                cmdI.Parameters.AddWithValue("@EmployeeTypeID", ins.EmployeeTypeID);
+                cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
+                cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
 
                 //...Return new ID
                 ins.ElectronicFundID = (int)cmdI.ExecuteScalar();
@@ -289,8 +289,8 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@ElectronicFund", ins.ElectronicFunds);
             cmdI.Parameters.AddWithValue("@Total", ins.Total);
             cmdI.Parameters.AddWithValue("@ElectronicTypeID", ins.ElectronicTypeID);
-            cmdI.Parameters.AddWithValue("@EmployeeID", EmployeeId);
-            cmdI.Parameters.AddWithValue("@EmployeeTypeID", ins.EmployeeTypeID);
+            cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
+            cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

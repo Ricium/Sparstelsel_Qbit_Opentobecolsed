@@ -33,8 +33,8 @@ namespace SparStelsel.Models
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.CashReconcilationID = Convert.ToInt32(drI["CashReconcilationID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                 }
             }
 
@@ -71,8 +71,8 @@ namespace SparStelsel.Models
                     ins = new ReconcilationType();
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -113,8 +113,8 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -155,8 +155,8 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -199,8 +199,8 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
                 cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
                 cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);
-                cmdI.Parameters.AddWithValue("@EmployeeID", EmployeeId);
-                cmdI.Parameters.AddWithValue("@EmployeeTypeID", ins.EmployeeTypeID);
+                cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
+                cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
 
                 //...Return new ID
                 ins.PickUpID = (int)cmdI.ExecuteScalar();
@@ -249,8 +249,8 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
             cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
             cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);
-            cmdI.Parameters.AddWithValue("@EmployeeID", EmployeeId);
-            cmdI.Parameters.AddWithValue("@EmployeeTypeID", ins.EmployeeTypeID);
+            cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
+            cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

@@ -35,8 +35,8 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                 }
             }
 
@@ -77,8 +77,8 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -120,8 +120,8 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -163,8 +163,8 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -178,7 +178,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<CashMovement> GetCashMovementsPerEmployee(int EmployeeID)
+        public List<CashMovement> GetCashMovementsPerEmployee(int UserID)
         {
             //...Create New Instance of Object...
             List<CashMovement> list = new List<CashMovement>();
@@ -190,7 +190,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_CashMovement WHERE EmployeeID = " + EmployeeID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_CashMovement WHERE UserID = " + UserID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -206,8 +206,8 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -221,7 +221,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<CashMovement> GetCashMovementsPerEmployeeType(int EmployeeTypeID)
+        public List<CashMovement> GetCashMovementsPerEmployeeType(int UserTypeID)
         {
             //...Create New Instance of Object...
             List<CashMovement> list = new List<CashMovement>();
@@ -233,7 +233,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_CashMovement WHERE EmployeeTypeID = " + EmployeeTypeID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_CashMovement WHERE UserTypeID = " + UserTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -249,8 +249,8 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
-                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
-                    ins.EmployeeTypeID = Convert.ToInt32(drI["EmployeeTypeID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -294,8 +294,8 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
                 cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);
                 cmdI.Parameters.AddWithValue("@MoneyUnitID", ins.MoneyUnitID);
-                cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
-                cmdI.Parameters.AddWithValue("@EmployeeTypeID", ins.EmployeeTypeID);
+                cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
+                cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
 
                 //...Return new ID
                 ins.CashMovementID = (int)cmdI.ExecuteScalar();
@@ -345,8 +345,8 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
             cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);
             cmdI.Parameters.AddWithValue("@MoneyUnitID", ins.MoneyUnitID);
-            cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
-            cmdI.Parameters.AddWithValue("@EmployeeTypeID", ins.EmployeeTypeID);
+            cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
+            cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

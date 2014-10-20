@@ -77,6 +77,11 @@ namespace SparStelsel.Models
                     ins.Quantity = Convert.ToInt32(drI["Quantity"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.BTW = Convert.ToDecimal(drI["BTW"]);
+                    if (ins.BTW == null)
+                    {
+                        ins.BTW = 0;
+                    }
+
                     list.Add(ins);
                 }
             }

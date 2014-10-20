@@ -59,7 +59,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_Supplier", con);
+            cmdI = new SqlCommand("SELECT s.*,st.SupplierType,p.Product FROM t_Supplier s inner join t_SupplierType st on s.SupplierTypeID=st.SupplierTypeID inner join t_Product p on s.ProductID = p.ProductID", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -74,7 +74,9 @@ namespace SparStelsel.Models
                     ins.StockCondition = Convert.ToString(drI["StockCondition"]);
                     ins.Term = Convert.ToString(drI["Term"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
+                    ins.suppliertypeid = drI["SupplierType"].ToString();
                     ins.ProductID = Convert.ToInt32(drI["ProductID"]);
+                    ins.productid = drI["Product"].ToString();
                     list.Add(ins);
                 }
             }

@@ -59,7 +59,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_ProofOfPayment", con);
+            cmdI = new SqlCommand("SELECT pop.*,s.Supplier,st.SupplierType FROM t_ProofOfPayment pop inner join t_Supplier s on pop.SupplierID =s.SupplierID inner join t_SupplierType st on pop.SupplierTypeID = st.SupplierTypeID", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -74,7 +74,9 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.PaymentDescription = drI["PaymentDescription"].ToString();
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
+                    ins.supplierid = drI["Supplier"].ToString();
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
+                    ins.suppliertype = drI["SupplierType"].ToString();
                     list.Add(ins);
                 }
             }

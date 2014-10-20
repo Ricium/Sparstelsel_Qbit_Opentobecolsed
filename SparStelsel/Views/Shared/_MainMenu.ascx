@@ -26,7 +26,40 @@
                          item.Add().Text("MoneyUnit").Url("~/Maintenance/MoneyUnits");
                          item.Add().Text("MovementType").Url("~/Maintenance/MovementTypes");
                          item.Add().Text("UserType").Url("~/Maintenance/UserTypes");
+                         item.Add().Text("ElectronicType").Url("~/Maintenance/ElectronicTypes");
+                         item.Add().Text("FNBType").Url("~/Maintenance/FNBTypes");
                      });
+
+            items.Add()
+                .Text("Supplier")
+                .Url("~/Home/Index")
+                .Items(Sitem =>
+                    {
+                        Sitem.Add().Text("Supplier").Url("~/Supplier/Suppliers");
+                        Sitem.Add().Text("SupplierType").Url("~/Supplier/SupplierTypes");
+                    });
+            items.Add()
+                .Text("Product")
+                .Url("~/Home/Index")
+                .Items(Pitems =>
+                    {
+                        Pitems.Add().Text("Products").Url("~/Products/Products");
+                    });
+            items.Add()
+                .Text("Payments")
+                .Url("~/Home/Index")
+                .Items(Payitems =>
+                {
+                    Payitems.Add().Text("Proof Of Payment").Url("~/Payment/ProofOfPayments");
+                });
+            items.Add()
+            .Text("GRV")
+            .Url("~/Home/Index")
+            .Items(GRVitems =>
+            {
+                 GRVitems.Add().Text("GRV").Url("~/GRV/GRVLists");
+            });
+                
         })
              .Render();
             %>

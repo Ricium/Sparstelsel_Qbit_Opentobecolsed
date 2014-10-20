@@ -24,6 +24,9 @@ namespace SparStelsel.Controllers
         MoneyUnitRepository MoneyUnitRep = new MoneyUnitRepository();
         MovementTypeRepository MovementRep = new MovementTypeRepository();
         UserTypeRepository UserRep = new UserTypeRepository();
+        ElectronicTypeRepository ElectronicRep = new ElectronicTypeRepository();
+        FNBTypeRepository FNBRep = new FNBTypeRepository();
+        
 
 
             //Lists
@@ -80,6 +83,18 @@ namespace SparStelsel.Controllers
         public ActionResult _ListUserTypes()
         {
             return View(new GridModel(UserRep.GetAllUserType()));
+        }
+                //List ElectronicType
+        [GridAction]
+        public ActionResult _ListElectronicTypes()
+        {
+            return View(new GridModel(ElectronicRep.GetAllElectronicType()));
+        }
+            //List FNBType
+        [GridAction]
+        public ActionResult _ListFNBTypes()
+        {
+            return View(new GridModel(FNBRep.GetAllFNBType()));
         }
 
         //Functions
@@ -408,6 +423,87 @@ namespace SparStelsel.Controllers
 
             //...Repopulate Grid...
             return View(new GridModel(UserRep.GetAllUserType()));
+        }
+
+        // ElectronicType 
+        public ActionResult ElectronicTypes()
+        {
+            return View();
+        }
+
+        //Add ElectronicType
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _InsertElectronicTypes(ElectronicType ins)
+        {
+            //...Insert Object
+            ElectronicType ins2 = ElectronicRep.Insert(ins);
+
+            //...Repopulate Grid...
+            return View(new GridModel(ElectronicRep.GetAllElectronicType()));
+        }
+        //Update ElectronicType
+        [GridAction]
+        public ActionResult _UpdateElectronicTypes(ElectronicType ins)
+        {
+            //...Update Object
+            ElectronicType ins2 = ElectronicRep.Update(ins);
+
+            //...Repopulate Grid...
+            return View(new GridModel(ElectronicRep.GetAllElectronicType()));
+        }
+        //Remove ElectronicType
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _RemoveElectronicTypes(int id)
+        {
+            //...Update Object
+            string ins = ElectronicRep.GetElectronicType(id).ToString();
+            ElectronicRep.Remove(ins);
+
+            //...Repopulate Grid...
+            return View(new GridModel(ElectronicRep.GetAllElectronicType()));
+        }
+
+
+        // FNBType 
+        public ActionResult FNBTypes()
+        {
+            return View();
+        }
+
+        //Add FNBType
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _InsertFNBTypes(FNBType ins)
+        {
+            //...Insert Object
+            FNBType ins2 = FNBRep.Insert(ins);
+
+            //...Repopulate Grid...
+            return View(new GridModel(FNBRep.GetAllFNBType()));
+        }
+        //Update FNBType
+        [GridAction]
+        public ActionResult _UpdateFNBTypes(FNBType ins)
+        {
+            //...Update Object
+            FNBType ins2 = FNBRep.Update(ins);
+
+            //...Repopulate Grid...
+            return View(new GridModel(FNBRep.GetAllFNBType()));
+        }
+        //Remove FNBType
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _RemoveFNBTypes(int id)
+        {
+            //...Update Object
+            string ins = FNBRep.GetFNBType(id).ToString();
+            FNBRep.Remove(ins);
+
+            //...Repopulate Grid...
+            return View(new GridModel(FNBRep.GetAllFNBType()));
         }
     }
 }

@@ -127,6 +127,14 @@ namespace SparStelsel
         public static readonly string PermissionInsert = "PermissionInsert";
         public static readonly string PermissionRemove = "PermissionRemove";
         public static readonly string PermissionUpdate = "PermissionUpdate";
+
+        public static readonly string ElectronicTypeInsert = "ElectronicTypeInsert";
+        public static readonly string ElectronicTypeRemove = "ElectronicTypeRemove";
+        public static readonly string ElectronicTypeUpdate = "ElectronicTypeUpdate";
+
+        public static readonly string FNBTypeInsert = "FNBTypeInsert";
+        public static readonly string FNBTypeUpdate = "FNBTypeUpdate";
+   
         
     }
 }

@@ -38,12 +38,16 @@ namespace SparStelsel.Models
         [StringLength(50, ErrorMessage = "Term may not be longer than 50 characters")]
         public string Term { get; set; }
 
-        [DisplayName("Supplier Type ID")]
+        [DisplayName("Supplier Type")]
         [Required(ErrorMessage = "Supplier Type ID is required.")]
         public int SupplierTypeID { get; set; }
+        [DisplayName("Supplier Type")]
+        public string suppliertypeid { get; set; }
 
-        [DisplayName("Product ID")]
+        [DisplayName("Product ")]
         [Required(ErrorMessage = "Product ID is required.")]
         public int ProductID { get; set; }
+        [DisplayName("Product ")]
+        public string productid { get; set; }
     }
 }

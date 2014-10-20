@@ -92,8 +92,8 @@ ExspectedDeliveryDate date,
 Amount decimal,
 SupplierID int,
 SupplierTypeID int,
-EmployeeTypeID int,
-EmployeeID int,
+UserTypeID int,
+UserID int,
 CommentID int
 )
 
@@ -113,8 +113,8 @@ CashReconcilationID int identity(1,1) primary key not null,
 ActualDate datetime,
 ModifiedDate datetime,
 ReconcilationTypeID int,
-EmployeeID int,
-EmployeeTypeID int
+UserID int,
+UserTypeID int
 )
 
 
@@ -124,8 +124,8 @@ CashReconcilationTypeID int identity(1,1) primary key not null,
 ActualDate datetime,
 ModifiedDate datetime,
 ReconcilationTypeID int,
-EmployeeID int,
-EmployeeTypeID int
+UserID int,
+UserTypeID int
 )
 
 Create table t_KwikPay
@@ -135,8 +135,8 @@ ActualDate datetime,
 ModifiedDate datetime,
 Amount decimal,
 KwikPayTypeID int,
-EmployeeID int,
-EmployeeTypeID int
+UserID int,
+UserTypeID int
 )
 
 Create table l_KwikPayType
@@ -152,8 +152,8 @@ ActualDate datetime,
 ModifiedDate datetime,
 Amount decimal,
 InstantMoneyTypeID int,
-EmployeeID int,
-EmployeeTypeID int
+UserID int,
+UserTypeID int
 )
 
 Create table l_InstantMoneyType
@@ -169,8 +169,8 @@ ActualDate datetime,
 ModifiedDate datetime,
 Amount decimal,
 FNBTypeID int,
-EmployeeID int,
-EmployeeTypeID int
+UserID int,
+UserTypeID int
 )
 
 Create table l_FNBType
@@ -185,8 +185,8 @@ ElectronicFundID int identity(1,1) primary key not null,
 ElectronicFund varchar(50),
 Total decimal,
 ElectronicTypeID int,
-EmployeeID int,
-EmployeeTypeID int 
+UserID int,
+UserTypeID int 
 )
 
 Create table l_ElectronicType 
@@ -216,8 +216,8 @@ ModifiedDate datetime,
 Amount decimal,
 MovementTypeID int,
 MoneyUnitID int,
-EmployeeID int,
-EmployeeTypeID int
+UserID int,
+UserTypeID int
 )
 
 Create table t_CashBox
@@ -242,8 +242,8 @@ ActualDate datetime,
 ModifiedDate datetime,
 Amount decimal,
 CashTypeID int,
-EmployeeID int,
-EmployeeTypeID int
+UserID int,
+UserTypeID int
 )
 
 Create table t_CashMovement  
@@ -254,8 +254,8 @@ ModifiedDate datetime,
 Amount decimal,
 CashTypeID int,
 MoneyUnitID int,
-EmployeeID int,
-EmployeeTypeID int
+UserID int,
+UserTypeID int
 )
 
 Create table l_Transit

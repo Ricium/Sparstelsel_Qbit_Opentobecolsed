@@ -56,7 +56,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_Comment", con);
+            cmdI = new SqlCommand("SELECT c.*,ct.CommentType FROM t_Comment c inner join l_CommentType ct on c.CommentTypeID=ct.CommentTypeID", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -69,6 +69,7 @@ namespace SparStelsel.Models
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
                     ins.Comments = Convert.ToString(drI["Comment"]);
                     ins.Comments = Convert.ToString(drI["CommentTypeID"]);
+                    ins.commenttype = drI["CommentType"].ToString();
                     list.Add(ins);
                 }
             }

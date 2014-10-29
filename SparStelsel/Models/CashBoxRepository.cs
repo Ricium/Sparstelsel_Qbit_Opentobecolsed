@@ -58,7 +58,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_CashBox", con);
+            cmdI = new SqlCommand("SELECT cb.*,m.MovementType FROM t_CashBox cb inner join l_MovementType m on cb.MovementTypeID = m.MovementTypeID", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -73,6 +73,7 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
+                    ins.movementtyepe = drI["MovementType"].ToString();
                     list.Add(ins);
                 }
             }

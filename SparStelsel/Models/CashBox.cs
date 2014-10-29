@@ -35,7 +35,9 @@ namespace SparStelsel.Models
         public decimal Amount { get; set; }
 
         [DisplayName("Movement Type ID")]
+        public string movementtyepe { get; set; }
         [Required(ErrorMessage = "Movement Type ID is required.")]
         public int MovementTypeID { get; set; }
+
     }
 }

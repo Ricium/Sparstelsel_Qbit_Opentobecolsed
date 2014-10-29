@@ -26,7 +26,7 @@ namespace SparStelsel.Controllers
         UserTypeRepository UserRep = new UserTypeRepository();
         ElectronicTypeRepository ElectronicRep = new ElectronicTypeRepository();
         FNBTypeRepository FNBRep = new FNBTypeRepository();
-        
+        BudgetRepository BUDRep = new BudgetRepository();
 
 
             //Lists
@@ -35,6 +35,12 @@ namespace SparStelsel.Controllers
         public ActionResult _ListCashTypes()
         {
             return View(new GridModel(CashRep.GetAllCashType()));
+        }
+        //List Budget
+        [GridAction]
+        public ActionResult _ListBudgets()
+        {
+            return View(new GridModel(BUDRep.GetAllBudget()));
         }
 
                 //List Comment Types
@@ -97,6 +103,7 @@ namespace SparStelsel.Controllers
             return View(new GridModel(FNBRep.GetAllFNBType()));
         }
 
+  
         //Functions
             // CashType 
         public ActionResult CashTypes()
@@ -504,6 +511,49 @@ namespace SparStelsel.Controllers
 
             //...Repopulate Grid...
             return View(new GridModel(FNBRep.GetAllFNBType()));
+        }
+
+
+
+
+        // CommentType 
+        public ActionResult Budgets()
+        {
+            return View();
+        }
+
+        //Add CommentType
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _InsertBudgets(Budget ins)
+        {
+            //...Insert Object
+            Budget ins2 = BUDRep.Insert(ins);
+
+            //...Repopulate Grid...
+            return View(new GridModel(BUDRep.GetAllBudget()));
+        }
+        //Update CommentType
+        [GridAction]
+        public ActionResult _UpdateBudgets(Budget ins)
+        {
+            //...Update Object
+            Budget ins2 = BUDRep.Update(ins);
+
+            //...Repopulate Grid...
+            return View(new GridModel(BUDRep.GetAllBudget()));
+        }
+        //Remove CommentType
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _RemoveBudgets(int id)
+        {
+            //...Update Object
+            string ins = BUDRep.GetBudget(id).ToString();
+            BUDRep.Remove(ins);
+
+            //...Repopulate Grid...
+            return View(new GridModel(BUDRep.GetAllBudget()));
         }
     }
 }

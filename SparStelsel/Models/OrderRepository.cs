@@ -9,7 +9,7 @@ namespace SparStelsel.Models
 {
     public class OrderRepository
     {
-        public Order MovementType(int OrderID)
+        public Order GetOrders(int OrderID)
         {
             //...Create New Instance of Object...
             Order ins = new Order();
@@ -62,7 +62,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_Order", con);
+            cmdI = new SqlCommand("SELECT o.*,s.Supplier,st.SupplierType FROM t_Order o inner join t_Supplier s on o.SupplierID=s.SupplierID inner join t_SupplierType st on o.SupplierTypeID=st.SupplierTypeID", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -77,6 +77,8 @@ namespace SparStelsel.Models
                     ins.ExspectedDeliveryDate = Convert.ToDateTime(drI["ExspectedDeliveryDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
+                    ins.supplier = drI["Supplier"].ToString();
+                    ins.suppliertype = drI["SupplierType"].ToString();
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);

@@ -339,12 +339,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UploadLocalization.zh-CN.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\CashController.cs" />
+    <Compile Include="Controllers\ElectronicFundsController.cs" />
+    <Compile Include="Controllers\FNBController.cs" />
     <Compile Include="Controllers\GRVController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstantMoneyController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
+    <Compile Include="Controllers\TransitController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -661,10 +668,19 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\Cash\CashBoxs.aspx" />
+    <Content Include="Views\Cash\CashMovements.aspx" />
+    <Content Include="Views\Cash\CoinMovements.aspx" />
+    <Content Include="Views\ElectronicFunds\ElectronicFunds.aspx" />
+    <Content Include="Views\FNBs\FNBs.aspx" />
     <Content Include="Views\GRVLists\GRVLists.aspx" />
     <Content Include="Views\Home\About.aspx" />
     <Content Include="Views\Home\Contact.aspx" />
     <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\InstantMoneys\InstantMoneys.aspx" />
+    <Content Include="Views\Maintenance\Budgets.aspx" />
+    <Content Include="Views\Orders\Orders.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\CashBox.aspx" />
     <Content Include="Views\Maintenance\CashTypes.aspx" />
     <Content Include="Views\Maintenance\CommentTypes.aspx" />
     <Content Include="Views\Maintenance\ElectronicTypes.aspx" />
@@ -677,23 +693,36 @@
     <Content Include="Views\Maintenance\UserTypes.aspx" />
     <Content Include="Views\Payment\ProofOfPayments.aspx" />
     <Content Include="Views\Products\Products.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Budget.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\CashMovement.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CashType.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\CoinMovement.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Comment.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CommentType.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\ElectronicFund.aspx" />
     <Content Include="Views\Shared\EditorTemplates\ElectronicType.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\FNB.aspx" />
     <Content Include="Views\Shared\EditorTemplates\FNBType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\GRVType.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\InstantMoney.aspx" />
     <Content Include="Views\Shared\EditorTemplates\InstantMoneyType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\KwikPayType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\MoneyUnit.aspx" />
     <Content Include="Views\Shared\EditorTemplates\MovementType.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Order.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Product.aspx" />
     <Content Include="Views\Shared\EditorTemplates\ProofOfPayment.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Supplier.aspx" />
     <Content Include="Views\Shared\EditorTemplates\SupplierType.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Transit.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\User.aspx" />
     <Content Include="Views\Shared\EditorTemplates\UserType.aspx" />
     <Content Include="Views\Shared\_MainMenu.ascx" />
     <Content Include="Views\Supplier\Suppliers.aspx" />
     <Content Include="Views\Supplier\SupplierTypes.aspx" />
+    <Content Include="Views\Transits\Transits.aspx" />
+    <Content Include="Views\Users\Comments.aspx" />
+    <Content Include="Views\Users\Users.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

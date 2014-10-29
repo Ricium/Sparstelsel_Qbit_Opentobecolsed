@@ -8,14 +8,7 @@ using System.Web.Mvc;
 
 namespace SparStelsel.Models
 {
-    /// <summary>
-    /// 
-    /// 
-    /// 
-    /// 
-    /// 
-    ///
-    /// </summary>
+
 
     public class FNB
     {
@@ -34,15 +27,16 @@ namespace SparStelsel.Models
         [Required(ErrorMessage = "Amount is required.")]
         public decimal Amount { get; set; }
 
-        [DisplayName("FNB Type ID")]
+        [DisplayName("FNB Type")]
         [Required(ErrorMessage = "FNB Type ID is required.")]
+        public string fnbtype { get; set; }
         public int FNBTypeID { get; set; }
 
-        [DisplayName("User ID")]
+        [DisplayName("User")]
         [Required(ErrorMessage = "User ID is required.")]
         public int UserID { get; set; }
 
-        [DisplayName("User Type ID")]
+        [DisplayName("User Type")]
         [Required(ErrorMessage = "User Type ID is required.")]
         public int UserTypeID { get; set; }
     }

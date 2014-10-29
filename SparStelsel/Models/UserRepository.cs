@@ -60,7 +60,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_User", con);
+            cmdI = new SqlCommand("SELECT u.*,ut.UserType FROM t_User u inner join l_UserType ut on u.UserTypeID = ut.UserTypeID", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -77,6 +77,7 @@ namespace SparStelsel.Models
                     ins.UserCell = (drI["UserCell"]).ToString();
                     ins.UserEmail = (drI["UserEmail"]).ToString();
                     ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
+                    ins.usertype = drI["UserType"].ToString();
                     list.Add(ins);
                 }
             }

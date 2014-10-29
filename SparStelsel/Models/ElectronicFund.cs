@@ -34,6 +34,7 @@ namespace SparStelsel.Models
 
         [DisplayName("Electronic Type ID")]
         [Required(ErrorMessage = "Electronic Type ID is required.")]
+        public string electronicfund { get; set; }
         public int ElectronicTypeID { get; set; }
 
         [DisplayName("User ID")]

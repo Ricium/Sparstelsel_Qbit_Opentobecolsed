@@ -36,10 +36,12 @@ namespace SparStelsel.Models
 
         [DisplayName("Movement Type ID")]
         [Required(ErrorMessage = "Movement Type ID is required.")]
+        public string movementtype { get; set; }
         public int MovementTypeID { get; set; }
 
         [DisplayName("Money Unit ID")]
         [Required(ErrorMessage = "Money Unit ID is required.")]
+        public string moneyunit { get; set; }
         public int MoneyUnitID { get; set; }
 
         [DisplayName("User ID")]

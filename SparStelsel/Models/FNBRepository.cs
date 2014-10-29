@@ -60,7 +60,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_FNB", con);
+            cmdI = new SqlCommand("SELECT f.*,ft.FNBType FROM t_FNB f inner join l_FNBType ft on f.FNBTypeID=ft.FNBTypeID", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -75,8 +75,10 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.FNBTypeID = Convert.ToInt32(drI["FNBTypeID"]);
+                    ins.fnbtype = drI["FNBType"].ToString();
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
+                    
                     list.Add(ins);
                 }
             }

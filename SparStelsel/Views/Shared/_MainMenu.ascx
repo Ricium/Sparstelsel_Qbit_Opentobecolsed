@@ -28,6 +28,7 @@
                          item.Add().Text("UserType").Url("~/Maintenance/UserTypes");
                          item.Add().Text("ElectronicType").Url("~/Maintenance/ElectronicTypes");
                          item.Add().Text("FNBType").Url("~/Maintenance/FNBTypes");
+                         item.Add().Text("Budget").Url("~/Maintenance/Budgets");
                      });
 
             items.Add()
@@ -59,6 +60,27 @@
             {
                  GRVitems.Add().Text("GRV").Url("~/GRV/GRVLists");
             });
+            items.Add()
+         .Text("Users")
+         .Url("~/Home/Index")
+         .Items(Uitems =>
+         {
+             Uitems.Add().Text("Users").Url("~/Users/Users");
+         });
+            items.Add()
+            .Text("Transits")
+            .Url("~/Home/Index")
+            .Items(Tritems =>
+            {
+                Tritems.Add().Text("Transits").Url("~/Transits/Transits");
+            });
+            items.Add()
+      .Text("CashBox")
+      .Url("~/Home/Index")
+      .Items(Tritems =>
+      {
+          Tritems.Add().Text("CashBoxs").Url("~/CashBoxs/Cash");
+      });
                 
         })
              .Render();

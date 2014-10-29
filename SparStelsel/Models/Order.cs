@@ -36,10 +36,12 @@ namespace SparStelsel.Models
 
         [DisplayName("Supplier ID")]
         [Required(ErrorMessage = "Supplier ID is required.")]
+        public string supplier { get; set; }
         public int SupplierID { get; set; }
 
         [DisplayName("Supplier Type ID")]
         [Required(ErrorMessage = "Supplier Type ID is required.")]
+        public string suppliertype { get; set; }
         public int SupplierTypeID { get; set; }
 
         [DisplayName("User ID")]

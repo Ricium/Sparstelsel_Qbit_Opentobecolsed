@@ -59,7 +59,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_ElectronicFund", con);
+            cmdI = new SqlCommand("SELECT ef.*,et.ElectronicType FROM t_ElectronicFund ef inner join l_ElectronicType et on ef.ElectronicTypeID=et.ElectronicTypeID", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -73,6 +73,7 @@ namespace SparStelsel.Models
                     ins.ElectronicFunds = Convert.ToString(drI["ElectronicFund"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
+                    ins.electronicfund = drI["ElectronicType"].ToString();
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);

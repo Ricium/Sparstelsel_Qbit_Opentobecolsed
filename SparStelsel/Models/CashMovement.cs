@@ -36,10 +36,12 @@ namespace SparStelsel.Models
 
         [DisplayName("Cash Type ID")]
         [Required(ErrorMessage = "Cash Type ID is required.")]
+        public string cashtype { get; set; }
         public int CashTypeID { get; set; }
 
         [DisplayName("Money Unit ID")]
         [Required(ErrorMessage = "Money Unit ID is required.")]
+        public string moneyunit { get; set; }
         public int MoneyUnitID { get; set; }
 
         [DisplayName("User ID")]

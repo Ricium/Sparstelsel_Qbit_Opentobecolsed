@@ -36,6 +36,7 @@ namespace SparStelsel.Models
 
         [DisplayName("Instant Money Type ID")]
         [Required(ErrorMessage = "Instant Money Type ID is required.")]
+        public string instantmoneytype { get; set; }
         public int InstantMoneyTypeID { get; set; }
 
         [DisplayName("User ID")]

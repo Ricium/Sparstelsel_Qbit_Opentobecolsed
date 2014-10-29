@@ -8,14 +8,7 @@ using System.Web.Mvc;
 
 namespace SparStelsel.Models
 {
-    /// <summary>
-    /// 
-    /// 
-    /// 
-    /// 
-    /// 
-    ///
-    /// </summary>
+
 
     public class User
     {
@@ -48,8 +41,11 @@ namespace SparStelsel.Models
         [StringLength(20, ErrorMessage = "UserEmail may not be longer than 20 characters")]
         public string UserEmail { get; set; }
 
+       
+
+        public int UserTypeID { get; set; }
         [DisplayName("User Type ID")]
         [Required(ErrorMessage = "User Type ID is required.")]
-        public int UserTypeID { get; set; }
+        public string usertype { get; set; }
     }
 }

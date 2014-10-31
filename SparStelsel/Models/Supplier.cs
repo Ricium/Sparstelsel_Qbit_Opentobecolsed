@@ -23,8 +23,8 @@ namespace SparStelsel.Models
         [Required(ErrorMessage = "Supplier ID is required.")]
         public int SupplierID { get; set; }
 
-        [DisplayName("Supplier")]
-        [Required(ErrorMessage = "Supplier is required.")]
+        [DisplayName("Suppliers")]
+        [Required(ErrorMessage = "Suppliers is required.")]
         [StringLength(20, ErrorMessage = "Supplier may not be longer than 20 characters")]
         public string Suppliers { get; set; }
 
@@ -38,16 +38,33 @@ namespace SparStelsel.Models
         [StringLength(50, ErrorMessage = "Term may not be longer than 50 characters")]
         public string Term { get; set; }
 
-        [DisplayName("Supplier Type")]
+        [DisplayName("Created Date")]
+        [Required(ErrorMessage = "Created Date is required.")]
+        public DateTime CreatedDate { get; set; }
+
+        [DisplayName("Supplier Type ID")]
         [Required(ErrorMessage = "Supplier Type ID is required.")]
         public int SupplierTypeID { get; set; }
-        [DisplayName("Supplier Type")]
-        public string suppliertypeid { get; set; }
 
-        [DisplayName("Product ")]
+        [DisplayName("Product ID")]
         [Required(ErrorMessage = "Product ID is required.")]
         public int ProductID { get; set; }
-        [DisplayName("Product ")]
-        public string productid { get; set; }
+
+        [DisplayName("Company ID")]
+        [Required(ErrorMessage = "Company ID is required.")]
+        public int CompanyID { get; set; }
+
+        [DisplayName("Modified Date")]
+        [Required(ErrorMessage = "Modified Date is required.")]
+        public DateTime ModifiedDate { get; set; }
+
+
+        [DisplayName("Modified By")]
+        [Required(ErrorMessage = "Modified By is required.")]
+        public int ModifiedBy { get; set; }
+
+        [DisplayName("Removed")]
+        [Required(ErrorMessage = "Removed is required.")]
+        public bool Removed { get; set; }
     }
 }

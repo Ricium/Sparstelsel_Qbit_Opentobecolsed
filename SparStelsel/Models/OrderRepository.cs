@@ -29,15 +29,18 @@ namespace SparStelsel.Models
             {
                 while (drI.Read())
                 {
-                    ins.OrderID = Convert.ToInt32(drI["MovementTypeID"]);
+                    ins.OrderID = Convert.ToInt32(drI["OrderID"]);
                     ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
-                    ins.ExspectedDeliveryDate = Convert.ToDateTime(drI["ExspectedDeliveryDate"]);
+                    ins.ExpectedDeliveryDate = Convert.ToDateTime(drI["ExpectedDeliveryDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                 }
             }
 
@@ -74,15 +77,16 @@ namespace SparStelsel.Models
                     ins = new Order();
                     ins.OrderID = Convert.ToInt32(drI["OrderID"]);
                     ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
-                    ins.ExspectedDeliveryDate = Convert.ToDateTime(drI["ExspectedDeliveryDate"]);
+                    ins.ExpectedDeliveryDate = Convert.ToDateTime(drI["ExpectedDeliveryDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.supplier = drI["Supplier"].ToString();
-                    ins.suppliertype = drI["SupplierType"].ToString();
-                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -120,13 +124,16 @@ namespace SparStelsel.Models
                     ins = new Order();
                     ins.OrderID = Convert.ToInt32(drI["OrderID"]);
                     ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
-                    ins.ExspectedDeliveryDate = Convert.ToDateTime(drI["ExspectedDeliveryDate"]);
+                    ins.ExpectedDeliveryDate = Convert.ToDateTime(drI["ExpectedDeliveryDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -164,13 +171,16 @@ namespace SparStelsel.Models
                     ins = new Order();
                     ins.OrderID = Convert.ToInt32(drI["OrderID"]);
                     ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
-                    ins.ExspectedDeliveryDate = Convert.ToDateTime(drI["ExspectedDeliveryDate"]);
+                    ins.ExpectedDeliveryDate = Convert.ToDateTime(drI["ExpectedDeliveryDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -208,13 +218,16 @@ namespace SparStelsel.Models
                     ins = new Order();
                     ins.OrderID = Convert.ToInt32(drI["OrderID"]);
                     ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
-                    ins.ExspectedDeliveryDate = Convert.ToDateTime(drI["ExspectedDeliveryDate"]);
+                    ins.ExpectedDeliveryDate = Convert.ToDateTime(drI["ExpectedDeliveryDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -252,13 +265,16 @@ namespace SparStelsel.Models
                     ins = new Order();
                     ins.OrderID = Convert.ToInt32(drI["OrderID"]);
                     ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
-                    ins.ExspectedDeliveryDate = Convert.ToDateTime(drI["ExspectedDeliveryDate"]);
+                    ins.ExpectedDeliveryDate = Convert.ToDateTime(drI["ExpectedDeliveryDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -298,13 +314,16 @@ namespace SparStelsel.Models
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@OrderID", ins.OrderID);             
                 cmdI.Parameters.AddWithValue("@OrderDate", ins.OrderDate);
-                cmdI.Parameters.AddWithValue("@ExspectedDeliveryDate", ins.ExspectedDeliveryDate);
+                cmdI.Parameters.AddWithValue("@ExpectedDeliveryDate", ins.ExpectedDeliveryDate);
                 cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
+                cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
                 cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
-                cmdI.Parameters.AddWithValue("@SupplierTypeID", ins.SupplierTypeID);
-                cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
                 cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
                 cmdI.Parameters.AddWithValue("@CommentID", ins.CommentID);
+                cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
                 //...Return new ID
                 ins.OrderID = (int)cmdI.ExecuteScalar();
@@ -348,16 +367,19 @@ namespace SparStelsel.Models
             cmdI.Parameters.Clear();
             cmdI.CommandText = StoredProcedures.OrderUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-            cmdI.Parameters.AddWithValue("@MovementTypeID", ins.OrderID);
-            cmdI.Parameters.AddWithValue("@OrderDate", ins.OrderDate);
-            cmdI.Parameters.AddWithValue("@ExspectedDeliveryDate", ins.ExspectedDeliveryDate);
-            cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
-            cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
-            cmdI.Parameters.AddWithValue("@SupplierTypeID", ins.SupplierTypeID);
-            cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
-            cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
-            cmdI.Parameters.AddWithValue("@CommentID", ins.CommentID);
-
+                 cmdI.Parameters.AddWithValue("@OrderID", ins.OrderID);
+                 cmdI.Parameters.AddWithValue("@OrderDate", ins.OrderDate);
+                 cmdI.Parameters.AddWithValue("@ExpectedDeliveryDate", ins.ExpectedDeliveryDate);
+                 cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
+                 cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+                 cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
+                 cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
+                 cmdI.Parameters.AddWithValue("@CommentID", ins.CommentID);
+                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+                 cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+                 cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+                
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
 

@@ -32,6 +32,10 @@ namespace SparStelsel.Models
                     ins.BudgetID = Convert.ToInt32(drI["BudgetID"]);
                     ins.BudgetDate = Convert.ToDateTime(drI["BudgetDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                 }
             }
 
@@ -69,6 +73,10 @@ namespace SparStelsel.Models
                     ins.BudgetID = Convert.ToInt32(drI["BudgetID"]);
                     ins.BudgetDate = Convert.ToDateTime(drI["BudgetDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -109,6 +117,10 @@ namespace SparStelsel.Models
                 //cmdI.Parameters.AddWithValue("@BudgetID", ins.BudgetID);             
                 cmdI.Parameters.AddWithValue("@BudgetDate", ins.BudgetDate);
                 cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
+                cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
                 //...Return new ID
                 ins.BudgetID = (int)cmdI.ExecuteScalar();
@@ -155,6 +167,10 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@BudgetID", ins.BudgetID);
             cmdI.Parameters.AddWithValue("@BudgetDate", ins.BudgetDate);
             cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
+            cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

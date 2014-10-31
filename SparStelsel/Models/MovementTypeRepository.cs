@@ -30,7 +30,11 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
-                    ins.MovementTypes = Convert.ToString(drI["MovementType"]);
+                    ins.MovementTypes = Convert.ToString(drI["MovementTypes"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                 }
             }
 
@@ -66,7 +70,11 @@ namespace SparStelsel.Models
                 {
                     ins = new MovementType();
                     ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
-                    ins.MovementTypes = Convert.ToString(drI["MovementType"]);
+                    ins.MovementTypes = Convert.ToString(drI["MovementTypes"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -106,6 +114,10 @@ namespace SparStelsel.Models
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@MovementTypeID", ins.MovementTypeID);             
                 cmdI.Parameters.AddWithValue("@MovementType", ins.MovementTypes);
+                cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
                 //...Return new ID
                 ins.MovementTypeID = (int)cmdI.ExecuteScalar();
@@ -151,6 +163,10 @@ namespace SparStelsel.Models
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@MovementTypeID", ins.MovementTypeID);
             cmdI.Parameters.AddWithValue("@MovementType", ins.MovementTypes);
+            cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

@@ -30,8 +30,13 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
-                    ins.Comments = Convert.ToString(drI["Comment"]);
+                    ins.Comments = Convert.ToString(drI["Comments"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.CommentTypeID = Convert.ToInt32(drI["CommentTypeID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                 }
             }
 
@@ -67,9 +72,13 @@ namespace SparStelsel.Models
                 {
                     ins = new Comment();
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
-                    ins.Comments = Convert.ToString(drI["Comment"]);
-                    ins.Comments = Convert.ToString(drI["CommentTypeID"]);
-                    ins.commenttype = drI["CommentType"].ToString();
+                    ins.Comments = Convert.ToString(drI["Comments"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.CommentTypeID = Convert.ToInt32(drI["CommentTypeID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -106,8 +115,13 @@ namespace SparStelsel.Models
                 {
                     ins = new Comment();
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
-                    ins.Comments = Convert.ToString(drI["Comment"]);
+                    ins.Comments = Convert.ToString(drI["Comments"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.CommentTypeID = Convert.ToInt32(drI["CommentTypeID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -146,7 +160,13 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.CommentInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@CommentID", ins.CommentID);             
-                cmdI.Parameters.AddWithValue("@Comment", ins.Comments);
+                cmdI.Parameters.AddWithValue("@Comments", ins.Comments);
+                cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+                cmdI.Parameters.AddWithValue("@CommentTypeID", ins.CommentTypeID);
+                cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
                 //...Return new ID
                 ins.CommentTypeID = (int)cmdI.ExecuteScalar();
@@ -191,8 +211,13 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.CommentUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@CommentID", ins.CommentID);
-            cmdI.Parameters.AddWithValue("@Comment", ins.Comments);
+            cmdI.Parameters.AddWithValue("@Comments", ins.Comments);
+            cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
             cmdI.Parameters.AddWithValue("@CommentTypeID", ins.CommentTypeID);
+            cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

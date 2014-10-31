@@ -48,5 +48,25 @@ namespace SparStelsel.Models
         [DisplayName("BTW")]
         [Required(ErrorMessage = "BTW is required.")]
         public decimal BTW { get; set; }
+
+        [DisplayName("Created Date")]
+        [Required(ErrorMessage = "CreatedDate is required.")]
+        public DateTime CreatedDate { get; set; }
+
+        [DisplayName("CompanyID")]
+        [Required(ErrorMessage = "CompanyID is required.")]
+        public int CompanyID { get; set; }
+
+        [DisplayName("ModifiedDate")]
+        [Required(ErrorMessage = "ModifiedDate is required.")]
+        public DateTime ModifiedDate { get; set; }
+
+        [DisplayName("ModifiedBy")]
+        [Required(ErrorMessage = "ModifiedBy is required.")]
+        public int ModifiedBy { get; set; }
+
+        [DisplayName("Removed")]
+        [Required(ErrorMessage = "Removed is required.")]
+        public bool Removed { get; set; }
     }
 }

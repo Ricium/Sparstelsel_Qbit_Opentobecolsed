@@ -27,33 +27,44 @@ namespace SparStelsel.Models
         [Required(ErrorMessage = "Order Date is required.")]
         public DateTime OrderDate { get; set; }
 
-        [DisplayName("Exspected Delivery Date")]
-        public DateTime ExspectedDeliveryDate { get; set; }
+        [DisplayName("Expected Delivery Date")]
+        public DateTime ExpectedDeliveryDate { get; set; }
 
         [DisplayName("Amount")]
         [Required(ErrorMessage = "Amount is required.")]
         public decimal Amount { get; set; }
+
+        [DisplayName("Created Date")]
+        [Required(ErrorMessage = "Created Date is required.")]
+        public DateTime CreatedDate { get; set; }
 
         [DisplayName("Supplier ID")]
         [Required(ErrorMessage = "Supplier ID is required.")]
         public string supplier { get; set; }
         public int SupplierID { get; set; }
 
-        [DisplayName("Supplier Type ID")]
-        [Required(ErrorMessage = "Supplier Type ID is required.")]
-        public string suppliertype { get; set; }
-        public int SupplierTypeID { get; set; }
-
         [DisplayName("User ID")]
         [Required(ErrorMessage = "User ID is required.")]
         public int UserID { get; set; }
 
-        [DisplayName("User Type ID")]
-        [Required(ErrorMessage = "User Type ID is required.")]
-        public int UserTypeID { get; set; }
-
         [DisplayName("Comment ID")]
         [Required(ErrorMessage = "Comment ID is required.")]
         public int CommentID { get; set; }
+
+        [DisplayName("Company ID")]
+        [Required(ErrorMessage = "Company ID is required.")]
+        public int CompanyID { get; set; }
+
+        [DisplayName("Modified Date")]
+        [Required(ErrorMessage = "Modified Date is required.")]
+        public DateTime ModifiedDate { get; set; }
+
+        [DisplayName("Modified By")]
+        [Required(ErrorMessage = "Modified By is required.")]
+        public int ModifiedBy { get; set; }
+
+        [DisplayName("Removed")]
+        [Required(ErrorMessage = "Removed is required.")]
+        public bool Removed { get; set; }
     }
 }

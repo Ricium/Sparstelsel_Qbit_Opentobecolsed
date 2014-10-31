@@ -31,10 +31,13 @@ namespace SparStelsel.Models
                 {
                     ins.ProofOfPaymentID = Convert.ToInt32(drI["ProofOfPaymentID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
-                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.PaymentDescription = Convert.ToString(drI["PaymentDescription"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                 }
             }
 
@@ -71,12 +74,13 @@ namespace SparStelsel.Models
                     ins = new ProofOfPayment();
                     ins.ProofOfPaymentID = Convert.ToInt32(drI["ProofOfPaymentID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
-                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.PaymentDescription = drI["PaymentDescription"].ToString();
+                    ins.PaymentDescription = Convert.ToString(drI["PaymentDescription"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.supplierid = drI["Supplier"].ToString();
-                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.suppliertype = drI["SupplierType"].ToString();
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -114,10 +118,13 @@ namespace SparStelsel.Models
                     ins = new ProofOfPayment();
                     ins.ProofOfPaymentID = Convert.ToInt32(drI["ProofOfPaymentID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
-                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.PaymentDescription = Convert.ToString(drI["PaymentDescription"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -155,10 +162,13 @@ namespace SparStelsel.Models
                     ins = new ProofOfPayment();
                     ins.ProofOfPaymentID = Convert.ToInt32(drI["ProofOfPaymentID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
-                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.PaymentDescription = Convert.ToString(drI["PaymentDescription"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -198,10 +208,13 @@ namespace SparStelsel.Models
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@ProofOfPaymentID", ins.ProofOfPaymentID);             
                 cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
-                cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
                 cmdI.Parameters.AddWithValue("@PaymentDescription", ins.PaymentDescription);
+                cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
                 cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
-                cmdI.Parameters.AddWithValue("@SupplierTypeID", ins.SupplierTypeID);
+                cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
                 //...Return new ID
                 ins.ProofOfPaymentID = (int)cmdI.ExecuteScalar();
@@ -247,10 +260,13 @@ namespace SparStelsel.Models
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@ProofOfPaymentID", ins.ProofOfPaymentID);
             cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
-            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
             cmdI.Parameters.AddWithValue("@PaymentDescription", ins.PaymentDescription);
+            cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
             cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
-            cmdI.Parameters.AddWithValue("@SupplierTypeID", ins.SupplierTypeID);
+            cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

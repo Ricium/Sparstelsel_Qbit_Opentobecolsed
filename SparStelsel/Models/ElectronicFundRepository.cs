@@ -30,11 +30,15 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.ElectronicFundID = Convert.ToInt32(drI["ElectronicFundID"]);
-                    ins.ElectronicFunds = Convert.ToString(drI["ElectronicFund"]);
+                    ins.ElectronicFunds = Convert.ToString(drI["ElectronicFunds"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
-                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                 }
             }
 
@@ -70,12 +74,15 @@ namespace SparStelsel.Models
                 {
                     ins = new ElectronicFund();
                     ins.ElectronicFundID = Convert.ToInt32(drI["ElectronicFundID"]);
-                    ins.ElectronicFunds = Convert.ToString(drI["ElectronicFund"]);
+                    ins.ElectronicFunds = Convert.ToString(drI["ElectronicFunds"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
-                    ins.electronicfund = drI["ElectronicType"].ToString();
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
-                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -112,11 +119,15 @@ namespace SparStelsel.Models
                 {
                     ins = new ElectronicFund();
                     ins.ElectronicFundID = Convert.ToInt32(drI["ElectronicFundID"]);
-                    ins.ElectronicFunds = Convert.ToString(drI["ElectronicFund"]);
+                    ins.ElectronicFunds = Convert.ToString(drI["ElectronicFunds"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
-                    ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicFundTypeID"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
-                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -153,11 +164,15 @@ namespace SparStelsel.Models
                 {
                     ins = new ElectronicFund();
                     ins.ElectronicFundID = Convert.ToInt32(drI["ElectronicFundID"]);
-                    ins.ElectronicFunds = Convert.ToString(drI["ElectronicFund"]);
+                    ins.ElectronicFunds = Convert.ToString(drI["ElectronicFunds"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
-                    ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicFundTypeID"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
-                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -194,11 +209,15 @@ namespace SparStelsel.Models
                 {
                     ins = new ElectronicFund();
                     ins.ElectronicFundID = Convert.ToInt32(drI["ElectronicFundID"]);
-                    ins.ElectronicFunds = Convert.ToString(drI["ElectronicFund"]);
+                    ins.ElectronicFunds = Convert.ToString(drI["ElectronicFunds"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
-                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -237,12 +256,15 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.ElectronicFundInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@ElectronicFundID", ins.ElectronicFundID);             
-                cmdI.Parameters.AddWithValue("@ElectronicFund", ins.ElectronicFunds);
-                cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ElectronicFunds", ins.ElectronicFunds);
                 cmdI.Parameters.AddWithValue("@Total", ins.Total);
+                cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
                 cmdI.Parameters.AddWithValue("@ElectronicTypeID", ins.ElectronicTypeID);
-                cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
-                cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
+                cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
+                cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
                 //...Return new ID
                 ins.ElectronicFundID = (int)cmdI.ExecuteScalar();
@@ -287,11 +309,15 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.ElectronicFundUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@ElectronicFundID", ins.ElectronicFundID);
-            cmdI.Parameters.AddWithValue("@ElectronicFund", ins.ElectronicFunds);
+            cmdI.Parameters.AddWithValue("@ElectronicFunds", ins.ElectronicFunds);
             cmdI.Parameters.AddWithValue("@Total", ins.Total);
+            cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
             cmdI.Parameters.AddWithValue("@ElectronicTypeID", ins.ElectronicTypeID);
-            cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
-            cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
+            cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
+            cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

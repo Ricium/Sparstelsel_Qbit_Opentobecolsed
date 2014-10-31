@@ -361,8 +361,8 @@
     <Compile Include="Models\CashBoxRepository.cs" />
     <Compile Include="Models\CashMovement.cs" />
     <Compile Include="Models\CashMovementRepository.cs" />
-    <Compile Include="Models\CashReconcilation.cs" />
-    <Compile Include="Models\CashReconcilationRepository.cs" />
+    <Compile Include="Models\CashReconciliation.cs" />
+    <Compile Include="Models\CashReconciliationRepository.cs" />
     <Compile Include="Models\CashType.cs" />
     <Compile Include="Models\CashTypeRepository.cs" />
     <Compile Include="Models\CoinMovement.cs" />
@@ -406,8 +406,8 @@
     <Compile Include="Models\ProductRepository.cs" />
     <Compile Include="Models\ProofOfPayment.cs" />
     <Compile Include="Models\ProofOfPaymentRepository.cs" />
-    <Compile Include="Models\ReconcilationType.cs" />
-    <Compile Include="Models\ReconcilationTypeRepository.cs" />
+    <Compile Include="Models\ReconciliationType.cs" />
+    <Compile Include="Models\ReconciliationTypeRepository.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Models\SupplierRepository.cs" />
     <Compile Include="Models\SupplierType.cs" />

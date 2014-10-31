@@ -30,7 +30,11 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.GRVTypeID = Convert.ToInt32(drI["GRVTypeID"]);
-                    ins.GRVTypes = (drI["GRVType"]).ToString();
+                    ins.GRVTypes = Convert.ToString(drI["GRVTypes"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                 }
             }
 
@@ -66,7 +70,11 @@ namespace SparStelsel.Models
                 {
                     ins = new GRVType();
                     ins.GRVTypeID = Convert.ToInt32(drI["GRVTypeID"]);
-                    ins.GRVTypes = (drI["GRVType"]).ToString();
+                    ins.GRVTypes = Convert.ToString(drI["GRVTypes"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -85,7 +93,7 @@ namespace SparStelsel.Models
             //...Get User and Date Data...
              string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
              int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
-             string strTrx = "KwikPayIns_" + EmployeeId;
+             string strTrx = "GRVTypeIns_" + EmployeeId;
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -105,7 +113,11 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.GRVTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@GRVTypeID", ins.GRVTypeID);             
-                cmdI.Parameters.AddWithValue("@GRVType", ins.GRVTypes);
+                cmdI.Parameters.AddWithValue("@GRVTypes", ins.GRVTypes);
+                cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
                 //...Return new ID
                 ins.GRVTypeID = (int)cmdI.ExecuteScalar();
@@ -150,7 +162,11 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.GRVTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@GRVTypeID", ins.GRVTypeID);
-            cmdI.Parameters.AddWithValue("@GRVType", ins.GRVTypes);
+            cmdI.Parameters.AddWithValue("@GRVTypes", ins.GRVTypes);
+            cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

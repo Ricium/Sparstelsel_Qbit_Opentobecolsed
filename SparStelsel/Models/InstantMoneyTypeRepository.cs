@@ -31,6 +31,10 @@ namespace SparStelsel.Models
                 {
                     ins.InstantMoneyTypeID = Convert.ToInt32(drI["InstantMoneyTypeID"]);
                     ins.InstantMoneyTypes = Convert.ToString(drI["InstantMoneyType"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                 }
             }
 
@@ -67,6 +71,10 @@ namespace SparStelsel.Models
                     ins = new InstantMoneyType();
                     ins.InstantMoneyTypeID = Convert.ToInt32(drI["InstantMoneyTypeID"]);
                     ins.InstantMoneyTypes = Convert.ToString(drI["InstantMoneyType"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -106,6 +114,10 @@ namespace SparStelsel.Models
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@InstantMoneyTypeID", ins.InstantMoneyTypeID);             
                 cmdI.Parameters.AddWithValue("@InstantMoneyType", ins.InstantMoneyTypes);
+                cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
                 //...Return new ID
                 ins.InstantMoneyTypeID = (int)cmdI.ExecuteScalar();
@@ -151,6 +163,10 @@ namespace SparStelsel.Models
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@InstantMoneyTypeID", ins.InstantMoneyTypeID);
             cmdI.Parameters.AddWithValue("@InstantMoneyType", ins.InstantMoneyTypes);
+            cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

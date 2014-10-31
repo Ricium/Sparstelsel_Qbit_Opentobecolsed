@@ -63,6 +63,10 @@ namespace SparStelsel.Models
         [Required(ErrorMessage = "Including Vat is required.")]
         public decimal IncludingVat { get; set; }
 
+        [DisplayName("Created Date")]
+        [Required(ErrorMessage = "Created Date is required.")]
+        public DateTime CreatedDate { get; set; }
+
         [DisplayName("GRV Type ID")]
         [Required(ErrorMessage = "GRV Type ID is required.")]
         public int GRVTypeID { get; set; }
@@ -71,8 +75,20 @@ namespace SparStelsel.Models
         [Required(ErrorMessage = "Supplier ID is required.")]
         public int SupplierID { get; set; }
 
-        [DisplayName("Supplier Type ID")]
-        [Required(ErrorMessage = "Supplier Type ID is required.")]
-        public int SupplierTypeID { get; set; }
+        [DisplayName("Company ID")]
+        [Required(ErrorMessage = "Company ID is required.")]
+        public int CompanyID { get; set; }
+
+        [DisplayName("Modified Date")]
+        [Required(ErrorMessage = "Modified Date is required.")]
+        public DateTime ModifiedDate { get; set; }
+
+        [DisplayName("Modified By")]
+        [Required(ErrorMessage = "Modified By is required.")]
+        public int ModifiedBy { get; set; }
+
+        [DisplayName("Removed")]
+        [Required(ErrorMessage = "Removed is required.")]
+        public bool Removed { get; set; }
     }
 }

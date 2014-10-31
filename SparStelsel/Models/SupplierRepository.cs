@@ -30,11 +30,16 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.Suppliers = (drI["Supplier"]).ToString();
+                    ins.Suppliers = (drI["Suppliers"]).ToString();
                     ins.StockCondition = (drI["StockCondition"]).ToString();
                     ins.Term = Convert.ToString(drI["Term"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     ins.ProductID = Convert.ToInt32(drI["ProductID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                 }
             }
 
@@ -70,13 +75,16 @@ namespace SparStelsel.Models
                 {
                     ins = new Supplier();
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.Suppliers= Convert.ToString(drI["Supplier"]);
-                    ins.StockCondition = Convert.ToString(drI["StockCondition"]);
+                    ins.Suppliers = (drI["Suppliers"]).ToString();
+                    ins.StockCondition = (drI["StockCondition"]).ToString();
                     ins.Term = Convert.ToString(drI["Term"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.suppliertypeid = drI["SupplierType"].ToString();
                     ins.ProductID = Convert.ToInt32(drI["ProductID"]);
-                    ins.productid = drI["Product"].ToString();
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -113,11 +121,16 @@ namespace SparStelsel.Models
                 {
                     ins = new Supplier();
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.Suppliers = Convert.ToString(drI["Supplier"]);
-                    ins.StockCondition = Convert.ToString(drI["StockCondition"]);
+                    ins.Suppliers = (drI["Suppliers"]).ToString();
+                    ins.StockCondition = (drI["StockCondition"]).ToString();
                     ins.Term = Convert.ToString(drI["Term"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     ins.ProductID = Convert.ToInt32(drI["ProductID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -154,11 +167,16 @@ namespace SparStelsel.Models
                 {
                     ins = new Supplier();
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.Suppliers = Convert.ToString(drI["Supplier"]);
-                    ins.StockCondition = Convert.ToString(drI["StockCondition"]);
+                    ins.Suppliers = (drI["Suppliers"]).ToString();
+                    ins.StockCondition = (drI["StockCondition"]).ToString();
                     ins.Term = Convert.ToString(drI["Term"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     ins.ProductID = Convert.ToInt32(drI["ProductID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -177,7 +195,7 @@ namespace SparStelsel.Models
             //...Get User and Date Data...
              string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
              int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
-             string strTrx = "KwikPayIns_" + EmployeeId;
+             string strTrx = "SupplierIns_" + EmployeeId;
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -197,11 +215,16 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.SupplierInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);             
-                cmdI.Parameters.AddWithValue("@Supplier", ins.Suppliers);
+                cmdI.Parameters.AddWithValue("@Suppliers", ins.Suppliers);
                 cmdI.Parameters.AddWithValue("@StockCondition", ins.StockCondition);
                 cmdI.Parameters.AddWithValue("@Term", ins.Term);
+                cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
                 cmdI.Parameters.AddWithValue("@SupplierTypeID", ins.SupplierTypeID);
                 cmdI.Parameters.AddWithValue("@ProductID", ins.ProductID);
+                cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
                 //...Return new ID
                 ins.SupplierID = (int)cmdI.ExecuteScalar();
@@ -246,11 +269,16 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.SupplierUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
-            cmdI.Parameters.AddWithValue("@Supplier", ins.Suppliers);
+            cmdI.Parameters.AddWithValue("@Suppliers", ins.Suppliers);
             cmdI.Parameters.AddWithValue("@StockCondition", ins.StockCondition);
             cmdI.Parameters.AddWithValue("@Term", ins.Term);
+            cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
             cmdI.Parameters.AddWithValue("@SupplierTypeID", ins.SupplierTypeID);
             cmdI.Parameters.AddWithValue("@ProductID", ins.ProductID);
+            cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

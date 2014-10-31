@@ -30,12 +30,17 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.ProductID = Convert.ToInt32(drI["ProductID"]);
-                    ins.Products = (drI["Product"]).ToString();
+                    ins.Products = (drI["Products"]).ToString();
                     ins.ProductDescription = (drI["ProductDescription"]).ToString();
                     ins.Price = Convert.ToDecimal(drI["Price"]);
                     ins.Quantity = Convert.ToInt32(drI["Quantity"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.BTW = Convert.ToDecimal(drI["BTW"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                 }
             }
 
@@ -71,17 +76,17 @@ namespace SparStelsel.Models
                 {
                     ins = new Product();
                     ins.ProductID = Convert.ToInt32(drI["ProductID"]);
-                    ins.Products = (drI["Product"]).ToString();
+                    ins.Products = (drI["Products"]).ToString();
                     ins.ProductDescription = (drI["ProductDescription"]).ToString();
                     ins.Price = Convert.ToDecimal(drI["Price"]);
                     ins.Quantity = Convert.ToInt32(drI["Quantity"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.BTW = Convert.ToDecimal(drI["BTW"]);
-                    if (ins.BTW == null)
-                    {
-                        ins.BTW = 0;
-                    }
-
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -94,13 +99,14 @@ namespace SparStelsel.Models
             //...Return...
             return list;
         }
+                   
 
         public Product Insert(Product ins)
         {
             //...Get User and Date Data...
              string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
              int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
-             string strTrx = "KwikPayIns_" + EmployeeId;
+             string strTrx = "ProductIns_" + EmployeeId;
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -120,12 +126,17 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.ProductInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@ProductID", ins.ProductID);             
-                cmdI.Parameters.AddWithValue("@Product", ins.Products);
+                cmdI.Parameters.AddWithValue("@Products", ins.Products);
                 cmdI.Parameters.AddWithValue("@ProductDescription", ins.ProductDescription);
                 cmdI.Parameters.AddWithValue("@Price", ins.Price);
                 cmdI.Parameters.AddWithValue("@Quantity", ins.Quantity);
                 cmdI.Parameters.AddWithValue("@Total", ins.Total);
                 cmdI.Parameters.AddWithValue("@BTW", ins.BTW);
+                cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+                cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
                 //...Return new ID
                 ins.ProductID = (int)cmdI.ExecuteScalar();
@@ -170,12 +181,17 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.ProductUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@ProductID", ins.ProductID);
-            cmdI.Parameters.AddWithValue("@Product", ins.Products);
+            cmdI.Parameters.AddWithValue("@Products", ins.Products);
             cmdI.Parameters.AddWithValue("@ProductDescription", ins.ProductDescription);
             cmdI.Parameters.AddWithValue("@Price", ins.Price);
             cmdI.Parameters.AddWithValue("@Quantity", ins.Quantity);
             cmdI.Parameters.AddWithValue("@Total", ins.Total);
             cmdI.Parameters.AddWithValue("@BTW", ins.BTW);
+            cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+            cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

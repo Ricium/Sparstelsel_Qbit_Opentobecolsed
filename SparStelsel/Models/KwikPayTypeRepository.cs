@@ -30,7 +30,11 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.KwikPayTypeID = Convert.ToInt32(drI["KwikPayTypeID"]);
-                    ins.KwikPayTypes = Convert.ToString(drI["KwikPayType"]);
+                    ins.KwikPayTypes = Convert.ToString(drI["KwikPayTypes"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                 }
             }
 
@@ -66,7 +70,11 @@ namespace SparStelsel.Models
                 {
                     ins = new KwikPayType();
                     ins.KwikPayTypeID = Convert.ToInt32(drI["KwikPayTypeID"]);
-                    ins.KwikPayTypes = Convert.ToString(drI["KwikPayType"]);
+                    ins.KwikPayTypes = Convert.ToString(drI["KwikPayTypes"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -105,7 +113,11 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.KwikPayTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@KwikPayID", ins.KwikPayID);             
-                cmdI.Parameters.AddWithValue("@KwikPayType", ins.KwikPayTypes);
+                cmdI.Parameters.AddWithValue("@KwikPayTypes", ins.KwikPayTypes);
+                cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
                 //...Return new ID
                 ins.KwikPayTypeID = (int)cmdI.ExecuteScalar();
@@ -150,7 +162,11 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.KwikPayTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@KwikPayTypeID", ins.KwikPayTypeID);
-            cmdI.Parameters.AddWithValue("@KwikPayType", ins.KwikPayTypes);
+            cmdI.Parameters.AddWithValue("@KwikPayTypes", ins.KwikPayTypes);
+            cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

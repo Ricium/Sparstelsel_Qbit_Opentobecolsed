@@ -30,7 +30,11 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
-                    ins.CashTypes = Convert.ToString(drI["CashType"]);
+                    ins.CashTypes = Convert.ToString(drI["CashTypes"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                 }
             }
 
@@ -66,7 +70,11 @@ namespace SparStelsel.Models
                 {
                     ins = new CashType();
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
-                    ins.CashTypes = Convert.ToString(drI["CashType"]);
+                    ins.CashTypes = Convert.ToString(drI["CashTypes"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -105,7 +113,11 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.CashTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);             
-                cmdI.Parameters.AddWithValue("@CashType", ins.CashTypes);
+                cmdI.Parameters.AddWithValue("@CashTypes", ins.CashTypes);
+                cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
                 //...Return new ID
                 ins.CashTypeID = (int)cmdI.ExecuteScalar();
@@ -150,7 +162,11 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.CashTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);
-            cmdI.Parameters.AddWithValue("@CashType", ins.CashTypes);
+            cmdI.Parameters.AddWithValue("@CashTypes", ins.CashTypes);
+            cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

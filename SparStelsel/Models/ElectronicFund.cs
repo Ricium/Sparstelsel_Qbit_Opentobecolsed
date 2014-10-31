@@ -32,6 +32,10 @@ namespace SparStelsel.Models
         [Required(ErrorMessage = "Total is required.")]
         public decimal Total { get; set; }
 
+        [DisplayName("CreatedDate")]
+        [Required(ErrorMessage = "CreatedDate is required.")]
+        public DateTime CreatedDate { get; set; }
+
         [DisplayName("Electronic Type ID")]
         [Required(ErrorMessage = "Electronic Type ID is required.")]
         public string electronicfund { get; set; }
@@ -41,8 +45,20 @@ namespace SparStelsel.Models
         [Required(ErrorMessage = "User ID is required.")]
         public int UserID { get; set; }
 
-        [DisplayName("User Type ID")]
-        [Required(ErrorMessage = "User Type ID is required.")]
-        public int UserTypeID { get; set; }
+        [DisplayName("Company ID")]
+        [Required(ErrorMessage = "Company ID is required.")]
+        public int CompanyID { get; set; }
+
+        [DisplayName("Modified Date")]
+        [Required(ErrorMessage = "Modified Date is required.")]
+        public DateTime ModifiedDate { get; set; }
+
+        [DisplayName("Modified By")]
+        [Required(ErrorMessage = "Modified By is required.")]
+        public int ModifiedBy { get; set; }
+
+        [DisplayName("Removed")]
+        [Required(ErrorMessage = "Removed is required.")]
+        public bool Removed { get; set; }
     }
 }

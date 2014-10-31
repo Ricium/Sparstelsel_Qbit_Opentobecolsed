@@ -32,8 +32,12 @@ namespace SparStelsel.Models
                 {
                     ins.TransitID = Convert.ToInt32(drI["TransitID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
-                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                 }
             }
 
@@ -58,7 +62,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM l_Transit", con);
+            cmdI = new SqlCommand("SELECT * FROM t_Transit", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -70,8 +74,12 @@ namespace SparStelsel.Models
                     ins = new Transit();
                     ins.TransitID = Convert.ToInt32(drI["TransitID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
-                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
             }
@@ -113,8 +121,12 @@ namespace SparStelsel.Models
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@TransitID", ins.TransitID);             
                 cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
-                cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
                 cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
+                cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+                cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
                 //...Return new ID
                 ins.TransitID = (int)cmdI.ExecuteScalar();
@@ -160,8 +172,12 @@ namespace SparStelsel.Models
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@TransitID", ins.TransitID);
             cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
-            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
             cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
+            cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+            cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

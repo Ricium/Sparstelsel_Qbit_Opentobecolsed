@@ -8,14 +8,6 @@ using System.Web.Mvc;
 
 namespace SparStelsel.Models
 {
-    /// <summary>
-    /// 
-    /// 
-    /// 
-    /// 
-    /// 
-    ///
-    /// </summary>
 
     public class KwikPay
     {
@@ -38,6 +30,9 @@ namespace SparStelsel.Models
         [DisplayName("Kwik Pay Type ID")]
         [Required(ErrorMessage = "Kwik Pay Type ID is required.")]
         public int KwikPayTypeID { get; set; }
+        [DisplayName("Kwik Pay Type ID")]
+        [Required(ErrorMessage = "Kwik Pay Type ID is required.")]
+        public string kwikpaytypeid { get; set; }
 
         [DisplayName("User ID")]
         [Required(ErrorMessage = "User ID is required.")]

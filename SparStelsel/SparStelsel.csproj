@@ -340,6 +340,7 @@
       <DependentUpon>UploadLocalization.zh-CN.resx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CashController.cs" />
+    <Compile Include="Controllers\CashUpController.cs" />
     <Compile Include="Controllers\ElectronicFundsController.cs" />
     <Compile Include="Controllers\FNBController.cs" />
     <Compile Include="Controllers\GRVController.cs" />
@@ -359,7 +360,11 @@
     <Compile Include="Models\BudgetRepository.cs" />
     <Compile Include="Models\CashBox.cs" />
     <Compile Include="Models\CashBoxRepository.cs" />
+    <Compile Include="Models\CashEntry.cs" />
     <Compile Include="Models\CashMovement.cs" />
+    <Compile Include="Models\CashMovementFNB.cs" />
+    <Compile Include="Models\CashMovementInstantMoney.cs" />
+    <Compile Include="Models\CashMovementKwikPay.cs" />
     <Compile Include="Models\CashMovementRepository.cs" />
     <Compile Include="Models\CashReconciliation.cs" />
     <Compile Include="Models\CashReconciliationRepository.cs" />
@@ -371,6 +376,7 @@
     <Compile Include="Models\CommentRepository.cs" />
     <Compile Include="Models\CommentType.cs" />
     <Compile Include="Models\CommentTypeRepository.cs" />
+    <Compile Include="Models\CurrentUser.cs" />
     <Compile Include="Models\DropDownRepository.cs" />
     <Compile Include="Models\ElectronicFund.cs" />
     <Compile Include="Models\ElectronicFundRepository.cs" />
@@ -390,6 +396,7 @@
     <Compile Include="Models\InstantMoneyTypeRepository.cs" />
     <Compile Include="Models\KwikPay.cs" />
     <Compile Include="Models\KwikPayRepository.cs" />
+    <Compile Include="Models\KwikPaySummary.cs" />
     <Compile Include="Models\KwikPayType.cs" />
     <Compile Include="Models\KwikPayTypeRepository.cs" />
     <Compile Include="Models\MoneyUnit.cs" />
@@ -401,6 +408,9 @@
     <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\PermissionRepository.cs" />
     <Compile Include="Models\PickUp.cs" />
+    <Compile Include="Models\PickUpFNB.cs" />
+    <Compile Include="Models\PickUpInstantMoney.cs" />
+    <Compile Include="Models\PickUpKwikpay.cs" />
     <Compile Include="Models\PickUpRepository.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductRepository.cs" />
@@ -668,6 +678,21 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\CashUp\FNBs.aspx" />
+    <Content Include="Views\CashUp\InstantMoneys.aspx" />
+    <Content Include="Views\CashUp\KwikPays.aspx" />
+    <Content Include="Views\CashUp\_CashFNB.ascx" />
+    <Content Include="Views\CashUp\_ElectronicFund.ascx" />
+    <Content Include="Views\CashUp\_ElectronicFundFNB.ascx" />
+    <Content Include="Views\CashUp\_ElectronicFundInstantMoney.ascx" />
+    <Content Include="Views\CashUp\_Cash.ascx" />
+    <Content Include="Views\CashUp\_CashInstantMoney.ascx" />
+    <Content Include="Views\CashUp\_FNB.ascx" />
+    <Content Include="Views\CashUp\_InstantMoney.ascx" />
+    <Content Include="Views\CashUp\_KwikPays.ascx" />
+    <Content Include="Views\CashUp\_PickUp.ascx" />
+    <Content Include="Views\CashUp\_PickUpFNB.ascx" />
+    <Content Include="Views\CashUp\_PickUpInstantMoney.ascx" />
     <Content Include="Views\Cash\CashBoxs.aspx" />
     <Content Include="Views\Cash\CashMovements.aspx" />
     <Content Include="Views\Cash\CoinMovements.aspx" />
@@ -695,6 +720,9 @@
     <Content Include="Views\Products\Products.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Budget.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CashMovement.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\CashMovementFNB.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\CashMovementInstantMoney.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\CashMovementKwikPay.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CashType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CoinMovement.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Comment.aspx" />
@@ -706,10 +734,14 @@
     <Content Include="Views\Shared\EditorTemplates\GRVType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\InstantMoney.aspx" />
     <Content Include="Views\Shared\EditorTemplates\InstantMoneyType.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\KwikPay.aspx" />
     <Content Include="Views\Shared\EditorTemplates\KwikPayType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\MoneyUnit.aspx" />
     <Content Include="Views\Shared\EditorTemplates\MovementType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Order.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\PickUpFNB.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\PickUpInstantMoney.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\PickUpKwikPay.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Product.aspx" />
     <Content Include="Views\Shared\EditorTemplates\ProofOfPayment.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Supplier.aspx" />

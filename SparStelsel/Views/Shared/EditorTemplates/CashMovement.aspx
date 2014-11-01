@@ -40,28 +40,6 @@
                             <%: Html.ValidationMessageFor(m => m.Amount) %>
                         </td>
                     </tr>
-  
-                    <tr>
-                     <td>
-                           <%: Html.LabelFor(m => m.MoneyUnitID)%>
-                        </td>
-                        <td>
-                           <%: Html.Telerik().DropDownListFor(m => m.MoneyUnitID).BindTo((IEnumerable<SelectListItem>) ViewData["MoneyUnit"]).HtmlAttributes(new { style = "width: 250px" })%>
-                            <%: Html.ValidationMessageFor(model => model.MoneyUnitID) %>
-                        </td>
-                    </tr> 
-                    <tr>
-                               
-                    <tr>
-                     <td>
-                           <%: Html.LabelFor(m => m.CashTypeID)%>
-                        </td>
-                        <td>
-                           <%: Html.Telerik().DropDownListFor(m => m.CashTypeID).BindTo((IEnumerable<SelectListItem>) ViewData["CashType"]).HtmlAttributes(new { style = "width: 250px" })%>
-                            <%: Html.ValidationMessageFor(model => model.CashTypeID) %>
-                        </td>
-                    </tr> 
-                    <tr>
                                      
 
                 </table>

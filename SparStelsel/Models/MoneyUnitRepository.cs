@@ -115,8 +115,8 @@ namespace SparStelsel.Models
                 //cmdI.Parameters.AddWithValue("@MoneyUnitID", ins.MoneyUnitID);             
                 cmdI.Parameters.AddWithValue("@MoneyUnit", ins.MoneyUnits);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
-                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
                 //...Return new ID
@@ -164,9 +164,9 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@MoneyUnitID", ins.MoneyUnitID);
             cmdI.Parameters.AddWithValue("@MoneyUnit", ins.MoneyUnits);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
-            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
-            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+            cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+           
 
 
             cmdI.ExecuteNonQuery();

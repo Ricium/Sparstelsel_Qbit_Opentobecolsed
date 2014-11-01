@@ -290,7 +290,7 @@ namespace SparStelsel.Models
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@InstantMoneyID", ins.InstantMoneyID);             
                 cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
-                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
                 cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
                 cmdI.Parameters.AddWithValue("@MovementTypeID", ins.MovementTypeID);
                 cmdI.Parameters.AddWithValue("@MoneyUnitID", ins.MoneyUnitID);
@@ -341,12 +341,12 @@ namespace SparStelsel.Models
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@CoinMovementID", ins.CoinMovementID);
             cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
-            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
             cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
             cmdI.Parameters.AddWithValue("@MovementTypeID", ins.MovementTypeID);
             cmdI.Parameters.AddWithValue("@MoneyUnitID", ins.MoneyUnitID);
-            cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
-            cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
+            cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
+        
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

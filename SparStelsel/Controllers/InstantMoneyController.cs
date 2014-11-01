@@ -22,7 +22,7 @@ namespace SparStelsel.Controllers
         //List
         // List SupplierType
         [GridAction]
-        public ActionResult _ListElectronicFunds()
+        public ActionResult _ListInstantMoneys()
         {
             return View(new GridModel(IRep.GetAllInstantMoney()));
         }

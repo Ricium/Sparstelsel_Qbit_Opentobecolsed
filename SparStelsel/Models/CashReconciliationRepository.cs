@@ -248,7 +248,7 @@ namespace SparStelsel.Models
             try
             {
                 //...Insert Record...
-                cmdI.CommandText = StoredProcedures.CashReconciliationInsert;
+                cmdI.CommandText = StoredProcedures.CashReconcilationInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@CashReconcilationID", ins.CashReconcilationID);             
                 cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
@@ -256,8 +256,8 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@ReconciliationTypeID", ins.ReconciliationTypeID);
                 cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
-                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
                 //...Return new ID
@@ -300,7 +300,7 @@ namespace SparStelsel.Models
 
             //...Update Record...
             cmdI.Parameters.Clear();
-            cmdI.CommandText = StoredProcedures.CashReconciliationUpdate;
+            cmdI.CommandText = StoredProcedures.CashReconcilationUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@CashReconciliationID", ins.CashReconciliationID);
             cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
@@ -308,9 +308,9 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@ReconciliationTypeID", ins.ReconciliationTypeID);
             cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
-            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
-            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+            cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+      
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
@@ -361,7 +361,7 @@ namespace SparStelsel.Models
             {
                 //...Remove Record...
                 cmdI.Parameters.Clear();
-                cmdI.CommandText = StoredProcedures.CashReconciliationRemove;
+                cmdI.CommandText = StoredProcedures.CashReconcilationRemove; 
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 cmdI.Parameters.AddWithValue("@CashReconciliationID", ID);
                 cmdI.ExecuteNonQuery();

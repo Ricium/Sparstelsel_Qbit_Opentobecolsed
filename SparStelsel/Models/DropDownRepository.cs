@@ -347,5 +347,33 @@ namespace SparStelsel.Models
 
             return obj;
         }
+
+        public List<SelectListItem> GetKwikPayType()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT KwikPayTypeID,KwikPayType FROM l_KwikPayType", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["KwikPayType"].ToString();
+                    result.Value = drI["KwikPayTypeID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
     }
 }

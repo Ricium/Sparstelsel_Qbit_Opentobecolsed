@@ -168,9 +168,9 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
                 cmdI.Parameters.AddWithValue("@MovementTypeID", ins.MovementTypeID);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
-                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
-                cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+                cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+                cmdI.Parameters.AddWithValue("@Removed", 0);
 
                 //...Return new ID
                 ins.CashBoxID = (int)cmdI.ExecuteScalar();
@@ -220,9 +220,9 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
             cmdI.Parameters.AddWithValue("@MovementTypeID", ins.MovementTypeID);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
-            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
-            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+         
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

@@ -63,7 +63,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_KwikPay", con);
+            cmdI = new SqlCommand("SELECT kp.*,kpt.KwikPayType FROM t_KwikPay kp inner join l_KwikPayType kpt on kp.KwikPayTypeID = kpt.KwikPayTypeID", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -78,6 +78,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.KwikPayTypeID = Convert.ToInt32(drI["KwikPayTypeID"]);
+                    ins.kwikpaytypeid = drI["KwikPayType"].ToString();
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
@@ -262,8 +263,8 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@KwikPayTypeID", ins.KwikPayTypeID);
                 cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
-                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
                 //...Return new ID
@@ -315,9 +316,9 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@KwikPayTypeID", ins.KwikPayTypeID);
             cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
-            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
-            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+            cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+       
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

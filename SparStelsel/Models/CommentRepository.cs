@@ -164,8 +164,8 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
                 cmdI.Parameters.AddWithValue("@CommentTypeID", ins.CommentTypeID);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
-                cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
+                cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
                 //...Return new ID
@@ -196,8 +196,8 @@ namespace SparStelsel.Models
         public Comment Update(Comment ins)
         {
             //...Get User and Date Data...
-            // string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            // int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
+             int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -215,9 +215,9 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
             cmdI.Parameters.AddWithValue("@CommentTypeID", ins.CommentTypeID);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
-            cmdI.Parameters.AddWithValue("@ModifiedDate", ins.ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
-            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+            cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+ 
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

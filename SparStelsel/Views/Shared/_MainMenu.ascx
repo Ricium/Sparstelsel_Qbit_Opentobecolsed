@@ -81,6 +81,16 @@
       {
           Tritems.Add().Text("CashBoxs").Url("~/CashBoxs/Cash");
       });
+           
+            items.Add()
+                .Text("CashUp")
+                .Url("~/Home/Index")
+                .Items(Tritems =>
+                {
+                    Tritems.Add().Text("KwikPay").Url("~/CashUp/Kwikpays");
+                    Tritems.Add().Text("InstantMoney").Url("~/CashUp/InstantMoneys");
+                    Tritems.Add().Text("FNB").Url("~/CashUp/FNBs");
+                });
                 
         })
              .Render();

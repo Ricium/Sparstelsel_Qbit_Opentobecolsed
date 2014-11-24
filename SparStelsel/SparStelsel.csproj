@@ -339,6 +339,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UploadLocalization.zh-CN.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CashController.cs" />
     <Compile Include="Controllers\CashUpController.cs" />
     <Compile Include="Controllers\ElectronicFundsController.cs" />
@@ -356,6 +357,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Budget.cs" />
     <Compile Include="Models\BudgetRepository.cs" />
     <Compile Include="Models\CashBox.cs" />
@@ -679,6 +681,10 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\Account\ChangePassword.aspx" />
+    <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
+    <Content Include="Views\Account\LogOn.aspx" />
+    <Content Include="Views\Account\Register.aspx" />
     <Content Include="Views\CashUp\FNBs.aspx" />
     <Content Include="Views\CashUp\InstantMoneys.aspx" />
     <Content Include="Views\CashUp\KwikPays.aspx" />

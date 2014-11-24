@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
-                    ins.CashTypes = Convert.ToString(drI["CashTypes"]);
+                    ins.CashTypes = Convert.ToString(drI["CashType"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
@@ -70,7 +70,7 @@ namespace SparStelsel.Models
                 {
                     ins = new CashType();
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
-                    ins.CashTypes = Convert.ToString(drI["CashTypes"]);
+                    ins.CashTypes = Convert.ToString(drI["CashType"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
@@ -113,7 +113,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.CashTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);             
-                cmdI.Parameters.AddWithValue("@CashTypes", ins.CashTypes);
+                cmdI.Parameters.AddWithValue("@CashType", ins.CashTypes);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
                 cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
@@ -162,7 +162,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.CashTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);
-            cmdI.Parameters.AddWithValue("@CashTypes", ins.CashTypes);
+            cmdI.Parameters.AddWithValue("@CashType", ins.CashTypes);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
             cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);

@@ -35,7 +35,6 @@ namespace SparStelsel.Models
                     ins.Term = Convert.ToString(drI["Term"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.ProductID = Convert.ToInt32(drI["ProductID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
@@ -64,7 +63,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT s.*,st.SupplierType,p.Product FROM t_Supplier s inner join t_SupplierType st on s.SupplierTypeID=st.SupplierTypeID inner join t_Product p on s.ProductID = p.ProductID", con);
+            cmdI = new SqlCommand("SELECT s.*,st.SupplierType FROM t_Supplier s inner join l_SupplierType st on s.SupplierTypeID=st.SupplierTypeID", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -75,12 +74,12 @@ namespace SparStelsel.Models
                 {
                     ins = new Supplier();
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.Suppliers = (drI["Suppliers"]).ToString();
+                    ins.Suppliers = (drI["Supplier"]).ToString();
                     ins.StockCondition = (drI["StockCondition"]).ToString();
                     ins.Term = Convert.ToString(drI["Term"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.ProductID = Convert.ToInt32(drI["ProductID"]);
+                    ins.suppliertypeid = drI["SupplierType"].ToString();
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
@@ -121,12 +120,11 @@ namespace SparStelsel.Models
                 {
                     ins = new Supplier();
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.Suppliers = (drI["Suppliers"]).ToString();
+                    ins.Suppliers = (drI["Supplier"]).ToString();
                     ins.StockCondition = (drI["StockCondition"]).ToString();
                     ins.Term = Convert.ToString(drI["Term"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.ProductID = Convert.ToInt32(drI["ProductID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
@@ -167,12 +165,11 @@ namespace SparStelsel.Models
                 {
                     ins = new Supplier();
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.Suppliers = (drI["Suppliers"]).ToString();
+                    ins.Suppliers = (drI["Supplier"]).ToString();
                     ins.StockCondition = (drI["StockCondition"]).ToString();
                     ins.Term = Convert.ToString(drI["Term"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.ProductID = Convert.ToInt32(drI["ProductID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
@@ -215,12 +212,11 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.SupplierInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);             
-                cmdI.Parameters.AddWithValue("@Suppliers", ins.Suppliers);
+                cmdI.Parameters.AddWithValue("@Supplier", ins.Suppliers);
                 cmdI.Parameters.AddWithValue("@StockCondition", ins.StockCondition);
                 cmdI.Parameters.AddWithValue("@Term", ins.Term);
-                cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+                cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
                 cmdI.Parameters.AddWithValue("@SupplierTypeID", ins.SupplierTypeID);
-                cmdI.Parameters.AddWithValue("@ProductID", ins.ProductID);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
                 cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
@@ -269,12 +265,11 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.SupplierUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
-            cmdI.Parameters.AddWithValue("@Suppliers", ins.Suppliers);
+            cmdI.Parameters.AddWithValue("@Supplier", ins.Suppliers);
             cmdI.Parameters.AddWithValue("@StockCondition", ins.StockCondition);
             cmdI.Parameters.AddWithValue("@Term", ins.Term);
-            cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+            cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
             cmdI.Parameters.AddWithValue("@SupplierTypeID", ins.SupplierTypeID);
-            cmdI.Parameters.AddWithValue("@ProductID", ins.ProductID);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
             cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);

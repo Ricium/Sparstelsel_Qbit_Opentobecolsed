@@ -65,7 +65,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_Product", con);
+            cmdI = new SqlCommand("SELECT t.*,s.Supplier FROM t_Product t inner join t_Supplier s on t.SupplierID = s.SupplierID", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -81,6 +81,7 @@ namespace SparStelsel.Models
                     ins.Price = Convert.ToDecimal(drI["Price"]);
                     ins.Quantity = Convert.ToInt32(drI["Quantity"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
+                    ins.supplierid = drI["Supplier"].ToString();
                     ins.BTW = Convert.ToDecimal(drI["BTW"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
@@ -132,11 +133,12 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@Quantity", ins.Quantity);
                 cmdI.Parameters.AddWithValue("@Total", ins.Total);
                 cmdI.Parameters.AddWithValue("@BTW", ins.BTW);
-                cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+                cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
                 cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+                cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
 
                 //...Return new ID
                 ins.ProductID = (int)cmdI.ExecuteScalar();
@@ -187,10 +189,11 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@Quantity", ins.Quantity);
             cmdI.Parameters.AddWithValue("@Total", ins.Total);
             cmdI.Parameters.AddWithValue("@BTW", ins.BTW);
-            cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+            cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
             cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
+            cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
     ;
 
             cmdI.ExecuteNonQuery();

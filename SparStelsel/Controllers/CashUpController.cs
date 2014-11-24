@@ -41,7 +41,7 @@ namespace SparStelsel.Controllers
         [GridAction]
         public ActionResult _ListCashMovements()
         {
-            return View(new GridModel(CMRep.GetAllCashMovement()));
+            return View(new GridModel(CMRep.GetCashMovementsPerCashType(1)));
         }
         // Cashmovements
         public ActionResult CashMovements()
@@ -49,6 +49,12 @@ namespace SparStelsel.Controllers
             ViewData["CashType"] = DDRep.GetCashTypeList();
             ViewData["MoneyUnit"] = DDRep.GetMoneyUnitList();
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult InsertCashMovement(CashEntry ins)
+        {
+            return null;
         }
 
         //Add CashMovementsKwikPay
@@ -67,7 +73,7 @@ namespace SparStelsel.Controllers
             CashMovement ins2 = CMRep.Insert(z);
 
             //...Repopulate Grid...
-            return View(new GridModel(CMRep.GetAllCashMovement()));
+            return View(new GridModel(CMRep.GetCashMovementsPerCashType(1)));
         }
         //Update CashMovementsKwikPay
         [GridAction]
@@ -84,7 +90,7 @@ namespace SparStelsel.Controllers
             CashMovement ins2 = CMRep.Update(z);
 
             //...Repopulate Grid...
-            return View(new GridModel(CMRep.GetAllCashMovement()));
+            return View(new GridModel(CMRep.GetCashMovementsPerCashType(1)));
         }
         //Remove CashMovementsKwikPay
         [AcceptVerbs(HttpVerbs.Post)]
@@ -96,7 +102,7 @@ namespace SparStelsel.Controllers
             CMRep.Remove(ins);
 
             //...Repopulate Grid...
-            return View(new GridModel(CMRep.GetAllCashMovement()));
+            return View(new GridModel(CMRep.GetCashMovementsPerCashType(1)));
         }
 
 
@@ -158,7 +164,7 @@ namespace SparStelsel.Controllers
         [GridAction]
         public ActionResult _ListCashMovementsC()
         {
-            return View(new GridModel(CMRep.GetAllCashMovementC()));
+            return View(new GridModel(CMRep.GetCashMovementsPerCashType(2)));
         }
         // Cheques kwikpay
         public ActionResult CashMovementsC()
@@ -180,12 +186,12 @@ namespace SparStelsel.Controllers
             z.CashMovementID = ins.CashMovementID;
             z.MoneyUnitID = 0;
             z.CashTypeID = 2;//For cheques
-
+            CashMovement ins2 = CMRep.Insert(z);
             //...Repopulate Grid...
    
 
             //...Repopulate Grid...
-            return View(new GridModel(CMRep.GetAllCashMovementC()));
+            return View(new GridModel(CMRep.GetCashMovementsPerCashType(2)));
         }
         //Update Cheques kwikpay
         [GridAction]
@@ -201,7 +207,7 @@ namespace SparStelsel.Controllers
             CashMovement ins2 = CMRep.Update(z);
 
             //...Repopulate Grid...
-            return View(new GridModel(CMRep.GetAllCashMovementC()));
+            return View(new GridModel(CMRep.GetCashMovementsPerCashType(2)));
         }
         //Remove Cheques kwikpay
         [AcceptVerbs(HttpVerbs.Post)]
@@ -213,7 +219,7 @@ namespace SparStelsel.Controllers
             CMRep.Remove(ins);
 
             //...Repopulate Grid...
-            return View(new GridModel(CMRep.GetAllCashMovementC()));
+            return View(new GridModel(CMRep.GetCashMovementsPerCashType(2)));
         }
 
 
@@ -238,8 +244,9 @@ namespace SparStelsel.Controllers
         [GridAction]
         public ActionResult _InsertKwikPays(KwikPay ins)
         {
+            int a = 0;
+            a++;
             
-
             KwikPay ins2 = KRep.Insert(ins);
 
             //...Repopulate Grid...

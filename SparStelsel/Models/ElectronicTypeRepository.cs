@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
-                    ins.ElectronicTypes = Convert.ToString(drI["ElectronicTypes"]);
+                    ins.ElectronicTypes = Convert.ToString(drI["ElectronicType"]);
                     ins.ElectronicTypes = Convert.ToString(drI["ElectronicTypeDescription"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
@@ -60,7 +60,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM l_UserType", con);
+            cmdI = new SqlCommand("SELECT * FROM l_ElectronicType", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -71,7 +71,7 @@ namespace SparStelsel.Models
                 {
                     ins = new ElectronicType();
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
-                    ins.ElectronicTypes = Convert.ToString(drI["ElectronicTypes"]);
+                    ins.ElectronicTypes = Convert.ToString(drI["ElectronicType"]);
                     ins.ElectronicTypes = Convert.ToString(drI["ElectronicTypeDescription"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
@@ -115,7 +115,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.ElectronicTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@ElectronicTypeID", ins.ElectronicTypeID);             
-                cmdI.Parameters.AddWithValue("@ElectronicTypes", ins.ElectronicTypes);
+                cmdI.Parameters.AddWithValue("@ElectronicType", ins.ElectronicTypes);
                 cmdI.Parameters.AddWithValue("@ElectronicTypeDescription", ins.ElectronicTypeDescription);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
@@ -165,7 +165,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.ElectronicTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@ElectronicTypeID", ins.ElectronicTypeID);
-            cmdI.Parameters.AddWithValue("@ElectronicTypes", ins.ElectronicTypes);
+            cmdI.Parameters.AddWithValue("@ElectronicType", ins.ElectronicTypes);
             cmdI.Parameters.AddWithValue("@ElectronicTypeDescription", ins.ElectronicTypeDescription);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);

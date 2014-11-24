@@ -16,7 +16,7 @@
         <div class="page">
             <div id="header">
                 <div id="title">
-                   
+                    <img width="500px" height="80px" src="../../Images/logo.jpg" /> <h1 style="position:relative;color:black;float:right;padding:10px">Marapyane Spar</h1>
                 </div>
                           
             <div id="menucontainer">
@@ -33,7 +33,7 @@
                           
                     <%= Html.Telerik().StyleSheetRegistrar()
                  .DefaultGroup(group => group.Add("telerik.common.min.css")
-                 .Add("telerik.office2010silver.min.css")
+                 .Add("telerik.office2007.min.css")
                      //.Add("telerik." + Html.GetCurrentTheme() + ".css")
                         )
 %>

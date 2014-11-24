@@ -17,6 +17,7 @@ namespace SparStelsel.Controllers
 
         // Repository
         ProductRepository ProdRep = new ProductRepository();
+        DropDownRepository DDRep = new DropDownRepository();
         //List
             //ProductList
         [GridAction]
@@ -28,6 +29,7 @@ namespace SparStelsel.Controllers
         //Functions
         public ActionResult Products()
         {
+            ViewData["Supplier"] = DDRep.GetSupplierList();
             return View();
         }
         [AcceptVerbs(HttpVerbs.Post)]

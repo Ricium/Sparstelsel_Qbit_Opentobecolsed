@@ -84,14 +84,14 @@ namespace SparStelsel.Controllers
         public ActionResult Suppliers()
         {
             ViewData["SupplierType"] = DDRep.GetSupplierTypeList();
-            ViewData["Product"] = DDRep.GetProductsList();
+            
             return View();
         }
 
         //Add SupplierType
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult _InsertSuppliers(Supplier ins)
+        public ActionResult _InsertSupplier(Supplier ins)
         {
             //...Insert Object
             Supplier ins2 = SupplierRep.Insert(ins);

@@ -300,7 +300,7 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@InvoiceDate", ins.InvoiceDate);
                 cmdI.Parameters.AddWithValue("@ExcludingVat", ins.ExcludingVat);
                 cmdI.Parameters.AddWithValue("@IncludingVat", ins.IncludingVat);
-                cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+                cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
                 cmdI.Parameters.AddWithValue("@GRVTypeID", ins.GRVTypeID);
                 cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
@@ -360,7 +360,7 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@InvoiceDate", ins.InvoiceDate);
             cmdI.Parameters.AddWithValue("@ExcludingVat", ins.ExcludingVat);
             cmdI.Parameters.AddWithValue("@IncludingVat", ins.IncludingVat);
-            cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+            cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
             cmdI.Parameters.AddWithValue("@GRVTypeID", ins.GRVTypeID);
             cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);

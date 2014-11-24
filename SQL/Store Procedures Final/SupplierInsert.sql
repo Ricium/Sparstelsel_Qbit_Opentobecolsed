@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 Create PROCEDURE [dbo].[f_Admin_Insert_Supplier]
-			@Suppliers int,
+			@Supplier int,
 		@StockCondition varchar(50),
 		@Term varchar(50),
 		@CreatedDate datetime,
@@ -20,7 +20,7 @@ Create PROCEDURE [dbo].[f_Admin_Insert_Supplier]
 	
 AS
 INSERT INTO [dbo].[t_Supplier] 
-		([Suppliers]
+		([Supplier]
       ,[StockCondition]
       ,[Term]
       ,[CreatedDate]
@@ -33,7 +33,7 @@ INSERT INTO [dbo].[t_Supplier]
 
 	VALUES
 		(
-		@Suppliers,
+		@Supplier,
 		@StockCondition,
 		@Term,
 		@CreatedDate,

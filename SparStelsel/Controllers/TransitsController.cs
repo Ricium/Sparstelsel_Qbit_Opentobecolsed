@@ -9,7 +9,7 @@ using System.IO;
 using Telerik.Web.Mvc.Extensions;
 namespace SparStelsel.Controllers
 {
-    public class TransitController : Controller
+    public class TransitsController : Controller
     {
         //
         // GET: /Transit/

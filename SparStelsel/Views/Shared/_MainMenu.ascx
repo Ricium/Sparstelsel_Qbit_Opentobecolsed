@@ -58,7 +58,7 @@
             .Url("~/Home/Index")
             .Items(GRVitems =>
             {
-                 GRVitems.Add().Text("GRV").Url("~/GRV/GRVLists");
+                GRVitems.Add().Text("GRV").Url("~/GRV/GRVLists");
             });
             items.Add()
          .Text("Users")
@@ -79,7 +79,7 @@
       .Url("~/Home/Index")
       .Items(Tritems =>
       {
-          Tritems.Add().Text("CashBoxs").Url("~/CashBoxs/Cash");
+          Tritems.Add().Text("CashBoxs").Url("~/Cash/CashBoxs");
       });
            
             items.Add()
@@ -87,7 +87,7 @@
                 .Url("~/Home/Index")
                 .Items(Tritems =>
                 {
-                    Tritems.Add().Text("KwikPay").Url("~/CashUp/Kwikpays");
+                    Tritems.Add().Text("KwikPay").Url("~/CashUp/KwikPays");
                     Tritems.Add().Text("InstantMoney").Url("~/CashUp/InstantMoneys");
                     Tritems.Add().Text("FNB").Url("~/CashUp/FNBs");
                 });

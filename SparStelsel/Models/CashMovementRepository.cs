@@ -123,7 +123,7 @@ namespace SparStelsel.Models
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
-                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
+                   
                     list.Add(ins);
                 }
             }
@@ -293,10 +293,13 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
                 cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
                 cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
+                cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+                cmdI.Parameters.AddWithValue("@CompanyID", 0);
                 cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);
                 cmdI.Parameters.AddWithValue("@MoneyUnitID", ins.MoneyUnitID);
                 cmdI.Parameters.AddWithValue("@UserID", UserID);
-                cmdI.Parameters.AddWithValue("@UserTypeID",0);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", UserID);
+                cmdI.Parameters.AddWithValue("@Removed", 0);
 
                 //...Return new ID
                 ins.CashMovementID = (int)cmdI.ExecuteScalar();
@@ -344,10 +347,12 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
             cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
+            cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+            cmdI.Parameters.AddWithValue("@CompanyID", 0);
             cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);
             cmdI.Parameters.AddWithValue("@MoneyUnitID", ins.MoneyUnitID);
             cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
-        
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

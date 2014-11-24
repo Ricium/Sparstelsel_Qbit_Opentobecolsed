@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 Create PROCEDURE [dbo].[f_Admin_Insert_KwikPayType]
-			@KwikPayTypes varchar(50),
+			@KwikPayType varchar(50),
 		@CompanyID int,
 		@ModifiedDate datetime,
 		@ModifiedBy int,
@@ -14,7 +14,7 @@ Create PROCEDURE [dbo].[f_Admin_Insert_KwikPayType]
 	
 AS
 INSERT INTO [dbo].[l_KwikPayType] 
-		([KwikPayTypes]
+		([KwikPayType]
 		,[CompanyID]
 		,[ModifiedDate] 
 		,[ModifiedBy]  
@@ -22,7 +22,7 @@ INSERT INTO [dbo].[l_KwikPayType]
 
 	VALUES
 		(
-		@KwikPayTypes,
+		@KwikPayType,
 		@CompanyID,
 		@ModifiedDate,
 		@ModifiedBy,

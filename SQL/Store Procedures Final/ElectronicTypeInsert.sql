@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 Create PROCEDURE [dbo].[f_Admin_Insert_ElectronicType]
-			@ElectronicTypes varchar(50),
+			@ElectronicType varchar(50),
 		@ElectronicTypeDescription varchar(50),
 		@CompanyID int,
 		@ModifiedDate datetime,
@@ -15,7 +15,7 @@ Create PROCEDURE [dbo].[f_Admin_Insert_ElectronicType]
 	
 AS
 INSERT INTO [dbo].[l_ElectronicType] 
-		([ElectronicTypes]
+		([ElectronicType]
 		,[ElectronicTypeDescription]
 		,[CompanyID]
 		,[ModifiedDate]
@@ -24,7 +24,7 @@ INSERT INTO [dbo].[l_ElectronicType]
 
 	VALUES
 		(
-		@ElectronicTypes,
+		@ElectronicType,
 		@ElectronicTypeDescription,
 		@CompanyID,
 		@ModifiedDate,

@@ -39,7 +39,7 @@
                         columns.Bound(model => model.IncludingVat);
                         columns.Bound(model => model.GRVTypeID);
                         columns.Bound(model => model.SupplierID);
-                        columns.Bound(model => model.SupplierTypeID);                    
+                                          
                    
                             columns.Command(commands =>
                             {

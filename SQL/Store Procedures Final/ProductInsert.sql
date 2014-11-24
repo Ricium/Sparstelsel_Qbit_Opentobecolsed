@@ -21,7 +21,7 @@ Create PROCEDURE [dbo].[f_Admin_Insert_Product]
 	
 AS
 INSERT INTO [dbo].[t_Product] 
-		([Products]
+		([Product]
       ,[ProductDescription]
       ,[Price]
       ,[Quantity]

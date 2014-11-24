@@ -62,7 +62,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT pop.*,s.Supplier,st.SupplierType FROM t_ProofOfPayment pop inner join t_Supplier s on pop.SupplierID =s.SupplierID inner join t_SupplierType st on pop.SupplierTypeID = st.SupplierTypeID", con);
+            cmdI = new SqlCommand("SELECT pop.*,s.Supplier FROM t_ProofOfPayment pop inner join t_Supplier s on pop.SupplierID =s.SupplierID ", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -209,7 +209,7 @@ namespace SparStelsel.Models
                 //cmdI.Parameters.AddWithValue("@ProofOfPaymentID", ins.ProofOfPaymentID);             
                 cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
                 cmdI.Parameters.AddWithValue("@PaymentDescription", ins.PaymentDescription);
-                cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+                cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
                 cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
@@ -261,7 +261,7 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@ProofOfPaymentID", ins.ProofOfPaymentID);
             cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
             cmdI.Parameters.AddWithValue("@PaymentDescription", ins.PaymentDescription);
-            cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+            cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
             cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);

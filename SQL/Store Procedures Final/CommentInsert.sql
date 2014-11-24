@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 Create PROCEDURE [dbo].[f_Admin_Insert_Comment]
-			@Comments varchar(50),
+			@Comment varchar(50),
 		@CreatedDate datetime,	
 		@CommentTypeID int,
         @CompanyID int,
@@ -16,7 +16,7 @@ Create PROCEDURE [dbo].[f_Admin_Insert_Comment]
 	
 AS
 INSERT INTO [dbo].[t_Comment] 
-		([Comments]
+		([Comment]
 	  ,[CreatedDate]
       ,[CommentTypeID]
       ,[CompanyID]
@@ -26,7 +26,7 @@ INSERT INTO [dbo].[t_Comment]
 
 	VALUES
 		(
-		@Comments,
+		@Comment,
 		@CreatedDate,
 		@CommentTypeID,
 		@CompanyID,

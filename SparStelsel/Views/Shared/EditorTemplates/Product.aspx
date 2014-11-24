@@ -76,7 +76,16 @@
                             <%: Html.ValidationMessageFor(m => m.Total) %>
                         </td>
                     </tr>
-               
+                                            <tr>
+                     <td>
+                           <%: Html.LabelFor(m => m.SupplierID)%>
+                        </td>
+                        <td>
+                           <%: Html.Telerik().DropDownListFor(m => m.SupplierID).BindTo((IEnumerable<SelectListItem>) ViewData["Supplier"]).HtmlAttributes(new { style = "width: 250px" })%>
+                            <%: Html.ValidationMessageFor(model => model.SupplierID) %>
+                        </td>
+                    </tr> 
+                    <tr>
                   
                                      
 

@@ -258,7 +258,7 @@ namespace SparStelsel.Models
                 //cmdI.Parameters.AddWithValue("@ElectronicFundID", ins.ElectronicFundID);             
                 cmdI.Parameters.AddWithValue("@ElectronicFunds", ins.ElectronicFunds);
                 cmdI.Parameters.AddWithValue("@Total", ins.Total);
-                cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+                cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
                 cmdI.Parameters.AddWithValue("@ElectronicTypeID", ins.ElectronicTypeID);
                 cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
@@ -311,7 +311,7 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@ElectronicFundID", ins.ElectronicFundID);
             cmdI.Parameters.AddWithValue("@ElectronicFunds", ins.ElectronicFunds);
             cmdI.Parameters.AddWithValue("@Total", ins.Total);
-            cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+            cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
             cmdI.Parameters.AddWithValue("@ElectronicTypeID", ins.ElectronicTypeID);
             cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);

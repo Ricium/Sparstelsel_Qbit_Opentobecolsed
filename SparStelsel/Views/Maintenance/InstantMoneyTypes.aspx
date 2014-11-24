@@ -24,7 +24,7 @@
                  Html.Telerik().Grid<InstantMoneyType>()
                     .Name("InstantMoneyTypes")
                     .DataKeys(keys => keys.Add(s => s.InstantMoneyTypeID))
-                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add GRVType"))
+                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add Instant Money Type"))
                     .Columns(columns =>
                     {
 

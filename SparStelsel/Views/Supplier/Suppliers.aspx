@@ -30,7 +30,7 @@
                         columns.Bound(model => model.SupplierID);
                         columns.Bound(model => model.Suppliers);
                         columns.Bound(model => model.suppliertypeid);
-                        columns.Bound(model => model.productid);
+                       
                         
                    
                             columns.Command(commands =>
@@ -49,7 +49,7 @@
                     {
                         dataBinding.Ajax()
                                    .Select("_ListSuppliers", "Supplier")
-                                   .Insert("_InsertSuppliers", "Supplier")
+                                   .Insert("_InsertSupplier", "Supplier")
                                    .Update("_UpdateSuppliers", "Supplier")
                                    .Delete("_RemoveSuppliers", "Supplier");
                     })

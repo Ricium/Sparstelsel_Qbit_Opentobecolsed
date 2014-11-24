@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.GRVTypeID = Convert.ToInt32(drI["GRVTypeID"]);
-                    ins.GRVTypes = Convert.ToString(drI["GRVTypes"]);
+                    ins.GRVTypes = Convert.ToString(drI["GRVType"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
@@ -70,7 +70,7 @@ namespace SparStelsel.Models
                 {
                     ins = new GRVType();
                     ins.GRVTypeID = Convert.ToInt32(drI["GRVTypeID"]);
-                    ins.GRVTypes = Convert.ToString(drI["GRVTypes"]);
+                    ins.GRVTypes = Convert.ToString(drI["GRVType"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
@@ -113,7 +113,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.GRVTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@GRVTypeID", ins.GRVTypeID);             
-                cmdI.Parameters.AddWithValue("@GRVTypes", ins.GRVTypes);
+                cmdI.Parameters.AddWithValue("@GRVType", ins.GRVTypes);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
                 cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
@@ -162,7 +162,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.GRVTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@GRVTypeID", ins.GRVTypeID);
-            cmdI.Parameters.AddWithValue("@GRVTypes", ins.GRVTypes);
+            cmdI.Parameters.AddWithValue("@GRVType", ins.GRVTypes);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
             cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);

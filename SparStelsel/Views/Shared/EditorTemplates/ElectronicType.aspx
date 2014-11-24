@@ -32,6 +32,16 @@
                         </td>
                     </tr>
                     <tr>
+                               <tr>
+                        <td>
+                            <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.ElectronicTypeDescription) %>
+                        </td>
+                        <td>
+                            <%: Html.TextAreaFor(m => m.ElectronicTypeDescription) %>
+                            <%: Html.ValidationMessageFor(m => m.ElectronicTypeDescription) %>
+                        </td>
+                    </tr>
+                    <tr>
 
                 </table>
             </td>

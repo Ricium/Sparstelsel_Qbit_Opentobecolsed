@@ -5,12 +5,12 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[f_Admin_Insert_Permission]
+CREATE PROCEDURE [dbo].[f_Admin_Insert_Permission]
 			@Permissions int
 	
 AS
 INSERT INTO [dbo].[l_Permission] 
-		([Permissions])
+		([Permission])
 
 	VALUES
 		(

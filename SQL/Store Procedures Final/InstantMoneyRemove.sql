@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER OFF
 GO
 
-Create PROCEDURE [dbo].[f_Admin_Remove_InstantMoney] 
+alter PROCEDURE [dbo].[f_Admin_Remove_InstantMoney] 
 	@InstantMoneyID int,
 	@ModifiedDate datetime,
 	@ModifiedBy int,

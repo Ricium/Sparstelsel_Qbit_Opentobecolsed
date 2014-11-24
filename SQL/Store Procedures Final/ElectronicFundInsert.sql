@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 Create PROCEDURE [dbo].[f_Admin_Insert_ElectronicFund]
-			@ElectronicFunds varchar(50),
+			@ElectronicFund varchar(50),
 		@Total decimal(18,2),
 		@CreatedDate datetime,
 		@ElectronicTypeID int,
@@ -18,7 +18,7 @@ Create PROCEDURE [dbo].[f_Admin_Insert_ElectronicFund]
 	
 AS
 INSERT INTO [dbo].[t_ElectronicFund] 
-		([ElectronicFunds]
+		([ElectronicFund]
       ,[Total]
       ,[CreatedDate]
       ,[ElectronicTypeID]
@@ -30,7 +30,7 @@ INSERT INTO [dbo].[t_ElectronicFund]
 
 	VALUES
 		(
-		@ElectronicFunds,
+		@ElectronicFund,
 		@Total,
 		@CreatedDate,
 		@ElectronicTypeID,

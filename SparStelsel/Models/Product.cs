@@ -68,5 +68,11 @@ namespace SparStelsel.Models
         [DisplayName("Removed")]
         [Required(ErrorMessage = "Removed is required.")]
         public bool Removed { get; set; }
+
+        [DisplayName("Supplier")]
+        [Required(ErrorMessage = "Removed is required.")]
+        public string supplierid { get; set; }
+        public int SupplierID { get; set; }
+
     }
 }

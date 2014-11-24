@@ -24,7 +24,7 @@ Create PROCEDURE [dbo].[f_Admin_Update_Product]
 AS
 UPDATE [t_Product] 
            SET
-		Products=@Products,
+		Product=@Products,
 		ProductDescription=@ProductDescription,
 		Price=@Price,
 		Quantity=@Quantity,

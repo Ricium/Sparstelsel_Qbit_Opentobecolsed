@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER OFF
 GO
 
-ALTER PROCEDURE [dbo].[f_Admin_Remove_User] 
+CREATE PROCEDURE [dbo].[f_Admin_Remove_User] 
 	@UserID int,
 	@Removed bit,
 	@UpdatedBy int,

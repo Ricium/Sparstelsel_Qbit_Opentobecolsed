@@ -34,6 +34,7 @@
                         columns.Bound(model => model.Quantity);
                         columns.Bound(model => model.Price);
                         columns.Bound(model => model.Total);
+                        columns.Bound(model => model.supplierid);
                         
                    
                             columns.Command(commands =>

@@ -17,7 +17,7 @@ Create PROCEDURE [dbo].[f_Admin_Update_CashReconciliation]
 		@ModifiedBy int
    
 AS
-UPDATE [t_CashReconciliation] 
+UPDATE t_CashReconcilation 
            SET
 		ActualDate=@ActualDate,
 		CreatedDate=@CreatedDate,
@@ -26,7 +26,7 @@ UPDATE [t_CashReconciliation]
 		CompanyID=@CompanyID,
 		ModifiedDate=@ModifiedDate,
 		ModifiedBy=@ModifiedBy  
-where CashReconciliationID =@CashReconciliationID
+where CashReconcilationID =@CashReconciliationID
           
 	
 SET NOCOUNT ON 

@@ -8,7 +8,7 @@ GO
 
 Create PROCEDURE [dbo].[f_Admin_Update_Comment] 
 		@CommentID int,
-		@Comments varchar(50),
+		@Comment varchar(50),
 		@CreatedDate datetime,
 		@CommentTypeID int,
 		@CompanyID int,
@@ -19,7 +19,7 @@ Create PROCEDURE [dbo].[f_Admin_Update_Comment]
 AS
 UPDATE [t_Comment] 
            SET
-		Comments=@Comments,
+		Comment=@Comment,
 		CreatedDate=@CreatedDate,
 		CommentTypeID=@CommentTypeID,
 		@CompanyID=@CompanyID,

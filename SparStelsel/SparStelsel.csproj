@@ -351,7 +351,7 @@
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
-    <Compile Include="Controllers\TransitController.cs" />
+    <Compile Include="Controllers\TransitsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -635,6 +635,7 @@
     <Content Include="Content\2013.2.611\Windows7\sprite.png" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\logo.jpg" />
     <Content Include="Scripts\2013.2.611\jquery-1.7.1.min.js" />
     <Content Include="Scripts\2013.2.611\jquery.validate.min.js" />
     <Content Include="Scripts\2013.2.611\telerik.all.min.js" />
@@ -698,7 +699,7 @@
     <Content Include="Views\Cash\CoinMovements.aspx" />
     <Content Include="Views\ElectronicFunds\ElectronicFunds.aspx" />
     <Content Include="Views\FNBs\FNBs.aspx" />
-    <Content Include="Views\GRVLists\GRVLists.aspx" />
+    <Content Include="Views\GRV\GRVLists.aspx" />
     <Content Include="Views\Home\About.aspx" />
     <Content Include="Views\Home\Contact.aspx" />
     <Content Include="Views\Home\Index.aspx" />

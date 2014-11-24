@@ -7,7 +7,7 @@ SET QUOTED_IDENTIFIER OFF
 GO
 
 Create PROCEDURE [dbo].[f_Admin_Remove_CashReconciliation] 
-	@CashReconciliationID int,
+	@CashReconcilationID int,
 	@ModifiedDate datetime,
 	@ModifiedBy int,
 	@Removed bit
@@ -18,7 +18,7 @@ SET
 	ModifiedDate = @ModifiedDate,
 	ModifiedBy = @ModifiedBy,
 	Removed = @Removed
-WHERE CashReconciliationID = @CashReconciliationID
+WHERE CashReconcilationID = @CashReconcilationID
           
 	
 SET NOCOUNT ON 

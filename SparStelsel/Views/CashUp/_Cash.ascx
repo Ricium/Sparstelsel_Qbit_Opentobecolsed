@@ -4,8 +4,19 @@
 <%@ Import Namespace="SparStelsel.Controllers" %>
 <!DOCTYPE html>
 <html>
+    <head>
+        <title></title>
+        <script type="text/javascript">
+            function SaveCashForm() {
+                var form = $('#CashForm').serialize();
+                $.post('/CashUp/InsertCashMovement/', form, function (data) {
+                    $('#CashForm').trigger('reset');
+                });
+            }
+        </script>
+    </head>
         <body>
-       <form id="CashForm" name="CashForm"method="post">
+       <form id="CashForm" name="CashForm" method="post">
                 <%: Html.HiddenFor(m => m.UserID) %>
                 <%:Html.HiddenFor(m => m.CurrentDate) %>
            <%:Html.HiddenFor(m => m.CashTypeID) %>

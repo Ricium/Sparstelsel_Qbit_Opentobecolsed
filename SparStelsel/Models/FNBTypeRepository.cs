@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.FNBTypeID = Convert.ToInt32(drI["FNBTypeID"]);
-                    ins.FNBTypes = Convert.ToString(drI["FNBTypes"]);
+                    ins.FNBTypes = Convert.ToString(drI["FNBType"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
@@ -70,7 +70,7 @@ namespace SparStelsel.Models
                 {
                     ins = new FNBType();
                     ins.FNBTypeID = Convert.ToInt32(drI["FNBTypeID"]);
-                    ins.FNBTypes = Convert.ToString(drI["FNBTypes"]);
+                    ins.FNBTypes = Convert.ToString(drI["FNBType"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
@@ -113,7 +113,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.FNBTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@FNBTypeID", ins.FNBTypeID);             
-                cmdI.Parameters.AddWithValue("@FNBTypes", ins.FNBTypes);
+                cmdI.Parameters.AddWithValue("@FNBType", ins.FNBTypes);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
                 cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
@@ -162,7 +162,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.FNBTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@FNBTypeID", ins.FNBTypeID);
-            cmdI.Parameters.AddWithValue("@FNBTypes", ins.FNBTypes);
+            cmdI.Parameters.AddWithValue("@FNBType", ins.FNBTypes);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
             cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);

@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 Create PROCEDURE [dbo].[f_Admin_Insert_MoneyUnit]
-				@MoneyUnits varchar(50),
+				@MoneyUnit varchar(50),
 			@CompanyID int,
 			@ModifiedDate datetime,
 			@ModifiedBy int,
@@ -14,7 +14,7 @@ Create PROCEDURE [dbo].[f_Admin_Insert_MoneyUnit]
 	
 AS
 INSERT INTO [dbo].[l_MoneyUnit] 
-		([MoneyUnits]
+		([MoneyUnit]
 		,[CompanyID]
 		,[ModifiedDate]
 		,[ModifiedBy]
@@ -22,7 +22,7 @@ INSERT INTO [dbo].[l_MoneyUnit]
 
 	VALUES
 		(
-		@MoneyUnits,
+		@MoneyUnit,
 		@CompanyID,
 		@ModifiedDate,
 		@ModifiedBy,

@@ -20,7 +20,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM SupplierType WHERE SupplierTypeID =" + SupplierTypeID, con);
+            cmdI = new SqlCommand("SELECT * FROM l_SupplierType WHERE SupplierTypeID =" + SupplierTypeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.SupplierTypes = Convert.ToString(drI["SupplierTypes"]);
+                    ins.SupplierTypes = Convert.ToString(drI["SupplierType"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
@@ -70,7 +70,7 @@ namespace SparStelsel.Models
                 {
                     ins = new SupplierType();
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.SupplierTypes = Convert.ToString(drI["SupplierTypes"]);
+                    ins.SupplierTypes = Convert.ToString(drI["SupplierType"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
@@ -113,7 +113,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.SupplierTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@SupplierTypeID", ins.SupplierTypeID);             
-                cmdI.Parameters.AddWithValue("@SupplierTypes", ins.SupplierTypes);
+                cmdI.Parameters.AddWithValue("@SupplierType", ins.SupplierTypes);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
                 cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
@@ -162,7 +162,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.SupplierTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@SupplierTypeID", ins.SupplierTypeID);
-            cmdI.Parameters.AddWithValue("@SupplierTypes", ins.SupplierTypes);
+            cmdI.Parameters.AddWithValue("@SupplierType", ins.SupplierTypes);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
             cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);

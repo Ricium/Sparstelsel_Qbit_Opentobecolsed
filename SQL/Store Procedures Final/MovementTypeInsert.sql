@@ -6,14 +6,14 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 Create PROCEDURE [dbo].[f_Admin_Insert_MovementType]
-			@MovementTypes varchar(50),
+			@MovementType varchar(50),
 		@CompanyID int,
 		@ModifiedDate datetime,
 		@ModifiedBy int,
 		@Removed bit
 AS
 INSERT INTO [dbo].[l_MovementType] 
-		([MovementTypes]
+		([MovementType]
 		,[CompanyID]
 		,[ModifiedDate]
 		,[ModifiedBy]
@@ -21,7 +21,7 @@ INSERT INTO [dbo].[l_MovementType]
 
 	VALUES
 		(
-		@MovementTypes,
+		@MovementType,
 		@CompanyID,
 		@ModifiedDate,
 		@ModifiedBy,

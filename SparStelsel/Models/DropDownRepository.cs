@@ -22,7 +22,7 @@ namespace SparStelsel.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT SupplierTypeID,SupplierType FROM t_SupplierType", con);
+            SqlCommand cmdI = new SqlCommand("SELECT * FROM l_SupplierType", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -76,7 +76,7 @@ namespace SparStelsel.Models
         
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT SupplierID,Supplier FROM t_Product", con);
+            SqlCommand cmdI = new SqlCommand("SELECT SupplierID,Supplier FROM t_Supplier", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

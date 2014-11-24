@@ -5,12 +5,12 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[f_Admin_Insert_UserType]
+CREATE PROCEDURE [dbo].[f_Admin_Insert_UserType]
 			@UserTypes varchar(50)
 	
 AS
 INSERT INTO [dbo].[l_UserType] 
-		([UserTypes])
+		([UserType])
 
 	VALUES
 		(

@@ -8,7 +8,7 @@ GO
 
 Create PROCEDURE [dbo].[f_Admin_Update_Supplier] 
 		@SupplierID int,
-		@Suppliers varchar(50),
+		@Supplier varchar(50),
 		@StockCondition varchar(50),
 		@Term varchar(50),
 		@CreatedDate datetime,
@@ -22,7 +22,7 @@ Create PROCEDURE [dbo].[f_Admin_Update_Supplier]
 AS
 UPDATE [t_Supplier] 
            SET
-		Suppliers=@Suppliers,
+		Supplier=@Supplier,
 		StockCondition=@StockCondition,
 		Term=@Term,
 		CreatedDate=@CreatedDate,

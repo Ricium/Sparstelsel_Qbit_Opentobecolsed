@@ -122,10 +122,11 @@ namespace SparStelsel.Models
                 //cmdI.Parameters.AddWithValue("@TransitID", ins.TransitID);             
                 cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
                 cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
-                cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+                cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
                 cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
+                cmdI.Parameters.AddWithValue("@Removed", 0);
                 
 
                 //...Return new ID
@@ -173,11 +174,11 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@TransitID", ins.TransitID);
             cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
             cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
-            cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+            cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
             cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
-            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+        
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

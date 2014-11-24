@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 Create PROCEDURE [dbo].[f_Admin_Insert_CashType]
-			@CashTypes varchar(50),
+			@CashType varchar(50),
 		@CompanyID int,
 		@ModifiedDate datetime,
 		@ModifiedBy int,
@@ -14,7 +14,7 @@ Create PROCEDURE [dbo].[f_Admin_Insert_CashType]
 	
 AS
 INSERT INTO [dbo].[l_CashType] 
-		([CashTypes]
+		([CashType]
 		,[CompanyID]
 		,[ModifiedDate]
 		,[ModifiedBy]
@@ -22,7 +22,7 @@ INSERT INTO [dbo].[l_CashType]
 
 	VALUES
 		(
-		@CashTypes, 
+		@CashType, 
 		@CompanyID,
 		@ModifiedDate,
 		@ModifiedBy,

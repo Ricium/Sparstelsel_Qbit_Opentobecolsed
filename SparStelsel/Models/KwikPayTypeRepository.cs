@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.KwikPayTypeID = Convert.ToInt32(drI["KwikPayTypeID"]);
-                    ins.KwikPayTypes = Convert.ToString(drI["KwikPayTypes"]);
+                    ins.KwikPayTypes = Convert.ToString(drI["KwikPayType"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
@@ -70,7 +70,7 @@ namespace SparStelsel.Models
                 {
                     ins = new KwikPayType();
                     ins.KwikPayTypeID = Convert.ToInt32(drI["KwikPayTypeID"]);
-                    ins.KwikPayTypes = Convert.ToString(drI["KwikPayTypes"]);
+                    ins.KwikPayTypes = Convert.ToString(drI["KwikPayType"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
@@ -113,7 +113,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.KwikPayTypeInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@KwikPayID", ins.KwikPayID);             
-                cmdI.Parameters.AddWithValue("@KwikPayTypes", ins.KwikPayTypes);
+                cmdI.Parameters.AddWithValue("@KwikPayType", ins.KwikPayTypes);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
                 cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
@@ -162,7 +162,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.KwikPayTypeUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@KwikPayTypeID", ins.KwikPayTypeID);
-            cmdI.Parameters.AddWithValue("@KwikPayTypes", ins.KwikPayTypes);
+            cmdI.Parameters.AddWithValue("@KwikPayType", ins.KwikPayTypes);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
             cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);

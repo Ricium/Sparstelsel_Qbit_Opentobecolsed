@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 Create PROCEDURE [dbo].[f_Admin_Insert_GRVType]
-			@GRVTypes varchar(50),
+			@GRVType varchar(50),
 		@CompanyID int,
 		@ModifiedDate datetime,
 		@ModifiedBy int,
@@ -14,7 +14,7 @@ Create PROCEDURE [dbo].[f_Admin_Insert_GRVType]
 	
 AS
 INSERT INTO [dbo].[l_GRVType] 
-		([GRVTypes]
+		([GRVType]
 		,[CompanyID]
 		,[ModifiedDate]
 		,[ModifiedBy]
@@ -22,7 +22,7 @@ INSERT INTO [dbo].[l_GRVType]
 
 	VALUES
 		(
-		@GRVTypes, 
+		@GRVType, 
 		@CompanyID,
 		@ModifiedDate,
 		@ModifiedBy,

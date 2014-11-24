@@ -316,7 +316,7 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@OrderDate", ins.OrderDate);
                 cmdI.Parameters.AddWithValue("@ExpectedDeliveryDate", ins.ExpectedDeliveryDate);
                 cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
-                cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+                cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
                 cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
                 cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
                 cmdI.Parameters.AddWithValue("@CommentID", ins.CommentID);
@@ -371,7 +371,7 @@ namespace SparStelsel.Models
                  cmdI.Parameters.AddWithValue("@OrderDate", ins.OrderDate);
                  cmdI.Parameters.AddWithValue("@ExpectedDeliveryDate", ins.ExpectedDeliveryDate);
                  cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
-                 cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+                 cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
                  cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
                  cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
                  cmdI.Parameters.AddWithValue("@CommentID", ins.CommentID);

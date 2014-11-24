@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
-                    ins.MovementTypes = Convert.ToString(drI["MovementTypes"]);
+                    ins.MovementTypes = Convert.ToString(drI["MovementType"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
@@ -70,7 +70,7 @@ namespace SparStelsel.Models
                 {
                     ins = new MovementType();
                     ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
-                    ins.MovementTypes = Convert.ToString(drI["MovementTypes"]);
+                    ins.MovementTypes = Convert.ToString(drI["MovementType"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);

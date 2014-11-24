@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 Create PROCEDURE [dbo].[f_Admin_Insert_MemberSpouse]
-			@InstantMoneyTypes varchar(50),
+			@InstantMoneyType varchar(50),
 		@CompanyID int,
 		@ModifiedDate datetime,
 		@ModifiedBy int,
@@ -14,7 +14,7 @@ Create PROCEDURE [dbo].[f_Admin_Insert_MemberSpouse]
 	
 AS
 INSERT INTO [dbo].[l_InstantMoneyType] 
-		([InstantMoneyTypes]
+		([InstantMoneyType]
 		,[CompanyID]
 		,[ModifiedDate]
 		,[ModifiedBy]
@@ -22,7 +22,7 @@ INSERT INTO [dbo].[l_InstantMoneyType]
 
 	VALUES
 		(
-		@InstantMoneyTypes,
+		@InstantMoneyType,
 		@CompanyID,
 		@ModifiedDate,
 		@ModifiedBy,

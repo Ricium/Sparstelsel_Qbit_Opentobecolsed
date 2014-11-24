@@ -8,7 +8,7 @@ GO
 
 Create PROCEDURE [dbo].[f_Admin_Update_ElectronicFund] 
 		@ElectronicFundID int,
-		@ElectronicFunds varchar(50),
+		@ElectronicFund varchar(50),
 		@Total decimal(18,2),
 		@CreatedDate datetime,
 		@ElectronicTypeID int,
@@ -21,7 +21,7 @@ Create PROCEDURE [dbo].[f_Admin_Update_ElectronicFund]
 AS
 UPDATE [t_ElectronicFund] 
            SET
-		ElectronicFunds=@ElectronicFunds,
+		ElectronicFund=@ElectronicFund,
 		Total=@Total,
 		CreatedDate=@CreatedDate,
 		ElectronicTypeID=@ElectronicTypeID,

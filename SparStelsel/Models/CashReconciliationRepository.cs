@@ -29,7 +29,7 @@ namespace SparStelsel.Models
             {
                 while (drI.Read())
                 {
-                    ins.CashReconciliationID = Convert.ToInt32(drI["CashReconciliationID"]);
+                    ins.CashReconciliationID = Convert.ToInt32(drI["CashReconcilationID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.ReconciliationTypeID = Convert.ToInt32(drI["ReconciliationTypeID"]);
@@ -72,7 +72,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins = new CashReconciliation();
-                    ins.CashReconciliationID = Convert.ToInt32(drI["CashReconciliationID"]);
+                    ins.CashReconciliationID = Convert.ToInt32(drI["CashReconcilationID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.ReconciliationTypeID = Convert.ToInt32(drI["ReconciliationTypeID"]);
@@ -116,7 +116,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins = new CashReconciliation();
-                    ins.CashReconciliationID = Convert.ToInt32(drI["CashReconciliationID"]);
+                    ins.CashReconciliationID = Convert.ToInt32(drI["CashReconcilationID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.ReconciliationTypeID = Convert.ToInt32(drI["ReconciliationTypeID"]);
@@ -160,7 +160,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins = new CashReconciliation();
-                    ins.CashReconciliationID = Convert.ToInt32(drI["CashReconciliationID"]);
+                    ins.CashReconciliationID = Convert.ToInt32(drI["CashReconcilationID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.ReconciliationTypeID = Convert.ToInt32(drI["ReconciliationTypeID"]);
@@ -252,7 +252,7 @@ namespace SparStelsel.Models
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@CashReconcilationID", ins.CashReconcilationID);             
                 cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
-                cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+                cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
                 cmdI.Parameters.AddWithValue("@ReconciliationTypeID", ins.ReconciliationTypeID);
                 cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
@@ -304,7 +304,7 @@ namespace SparStelsel.Models
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@CashReconciliationID", ins.CashReconciliationID);
             cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
-            cmdI.Parameters.AddWithValue("@CreatedDate", ins.CreatedDate);
+            cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
             cmdI.Parameters.AddWithValue("@ReconciliationTypeID", ins.ReconciliationTypeID);
             cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);

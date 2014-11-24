@@ -58,17 +58,8 @@
                             <%: Html.ValidationMessageFor(model => model.SupplierTypeID) %>
                         </td>
                     </tr> 
-                    <tr>
-                                            <tr>
-                     <td>
-                           <%: Html.LabelFor(m => m.ProductID)%>
-                        </td>
-                        <td>
-                           <%: Html.Telerik().DropDownListFor(m => m.ProductID).BindTo((IEnumerable<SelectListItem>) ViewData["Product"]).HtmlAttributes(new { style = "width: 250px" })%>
-                            <%: Html.ValidationMessageFor(model => model.ProductID) %>
-                        </td>
-                    </tr> 
-                    <tr>
+                    
+               
                   
                                      
 

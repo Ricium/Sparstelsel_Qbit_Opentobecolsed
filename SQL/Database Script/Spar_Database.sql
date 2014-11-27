@@ -397,4 +397,41 @@ ModifiedDate datetime,
 ModifiedBy int,
 Removed bit
 )
+go
 
+Create Table l_Status
+( StatusID int identity(1,1)primary key not null,
+  StatusName varchar(50),
+  CompanyID int null,
+ModifiedDate datetime,
+ModifiedBy int,
+Removed bit)
+
+go
+
+Create Table t_PinkSlipOrder
+(
+OrderID int identity(1,1) primary key not null,
+OrderNumber int,
+StatusID int,
+NumProducts int,
+SupllierID int,
+OrderDate datetime,
+CompanyID int null,
+ModifiedDate datetime,
+ModifiedBy int,
+Removed bit)
+go
+
+Create table t_OrderProduct
+( 
+OrderProductID int identity(1,1) primary key not null,
+ProductID int,
+Quantity int,
+StatusID int,
+OrderID int,
+CompanyID int null,
+ModifiedDate datetime,
+ModifiedBy int,
+Removed bit)
+go

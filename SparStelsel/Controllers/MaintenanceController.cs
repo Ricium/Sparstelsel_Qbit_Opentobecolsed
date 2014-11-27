@@ -27,6 +27,7 @@ namespace SparStelsel.Controllers
         ElectronicTypeRepository ElectronicRep = new ElectronicTypeRepository();
         FNBTypeRepository FNBRep = new FNBTypeRepository();
         BudgetRepository BUDRep = new BudgetRepository();
+        StatusRepository STRep = new StatusRepository();
 
 
             //Lists
@@ -101,6 +102,12 @@ namespace SparStelsel.Controllers
         public ActionResult _ListFNBTypes()
         {
             return View(new GridModel(FNBRep.GetAllFNBType()));
+        }
+        //List Status
+        [GridAction]
+        public ActionResult _ListStatus()
+        {
+            return View(new GridModel(STRep.GetAllStatus()));
         }
 
   
@@ -554,6 +561,49 @@ namespace SparStelsel.Controllers
 
             //...Repopulate Grid...
             return View(new GridModel(BUDRep.GetAllBudget()));
+        }
+
+
+
+
+        // CommentType 
+        public ActionResult Status()
+        {
+            return View();
+        }
+
+        //Add CommentType
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _InsertStatus(Status ins)
+        {
+            //...Insert Object
+            Status ins2 = STRep.Insert(ins);
+
+            //...Repopulate Grid...
+            return View(new GridModel(STRep.GetAllStatus()));
+        }
+        //Update CommentType
+        [GridAction]
+        public ActionResult _UpdateStatus(Status ins)
+        {
+            //...Update Object
+            Status ins2 = STRep.Update(ins);
+
+            //...Repopulate Grid...
+            return View(new GridModel(STRep.GetAllStatus()));
+        }
+        //Remove CommentType
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _RemoveStatus(int id)
+        {
+            //...Update Object
+            string ins = STRep.GetStatus(id).ToString();
+            STRep.Remove(ins);
+
+            //...Repopulate Grid...
+            return View(new GridModel(STRep.GetAllStatus()));
         }
     }
 }

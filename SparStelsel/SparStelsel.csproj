@@ -350,6 +350,7 @@
     <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\PinkSlipController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\TransitsController.cs" />
@@ -420,6 +421,8 @@
     <Compile Include="Models\ProofOfPaymentRepository.cs" />
     <Compile Include="Models\ReconciliationType.cs" />
     <Compile Include="Models\ReconciliationTypeRepository.cs" />
+    <Compile Include="Models\Status.cs" />
+    <Compile Include="Models\StatusRepository.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Models\SupplierRepository.cs" />
     <Compile Include="Models\SupplierType.cs" />
@@ -711,6 +714,7 @@
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\InstantMoneys\InstantMoneys.aspx" />
     <Content Include="Views\Maintenance\Budgets.aspx" />
+    <Content Include="Views\Maintenance\Status.aspx" />
     <Content Include="Views\Orders\Orders.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CashBox.aspx" />
     <Content Include="Views\Maintenance\CashTypes.aspx" />
@@ -751,6 +755,7 @@
     <Content Include="Views\Shared\EditorTemplates\PickUpKwikPay.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Product.aspx" />
     <Content Include="Views\Shared\EditorTemplates\ProofOfPayment.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Status.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Supplier.aspx" />
     <Content Include="Views\Shared\EditorTemplates\SupplierType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Transit.aspx" />
@@ -773,6 +778,7 @@
     </Content>
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Content\Site.css">
     </Content>

@@ -1,11 +1,9 @@
-﻿
-
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
 <%@ Import Namespace="SparStelsel"%>
 <%@ Import Namespace="SparStelsel.Models"%>
 <%@ Import Namespace="SparStelsel.Controllers"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-   Orders
+   Status
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -14,7 +12,8 @@
         <tr>
             <td>
                 <h2>
-                     Orders
+                        GRVTypes
+
                 </h2>
             </td>
         </tr>
@@ -22,21 +21,16 @@
             <td>
              <%
                 
-                 Html.Telerik().Grid<Order>()
-                    .Name("Orders")
-                    .DataKeys(keys => keys.Add(s => s.OrderID))
-                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add Orders"))
+                 Html.Telerik().Grid<Status>()
+                    .Name("Statuses")
+                    .DataKeys(keys => keys.Add(s => s.StatusID))
+                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add Status"))
                     .Columns(columns =>
                     {
-                        columns.Bound(model => model.supplier);
-                        columns.Bound(model => model.OrderDate);
-                        columns.Bound(model => model.ExpectedDeliveryDate);
-                        columns.Bound(model => model.OrderID);
-                        columns.Bound(model => model.Amount);
-                     
+
+                        columns.Bound(model => model.StatusID);
+                        columns.Bound(model => model.StatusName);
                         
-                      
-                                    
                    
                             columns.Command(commands =>
                             {
@@ -48,27 +42,21 @@
                             {
                                 commands.Delete().ButtonType(GridButtonType.ImageAndText).Text("Delete");
                             }).Title("").Width(90);
-
-                            columns.Command(commands =>
-                            {
-                                commands.Custom("Add Products").Action("Index","Home").ButtonType(GridButtonType.ImageAndText).Text("Add Product");
-                            }).Title("").Width(120);
                         
                     })
                     .DataBinding(dataBinding =>
                     {
                         dataBinding.Ajax()
-                                   .Select("_ListOrders", "Orders")
-                                   .Insert("_InsertOrders", "Orders")
-                                   .Update("_UpdateOrders", "Orders")
-                                   .Delete("_RemoveOrders", "Orders");
+                                   .Select("_ListStatus", "Maintenance")
+                                   .Insert("_InsertStatus", "Maintenance")
+                                   .Update("_UpdateStatus", "Maintenance")
+                                   .Delete("_RemoveStatus", "Maintenance");
                     })
 
                     .Pageable(paging => paging.PageSize(50))
                     .Sortable()
                     .Scrollable(scrolling => scrolling.Height(250))
                     .Editable(editing => editing.Mode(GridEditMode.PopUp))
-                    
                     .Render();
                  
                  
@@ -79,3 +67,4 @@
         </tr>
     </table>
 </asp:Content>
+

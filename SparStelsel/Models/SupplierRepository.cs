@@ -332,5 +332,40 @@ namespace SparStelsel.Models
 
             cmdI.Connection.Close();
         }
+
+        public int GetSupplierTerm(int SupplierID)
+        {
+            //...Create New Instance of Object...
+            int Term = 0;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT Term FROM t_Supplier WHERE SupplierID =" + SupplierID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+       
+                    Term = Convert.ToInt32(drI["Term"]);
+
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return Convert.ToInt32(Term);
+        }
     }
 }

@@ -29,6 +29,7 @@
                          item.Add().Text("ElectronicType").Url("~/Maintenance/ElectronicTypes");
                          item.Add().Text("FNBType").Url("~/Maintenance/FNBTypes");
                          item.Add().Text("Budget").Url("~/Maintenance/Budgets");
+                         item.Add().Text("Status").Url("~/Maintenance/Status");
                      });
 
             items.Add()
@@ -91,6 +92,15 @@
                     Tritems.Add().Text("InstantMoney").Url("~/CashUp/InstantMoneys");
                     Tritems.Add().Text("FNB").Url("~/CashUp/FNBs");
                 });
+
+            items.Add()
+    .Text("Order")
+    .Url("~/Home/Index")
+    .Items(Tritems =>
+    {
+        Tritems.Add().Text("Orders").Url("~/Orders/Orders");
+      ;
+    });
                 
         })
              .Render();

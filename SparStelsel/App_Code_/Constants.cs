@@ -134,7 +134,11 @@ namespace SparStelsel
 
         public static readonly string FNBTypeInsert = "f_Admin_Insert_FNBType";
         public static readonly string FNBTypeUpdate = "f_Admin_Update_FNBType";
-   
+
+
+        public static readonly string StatusInsert = "f_Admin_Insert_Status";
+        public static readonly string StatusRemove = "f_Admin_Remove_Status";
+        public static readonly string StatusUpdate = "f_Admin_Update_Status";
         
     }
 }

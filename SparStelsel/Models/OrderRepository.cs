@@ -65,7 +65,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT o.*,s.Supplier,st.SupplierType FROM t_Order o inner join t_Supplier s on o.SupplierID=s.SupplierID inner join t_SupplierType st on o.SupplierTypeID=st.SupplierTypeID", con);
+            cmdI = new SqlCommand("SELECT o.*,s.Supplier FROM t_Order o inner join t_Supplier s on o.SupplierID=s.SupplierID", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -87,6 +87,7 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.supplier = drI["Supplier"].ToString();
                     list.Add(ins);
                 }
             }

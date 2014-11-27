@@ -16,7 +16,7 @@ namespace SparStelsel.Controllers
         //Repository
         OrderRepository ORep = new OrderRepository();
         DropDownRepository DDRep = new DropDownRepository();
-
+        SupplierRepository SRep = new SupplierRepository();
         //List
         // List SupplierType
         [GridAction]
@@ -33,7 +33,7 @@ namespace SparStelsel.Controllers
         public ActionResult Orders()
         {
             ViewData["Supllier"] = DDRep.GetSupplierList();
-            ViewData["SupllierType"] = DDRep.GetSupplierTypeList();
+          
            
             return View();
         }
@@ -44,6 +44,8 @@ namespace SparStelsel.Controllers
         public ActionResult _InsertOrders(Order ins)
         {
             //...Insert Object
+            int term = SRep.GetSupplierTerm(ins.SupplierID);
+            ins.ExpectedDeliveryDate = ins.OrderDate.AddDays(term);
             Order ins2 = ORep.Insert(ins);
 
             //...Repopulate Grid...

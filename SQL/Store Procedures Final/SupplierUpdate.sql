@@ -6,14 +6,13 @@ GO
 SET QUOTED_IDENTIFIER OFF
 GO
 
-Create PROCEDURE [dbo].[f_Admin_Update_Supplier] 
+alter PROCEDURE [dbo].[f_Admin_Update_Supplier] 
 		@SupplierID int,
 		@Supplier varchar(50),
 		@StockCondition varchar(50),
 		@Term varchar(50),
 		@CreatedDate datetime,
 		@SupplierTypeID int,
-		@ProductID int,
 		@CompanyID int,
 		@ModifiedDate datetime,
 		@ModifiedBy int
@@ -27,7 +26,6 @@ UPDATE [t_Supplier]
 		Term=@Term,
 		CreatedDate=@CreatedDate,
 		SupplierTypeID=@SupplierTypeID,
-		ProductID=@ProductID,
 		CompanyID=@CompanyID,
 		ModifiedDate=@ModifiedDate,
 		ModifiedBy=@ModifiedBy  

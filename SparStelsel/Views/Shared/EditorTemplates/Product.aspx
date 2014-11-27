@@ -19,6 +19,7 @@
                     <tr>
                         <td>
                             <%: Html.HiddenFor(m => m.ProductID) %>
+                            <%: Html.HiddenFor(m => m.Total) %>
                         </td>
                         <td></td>
                     </tr>
@@ -66,16 +67,7 @@
                             <%: Html.TextBoxFor(m => m.Price) %>
                             <%: Html.ValidationMessageFor(m => m.Price) %>
                         </td>
-                    </tr>
-                                                                                                    <tr>
-                        <td>
-                           <%: Html.LabelFor(m => m.Total) %>
-                        </td>
-                        <td>
-                            <%: Html.TextBoxFor(m => m.Total) %>
-                            <%: Html.ValidationMessageFor(m => m.Total) %>
-                        </td>
-                    </tr>
+
                                             <tr>
                      <td>
                            <%: Html.LabelFor(m => m.SupplierID)%>

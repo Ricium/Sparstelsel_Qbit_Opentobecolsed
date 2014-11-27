@@ -9,6 +9,8 @@ namespace SparStelsel.Models
 {
     public class GRVListRepository
     {
+        private SupplierRepository suprep = new SupplierRepository();
+
         public GRVList GetGRVList(int GRVListID)
         {
             //...Create New Instance of Object...
@@ -81,7 +83,7 @@ namespace SparStelsel.Models
                 {
                     ins = new GRVList();
                     ins.GRVListID = Convert.ToInt32(drI["GRVListID"]);
-                    ins.InvoiceNumber = Convert.ToString(drI["InvoiveNumber"]);
+                    ins.InvoiceNumber = Convert.ToString(drI["InvoiceNumber"]);
                     ins.StateDate = Convert.ToDateTime(drI["StateDate"]);
                     ins.Number = Convert.ToInt32(drI["Number"]);
                     ins.PayDate = Convert.ToDateTime(drI["PayDate"]);
@@ -424,6 +426,92 @@ namespace SparStelsel.Models
             }
 
             cmdI.Connection.Close();
+        }
+
+        public int checkInt(string check)
+        {
+            int parser = 0;
+            int.TryParse(check, out parser);
+            return parser;
+        }
+
+        public decimal checkDecimal(string check)
+        {
+            decimal parser = 0;
+            decimal.TryParse(check, out parser);
+            return parser;
+        }
+
+        public int GetSupplierByName(string Name)
+        {
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_Supplier WHERE Supplier ='" + Name + "'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            int ret = 0;
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ret = Convert.ToInt32(drI["SupplierID"]);                    
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return ret;
+        }
+
+        public DateTime GetPaymentDate(int SupplierId, DateTime InvoiceDate)
+        {
+            Supplier sup = suprep.GetSupplier(SupplierId);
+            
+            DateTime Ret = (sup.SupplierID == 0) ? DateTime.Now : InvoiceDate.AddDays(checkInt(sup.Term));
+            return Ret;
+        }
+
+        public List<GRVList> setData(List<List<string>> data)
+        {
+            int count = 1;
+            List<GRVList> lst = new List<GRVList>();
+
+            DateTime parse;
+
+            foreach (List<string> row in data)
+            {
+                GRVList imp = new GRVList();
+
+                imp.InvoiceNumber = row[0];                                              //...String
+                imp.Number = checkInt(row[1]);                                           //...Int
+                imp.GRVTypeID = (row[2].Equals("GRV")) ? 1 : 2;                         //..Int
+                imp.Number = checkInt(row[3]);                                           //...Int
+                imp.PinkSlipNumber = row[4];                                            //...String
+                imp.PinkSlipNumber = row[5];                                            //...String
+                imp.GRVDate = (DateTime.TryParse(row[6], out parse)) ? Convert.ToDateTime(row[6]) : DateTime.MaxValue;      //...Date
+                imp.InvoiceDate = (DateTime.TryParse(row[7], out parse)) ? Convert.ToDateTime(row[7]) : DateTime.MaxValue;  //...Date
+                imp.SupplierID = GetSupplierByName(row[8]);
+                imp.ExcludingVat = checkDecimal(row[9]);
+                imp.IncludingVat = checkDecimal(row[11]);
+                imp.StateDate = DateTime.Now;
+                imp.PayDate = GetPaymentDate(imp.SupplierID, imp.InvoiceDate);
+
+                //...Add to return list
+                lst.Add(imp);
+            }
+
+            return lst;
         }
     }
 }

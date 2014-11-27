@@ -60,6 +60,7 @@
             .Items(GRVitems =>
             {
                 GRVitems.Add().Text("GRV").Url("~/GRV/GRVLists");
+                GRVitems.Add().Text("GRV Import").Url("~/GRV/ImportGRVList");
             });
             items.Add()
          .Text("Users")

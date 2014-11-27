@@ -101,7 +101,7 @@ namespace SparStelsel.Controllers
         }
         //Update SupplierType
         [GridAction]
-        public ActionResult _UpdateSuppliers(Supplier ins)
+        public ActionResult _UpdateSupplier(Supplier ins)
         {
             //...Update Object
             Supplier ins2 = SupplierRep.Update(ins);
@@ -112,10 +112,10 @@ namespace SparStelsel.Controllers
         //Remove SupplierType
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult _RemoveSuppliers(int id)
+        public ActionResult _RemoveSupplier(int id)
         {
             //...Update Object
-            string ins = SupplierRep.GetSupplier(id).ToString();
+            int ins = SupplierRep.GetSupplier(id).SupplierID;
             SupplierRep.Remove(ins);
 
             //...Repopulate Grid...

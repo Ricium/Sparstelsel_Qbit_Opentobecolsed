@@ -20,7 +20,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM Supplier WHERE SupplierID =" + SupplierID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_Supplier WHERE SupplierID =" + SupplierID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
-                    ins.Suppliers = (drI["Suppliers"]).ToString();
+                    ins.Suppliers = (drI["Supplier"]).ToString();
                     ins.StockCondition = (drI["StockCondition"]).ToString();
                     ins.Term = Convert.ToString(drI["Term"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);

@@ -50,8 +50,8 @@
                         dataBinding.Ajax()
                                    .Select("_ListSuppliers", "Supplier")
                                    .Insert("_InsertSupplier", "Supplier")
-                                   .Update("_UpdateSuppliers", "Supplier")
-                                   .Delete("_RemoveSuppliers", "Supplier");
+                                   .Update("_UpdateSupplier", "Supplier")
+                                   .Delete("_RemoveSupplier", "Supplier");
                     })
 
                     .Pageable(paging => paging.PageSize(50))

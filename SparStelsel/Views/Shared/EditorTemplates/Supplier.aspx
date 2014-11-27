@@ -18,7 +18,7 @@
                 <table>
                     <tr>
                         <td>
-                            <%: Html.HiddenFor(m => m.SupplierTypeID) %>
+                            <%: Html.HiddenFor(m => m.SupplierID) %>
                         </td>
                         <td></td>
                     </tr>

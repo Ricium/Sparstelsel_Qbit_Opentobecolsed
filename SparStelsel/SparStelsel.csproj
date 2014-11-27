@@ -154,6 +154,7 @@
     <Compile Include="App_Code_\AutoLogOffActionFilterAttribute.cs" />
     <Compile Include="App_Code_\DatabaseConnection.cs" />
     <Compile Include="App_Code_\Constants.cs" />
+    <Compile Include="App_Code_\TextReader.cs" />
     <Compile Include="App_GlobalResources\EditorLocalization.bg-BG.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -709,6 +710,7 @@
     <Content Include="Views\ElectronicFunds\ElectronicFunds.aspx" />
     <Content Include="Views\FNBs\FNBs.aspx" />
     <Content Include="Views\GRV\GRVLists.aspx" />
+    <Content Include="Views\GRV\ImportGRVList.aspx" />
     <Content Include="Views\Home\About.aspx" />
     <Content Include="Views\Home\Contact.aspx" />
     <Content Include="Views\Home\Index.aspx" />

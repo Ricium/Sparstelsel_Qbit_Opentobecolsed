@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace SparStelsel.Models
 {
@@ -38,6 +39,7 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.InvoiceNumber = drI["InvoiceNumber"].ToString();
                 }
             }
 
@@ -81,6 +83,7 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.InvoiceNumber = drI["InvoiceNumber"].ToString();
                     list.Add(ins);
                 }
             }
@@ -125,6 +128,7 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.InvoiceNumber = drI["InvoiceNumber"].ToString();
                     list.Add(ins);
                 }
             }
@@ -169,6 +173,7 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.InvoiceNumber = drI["InvoiceNumber"].ToString();
                     list.Add(ins);
                 }
             }
@@ -215,6 +220,7 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
                 cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+                cmdI.Parameters.AddWithValue("@InvoiceNumber", ins.InvoiceNumber);
 
                 //...Return new ID
                 ins.ProofOfPaymentID = (int)cmdI.ExecuteScalar();
@@ -266,6 +272,7 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
             cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
+            cmdI.Parameters.AddWithValue("@InvoiceNumber", ins.InvoiceNumber);
     
 
             cmdI.ExecuteNonQuery();
@@ -323,7 +330,12 @@ namespace SparStelsel.Models
                 cmdI.ExecuteNonQuery();
             }
 
+
             cmdI.Connection.Close();
-        } 
+        }
+
+       
     }
+
+   
 }

@@ -63,10 +63,6 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Kendo.Mvc">
-      <HintPath>..\lib\KENDOUIMVC\2014.2.716.440\Kendo.Mvc.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -342,6 +338,7 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CashController.cs" />
+    <Compile Include="Controllers\CashierController.cs" />
     <Compile Include="Controllers\CashUpController.cs" />
     <Compile Include="Controllers\ElectronicFundsController.cs" />
     <Compile Include="Controllers\FNBController.cs" />
@@ -351,6 +348,7 @@
     <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\PinkSlipController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
@@ -365,6 +363,8 @@
     <Compile Include="Models\CashBox.cs" />
     <Compile Include="Models\CashBoxRepository.cs" />
     <Compile Include="Models\CashEntry.cs" />
+    <Compile Include="Models\Cashier.cs" />
+    <Compile Include="Models\CashierRepository.cs" />
     <Compile Include="Models\CashMovement.cs" />
     <Compile Include="Models\CashMovementFNB.cs" />
     <Compile Include="Models\CashMovementInstantMoney.cs" />
@@ -639,6 +639,7 @@
     <Content Include="Content\2013.2.611\Windows7\slider-v.gif" />
     <Content Include="Content\2013.2.611\Windows7\sprite-vertical.png" />
     <Content Include="Content\2013.2.611\Windows7\sprite.png" />
+    <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\logo.jpg" />
@@ -689,6 +690,13 @@
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
     <Content Include="Views\Account\LogOn.aspx" />
     <Content Include="Views\Account\Register.aspx" />
+    <Content Include="Views\Account\Users.aspx" />
+    <Content Include="Views\Cashier\Cashier.aspx" />
+    <Content Include="Views\Cashier\CashierCashUp.aspx" />
+    <Content Include="Views\Cashier\_Cash.ascx" />
+    <Content Include="Views\Cashier\_CashMovement.ascx" />
+    <Content Include="Views\Cashier\_ElectronicFund.ascx" />
+    <Content Include="Views\Cashier\_PickUp.ascx" />
     <Content Include="Views\CashUp\FNBs.aspx" />
     <Content Include="Views\CashUp\InstantMoneys.aspx" />
     <Content Include="Views\CashUp\KwikPays.aspx" />
@@ -709,13 +717,17 @@
     <Content Include="Views\Cash\CoinMovements.aspx" />
     <Content Include="Views\ElectronicFunds\ElectronicFunds.aspx" />
     <Content Include="Views\FNBs\FNBs.aspx" />
+    <Content Include="Views\GRV\GRVImportBatch.aspx" />
     <Content Include="Views\GRV\GRVLists.aspx" />
     <Content Include="Views\GRV\ImportGRVList.aspx" />
     <Content Include="Views\Home\About.aspx" />
     <Content Include="Views\Home\Contact.aspx" />
+    <Content Include="Views\Home\Home.aspx" />
     <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Home\Services.aspx" />
     <Content Include="Views\InstantMoneys\InstantMoneys.aspx" />
     <Content Include="Views\Maintenance\Budgets.aspx" />
+    <Content Include="Views\Maintenance\Comment.aspx" />
     <Content Include="Views\Maintenance\Status.aspx" />
     <Content Include="Views\Orders\Orders.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CashBox.aspx" />
@@ -732,6 +744,7 @@
     <Content Include="Views\Payment\ProofOfPayments.aspx" />
     <Content Include="Views\Products\Products.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Budget.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Cashier.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CashMovement.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CashMovementFNB.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CashMovementInstantMoney.aspx" />
@@ -744,6 +757,8 @@
     <Content Include="Views\Shared\EditorTemplates\ElectronicType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\FNB.aspx" />
     <Content Include="Views\Shared\EditorTemplates\FNBType.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\GRVList.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\GRVListImport.aspx" />
     <Content Include="Views\Shared\EditorTemplates\GRVType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\InstantMoney.aspx" />
     <Content Include="Views\Shared\EditorTemplates\InstantMoneyType.aspx" />
@@ -757,6 +772,7 @@
     <Content Include="Views\Shared\EditorTemplates\PickUpKwikPay.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Product.aspx" />
     <Content Include="Views\Shared\EditorTemplates\ProofOfPayment.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\RegisterModel.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Status.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Supplier.aspx" />
     <Content Include="Views\Shared\EditorTemplates\SupplierType.aspx" />
@@ -1016,6 +1032,26 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>EditorLocalization.bg-BG.designer.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

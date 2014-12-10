@@ -33,6 +33,7 @@ namespace SparStelsel.Models
                     ins.ElectronicFunds = Convert.ToString(drI["ElectronicFunds"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
@@ -77,6 +78,7 @@ namespace SparStelsel.Models
                     ins.ElectronicFunds = Convert.ToString(drI["ElectronicFunds"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
@@ -141,7 +143,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<ElectronicFund> GetElectronicFundsPerEmployee(int UserID)
+        public List<ElectronicFund> GetElectronicFundsPerEmployee(int EmployeeID)
         {
             //...Create New Instance of Object...
             List<ElectronicFund> list = new List<ElectronicFund>();
@@ -153,7 +155,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_ElectronicFund WHERE UserID = " + UserID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_ElectronicFund WHERE EmployeeID = " + EmployeeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -167,6 +169,7 @@ namespace SparStelsel.Models
                     ins.ElectronicFunds = Convert.ToString(drI["ElectronicFunds"]);
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
                     ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
@@ -259,6 +262,7 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@ElectronicFunds", ins.ElectronicFunds);
                 cmdI.Parameters.AddWithValue("@Total", ins.Total);
                 cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+                cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
                 cmdI.Parameters.AddWithValue("@ElectronicTypeID", ins.ElectronicTypeID);
                 cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
@@ -312,6 +316,7 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@ElectronicFunds", ins.ElectronicFunds);
             cmdI.Parameters.AddWithValue("@Total", ins.Total);
             cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+            cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
             cmdI.Parameters.AddWithValue("@ElectronicTypeID", ins.ElectronicTypeID);
             cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);

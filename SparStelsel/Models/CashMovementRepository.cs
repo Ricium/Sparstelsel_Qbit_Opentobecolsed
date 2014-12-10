@@ -33,6 +33,7 @@ namespace SparStelsel.Models
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
@@ -75,6 +76,7 @@ namespace SparStelsel.Models
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
                     ins.cashtype = drI["CashType"].ToString();
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
@@ -120,6 +122,7 @@ namespace SparStelsel.Models
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
@@ -180,7 +183,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<CashMovement> GetCashMovementsPerEmployee(int UserID)
+        public List<CashMovement> GetCashMovementsPerEmployee(int EmployeeID)
         {
             //...Create New Instance of Object...
             List<CashMovement> list = new List<CashMovement>();
@@ -192,7 +195,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_CashMovement WHERE UserID = " + UserID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_CashMovement WHERE EmployeeID = " + EmployeeID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -206,6 +209,7 @@ namespace SparStelsel.Models
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
                     ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
                     ins.UserID = Convert.ToInt32(drI["UserID"]);
@@ -293,6 +297,7 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
                 cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
                 cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
+                cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
                 cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
                 cmdI.Parameters.AddWithValue("@CompanyID", 0);
                 cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);
@@ -347,6 +352,7 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
             cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
+            cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
             cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
             cmdI.Parameters.AddWithValue("@CompanyID", 0);
             cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);

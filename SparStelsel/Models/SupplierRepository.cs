@@ -39,6 +39,7 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.FromFriday = Convert.ToBoolean(drI["FromFriday"]);
                 }
             }
 
@@ -221,6 +222,7 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
                 cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+                cmdI.Parameters.AddWithValue("@FromFriday", ins.FromFriday);
 
                 //...Return new ID
                 ins.SupplierID = (int)cmdI.ExecuteScalar();

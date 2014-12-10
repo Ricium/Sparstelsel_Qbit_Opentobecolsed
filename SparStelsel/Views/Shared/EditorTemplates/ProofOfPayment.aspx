@@ -41,6 +41,15 @@
                             <%: Html.ValidationMessageFor(m => m.PaymentDescription) %>
                         </td>
                     </tr>
+                     <tr>
+                        <td>
+                           <%: Html.LabelFor(m => m.InvoiceNumber) %>
+                        </td>
+                        <td>
+                            <%: Html.TextBoxFor(m => m.InvoiceNumber) %>
+                            <%: Html.ValidationMessageFor(m => m.InvoiceNumber) %>
+                        </td>
+                    </tr>
 
                                                                 <tr>
                      <td>

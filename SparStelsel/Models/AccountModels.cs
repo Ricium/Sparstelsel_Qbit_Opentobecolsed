@@ -63,5 +63,16 @@ namespace SparStelsel.Models
         [Display(Name = "Confirm password")]
         [System.Web.Mvc.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Security Question")]
+        public string SecurityQuestion { get; set; }
+
+        [Required]
+        [Display(Name = "Security Answer")]
+        public string SecurityAnswer { get; set; }
+
+        public string[] roles { get; set; }
     }
+
 }

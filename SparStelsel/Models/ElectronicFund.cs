@@ -36,6 +36,13 @@ namespace SparStelsel.Models
         [Required(ErrorMessage = "CreatedDate is required.")]
         public DateTime CreatedDate { get; set; }
 
+
+        [DisplayName("Employee")]
+        [Required(ErrorMessage = "Employee is required.")]
+        public string employee { get; set; }
+        [DisplayName("Employee")]
+        public int EmployeeID { get; set; }
+
         [DisplayName("Electronic Type ID")]
         [Required(ErrorMessage = "Electronic Type ID is required.")]
         public string electronicfund { get; set; }

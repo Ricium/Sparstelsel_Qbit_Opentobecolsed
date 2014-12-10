@@ -33,15 +33,15 @@ namespace SparStelsel.Controllers
             ViewData["SupplierID"] = DDRep.GetSupplierList();
             return View();
         }
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
-        public ActionResult _InsertProofOfPayments(ProofOfPayment ins)
+        //[AcceptVerbs(HttpVerbs.Post)]
+        //[GridAction]
+        public JsonResult _Insert(ProofOfPayment ins)
         {
             //...Insert Object
             ProofOfPayment ins2 = POPRep.Insert(ins);
 
             //...Repopulate Grid...
-            return View(new GridModel(POPRep.GetAllProofOfPayment()));
+            return Json(new GridModel(POPRep.GetAllProofOfPayment()));
         }
         //Update SupplierType
         [GridAction]

@@ -235,6 +235,34 @@ namespace SparStelsel.Models
             return obj;
         }
 
+        public List<SelectListItem> GetCommentList()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT * FROM t_Comment", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["Comment"].ToString();
+                    result.Value = drI["CommentID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
         public List<SelectListItem> GetCommentTypeList()
         {
             List<SelectListItem> obj = new List<SelectListItem>();
@@ -242,7 +270,7 @@ namespace SparStelsel.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT CommentTypeID,CommentType FROM l_CommentType", con);
+            SqlCommand cmdI = new SqlCommand("SELECT * FROM l_CommentType", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -375,5 +403,35 @@ namespace SparStelsel.Models
 
             return obj;
         }
+
+        public List<SelectListItem> GetCompanyList()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT * FROM Company", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["CompanyName"].ToString();
+                    result.Value = drI["CompanyID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+
     }
 }

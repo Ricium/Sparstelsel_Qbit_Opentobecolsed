@@ -7,15 +7,63 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<script>
+    $('#btnRefresh').live("click", function () {
+
+        var Invoice = $('#sInvoice').val();
+        var Pink = $('#sPink').val();
+        
+        $.cookie('Invoice', $('#sInvoice').val(), { path: '/' })
+        $.cookie('Pink', $('#sPink').val(), { path: '/' })
+
+        var $gridrefresh = $('#GRVLists');
+        var gridrfsh = $gridrefresh.data('tGrid');
+        Grid_applyFilter(gridrfsh)
+    });
+
+    function Grid_applyFilter(grid) {
+
+        // Get the search fields
+        var Invoice = $.cookie('Invoice');
+        var Pink = $.cookie('Pink');
+        //var pgSize = grid.pageSize;
+
+        $('#sInvoice').val(Invoice);
+        $('#sPink').val(Pink);
+
+        // Get a copy of the telerik grid
+        if (grid == null) return;
+        var pgSize = $('#pageSize').val();
+        if (!pgSize) { pgSize = "100"; }
+        pathArray = window.location.pathname.split('/');
+        //alert(pathArray[1]);
+
+        grid.pageSize = parseInt(pgSize);
+        grid.ajax.selectUrl = "/" + pathArray[1] + "/_ListGRVLists?Invoice=" + Invoice + "&Pink=" + Pink;
+        grid.currentPage = 1;
+        grid.updatePager();
+        grid.ajaxRequest();
+
+    }
+</script>    
+
+
+    <fieldset>
+        <legend title="">Manage GRVs</legend>
+
+<table>
+  
+<tr>
+    <td width="100px" title="">Invoice Number:</td><td><%: Html.TextBox("sInvoice", "", new { style = "width:120px;" })%></td>
+    <td width="100px" title="">Pink Slip Number: </td><td><%: Html.TextBox("sPink", "", new { style = "width:120px;" }) %></td> 
+    <td>
+    <button id="btnRefresh" class="t-button" name="btnRefresh"><img src="../images/Shared/ButtonIcons/View.gif" /></button>
+    </td> 
+</tr>
     
+    </table></fieldset>
+
     <table>
-        <tr>
-            <td>
-                <h2>
-                     GRVLists
-                </h2>
-            </td>
-        </tr>
         <tr>
             <td>
              <%
@@ -27,17 +75,16 @@
                     .Columns(columns =>
                     {
 
-                        columns.Bound(model => model.GRVListID);
+                   
                         columns.Bound(model => model.InvoiceNumber);
-                        columns.Bound(model => model.StateDate);
+                        columns.Bound(model => model.StateDate).Format("{0:yyyy/MM/dd}");
                         columns.Bound(model => model.Number);
-                        columns.Bound(model => model.PayDate);
-                        columns.Bound(model => model.PinkSlipNumber);
-                        columns.Bound(model => model.GRVDate);
-                        columns.Bound(model => model.InvoiceDate);
-                        columns.Bound(model => model.ExcludingVat);
-                        columns.Bound(model => model.IncludingVat);
-                        columns.Bound(model => model.GRVTypeID);
+                        columns.Bound(model => model.PayDate).Format("{0:yyyy/MM/dd}");
+                        columns.Bound(model => model.PinkSlipNumber).Width(120);
+                        columns.Bound(model => model.GRVDate).Format("{0:yyyy/MM/dd}");
+                        columns.Bound(model => model.InvoiceDate).Format("{0:yyyy/MM/dd}");
+                        columns.Bound(model => model.ExcludingVat).Format("{0:c}");
+                        columns.Bound(model => model.IncludingVat).Format("{0:c}");
                         columns.Bound(model => model.SupplierID);
                                           
                    

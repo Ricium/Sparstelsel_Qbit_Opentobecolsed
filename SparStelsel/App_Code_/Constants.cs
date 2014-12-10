@@ -54,8 +54,10 @@ namespace SparStelsel
         public static readonly string FNBUpdate = "f_Admin_Update_FNB";
 
         public static readonly string GRVListInsert = "f_Admin_Insert_GRVList";
+        public static readonly string GRVTempInsert = "f_Admin_Insert_GRVTemp";
         public static readonly string GRVListRemove = "f_Admin_Remove_GRVList";
         public static readonly string GRVListUpdate = "f_Admin_Update_GRVList";
+        public static readonly string GRVTempUpdate = "f_Admin_Update_GRVTemp";
 
         public static readonly string GRVTypeInsert = "f_Admin_Insert_GRVType";
         public static readonly string GRVTypeRemove = "f_Admin_Remove_GRVType";
@@ -139,6 +141,12 @@ namespace SparStelsel
         public static readonly string StatusInsert = "f_Admin_Insert_Status";
         public static readonly string StatusRemove = "f_Admin_Remove_Status";
         public static readonly string StatusUpdate = "f_Admin_Update_Status";
+
+        public static readonly string GRVImportInsert = "f_Admin_Insert_GRVImport";
+
+        public static readonly string CashierInsert = "f_Admin_Insert_Employee";
+        public static readonly string CashierRemove = "f_Admin_Remove_Employee";
+        public static readonly string CashierUpdate = "f_Admin_Update_Employee";
         
     }
 }

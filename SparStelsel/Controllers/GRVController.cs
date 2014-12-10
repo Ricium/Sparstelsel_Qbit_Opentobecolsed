@@ -21,12 +21,14 @@ namespace SparStelsel.Controllers
         //Repository
         GRVListRepository GRVRep = new GRVListRepository();
         DropDownRepository DDRep = new DropDownRepository();
+        SupplierRepository SupRep = new SupplierRepository();
+
 
         //Lists
         [GridAction]
-        public ActionResult _ListGRVLists()
+        public ActionResult _ListGRVLists(string Invoice = "", string Pink = "")
         {
-            return View(new GridModel(GRVRep.GetAllGRVList()));
+            return View(new GridModel(GRVRep.GetAllGRVList(Invoice, Pink)));
         }
 
      
@@ -50,13 +52,13 @@ namespace SparStelsel.Controllers
         }
         //Update SupplierType
         [GridAction]
-        public ActionResult _UpdateGRVLists(GRVList ins)
+        public JsonResult _UpdateGRVLists(GRVList ins)
         {
             //...Update Object
             GRVList ins2 = GRVRep.Update(ins);
 
             //...Repopulate Grid...
-            return View(new GridModel(GRVRep.GetAllGRVList()));
+            return Json(new GridModel(GRVRep.GetAllGRVList()));
         }
         //Remove SupplierType
         [AcceptVerbs(HttpVerbs.Post)]
@@ -138,21 +140,150 @@ namespace SparStelsel.Controllers
                 //...Close File Connection...
                 excelConnection.Close();
 
+                //...Insert Batch...
+                GRVImport imp = new GRVImport();
+                imp.FileName = file.FileName;
+                imp = GRVRep.Insert(imp);
+
                 //...Set Data to Model List
-                List<GRVList> list = GRVRep.setData(data);
+                List<GRVList> list = GRVRep.setData(data, imp.BatchId);
 
                 //...Save List to Database...
                 for (int i = 0; i < list.Count; i++)
                 {
-                    list[i] = GRVRep.Insert(list[i]);
+                    list[i] = GRVRep.InsertTemp(list[i]);
                 }
 
                 //...Display Imported Values
-                return RedirectToAction("GRVLists");
+                return RedirectToAction("GRVImportBatch", new { BatchId = imp.BatchId });
             }
 
             return RedirectToAction("GRVLists");
             //return RedirectToAction("MemberImport");
+        }
+
+        [GridAction]
+        public ActionResult _ListImports()
+        {
+            return View(new GridModel(GRVRep.GetAllGRVImports()));
+        }
+
+     
+        public ActionResult _UpdateImport(int id)
+        {
+            return RedirectToAction("GRVImportBatch", new { BatchId = id });
+        }
+
+        public ActionResult _RemoveImport()
+        {
+            return null;
+        }
+        
+        [GridAction]
+        public ActionResult _ListGRVBatch(int BatchId)
+        {
+            return View(new GridModel(GRVRep.GetAllGRVList(BatchId)));
+        }
+
+        public ActionResult GRVImportBatch(int BatchId)
+        {
+            ViewData["BatchId"] = BatchId;
+            ViewData["SupplierType"] = DDRep.GetSupplierTypeList();
+            ViewData["Suppliers"] = DDRep.GetSupplierList();
+            return View();
+        }
+
+        [GridAction]
+        public ActionResult _AddSupplier(GRVListImport ins)
+        {
+            //...Update Object
+            if (ins.SupplierID == 0)
+            {
+                //...Insert Supplier
+                Supplier sup = new Supplier();
+                sup.CompanyID = 0;
+                sup.CreatedDate = DateTime.Now;
+                sup.FromFriday = ins.FromFriday;
+                sup.StockCondition = ins.StockCondition;
+                sup.Suppliers = ins.Suppliers;
+                sup.SupplierTypeID = ins.SupplierTypeID;
+                sup.Term = ins.Term;
+
+                sup = SupRep.Insert(sup);
+                ins.SupplierID = sup.SupplierID;
+                ins.hasError = (ins.SupplierID == 0) ? true: false;
+                GRVListImport ins2 = GRVRep.UpdateTemp(ins);
+                                
+                //...Update all similair
+                GRVRep.UpdateImports();
+            }
+            else
+            {
+                //...Update only single one
+                ins.hasError = (ins.SupplierID == 0) ? true : false;
+                GRVListImport ins2 = GRVRep.UpdateTemp(ins);
+
+                GRVRep.UpdateImports();
+            }
+
+            //...Repopulate Grid...
+            return View(new GridModel(GRVRep.GetAllGRVList(ins.BatchId)));
+        }
+
+        public ActionResult GRVImportProcess(int BatchId)
+        {
+            List<GRVListImport> all = GRVRep.GetAllGRVList(BatchId);
+
+            foreach (GRVListImport imp in all)
+            {
+                if (!imp.hasError)
+                {
+                    GRVList ins = GRVRep.ConvertToOther(imp);
+                    ins = GRVRep.Insert(ins);
+                    GRVRep.RemoveTemp(imp.GRVListID);
+                }
+            }
+
+            return RedirectToAction("GRVLists");
+        }
+
+
+        public ActionResult GRVReport()
+        {
+            //List<MemberDetailsExport> report = exrep.getMemberDetailsReport(ins.GroupId, ins.Month, ins.Year);
+
+            StringWriter sw = new StringWriter();
+            sw.WriteLine("\"TypeId\",\"Type\",\"PolicyNumber\",\"EntryDate\",\"FirstName\",\"Surname\",\"IDNumber\",\"Branch\",\"Product\",\"CoverAmount\",\"4DRate\",\"RiskRate\",\"GroupRate\"");
+
+            string name = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
+
+
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", "attachment;filename=GRV_" + name + ".csv");
+            Response.ContentType = "text/csv";
+
+            /*foreach (MemberDetailsExport ex in report)
+            {
+                sw.WriteLine(string.Format("\"{0}\",\"\"{1}\"\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\"",
+                                           ex.TypeId
+                                           , ex.Type
+                                           , ex.PolicyNumber
+                                           , ex.EntryDate
+                                           , ex.Firstname
+                                           , ex.Surname
+                                           , ex.IDNumber
+                                           , ex.Branch
+                                           , ex.Product
+                                           , ex.CoverAmount
+                                           , ex.FDRate
+                                           , ex.RiskRate
+                                           , ex.GroupRate));
+            }*/
+
+            Response.Write(sw.ToString());
+            Response.End();
+
+            return null;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace SparStelsel.Models
         [Required(ErrorMessage = "Created Date is required.")]
         public DateTime CreatedDate { get; set; }
 
-        [DisplayName("Supplier ID")]
+        [DisplayName("Supplier")]
         [Required(ErrorMessage = "Supplier ID is required.")]
         public string supplier { get; set; }
         public int SupplierID { get; set; }
@@ -66,5 +66,12 @@ namespace SparStelsel.Models
         [DisplayName("Removed")]
         [Required(ErrorMessage = "Removed is required.")]
         public bool Removed { get; set; }
+
+        [DisplayName("Pink Slip Number")]
+        [Required(ErrorMessage = "Pink Slip Number is required.")]
+        public int PinkSlipNumber { get; set; }
+
+        [DisplayName("Suffix")]
+        public string Suffix { get; set; }
     }
 }

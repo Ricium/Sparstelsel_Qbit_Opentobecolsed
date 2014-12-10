@@ -58,7 +58,14 @@
                             <%: Html.ValidationMessageFor(model => model.SupplierTypeID) %>
                         </td>
                     </tr> 
-                    
+                    <tr>
+                     <td>
+                           <%: Html.LabelFor(m => m.FromFriday)%>
+                        </td>
+                        <td>
+                           <%: Html.CheckBoxFor(m => m.FromFriday)%>
+                        </td>
+                    </tr> 
                
                   
                                      

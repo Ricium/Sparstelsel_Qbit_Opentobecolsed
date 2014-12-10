@@ -53,6 +53,34 @@
                     <%: Html.PasswordFor(m => m.ConfirmPassword) %>
                     <%: Html.ValidationMessageFor(m => m.ConfirmPassword) %>
                 </div>
+
+                <div class="editor-label">
+                    <%: Html.LabelFor(m => m.SecurityQuestion) %>
+                </div>
+                <div class="editor-field">
+                    <%: Html.TextBoxFor(m => m.SecurityQuestion) %>
+                    <%: Html.ValidationMessageFor(m => m.SecurityQuestion) %>
+                </div>
+
+                <div class="editor-label">
+                    <%: Html.LabelFor(m => m.SecurityAnswer) %>
+                </div>
+                <div class="editor-field">
+                    <%: Html.TextBoxFor(m => m.SecurityAnswer) %>
+                    <%: Html.ValidationMessageFor(m => m.SecurityAnswer) %>
+                </div>
+
+                <div class="editor-label">
+                    <%: Html.LabelFor(m => m.roles) %>
+                </div>
+                <div class="editor-field">
+                    <% string[] items = (string[])ViewData["roleNames"];
+                    
+                   foreach(string item in items)
+                   {                       
+                       %> <input type="checkbox" name="roles" value ="<%: item %>" /> <%: item %> <%
+                   } %>
+                </div>
                 
                 <p>
                     <input type="submit" value="Register" />

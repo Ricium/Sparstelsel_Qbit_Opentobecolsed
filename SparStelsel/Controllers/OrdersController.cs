@@ -20,9 +20,9 @@ namespace SparStelsel.Controllers
         //List
         // List SupplierType
         [GridAction]
-        public ActionResult _ListOrders()
+        public ActionResult _ListOrders(string Pink = "")
         {
-            return View(new GridModel(ORep.GetAllOrder()));
+            return View(new GridModel(ORep.GetAllOrder(Pink)));
         }
 
 
@@ -33,7 +33,7 @@ namespace SparStelsel.Controllers
         public ActionResult Orders()
         {
             ViewData["Supllier"] = DDRep.GetSupplierList();
-          
+            ViewData["Comments"] = DDRep.GetCommentList();
            
             return View();
         }
@@ -41,34 +41,30 @@ namespace SparStelsel.Controllers
         //Add CashBox
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult _InsertOrders(Order ins)
+        public JsonResult _InsertOrders(Order ins)
         {
             //...Insert Object
-            int term = SRep.GetSupplierTerm(ins.SupplierID);
-            ins.ExpectedDeliveryDate = ins.OrderDate.AddDays(term);
             Order ins2 = ORep.Insert(ins);
 
             //...Repopulate Grid...
-            return View(new GridModel(ORep.GetAllOrder()));
+            return Json(new GridModel(ORep.GetAllOrder()));
         }
         //Update CashBox
         [GridAction]
-        public ActionResult _UpdateOrders(Order ins)
+        public JsonResult _UpdateOrders(Order ins)
         {
             //...Update Object
             Order ins2 = ORep.Update(ins);
 
             //...Repopulate Grid...
-            return View(new GridModel(ORep.GetAllOrder()));
+            return Json(new GridModel(ORep.GetAllOrder()));
         }
         //Remove CashBox
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public ActionResult _RemoveOrders(int id)
         {
-            //...Update Object
-            string ins = ORep.GetOrders(id).ToString();
-            ORep.Remove(ins);
+            ORep.Remove(id);
 
             //...Repopulate Grid...
             return View(new GridModel(ORep.GetAllOrder()));

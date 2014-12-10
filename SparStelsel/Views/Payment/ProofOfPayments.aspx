@@ -50,7 +50,7 @@
                     {
                         dataBinding.Ajax()
                                    .Select("_ListProofOfPayments", "Payment")
-                                   .Insert("_InsertProofOfPayments", "Payment")
+                                   .Insert("_Insert", "Payment")
                                    .Update("_UpdateProofOfPayments", "Payment")
                                    .Delete("_RemoveProofOfPayments", "Payment");
                     })

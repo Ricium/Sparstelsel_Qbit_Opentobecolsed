@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using SparStelsel.Models;
+using Telerik.Web.Mvc;
 
 namespace SparStelsel.Controllers
 {
@@ -64,8 +65,10 @@ namespace SparStelsel.Controllers
         //
         // GET: /Account/Register
 
+        //[Authorize(Roles="admin")]
         public ActionResult Register()
         {
+            ViewData["roleNames"] = Roles.GetAllRoles();
             return View();
         }
 
@@ -75,14 +78,16 @@ namespace SparStelsel.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
+            ViewData["roleNames"] = Roles.GetAllRoles();
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
                 MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
+                Membership.CreateUser(model.UserName, model.Password, model.Email, model.SecurityQuestion, model.SecurityAnswer, true, out createStatus);
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
+                    Roles.AddUserToRoles(model.UserName, model.roles);
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
                     return RedirectToAction("Index", "Home");
                 }
@@ -189,5 +194,18 @@ namespace SparStelsel.Controllers
             }
         }
         #endregion
+
+        [GridAction]
+        public ActionResult _ListUser()
+        {
+            //...Initialize List...
+            List<RegisterModel> lst = new List<RegisterModel>();
+
+            //...Populate List...
+            //lst = userRep.GetUsers();
+
+            //...Return List to Grid...
+            return View(new GridModel(lst));
+        }
     }
 }

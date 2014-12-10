@@ -42,5 +42,40 @@
              </tr>
          </table>
      <% } %>
+
+    <%     Html.Telerik().Grid<GRVImport>()
+                    .Name("GRVImports")
+                    .DataKeys(keys => keys.Add(s => s.BatchId))
+                    .Columns(columns =>
+                    {
+                        columns.Bound(model => model.BatchId);
+                        columns.Bound(model => model.FileName);
+                        columns.Bound(model => model.ModifiedDate);
+                        columns.Bound(model => model.ModifiedBy);                     
+                        
+                   
+                            columns.Command(commands =>
+                            {
+                                commands.Custom("Update").ButtonType(GridButtonType.ImageAndText).Text("Update").Action("_UpdateImport","GRV");
+                            }).Title("").Width(90);                       
+                      
+                        
+                    })
+                    .DataBinding(dataBinding =>
+                    {
+                        dataBinding.Ajax()
+                                   .Select("_ListImports", "GRV");
+                    })
+
+                    .Pageable(paging => paging.PageSize(50))
+                    .Sortable()
+                    .Scrollable(scrolling => scrolling.Height(250))
+                    .Editable(editing => editing.Mode(GridEditMode.PopUp))
+                    .Render();
+                 
+                 
+                
+             
+                 %>
 </asp:Content>
 

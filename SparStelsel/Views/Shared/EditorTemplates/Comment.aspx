@@ -32,7 +32,7 @@
                         </td>
                     </tr>
                       
-                                            <tr>
+                              <%--              <tr>
                      <td>
                            <%: Html.LabelFor(m => m.CommentTypeID)%>
                         </td>
@@ -40,7 +40,7 @@
                            <%: Html.Telerik().DropDownListFor(m => m.CommentTypeID).BindTo((IEnumerable<SelectListItem>) ViewData["CommentType"]).HtmlAttributes(new { style = "width: 250px" })%>
                             <%: Html.ValidationMessageFor(model => model.CommentTypeID) %>
                         </td>
-                    </tr> 
+                    </tr>--%> 
                     <tr>
                   
                                      

@@ -33,6 +33,7 @@ namespace SparStelsel.Controllers
         {
             return View(new GridModel(SupplierRep.GetAllSupplier()));
         }
+
         public ActionResult Index()
         {
             return View();

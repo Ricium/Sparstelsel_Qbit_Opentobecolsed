@@ -47,6 +47,8 @@ namespace SparStelsel.Models
         public string suppliertypeid { get; set; }
         public int SupplierTypeID { get; set; }
 
+        [DisplayName("Paydate from Friday")]
+        public bool FromFriday { get; set; }
        
 
         [DisplayName("Company ID")]

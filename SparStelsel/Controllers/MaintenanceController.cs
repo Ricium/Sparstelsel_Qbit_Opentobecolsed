@@ -28,6 +28,7 @@ namespace SparStelsel.Controllers
         FNBTypeRepository FNBRep = new FNBTypeRepository();
         BudgetRepository BUDRep = new BudgetRepository();
         StatusRepository STRep = new StatusRepository();
+        CommentRepository CRep = new CommentRepository();
 
 
             //Lists
@@ -51,6 +52,11 @@ namespace SparStelsel.Controllers
             return View(new GridModel(CommentRep.GetAllCommentType()));
         }
 
+        [GridAction]
+        public ActionResult _ListComment()
+        {
+            return View(new GridModel(CRep.GetAllComment()));
+        }
                 //List GRV Types
         [GridAction]
         public ActionResult _ListGRVTypes()
@@ -604,6 +610,49 @@ namespace SparStelsel.Controllers
 
             //...Repopulate Grid...
             return View(new GridModel(STRep.GetAllStatus()));
+        }
+
+
+        // CommentType 
+        public ActionResult Comment()
+        {
+            return View();
+        }
+
+        //Add CommentType
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public JsonResult _InsertComment(Comment ins)
+        {
+            //...Insert Object
+            ins.CommentTypeID = 0;
+            Comment ins2 = CRep.Insert(ins);
+           
+            //...Repopulate Grid...
+            return Json(new GridModel(CRep.GetAllComment()));
+        }
+        //Update CommentType
+        [GridAction]
+        public JsonResult _UpdateComment(Comment ins)
+        {
+            //...Update Object
+            ins.CommentTypeID = 0;
+            Comment ins2 = CRep.Update(ins);
+
+            //...Repopulate Grid...
+            return Json(new GridModel(CRep.GetAllComment()));
+        }
+        //Remove CommentType
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _RemoveComment(int id)
+        {
+            //...Update Object
+            string ins = CRep.GetComment(id).ToString();
+            CRep.Remove(ins);
+
+            //...Repopulate Grid...
+            return View(new GridModel(CRep.GetAllComment()));
         }
     }
 }

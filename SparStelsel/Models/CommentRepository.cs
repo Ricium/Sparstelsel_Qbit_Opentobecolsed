@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
-                    ins.Comments = Convert.ToString(drI["Comments"]);
+                    ins.Comments = Convert.ToString(drI["Comment"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.CommentTypeID = Convert.ToInt32(drI["CommentTypeID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
@@ -61,7 +61,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT c.*,ct.CommentType FROM t_Comment c inner join l_CommentType ct on c.CommentTypeID=ct.CommentTypeID", con);
+            cmdI = new SqlCommand("SELECT * FROM t_Comment c where Removed =0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -72,7 +72,7 @@ namespace SparStelsel.Models
                 {
                     ins = new Comment();
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
-                    ins.Comments = Convert.ToString(drI["Comments"]);
+                    ins.Comments = Convert.ToString(drI["Comment"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.CommentTypeID = Convert.ToInt32(drI["CommentTypeID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
@@ -115,7 +115,7 @@ namespace SparStelsel.Models
                 {
                     ins = new Comment();
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
-                    ins.Comments = Convert.ToString(drI["Comments"]);
+                    ins.Comments = Convert.ToString(drI["Comment"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.CommentTypeID = Convert.ToInt32(drI["CommentTypeID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
@@ -160,7 +160,7 @@ namespace SparStelsel.Models
                 cmdI.CommandText = StoredProcedures.CommentInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
                 //cmdI.Parameters.AddWithValue("@CommentID", ins.CommentID);             
-                cmdI.Parameters.AddWithValue("@Comments", ins.Comments);
+                cmdI.Parameters.AddWithValue("@Comment", ins.Comments);
                 cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
                 cmdI.Parameters.AddWithValue("@CommentTypeID", ins.CommentTypeID);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
@@ -211,7 +211,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.CommentUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@CommentID", ins.CommentID);
-            cmdI.Parameters.AddWithValue("@Comments", ins.Comments);
+            cmdI.Parameters.AddWithValue("@Comment", ins.Comments);
             cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
             cmdI.Parameters.AddWithValue("@CommentTypeID", ins.CommentTypeID);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);

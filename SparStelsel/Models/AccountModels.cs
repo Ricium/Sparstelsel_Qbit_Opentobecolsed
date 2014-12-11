@@ -206,7 +206,10 @@ namespace SparStelsel.Models
             }
 
             //...Remove last comma and return
-            return ret.Substring(0, ret.Length - 1);
+            if (ret.Length == 0)
+                return "";
+            else
+                return ret.Substring(0, ret.Length - 1);
         }
     }
 

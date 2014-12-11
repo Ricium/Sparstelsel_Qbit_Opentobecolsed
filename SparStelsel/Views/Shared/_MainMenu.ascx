@@ -116,7 +116,7 @@
               {
                   Tritems.Add().Text("CashBoxs").Url("~/Cash/CashBoxs");
               });
-           */
+           
             
             
            items.Add()
@@ -126,7 +126,7 @@
               {
                   Tritems.Add().Text("Cashier").Url("~/Cashier/Cashier");
               });
-            /*
+            
            items.Add()
                     .Text("Cashier CashUp")
                     .Url("~/Cashier/CashierCashUp")

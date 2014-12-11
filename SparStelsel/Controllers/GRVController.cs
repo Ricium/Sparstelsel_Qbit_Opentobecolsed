@@ -23,7 +23,6 @@ namespace SparStelsel.Controllers
         DropDownRepository DDRep = new DropDownRepository();
         SupplierRepository SupRep = new SupplierRepository();
 
-
         //Lists
         [GridAction]
         public ActionResult _ListGRVLists(string Invoice = "", string Pink = "", string Supplier = "", string From = "", string To = "")
@@ -36,31 +35,28 @@ namespace SparStelsel.Controllers
         {
             List<GRVList> report = GRVRep.GetAllGRVList(Invoice, Pink, Supplier, DDRep.TelerikDateToString(From), DDRep.TelerikDateToString(To));
             StringWriter sw = new StringWriter();
-            sw.WriteLine("\"TypeId\",\"Type\",\"PolicyNumber\",\"EntryDate\",\"FirstName\",\"Surname\",\"IDNumber\",\"Branch\",\"Product\",\"CoverAmount\",\"4DRate\",\"RiskRate\",\"GroupRate\"");
+            sw.WriteLine("\"Invoice Number\",\"State Date\",\"Number\",\"Pay Date\",\"Pink Slip Number\",\"GRV Date\",\"Invoice Date\",\"Excluding VAT\",\"VAT\",\"Including VAT\",\"Supplier\"");
 
             string name = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
 
-
             Response.ClearContent();
-            Response.AddHeader("content-disposition", "attachment;filename=GRV_" + name + ".csv");
+            Response.AddHeader("content-disposition", "attachment;filename=GRVList_" + name + ".csv");
             Response.ContentType = "text/csv";
 
             foreach (GRVList ex in report)
             {
-                sw.WriteLine(string.Format("\"{0}\",\"\"{1}\"\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\"",
-                                           ex.TypeId
-                                           , ex.Type
-                                           , ex.PolicyNumber
-                                           , ex.EntryDate
-                                           , ex.Firstname
-                                           , ex.Surname
-                                           , ex.IDNumber
-                                           , ex.Branch
-                                           , ex.Product
-                                           , ex.CoverAmount
-                                           , ex.FDRate
-                                           , ex.RiskRate
-                                           , ex.GroupRate));
+                sw.WriteLine(string.Format("\"{0}\",\"\"{1}\"\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\"",
+                                           ex.InvoiceNumber.ToString()
+                                           , ex.StateDate.ToShortDateString()
+                                           , ex.Number.ToString()
+                                           , ex.PayDate.ToShortDateString()
+                                           , ex.PinkSlipNumber.ToString()
+                                           , ex.GRVDate.ToShortDateString()
+                                           , ex.InvoiceDate.ToShortDateString()
+                                           , ex.ExcludingVat.ToString()
+                                           , (ex.IncludingVat - ex.ExcludingVat).ToString()
+                                           , ex.IncludingVat.ToString()                                           
+                                           , ex.SupplierDetails));
             }
 
             Response.Write(sw.ToString());

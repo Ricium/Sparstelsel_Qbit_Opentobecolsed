@@ -7,32 +7,10 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-<!--<script>
-    $(document).ready(function () {
-         $('#fileform').submit(function () {
-
-            var blah = new FormData($('#fileform')[0]);
-            blah.append("file", $("#files")[0].files[0]);
-
-            $.ajax({
-                async: true,
-                type: 'POST',
-                url: '/GRV/ImportFromExcel/',
-                data: blah,
-                success: function (data) {
-                    document.location.href = "/GRV/GRVLists/";
-                },
-                cache: false,
-                contentType: false,
-                processData: false
-            });
-            return false;
-        });
-    });
-
-</script>-->
-
-     <% using (Html.BeginForm("ImportFromExcel", "GRV", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    <table>
+        <tr>
+            <td>
+                <% using (Html.BeginForm("ImportFromExcel", "GRV", FormMethod.Post, new { enctype = "multipart/form-data" }))
        { %>
          <table>
              <tr>
@@ -43,7 +21,11 @@
          </table>
      <% } %>
 
-    <%     Html.Telerik().Grid<GRVImport>()
+            </td>
+        </tr>
+        <tr>
+            <td>
+<%     Html.Telerik().Grid<GRVImport>()
                     .Name("GRVImports")
                     .DataKeys(keys => keys.Add(s => s.BatchId))
                     .Columns(columns =>
@@ -77,5 +59,11 @@
                 
              
                  %>
+            </td>
+        </tr>
+    </table>
+     
+
+    
 </asp:Content>
 

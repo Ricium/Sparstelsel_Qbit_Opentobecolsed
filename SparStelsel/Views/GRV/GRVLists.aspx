@@ -180,7 +180,7 @@
     </table>
 </fieldset>
 
-    <table>
+<table>
         <tr>
             <td>
              <%
@@ -194,9 +194,7 @@
                                 
                             })
                     .Columns(columns =>
-                    {
-
-                   
+                    {                 
                         columns.Bound(model => model.InvoiceNumber);
                         columns.Bound(model => model.StateDate).Format("{0:yyyy/MM/dd}");
                         columns.Bound(model => model.Number);
@@ -234,12 +232,8 @@
                     .Sortable()
                     .Scrollable(scrolling => scrolling.Height(250))
                     .Editable(editing => editing.Mode(GridEditMode.PopUp))
-                    .Render();
-                 
-                 
-                
-             
-                 %>
+                    .Render();              
+                    %>
             </td>
         </tr>
     </table>

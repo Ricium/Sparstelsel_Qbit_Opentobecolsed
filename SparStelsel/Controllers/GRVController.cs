@@ -10,6 +10,7 @@ using Telerik.Web.Mvc.Extensions;
 using System.Data.OleDb;
 using System.Text;
 using System.Data;
+using LinqToExcel;
 
 namespace SparStelsel.Controllers
 {
@@ -127,68 +128,88 @@ namespace SparStelsel.Controllers
 
                 Request.Files[0].SaveAs(path1);
 
-                //...Create connection string to Excel work book
-                string excelConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path1 + ";Persist Security Info=False;Extended Properties=\"Excel 12.0;IMEX=1\"";
-                //string excelConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source='"+path1+"';Extended Properties= \"Excel 8.0;HDR=Yes;IMEX=1\"";                 //...Create Connection to Excel work book
-                OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
+                var excel = new ExcelQueryFactory(path1);
 
-                //...Create OleDbCommand to fetch data from Excel
-                OleDbCommand cmd = new OleDbCommand("Select * from [Sheet1$]", excelConnection);
+                excel.AddMapping<GRVExcel>(x => x.InvNo, "Inv No");
+                excel.AddMapping<GRVExcel>(x => x.REF, "REF");
+                excel.AddMapping<GRVExcel>(x => x.Typ, "Typ");
+                excel.AddMapping<GRVExcel>(x => x.Number, "Number");
+                excel.AddMapping<GRVExcel>(x => x.Seq, "SeqNo");
+                excel.AddMapping<GRVExcel>(x => x.GRVBook, "GRV Book");
+                excel.AddMapping<GRVExcel>(x => x.GRVDate, "GRV Date");
+                excel.AddMapping<GRVExcel>(x => x.InvDate, "Inv Date");
+                excel.AddMapping<GRVExcel>(x => x.SupplierName, "Supplier Name");
+                excel.AddMapping<GRVExcel>(x => x.ExclVAT, "Excl VAT");
+                excel.AddMapping<GRVExcel>(x => x.VAT, "VAT");
+                excel.AddMapping<GRVExcel>(x => x.InclVAT, "Incl VAT");
 
-                //...Open Connection to File...
-                excelConnection.Open();
-                OleDbDataReader dReader;
-                dReader = cmd.ExecuteReader();
+                var grvlist = from c in excel.Worksheet<GRVExcel>()
+                                       select c;
+                
 
-                //...Read-in Strings from file...
-                StringBuilder values = new StringBuilder();
+                    /*//...Create connection string to Excel work book
+                    string excelConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path1 + ";Persist Security Info=False;Extended Properties=\"Excel 12.0;IMEX=1\"";
+                    //string excelConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source='"+path1+"';Extended Properties= \"Excel 8.0;HDR=Yes;IMEX=1\"";                 //...Create Connection to Excel work book
+                    OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
 
-                //...Excel data...
-                List<string> columns = new List<string>();
-                List<List<string>> data = new List<List<string>>();
+                    //...Create OleDbCommand to fetch data from Excel
+                    OleDbCommand cmd = new OleDbCommand("Select * from [Sheet1$]", excelConnection);
 
-                //...Get Data...
-                DataTable dataTable = new DataTable();
-                dataTable.Load(dReader);
+                    //...Open Connection to File...
+                    excelConnection.Open();
+                    OleDbDataReader dReader;
+                    dReader = cmd.ExecuteReader();
 
-                //...Get Row Data....
-                foreach (DataRow row in dataTable.Rows)
-                {
-                    var rowValue = row.ItemArray;
-                    values.Clear();
+                    //...Read-in Strings from file...
+                    StringBuilder values = new StringBuilder();
 
-                    List<string> rowData = new List<string>();
+                    //...Excel data...
+                    List<string> columns = new List<string>();
+                    List<List<string>> data = new List<List<string>>();
 
-                    for (int i = 0; i < rowValue.Length; i++)
+                    //...Get Data...
+                    DataTable dataTable = new DataTable();
+                    dataTable.Load(dReader);
+
+                    //...Get Row Data....
+                    foreach (DataRow row in dataTable.Rows)
                     {
-                        if (!rowValue[i].ToString().Trim().Equals(""))
-                            rowData.Add(rowValue[i].ToString().Trim());
-                        else
-                            rowData.Add("");
+                        var rowValue = row.ItemArray;
+                        values.Clear();
+
+                        List<string> rowData = new List<string>();
+
+                        for (int i = 0; i < rowValue.Length; i++)
+                        {
+                            if (!rowValue[i].ToString().Trim().Equals(""))
+                                rowData.Add(rowValue[i].ToString().Trim());
+                            else
+                                rowData.Add("");
+                        }
+
+                        data.Add(rowData);
                     }
 
-                    data.Add(rowData);
-                }
+                    //...Close File Connection...
+                    excelConnection.Close();*/
 
-                //...Close File Connection...
-                excelConnection.Close();
+                    //...Insert Batch...
+                    GRVImport imp = new GRVImport();
+                    imp.FileName = file.FileName;
+                    imp = GRVRep.Insert(imp);
 
-                //...Insert Batch...
-                GRVImport imp = new GRVImport();
-                imp.FileName = file.FileName;
-                imp = GRVRep.Insert(imp);
+                    //...Set Data to Model List
+                    List<GRVList> list = GRVRep.setData(grvlist, imp.BatchId);
 
-                //...Set Data to Model List
-                List<GRVList> list = GRVRep.setData(data, imp.BatchId);
+                    //...Save List to Database...
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        list[i] = GRVRep.InsertTemp(list[i]);
+                    }
 
-                //...Save List to Database...
-                for (int i = 0; i < list.Count; i++)
-                {
-                    list[i] = GRVRep.InsertTemp(list[i]);
-                }
+                    //...Display Imported Values
+                    return RedirectToAction("GRVImportBatch", new { BatchId = imp.BatchId });
 
-                //...Display Imported Values
-                return RedirectToAction("GRVImportBatch", new { BatchId = imp.BatchId });
             }
 
             return RedirectToAction("GRVLists");
@@ -279,101 +300,6 @@ namespace SparStelsel.Controllers
 
             return RedirectToAction("GRVLists");
         }
-
-
-        public ActionResult GRVReport()
-        {
-            //List<MemberDetailsExport> report = exrep.getMemberDetailsReport(ins.GroupId, ins.Month, ins.Year);
-
-            StringWriter sw = new StringWriter();
-            sw.WriteLine("\"TypeId\",\"Type\",\"PolicyNumber\",\"EntryDate\",\"FirstName\",\"Surname\",\"IDNumber\",\"Branch\",\"Product\",\"CoverAmount\",\"4DRate\",\"RiskRate\",\"GroupRate\"");
-
-            string name = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
-
-
-            Response.ClearContent();
-            Response.AddHeader("content-disposition", "attachment;filename=GRV_" + name + ".csv");
-            Response.ContentType = "text/csv";
-
-            /*foreach (MemberDetailsExport ex in report)
-            {
-                sw.WriteLine(string.Format("\"{0}\",\"\"{1}\"\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\"",
-                                           ex.TypeId
-                                           , ex.Type
-                                           , ex.PolicyNumber
-                                           , ex.EntryDate
-                                           , ex.Firstname
-                                           , ex.Surname
-                                           , ex.IDNumber
-                                           , ex.Branch
-                                           , ex.Product
-                                           , ex.CoverAmount
-                                           , ex.FDRate
-                                           , ex.RiskRate
-                                           , ex.GroupRate));
-            }*/
-
-            Response.Write(sw.ToString());
-            Response.End();
-
-            return null;
-        }
-
-        /*public ActionResult Export(int page, string orderBy, string filter)
-        {
-            //Get the data representing the current grid state - page, sort and filter
-            GridModel model = Model().ToGridModel(page, 10, orderBy, string.Empty, filter);
-            var orders = model.Data.Cast<Order>();
-
-            //Create new Excel workbook
-            var workbook = new HSSFWorkbook();
-
-            //Create new Excel sheet
-            var sheet = workbook.CreateSheet();
-
-            //(Optional) set the width of the columns
-            sheet.SetColumnWidth(0, 10 * 256);
-            sheet.SetColumnWidth(1, 50 * 256);
-            sheet.SetColumnWidth(2, 50 * 256);
-            sheet.SetColumnWidth(3, 50 * 256);
-
-            //Create a header row
-            var headerRow = sheet.CreateRow(0);
-
-            //Set the column names in the header row
-            headerRow.CreateCell(0).SetCellValue("OrderID");
-            headerRow.CreateCell(1).SetCellValue("ShipAddress");
-            headerRow.CreateCell(2).SetCellValue("CustomerID");
-            headerRow.CreateCell(3).SetCellValue("OrderDate");
-
-            //(Optional) freeze the header row so it is not scrolled
-            sheet.CreateFreezePane(0, 1, 0, 1);
-
-            int rowNumber = 1;
-
-            //Populate the sheet with values from the grid data
-            foreach (Order order in orders)
-            {
-                //Create a new row
-                var row = sheet.CreateRow(rowNumber++);
-
-                //Set values for the cells
-                row.CreateCell(0).SetCellValue(order.OrderID);
-                row.CreateCell(1).SetCellValue(order.ShipAddress);
-                row.CreateCell(2).SetCellValue(order.CustomerID);
-                row.CreateCell(3).SetCellValue(order.OrderDate.ToString());
-            }
-
-            //Write the workbook to a memory stream
-            MemoryStream output = new MemoryStream();
-            workbook.Write(output);
-
-            //Return the result to the end user
-
-            return File(output.ToArray(),   //The binary data of the XLS file
-                "application/vnd.ms-excel", //MIME type of Excel files
-                "GridExcelExport.xls");     //Suggested file name in the "Save as" dialog which will be displayed to the end user
-        }*/
 
     }
 

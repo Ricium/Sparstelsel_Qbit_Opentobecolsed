@@ -187,4 +187,21 @@ namespace SparStelsel.Models
         public int SupplierTypeID { get; set; }
         public bool FromFriday { get; set; }
     }
+
+    public class GRVExcel
+    {
+        public string InvNo { get; set; }
+        public string REF { get; set; }
+        public string Typ  { get; set; }
+        public int Number { get; set; }
+        public int Seq { get; set; }
+        public string GRVBook { get; set; }
+        public string GRVDate { get; set; }
+        public string InvDate { get; set; }
+        public string SupplierName { get; set; }
+        public decimal ExclVAT { get; set; }
+        public decimal VAT { get; set; }
+        public decimal InclVAT  { get; set; }
+
+    }
 }

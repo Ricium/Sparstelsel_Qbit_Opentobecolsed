@@ -6,7 +6,7 @@
    {
       roles = Roles.GetRolesForUser(HttpContext.Current.Session["Username"].ToString()); 
    }
-     %>
+%>
 <%  Html.Telerik()
         .Menu()
         .Name("Menu")
@@ -92,6 +92,14 @@
                  .Text("Log off")
                  .Url("~/Account/Logoff");
 
+            items.Add()
+              .Text("Cashier")
+              .Url("#")
+              .Items(Tritems =>
+              {
+                  Tritems.Add().Text("Cashier").Url("~/Cashier/Cashier");
+              });
+
             /*
             items.Add()
              .Text("Users")
@@ -119,13 +127,7 @@
            
             
             
-           items.Add()
-              .Text("Cashier")
-              .Url("~/Cashier/Cashier")
-              .Items(Tritems =>
-              {
-                  Tritems.Add().Text("Cashier").Url("~/Cashier/Cashier");
-              });
+           
             
            items.Add()
                     .Text("Cashier CashUp")

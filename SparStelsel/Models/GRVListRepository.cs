@@ -874,6 +874,42 @@ namespace SparStelsel.Models
             return Ret;
         }
 
+        public List<GRVList> setData(IQueryable<GRVExcel> data, int BatchId)
+        {
+            List<GRVList> lst = new List<GRVList>();
+
+            DateTime parse;
+
+            foreach (GRVExcel row in data)
+            {
+                GRVList imp = new GRVList();
+                imp.BatchId = BatchId;
+
+                imp.InvoiceNumber = row.InvNo;                                              //...String
+                //imp.Number = checkInt(row[1]);                                           //...Int
+                imp.GRVTypeID = (row.Typ.Equals("GRV")) ? 1 : 2;                         //..Int
+                // GRV Unique
+                imp.Number = row.Number;                                           //...Int
+                //imp.PinkSlipNumber = row[4];                                            //...String
+                imp.PinkSlipNumber = row.GRVBook;                                            //...String
+                imp.GRVDate = (DateTime.TryParse(row.GRVDate, out parse)) ? Convert.ToDateTime(row.GRVDate) : DateTime.Now;      //...Date
+                imp.InvoiceDate = (DateTime.TryParse(row.InvDate, out parse)) ? Convert.ToDateTime(row.InvDate) : DateTime.Now;  //...Date
+                imp.SupplierID = GetSupplierByName(row.SupplierName);
+                imp.SupplierDetails = row.SupplierName;
+                imp.ExcludingVat = row.ExclVAT;
+                imp.IncludingVat = row.InclVAT;
+                imp.StateDate = DateTime.Now;
+                imp.PayDate = GetPaymentDate(imp.SupplierID, imp.InvoiceDate);
+
+                imp.hasError = (imp.SupplierID == 0) ? true : false;
+
+                //...Add to return list
+                lst.Add(imp);
+            }
+
+            return lst;
+        }
+
         public List<GRVList> setData(List<List<string>> data, int BatchId)
         {
             int count = 1;
@@ -968,5 +1004,6 @@ namespace SparStelsel.Models
                 }
             }
         }
+
     }
 }

@@ -148,7 +148,6 @@ namespace SparStelsel.Models
             return roles;
         }
 
-
         public int GetCompanyFromRole(string role)
         {
             int ret = 0;

@@ -24,7 +24,7 @@ namespace SparStelsel.Models
 
         [DisplayName("Suppliers")]
         [Required(ErrorMessage = "Suppliers is required.")]
-        [StringLength(20, ErrorMessage = "Supplier may not be longer than 20 characters")]
+        [StringLength(50, ErrorMessage = "Supplier may not be longer than 50 characters")]
         public string Suppliers { get; set; }
 
         [DisplayName("Stock Condition")]
@@ -42,7 +42,7 @@ namespace SparStelsel.Models
 
         [DisplayName("Supplier Type ID")]
         [Required(ErrorMessage = "Supplier Type ID is required.")]
-        public string suppliertypeid { get; set; }
+        public string suppliertypeid2 { get; set; }
         public int SupplierTypeID { get; set; }
 
         [DisplayName("Paydate from Friday")]

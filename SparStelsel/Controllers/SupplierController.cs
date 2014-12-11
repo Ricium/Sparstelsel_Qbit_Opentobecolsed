@@ -12,36 +12,68 @@ namespace SparStelsel.Controllers
 {
     public class SupplierController : Controller
     {
-        //
-        // GET: /Supplier/
-
-        //Repository
         SupplierTypeRepository SupplierTRep = new SupplierTypeRepository();
         SupplierRepository SupplierRep = new SupplierRepository();
         DropDownRepository DDRep = new DropDownRepository();
 
-        //List
-            // List SupplierType
-        [GridAction]
-        public ActionResult _ListSupplierTypes()
-        {
-            return View(new GridModel(SupplierTRep.GetAllSupplierType()));
-        }
-            //List Supplier
+
         [GridAction]
         public ActionResult _ListSuppliers()
         {
             return View(new GridModel(SupplierRep.GetAllSupplier()));
         }
 
-        //Functions
-        // SupplierType 
+        public ActionResult Suppliers()
+        {
+            ViewData["SupplierType"] = DDRep.GetSupplierTypeList();
+            return View();
+        }
+
+        
+        [GridAction]
+        public JsonResult _InsertSupplier(Supplier ins)
+        {
+            //...Insert Object
+            Supplier ins2 = SupplierRep.Insert(ins);
+
+            //...Repopulate Grid...
+            return Json(new GridModel(SupplierRep.GetAllSupplier()));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public JsonResult _UpdateSupplier(Supplier ins)
+        {
+            //...Update Object
+            Supplier ins2 = SupplierRep.Update(ins);
+
+            //...Repopulate Grid...
+            return Json(new GridModel(SupplierRep.GetAllSupplier()));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public JsonResult _RemoveSupplier(int id)
+        {
+            //...Update Object
+            SupplierRep.Remove(id);
+
+            //...Repopulate Grid...
+            return Json(new GridModel(SupplierRep.GetAllSupplier()));
+        }
+
+
         public ActionResult SupplierTypes()
         {
             return View();
         }
 
-        //Add SupplierType
+        [GridAction]
+        public ActionResult _ListSupplierTypes()
+        {
+            return View(new GridModel(SupplierTRep.GetAllSupplierType()));
+        }
+
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public ActionResult _InsertSupplierTypes(SupplierType ins)
@@ -52,7 +84,7 @@ namespace SparStelsel.Controllers
             //...Repopulate Grid...
             return View(new GridModel(SupplierTRep.GetAllSupplierType()));
         }
-        //Update SupplierType
+
         [GridAction]
         public ActionResult _UpdateSupplierTypes(SupplierType ins)
         {
@@ -62,7 +94,7 @@ namespace SparStelsel.Controllers
             //...Repopulate Grid...
             return View(new GridModel(SupplierTRep.GetAllSupplierType()));
         }
-        //Remove SupplierType
+
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public ActionResult _RemoveSupplierTypes(int id)
@@ -76,44 +108,5 @@ namespace SparStelsel.Controllers
         }
 
 
-        // Supplier 
-        public ActionResult Suppliers()
-        {
-            ViewData["SupplierType"] = DDRep.GetSupplierTypeList();            
-            return View();
-        }
-
-        //Add SupplierType
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
-        public JsonResult _InsertSupplier(Supplier ins)
-        {
-            //...Insert Object
-            Supplier ins2 = SupplierRep.Insert(ins);
-
-            //...Repopulate Grid...
-            return Json(new GridModel(SupplierRep.GetAllSupplier()));
-        }
-        //Update SupplierType
-        [GridAction]
-        public JsonResult _UpdateSupplier(Supplier ins)
-        {
-            //...Update Object
-            Supplier ins2 = SupplierRep.Update(ins);
-
-            //...Repopulate Grid...
-            return Json(new GridModel(SupplierRep.GetAllSupplier()));
-        }
-        //Remove SupplierType
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
-        public JsonResult _RemoveSupplier(int id)
-        {
-            //...Update Object
-            SupplierRep.Remove(id);
-
-            //...Repopulate Grid...
-            return Json(new GridModel(SupplierRep.GetAllSupplier()));
-        }
     }
 }

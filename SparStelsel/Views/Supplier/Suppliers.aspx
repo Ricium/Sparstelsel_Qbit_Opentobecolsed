@@ -29,7 +29,7 @@
 
                         columns.Bound(model => model.SupplierID);
                         columns.Bound(model => model.Suppliers);
-                        columns.Bound(model => model.suppliertypeid);
+                        columns.Bound(model => model.suppliertypeid2);
                        
                         
                    

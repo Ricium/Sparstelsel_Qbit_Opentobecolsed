@@ -361,6 +361,7 @@
     <Compile Include="Controllers\CashierController.cs" />
     <Compile Include="Controllers\CashUpController.cs" />
     <Compile Include="Controllers\ElectronicFundsController.cs" />
+    <Compile Include="Controllers\FillerController.cs" />
     <Compile Include="Controllers\FNBController.cs" />
     <Compile Include="Controllers\GRVController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

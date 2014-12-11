@@ -80,7 +80,7 @@ namespace SparStelsel.Models
                     ins.Term = Convert.ToString(drI["Term"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
-                    ins.suppliertypeid = drI["SupplierType"].ToString();
+                    ins.suppliertypeid2 = drI["SupplierType"].ToString();
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);

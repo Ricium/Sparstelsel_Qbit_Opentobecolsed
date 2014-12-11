@@ -15,6 +15,7 @@ namespace SparStelsel.Controllers
 
         //
         // GET: /Account/LogOn
+        public AccountFunctions ac = new AccountFunctions();
 
         public ActionResult LogOn()
         {
@@ -32,6 +33,9 @@ namespace SparStelsel.Controllers
                 if (Membership.ValidateUser(model.UserName, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+
+                    ac.SetUserLogin(model.UserName);
+
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {
@@ -68,13 +72,19 @@ namespace SparStelsel.Controllers
         //[Authorize(Roles="admin")]
         public ActionResult Register()
         {
-            ViewData["roleNames"] = Roles.GetAllRoles();
+            string[] allroles = Roles.GetAllRoles();
+            List<string> companies = ac.GetCompaniesFromRoles(allroles,true);
+            List<string> roles = ac.GetRolesOnly(allroles);
+
+            ViewData["roleNames"] = roles;
+            ViewData["companyNames"] = companies;
             return View();
         }
 
         //
         // POST: /Account/Register
 
+        [Authorize(Roles="admin")]
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
@@ -88,8 +98,8 @@ namespace SparStelsel.Controllers
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     Roles.AddUserToRoles(model.UserName, model.roles);
-                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Home");
+                    //FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+                    return RedirectToAction("Home", "Home");
                 }
                 else
                 {
@@ -207,5 +217,25 @@ namespace SparStelsel.Controllers
             //...Return List to Grid...
             return View(new GridModel(lst));
         }
+
+        public ActionResult RoleManagement()
+        {
+            return View();
+        }
+
+        [Authorize(Roles="superuser,admin")]
+        [HttpPost]
+        public ActionResult RoleManagement(RoleModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Roles.CreateRole(model.RoleName);
+                return RedirectToAction("Home", "Home");
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
     }
 }

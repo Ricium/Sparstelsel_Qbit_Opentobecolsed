@@ -112,7 +112,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<GRVList> GetAllGRVList(string InvoiceNumber, string PinkSlipNumber)
+        public List<GRVList> GetAllGRVList(string InvoiceNumber, string PinkSlipNumber, string Supplier, string From, string To)
         {
             //...Create New Instance of Object...
             List<GRVList> list = new List<GRVList>();
@@ -123,10 +123,33 @@ namespace SparStelsel.Models
             SqlConnection con = dbConn.SqlConn();
             SqlCommand cmdI;
 
+            if (From.Equals(""))
+                From = "1900-01-01";
+
+            if (To.Equals(""))
+                To = "2100-01-01";
+
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_GRVList WHERE InvoiceNumber LIKE '%" + InvoiceNumber + "' AND PinkSlipNumber LIKE '%" + PinkSlipNumber + "'", con);
+            if (Supplier.Equals(""))
+            {
+                cmdI = new SqlCommand("SELECT G.*, S.Supplier FROM t_GRVList G INNER JOIN t_Supplier S ON G.SupplierID = S.SupplierID "
+                            + "WHERE G.InvoiceNumber LIKE '%" + InvoiceNumber
+                            + "' AND G.PinkSlipNumber LIKE '%" + PinkSlipNumber + "'"
+                            + " AND G.GRVDate >= '" + From + "'"
+                            + " AND G.GRVDate <= '" + To + "'", con);
+            }
+            else
+            {
+                cmdI = new SqlCommand("SELECT G.*, S.Supplier FROM t_GRVList G INNER JOIN t_Supplier S ON G.SupplierID = S.SupplierID "
+                            + "WHERE G.InvoiceNumber LIKE '%" + InvoiceNumber
+                            + "' AND G.PinkSlipNumber LIKE '%" + PinkSlipNumber + "'"
+                            + " AND G.SupplierID =" + Supplier
+                            + " AND G.GRVDate >= '" + From + "'"
+                            + " AND G.GRVDate <= '" + To + "'", con);
+            }
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
+            
 
             //...Retrieve Data...
             if (drI.HasRows)
@@ -151,6 +174,7 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.SupplierDetails = drI["Supplier"].ToString();
                     list.Add(ins);
                 }
             }

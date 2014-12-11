@@ -22,65 +22,87 @@
             <fieldset>
                 <legend>Account Information</legend>
                 
-                <div class="editor-label">
-                    <%: Html.LabelFor(m => m.UserName) %>
-                </div>
-                <div class="editor-field">
-                    <%: Html.TextBoxFor(m => m.UserName) %>
-                    <%: Html.ValidationMessageFor(m => m.UserName) %>
-                </div>
+                <table>
+                    <tr style="vertical-align:top">
+                        <td>
+                            <div class="editor-label">
+                                <%: Html.LabelFor(m => m.UserName) %>
+                            </div>
+                            <div class="editor-field">
+                                <%: Html.TextBoxFor(m => m.UserName) %>
+                                <%: Html.ValidationMessageFor(m => m.UserName) %>
+                            </div>
                 
-                <div class="editor-label">
-                    <%: Html.LabelFor(m => m.Email) %>
-                </div>
-                <div class="editor-field">
-                    <%: Html.TextBoxFor(m => m.Email) %>
-                    <%: Html.ValidationMessageFor(m => m.Email) %>
-                </div>
+                            <div class="editor-label">
+                                <%: Html.LabelFor(m => m.Email) %>
+                            </div>
+                            <div class="editor-field">
+                                <%: Html.TextBoxFor(m => m.Email) %>
+                                <%: Html.ValidationMessageFor(m => m.Email) %>
+                            </div>
                 
-                <div class="editor-label">
-                    <%: Html.LabelFor(m => m.Password) %>
-                </div>
-                <div class="editor-field">
-                    <%: Html.PasswordFor(m => m.Password) %>
-                    <%: Html.ValidationMessageFor(m => m.Password) %>
-                </div>
+                            <div class="editor-label">
+                                <%: Html.LabelFor(m => m.Password) %>
+                            </div>
+                            <div class="editor-field">
+                                <%: Html.PasswordFor(m => m.Password) %>
+                                <%: Html.ValidationMessageFor(m => m.Password) %>
+                            </div>
                 
-                <div class="editor-label">
-                    <%: Html.LabelFor(m => m.ConfirmPassword) %>
-                </div>
-                <div class="editor-field">
-                    <%: Html.PasswordFor(m => m.ConfirmPassword) %>
-                    <%: Html.ValidationMessageFor(m => m.ConfirmPassword) %>
-                </div>
+                            <div class="editor-label">
+                                <%: Html.LabelFor(m => m.ConfirmPassword) %>
+                            </div>
+                            <div class="editor-field">
+                                <%: Html.PasswordFor(m => m.ConfirmPassword) %>
+                                <%: Html.ValidationMessageFor(m => m.ConfirmPassword) %>
+                            </div>
 
-                <div class="editor-label">
-                    <%: Html.LabelFor(m => m.SecurityQuestion) %>
-                </div>
-                <div class="editor-field">
-                    <%: Html.TextBoxFor(m => m.SecurityQuestion) %>
-                    <%: Html.ValidationMessageFor(m => m.SecurityQuestion) %>
-                </div>
+                            <div class="editor-label">
+                                <%: Html.LabelFor(m => m.SecurityQuestion) %>
+                            </div>
+                            <div class="editor-field">
+                                <%: Html.TextBoxFor(m => m.SecurityQuestion) %>
+                                <%: Html.ValidationMessageFor(m => m.SecurityQuestion) %>
+                            </div>
 
-                <div class="editor-label">
-                    <%: Html.LabelFor(m => m.SecurityAnswer) %>
-                </div>
-                <div class="editor-field">
-                    <%: Html.TextBoxFor(m => m.SecurityAnswer) %>
-                    <%: Html.ValidationMessageFor(m => m.SecurityAnswer) %>
-                </div>
-
-                <div class="editor-label">
-                    <%: Html.LabelFor(m => m.roles) %>
-                </div>
-                <div class="editor-field">
-                    <% string[] items = (string[])ViewData["roleNames"];
+                            <div class="editor-label">
+                                <%: Html.LabelFor(m => m.SecurityAnswer) %>
+                            </div>
+                            <div class="editor-field">
+                                <%: Html.TextBoxFor(m => m.SecurityAnswer) %>
+                                <%: Html.ValidationMessageFor(m => m.SecurityAnswer) %>
+                            </div>
+                        </td>
+                        <td>
+                            <fieldset>
+                                <legend>Companies</legend>
+                                <div class="editor-field">
+                                    <% List<string> citems = (List<string>)ViewData["companyNames"];
                     
-                   foreach(string item in items)
-                   {                       
-                       %> <input type="checkbox" name="roles" value ="<%: item %>" /> <%: item %> <%
-                   } %>
-                </div>
+                                   foreach(string item in citems)
+                                   {                       
+                                       %> <input type="checkbox" name="roles" value ="<%: item %>" /> <%: item %> <%
+                                   } %>
+                                </div>
+                            </fieldset>
+                            <br />
+                            <fieldset>
+                                <legend>Permissions</legend>
+                                <div class="editor-field">
+                                    <% List<string> ritems = (List<string>)ViewData["roleNames"];
+                    
+                                   foreach(string item in ritems)
+                                   {                       
+                                       %> <input type="checkbox" name="roles" value ="<%: item %>" /> <%: item %> <%
+                                   } %>
+                                </div>
+                            </fieldset>
+                        </td>
+                    </tr>
+                </table>
+                
+
+                
                 
                 <p>
                     <input type="submit" value="Register" />

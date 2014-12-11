@@ -12,9 +12,19 @@
 
         var Invoice = $('#sInvoice').val();
         var Pink = $('#sPink').val();
+        var Supplier = $('#sSupplier').val();
+
+        var datepicker = $('#sFrom').data('tDatePicker');
+        var fromdate = datepicker.value();
+
+        var datepicker2 = $('#sTo').data('tDatePicker');
+        var todate = datepicker2.value();
         
-        $.cookie('Invoice', $('#sInvoice').val(), { path: '/' })
-        $.cookie('Pink', $('#sPink').val(), { path: '/' })
+        $.cookie('Invoice', Invoice, { path: '/' });
+        $.cookie('Pink', Pink, { path: '/' });
+        $.cookie('Supplier', Supplier, { path: '/' });
+        $.cookie('From', fromdate, { path: '/' });
+        $.cookie('To', todate, { path: '/' });
 
         var $gridrefresh = $('#GRVLists');
         var gridrfsh = $gridrefresh.data('tGrid');
@@ -26,10 +36,14 @@
         // Get the search fields
         var Invoice = $.cookie('Invoice');
         var Pink = $.cookie('Pink');
+        var Supplier = $.cookie('Supplier');
+        var From = $.cookie('From');
+        var To = $.cookie('To');
         //var pgSize = grid.pageSize;
 
         $('#sInvoice').val(Invoice);
         $('#sPink').val(Pink);
+        $('#sSupplier').val(Supplier);
 
         // Get a copy of the telerik grid
         if (grid == null) return;
@@ -39,7 +53,7 @@
         //alert(pathArray[1]);
 
         grid.pageSize = parseInt(pgSize);
-        grid.ajax.selectUrl = "/" + pathArray[1] + "/_ListGRVLists?Invoice=" + Invoice + "&Pink=" + Pink;
+        grid.ajax.selectUrl = "/" + pathArray[1] + "/_ListGRVLists?Invoice=" + Invoice + "&Pink=" + Pink + "&Supplier=" + Supplier + "&From=" + From + "&To=" + To;
         grid.currentPage = 1;
         grid.updatePager();
         grid.ajaxRequest();
@@ -48,20 +62,23 @@
 </script>    
 
 
-    <fieldset>
-        <legend title="">Manage GRVs</legend>
-
-<table>
-  
-<tr>
-    <td width="100px" title="">Invoice Number:</td><td><%: Html.TextBox("sInvoice", "", new { style = "width:120px;" })%></td>
-    <td width="100px" title="">Pink Slip Number: </td><td><%: Html.TextBox("sPink", "", new { style = "width:120px;" }) %></td> 
-    <td>
-    <button id="btnRefresh" class="t-button" name="btnRefresh"><img src="../images/Shared/ButtonIcons/View.gif" /></button>
-    </td> 
-</tr>
-    
-    </table></fieldset>
+<fieldset>
+   <legend title="">Manage GRVs</legend>
+   <table>
+       <tr>
+            <td width="100px" title="">Invoice Number:</td><td><%: Html.TextBox("sInvoice", "", new { style = "width:120px;" })%></td>
+            <td width="100px" title="">Pink Slip Number: </td><td><%: Html.TextBox("sPink", "", new { style = "width:120px;" }) %></td>
+            <td width="30px" title="">Supplier: </td><td title=""><%: Html.DropDownList("sSupplier", ViewData["SupplierID"]  as IEnumerable<SelectListItem>)%></td>  
+       </tr>
+       <tr>
+           <td width="30px" title="">From: </td><td title=""><%: Html.Telerik().DatePicker().Name("sFrom")%></td> 
+           <td width="30px" title="">To: </td><td title=""><%: Html.Telerik().DatePicker().Name("sTo")%></td> 
+            <td>
+                <button id="btnRefresh" class="t-button" name="btnRefresh"><img src="../images/Shared/ButtonIcons/View.gif" /></button>
+            </td> 
+        </tr>    
+    </table>
+</fieldset>
 
     <table>
         <tr>
@@ -85,7 +102,7 @@
                         columns.Bound(model => model.InvoiceDate).Format("{0:yyyy/MM/dd}");
                         columns.Bound(model => model.ExcludingVat).Format("{0:c}");
                         columns.Bound(model => model.IncludingVat).Format("{0:c}");
-                        columns.Bound(model => model.SupplierID);
+                        columns.Bound(model => model.SupplierDetails);
                                           
                    
                             columns.Command(commands =>

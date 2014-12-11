@@ -1,5 +1,12 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<dynamic>" %>
 
+<% string[] roles = {""};
+   
+    if (HttpContext.Current.Session["Username"] != null)
+   {
+      roles = Roles.GetRolesForUser(HttpContext.Current.Session["Username"].ToString()); 
+   }
+     %>
 <%  Html.Telerik()
         .Menu()
         .Name("Menu")
@@ -13,9 +20,26 @@
             items.Add()
                  .Text("Home")
                  .Url("~/Home/Home");
+
+            if (roles.Contains("admin"))
+            {
+                items.Add()
+                    .Text("Accounts")
+                    .Url("#")
+                    .Items(c =>
+                    {
+                        c.Add().Text("Register New User").Url("~/Account/Register");
+
+                        if (roles.Contains("admin"))
+                        {
+                            c.Add().Text("Add Role").Url("~/Account/RoleManagement");
+                        }
+                    });
+            }
+            
             items.Add()
                  .Text("Maintenance")
-                 .Url("~/Home/Index")
+                 .Url("~/Home/Home")
                  .Items(item =>
                      {
                          item.Add().Text("Comment").Url("~/Maintenance/Comment");
@@ -31,7 +55,7 @@
 
             items.Add()
                 .Text("Supplier")
-                .Url("~/Home/Index")
+                .Url("~/Home/Home")
                 .Items(Sitem =>
                     {
                         Sitem.Add().Text("Supplier").Url("~/Supplier/Suppliers");
@@ -40,79 +64,88 @@
 
             items.Add()
                 .Text("Payments")
-                .Url("~/Home/Index")
+                .Url("~/Home/Home")
                 .Items(Payitems =>
                 {
                     Payitems.Add().Text("Proof Of Payment").Url("~/Payment/ProofOfPayments");
                 });
+            
             items.Add()
             .Text("GRV")
-            .Url("~/Home/Index")
+            .Url("~/Home/Home")
             .Items(GRVitems =>
             {
                 GRVitems.Add().Text("GRV").Url("~/GRV/GRVLists");
                 GRVitems.Add().Text("GRV Import").Url("~/GRV/ImportGRVList");
             });
+            
             items.Add()
-         .Text("Users")
-         .Url("~/Home/Index")
-         .Items(Uitems =>
-         {
-             Uitems.Add().Text("Users").Url("~/Users/Users");
-         });
+                .Text("Order")
+                .Url("~/Home/Home")
+                .Items(Tritems =>
+                {
+                    Tritems.Add().Text("Orders").Url("~/Orders/Orders");
+                    Tritems.Add().Text("Order vs GRV - Report").Url("~/Orders/OrdervsGRVReport");
+                });
+
             items.Add()
-            .Text("Transits")
-            .Url("~/Home/Index")
-            .Items(Tritems =>
-            {
-                Tritems.Add().Text("Transits").Url("~/Transits/Transits");
-            });
+                 .Text("Log off")
+                 .Url("~/Account/Logoff");
+
+            /*
             items.Add()
-      .Text("CashBox")
-      .Url("~/Home/Index")
-      .Items(Tritems =>
-      {
-          Tritems.Add().Text("CashBoxs").Url("~/Cash/CashBoxs");
-      });
-                   items.Add()
-      .Text("Cashier")
-      .Url("~/Cashier/Cashier")
-      .Items(Tritems =>
-      {
-          Tritems.Add().Text("Cashier").Url("~/Cashier/Cashier");
-      });
-                   items.Add()
-.Text("Cashier CashUp")
-.Url("~/Cashier/CashierCashUp")
-.Items(Tritems =>
-{
-    Tritems.Add().Text("CashierCashUp").Url("~/Cashier/CashierCashUp");
-});
+             .Text("Users")
+             .Url("~/Home/Home")
+             .Items(Uitems =>
+             {
+                 Uitems.Add().Text("Users").Url("~/Users/Users");
+             });
+            
+            items.Add()
+                .Text("Transits")
+                .Url("~/Home/Home")
+                .Items(Tritems =>
+                {
+                    Tritems.Add().Text("Transits").Url("~/Transits/Transits");
+                });
+            
+            items.Add()
+              .Text("CashBox")
+              .Url("~/Home/Home")
+              .Items(Tritems =>
+              {
+                  Tritems.Add().Text("CashBoxs").Url("~/Cash/CashBoxs");
+              });
+           */
+            
+            
+           items.Add()
+              .Text("Cashier")
+              .Url("~/Cashier/Cashier")
+              .Items(Tritems =>
+              {
+                  Tritems.Add().Text("Cashier").Url("~/Cashier/Cashier");
+              });
+            /*
+           items.Add()
+                    .Text("Cashier CashUp")
+                    .Url("~/Cashier/CashierCashUp")
+                    .Items(Tritems =>
+                    {
+                        Tritems.Add().Text("CashierCashUp").Url("~/Cashier/CashierCashUp");
+                    });
+            
             items.Add()
                 .Text("CashUp")
-                .Url("~/Home/Index")
+                .Url("~/Home/Home")
                 .Items(Tritems =>
                 {
                     Tritems.Add().Text("KwikPay").Url("~/CashUp/KwikPays");
                     Tritems.Add().Text("InstantMoney").Url("~/CashUp/InstantMoneys");
                     Tritems.Add().Text("FNB").Url("~/CashUp/FNBs");
                 });
-
-            items.Add()
-    .Text("Order")
-    .Url("~/Home/Index")
-    .Items(Tritems =>
-    {
-        Tritems.Add().Text("Orders").Url("~/Orders/Orders");
-      ;
-    });
-
-            items.Add()
-                 .Text("Log off")
-                 .Url("~/Account/Logoff");
+            */
                 
-        })
-        
-        
-             .Render();
-            %>
+            })      
+            .Render();
+ %>

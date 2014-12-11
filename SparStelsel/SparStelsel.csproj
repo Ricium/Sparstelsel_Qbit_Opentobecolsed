@@ -422,6 +422,8 @@
     <Compile Include="Models\ProofOfPaymentRepository.cs" />
     <Compile Include="Models\ReconciliationType.cs" />
     <Compile Include="Models\ReconciliationTypeRepository.cs" />
+    <Compile Include="Models\ReportModels.cs" />
+    <Compile Include="Models\ReportRepository.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\StatusRepository.cs" />
     <Compile Include="Models\Supplier.cs" />
@@ -690,6 +692,7 @@
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
     <Content Include="Views\Account\LogOn.aspx" />
     <Content Include="Views\Account\Register.aspx" />
+    <Content Include="Views\Account\RoleManagement.aspx" />
     <Content Include="Views\Account\Users.aspx" />
     <Content Include="Views\Cashier\Cashier.aspx" />
     <Content Include="Views\Cashier\CashierCashUp.aspx" />
@@ -730,6 +733,7 @@
     <Content Include="Views\Maintenance\Comment.aspx" />
     <Content Include="Views\Maintenance\Status.aspx" />
     <Content Include="Views\Orders\Orders.aspx" />
+    <Content Include="Views\Orders\OrdervsGRVReport.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CashBox.aspx" />
     <Content Include="Views\Maintenance\CashTypes.aspx" />
     <Content Include="Views\Maintenance\CommentTypes.aspx" />
@@ -1038,15 +1042,6 @@
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
       <VersionMinor>7</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="VBIDE">
-      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>5</VersionMajor>
-      <VersionMinor>3</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>

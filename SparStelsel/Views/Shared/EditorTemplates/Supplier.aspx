@@ -7,14 +7,11 @@
 
 <html>
 <head id="Head1" runat="server">
-    <title>Supplier </title>
+    <title>Supplier</title>
 </head>
 <body>
     <%: Html.ValidationSummary(false) %>
 
-    <table>
-        <tr>
-            <td>
                 <table>
                     <tr>
                         <td>
@@ -31,7 +28,7 @@
                             <%: Html.ValidationMessageFor(m => m.Suppliers) %>
                         </td>
                     </tr>
-                                        <tr>
+                    <tr>
                         <td>
                            <%: Html.LabelFor(m => m.StockCondition) %>
                         </td>
@@ -40,7 +37,7 @@
                             <%: Html.ValidationMessageFor(m => m.StockCondition) %>
                         </td>
                     </tr>
-                                                            <tr>
+                    <tr>
                         <td>
                            <%: Html.LabelFor(m => m.Term) %>
                         </td>
@@ -65,16 +62,8 @@
                         <td>
                            <%: Html.CheckBoxFor(m => m.FromFriday)%>
                         </td>
-                    </tr> 
-               
-                  
-                                     
-
+                    </tr>             
                 </table>
-            </td>
-        </tr>
-    </table>
-
     
 </body>
 </html>

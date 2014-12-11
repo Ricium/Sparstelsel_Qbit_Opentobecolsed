@@ -97,6 +97,39 @@ namespace SparStelsel.Models
             return obj;
         }
 
+        public List<SelectListItem> GetSupplierListAddedAll()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+            SelectListItem all = new SelectListItem();
+            all.Selected = true;
+            all.Text = "All";
+            all.Value = "";
+
+            obj.Add(all);
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT SupplierID,Supplier FROM t_Supplier", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["Supplier"].ToString();
+                    result.Value = drI["SupplierID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
         public List<SelectListItem> GetGRVTypeList()
         {
             List<SelectListItem> obj = new List<SelectListItem>();
@@ -408,10 +441,9 @@ namespace SparStelsel.Models
         {
             List<SelectListItem> obj = new List<SelectListItem>();
 
-
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT * FROM Company", con);
+            SqlCommand cmdI = new SqlCommand("SELECT * FROM Company WHERE CompanyId IN ("+HttpContext.Current.Session["Companies"].ToString()+")", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -432,6 +464,41 @@ namespace SparStelsel.Models
             return obj;
         }
 
+        public string TelerikDateToString(string teledate)
+        {
+            if (teledate.Equals("") || teledate.Equals("null"))
+            {
+                return "";
+            }
+            else
+            {
+                string Month = MMMtoMM(teledate.Substring(4, 3));
+                string Day = teledate.Substring(8, 2);
+                string Year = teledate.Substring(11, 4);
+                return Year + "-" + Month + "-" + Day;
+            }
+        }
 
+        public string MMMtoMM(string MMM)
+        {
+            string ret = "";
+            switch (MMM)
+            {
+                case "Jan": ret = "01"; break;
+                case "Feb": ret = "02"; break;
+                case "Mar": ret = "03"; break;
+                case "Apr": ret = "04"; break;
+                case "May": ret = "05"; break;
+                case "Jun": ret = "06"; break;
+                case "Jul": ret = "07"; break;
+                case "Aug": ret = "08"; break;
+                case "Sep": ret = "09"; break;
+                case "Oct": ret = "10"; break;
+                case "Nov": ret = "11"; break;
+                case "Dec": ret = "12"; break;
+            }
+
+            return ret;
+        }
     }
 }

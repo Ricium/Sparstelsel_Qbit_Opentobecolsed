@@ -34,11 +34,6 @@ namespace SparStelsel.Controllers
             return View(new GridModel(SupplierRep.GetAllSupplier()));
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         //Functions
         // SupplierType 
         public ActionResult SupplierTypes()
@@ -84,43 +79,41 @@ namespace SparStelsel.Controllers
         // Supplier 
         public ActionResult Suppliers()
         {
-            ViewData["SupplierType"] = DDRep.GetSupplierTypeList();
-            
+            ViewData["SupplierType"] = DDRep.GetSupplierTypeList();            
             return View();
         }
 
         //Add SupplierType
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult _InsertSupplier(Supplier ins)
+        public JsonResult _InsertSupplier(Supplier ins)
         {
             //...Insert Object
             Supplier ins2 = SupplierRep.Insert(ins);
 
             //...Repopulate Grid...
-            return View(new GridModel(SupplierRep.GetAllSupplier()));
+            return Json(new GridModel(SupplierRep.GetAllSupplier()));
         }
         //Update SupplierType
         [GridAction]
-        public ActionResult _UpdateSupplier(Supplier ins)
+        public JsonResult _UpdateSupplier(Supplier ins)
         {
             //...Update Object
             Supplier ins2 = SupplierRep.Update(ins);
 
             //...Repopulate Grid...
-            return View(new GridModel(SupplierRep.GetAllSupplier()));
+            return Json(new GridModel(SupplierRep.GetAllSupplier()));
         }
         //Remove SupplierType
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult _RemoveSupplier(int id)
+        public JsonResult _RemoveSupplier(int id)
         {
             //...Update Object
-            int ins = SupplierRep.GetSupplier(id).SupplierID;
-            SupplierRep.Remove(ins);
+            SupplierRep.Remove(id);
 
             //...Repopulate Grid...
-            return View(new GridModel(SupplierRep.GetAllSupplier()));
+            return Json(new GridModel(SupplierRep.GetAllSupplier()));
         }
     }
 }

@@ -26,20 +26,58 @@ namespace SparStelsel.Controllers
 
         //Lists
         [GridAction]
-        public ActionResult _ListGRVLists(string Invoice = "", string Pink = "")
+        public ActionResult _ListGRVLists(string Invoice = "", string Pink = "", string Supplier = "", string From = "", string To = "")
         {
-            return View(new GridModel(GRVRep.GetAllGRVList(Invoice, Pink)));
+            return View(new GridModel(GRVRep.GetAllGRVList(Invoice, Pink, Supplier, DDRep.TelerikDateToString(From), DDRep.TelerikDateToString(To))));
         }
 
-     
+        [HttpPost]
+        public ActionResult _GRVListGridExport(string Invoice = "", string Pink = "", string Supplier = "", string From = "", string To = "")
+        {
+            List<GRVList> report = GRVRep.GetAllGRVList(Invoice, Pink, Supplier, DDRep.TelerikDateToString(From), DDRep.TelerikDateToString(To));
+            StringWriter sw = new StringWriter();
+            sw.WriteLine("\"TypeId\",\"Type\",\"PolicyNumber\",\"EntryDate\",\"FirstName\",\"Surname\",\"IDNumber\",\"Branch\",\"Product\",\"CoverAmount\",\"4DRate\",\"RiskRate\",\"GroupRate\"");
+
+            string name = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
+
+
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", "attachment;filename=GRV_" + name + ".csv");
+            Response.ContentType = "text/csv";
+
+            foreach (GRVList ex in report)
+            {
+                sw.WriteLine(string.Format("\"{0}\",\"\"{1}\"\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\"",
+                                           ex.TypeId
+                                           , ex.Type
+                                           , ex.PolicyNumber
+                                           , ex.EntryDate
+                                           , ex.Firstname
+                                           , ex.Surname
+                                           , ex.IDNumber
+                                           , ex.Branch
+                                           , ex.Product
+                                           , ex.CoverAmount
+                                           , ex.FDRate
+                                           , ex.RiskRate
+                                           , ex.GroupRate));
+            }
+
+            Response.Write(sw.ToString());
+            Response.End();
+
+            return null;
+        }
         //Functions
         public ActionResult GRVLists()
         {
             ViewData["SupplierType"] = DDRep.GetSupplierTypeList();
-            ViewData["SupplierID"] = DDRep.GetSupplierList();
+            ViewData["SupplierID"] = DDRep.GetSupplierListAddedAll();
             ViewData["GRVType"] = DDRep.GetGRVTypeList();
+
             return View();
         }
+
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public ActionResult _InsertGRVLists(GRVList ins)
@@ -95,8 +133,7 @@ namespace SparStelsel.Controllers
 
                 //...Create connection string to Excel work book
                 string excelConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path1 + ";Persist Security Info=False;Extended Properties=\"Excel 12.0;IMEX=1\"";
-
-                //...Create Connection to Excel work book
+                //string excelConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source='"+path1+"';Extended Properties= \"Excel 8.0;HDR=Yes;IMEX=1\"";                 //...Create Connection to Excel work book
                 OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
 
                 //...Create OleDbCommand to fetch data from Excel
@@ -285,5 +322,64 @@ namespace SparStelsel.Controllers
 
             return null;
         }
+
+        /*public ActionResult Export(int page, string orderBy, string filter)
+        {
+            //Get the data representing the current grid state - page, sort and filter
+            GridModel model = Model().ToGridModel(page, 10, orderBy, string.Empty, filter);
+            var orders = model.Data.Cast<Order>();
+
+            //Create new Excel workbook
+            var workbook = new HSSFWorkbook();
+
+            //Create new Excel sheet
+            var sheet = workbook.CreateSheet();
+
+            //(Optional) set the width of the columns
+            sheet.SetColumnWidth(0, 10 * 256);
+            sheet.SetColumnWidth(1, 50 * 256);
+            sheet.SetColumnWidth(2, 50 * 256);
+            sheet.SetColumnWidth(3, 50 * 256);
+
+            //Create a header row
+            var headerRow = sheet.CreateRow(0);
+
+            //Set the column names in the header row
+            headerRow.CreateCell(0).SetCellValue("OrderID");
+            headerRow.CreateCell(1).SetCellValue("ShipAddress");
+            headerRow.CreateCell(2).SetCellValue("CustomerID");
+            headerRow.CreateCell(3).SetCellValue("OrderDate");
+
+            //(Optional) freeze the header row so it is not scrolled
+            sheet.CreateFreezePane(0, 1, 0, 1);
+
+            int rowNumber = 1;
+
+            //Populate the sheet with values from the grid data
+            foreach (Order order in orders)
+            {
+                //Create a new row
+                var row = sheet.CreateRow(rowNumber++);
+
+                //Set values for the cells
+                row.CreateCell(0).SetCellValue(order.OrderID);
+                row.CreateCell(1).SetCellValue(order.ShipAddress);
+                row.CreateCell(2).SetCellValue(order.CustomerID);
+                row.CreateCell(3).SetCellValue(order.OrderDate.ToString());
+            }
+
+            //Write the workbook to a memory stream
+            MemoryStream output = new MemoryStream();
+            workbook.Write(output);
+
+            //Return the result to the end user
+
+            return File(output.ToArray(),   //The binary data of the XLS file
+                "application/vnd.ms-excel", //MIME type of Excel files
+                "GridExcelExport.xls");     //Suggested file name in the "Save as" dialog which will be displayed to the end user
+        }*/
+
     }
+
+
 }

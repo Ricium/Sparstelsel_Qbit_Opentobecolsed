@@ -287,8 +287,8 @@ namespace SparStelsel.Models
         public void Remove(int SupplierID)
         {
             //...Get User and Date Data...
-            //string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            //int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
+            int EmployeeId = 1;//Convert.ToInt32(HttpContext.Current.Session["UserID"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -302,6 +302,9 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.SupplierRemove;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@SupplierID", SupplierID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+	        cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@Removed", 1);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

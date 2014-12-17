@@ -62,8 +62,8 @@ namespace SparStelsel.Controllers
 
         public ActionResult Orders()
         {
-            ViewData["Supllier"] = DDRep.GetSupplierList();
-            ViewData["Comments"] = DDRep.GetCommentList();
+            ViewData["Supllier"] = DDRep.GetSupplierListWithAll();
+            ViewData["Comments"] = DDRep.GetCommentListWithAll();
            
             return View();
         }

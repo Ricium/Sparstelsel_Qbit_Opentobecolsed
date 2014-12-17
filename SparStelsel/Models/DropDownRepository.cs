@@ -97,6 +97,39 @@ namespace SparStelsel.Models
             return obj;
         }
 
+        public List<SelectListItem> GetSupplierListWithAll()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+            SelectListItem all = new SelectListItem();
+            all.Selected = true;
+            all.Value = "";
+            all.Text = "All";
+            obj.Add(all);
+
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT SupplierID,Supplier FROM t_Supplier WHERE Removed=0", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["Supplier"].ToString();
+                    result.Value = drI["SupplierID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
         public List<SelectListItem> GetDISupplierList()
         {
             List<SelectListItem> obj = new List<SelectListItem>();
@@ -331,7 +364,40 @@ namespace SparStelsel.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT * FROM t_Comment", con);
+            SqlCommand cmdI = new SqlCommand("SELECT * FROM t_Comment WHERE Removed=0", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["Comment"].ToString();
+                    result.Value = drI["CommentID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+        public List<SelectListItem> GetCommentListWithAll()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+            SelectListItem all = new SelectListItem();
+            all.Selected = true;
+            all.Value = "";
+            all.Text = "All";
+            obj.Add(all);
+
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT * FROM t_Comment WHERE Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

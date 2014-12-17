@@ -85,7 +85,26 @@
                 .Items(Tritems =>
                 {
                     Tritems.Add().Text("Orders").Url("~/Orders/Orders");
-                    Tritems.Add().Text("Order vs GRV - Report").Url("~/Orders/OrdervsGRVReport");
+                    //Tritems.Add().Text("Order vs GRV - Report").Url("~/Orders/OrdervsGRVReport");
+                });
+
+            items.Add()
+                .Text("Reports")
+                .Url("#")
+                .Items(item =>
+                {
+                    item.Add().Text("Order Reports").Url("#").Items(i =>
+                        {
+                            i.Add().Text("Order vs GRV").Url("~/Verslae/OrdervsGRVReport");
+                            i.Add().Text("Orders For Expected Delivery Date").Url("~/Verslae/OrdersExpectedDateReport");
+                        });
+                    item.Add().Text("Pinkslip Reports").Url("#").Items(i =>
+                        {
+                            i.Add().Text("Orders by Pinkslip").Url("~/Verslae/PinkSlipOrderReport");
+                            i.Add().Text("GRV Totals by Pinkslip").Url("~/Verslae/PinkSlipGRVReport");
+                        });
+                    
+                    
                 });
 
             items.Add()

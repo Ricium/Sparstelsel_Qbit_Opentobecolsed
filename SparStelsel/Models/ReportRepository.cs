@@ -142,6 +142,141 @@ namespace SparStelsel.Models
             return lst;
         }
 
+        public List<PinkslipOrderReport> GetPinkslipRange(NumericalRangeQuery query)
+        {
+            //...Create New Instance of Object...
+            List<PinkslipOrderReport> list = new List<PinkslipOrderReport>();
+            PinkslipOrderReport ins;
+
+            if(query.To == 0)
+            {
+                query.To = 9999999;
+            }
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("select * from t_Order o "
+                                    + " where o.Removed = 0 AND o.PinkSlipNumber >= " + query.From 
+                                    + " AND o.PinkSlipNumber <= " + query.To, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new PinkslipOrderReport();
+                    ins.PinkslipNumber = drI["PinkSlipNumber"].ToString();
+                    ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]).ToShortDateString();
+                    ins.ExpectedDeliveryDate = Convert.ToDateTime(drI["ExpectedDeliveryDate"]).ToShortDateString();
+                    ins.OrderTotal = drI["Amount"].ToString();
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+            //...Return...
+            return list;
+        }
+
+        public List<PinkslipGRVReport> GetPinkslipGRVRange(NumericalRangeQuery query)
+        {
+            //...Create New Instance of Object...
+            List<PinkslipGRVReport> list = new List<PinkslipGRVReport>();
+            PinkslipGRVReport ins;
+
+            if (query.To == 0)
+            {
+                query.To = 9999999;
+            }
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("select o.PinkSlipNumber, o.OrderDate"
+                                    + " ,o.Amount as OrderAmount"
+                                    + " ,SUM(g.IncludingVat) as GRVTotal"
+                                    + " ,(SELECT TOP 1 t.GRVDate FROM t_GRVList t WHERE t.PinkSlipNumber = o.PinkSlipNumber ORDER BY t.GRVDate DESC) as LastDate"
+                                    + " from t_Order o inner join t_GRVList g on o.PinkSlipNumber = g.PinkSlipNumber"
+                                    + " where o.PinkSlipNumber >= " + query.From + " and o.PinkSlipNumber <= " + query.To
+                                    + " Group by o.PinkSlipNumber, o.OrderDate, o.Amount", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new PinkslipGRVReport();
+                    ins.PinkslipNumber = drI["PinkSlipNumber"].ToString();
+                    ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]).ToShortDateString();
+                    ins.GRVDate = Convert.ToDateTime(drI["LastDate"]).ToShortDateString();
+                    ins.OrderTotal = drI["OrderAmount"].ToString();
+                    ins.GRVTotal = drI["GRVTotal"].ToString();
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+            //...Return...
+            return list;
+        }
+
+        public List<PinkslipOrderReport> GetOrdersPerExpectedDeliveryDate(DateTimeFromToQuery query)
+        {
+            //...Create New Instance of Object...
+            List<PinkslipOrderReport> list = new List<PinkslipOrderReport>();
+            PinkslipOrderReport ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("select * from t_Order o "
+                    + " where DATEPART(DAY,o.ExpectedDeliveryDate) = " + query.From.Day
+                    + " AND DATEPART(MONTH,o.ExpectedDeliveryDate) = " + query.From.Month
+                    + " AND DATEPART(YEAR, o.ExpectedDeliveryDate) = " + query.From.Year, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new PinkslipOrderReport();
+                    ins.PinkslipNumber = drI["PinkSlipNumber"].ToString();
+                    ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]).ToShortDateString();
+                    ins.OrderTotal = drI["Amount"].ToString();
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+            //...Return...
+            return list;
+        } 
+
         public List<SelectListItem> GetMonthNameSelectList()
         {
             List<SelectListItem> obj = new List<SelectListItem>();

@@ -375,6 +375,7 @@
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\TransitsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\VerslaeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -755,6 +756,10 @@
     <Content Include="Views\Maintenance\Status.aspx" />
     <Content Include="Views\Orders\Orders.aspx" />
     <Content Include="Views\Orders\OrdervsGRVReport.aspx" />
+    <Content Include="Views\Verslae\OrdersExpectedDateReport.aspx" />
+    <Content Include="Views\Verslae\OrdervsGRVReport.aspx" />
+    <Content Include="Views\Verslae\PinkSlipGRVReport.aspx" />
+    <Content Include="Views\Verslae\PinkSlipOrderReport.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CashBox.aspx" />
     <Content Include="Views\Maintenance\CashTypes.aspx" />
     <Content Include="Views\Maintenance\CommentTypes.aspx" />

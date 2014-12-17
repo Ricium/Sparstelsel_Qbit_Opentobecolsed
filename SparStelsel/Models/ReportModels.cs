@@ -20,6 +20,12 @@ namespace SparStelsel.Models
         public DateTime To { get; set; }
     }
 
+    public class NumericalRangeQuery
+    {
+        public int From { get; set; }
+        public int To { get; set; }
+    }
+
     public class OrdervsGRVReport
     {
         public string Day { get; set; }
@@ -28,5 +34,22 @@ namespace SparStelsel.Models
         public string FridayOrderTotal { get; set; }
         public string GRVTotal { get; set; }
         public string FridayGRVTotal { get; set; }
+    }
+
+    public class PinkslipOrderReport
+    {
+        public string PinkslipNumber { get; set; }
+        public string OrderDate { get; set; }
+        public string ExpectedDeliveryDate { get; set; }
+        public string OrderTotal { get; set; }
+    }
+
+    public class PinkslipGRVReport
+    {
+        public string PinkslipNumber { get; set; }
+        public string GRVDate { get; set; }
+        public string GRVTotal { get; set; }
+        public string OrderTotal { get; set; }
+        public string OrderDate { get; set; }
     }
 }

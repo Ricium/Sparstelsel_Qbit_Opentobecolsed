@@ -335,7 +335,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+             string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -358,7 +358,7 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);
             cmdI.Parameters.AddWithValue("@MoneyUnitID", ins.MoneyUnitID);
             cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
@@ -371,7 +371,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+             string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();

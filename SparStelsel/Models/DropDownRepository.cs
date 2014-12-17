@@ -76,7 +76,7 @@ namespace SparStelsel.Models
         
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT SupplierID,Supplier FROM t_Supplier", con);
+            SqlCommand cmdI = new SqlCommand("SELECT SupplierID,Supplier FROM t_Supplier WHERE Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -87,6 +87,62 @@ namespace SparStelsel.Models
                     var result = new SelectListItem();
                     result.Text = drI["Supplier"].ToString();
                     result.Value = drI["SupplierID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+        public List<SelectListItem> GetDISupplierList()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT SupplierID,Supplier FROM t_Supplier s inner join l_SupplierType t on s.SupplierTypeID = t.SupplierTypeID and t.SupplierType = 'DI'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["Supplier"].ToString();
+                    result.Value = drI["SupplierID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+        public List<SelectListItem> GetCashTypeList()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT CashTypeID,CashType FROM l_CashType", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["CashType"].ToString();
+                    result.Value = drI["CashTypeID"].ToString();
                     obj.Add(result);
                 }
             }
@@ -213,7 +269,7 @@ namespace SparStelsel.Models
             return obj;
         }
 
-        public List<SelectListItem> GetCashTypeList()
+        public List<SelectListItem> GetCashTypeList1()
         {
             List<SelectListItem> obj = new List<SelectListItem>();
 

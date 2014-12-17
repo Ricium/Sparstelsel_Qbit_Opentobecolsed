@@ -39,8 +39,53 @@ namespace SparStelsel.Models
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return ins;
+        }
+
+        public Order GetOrder(string PinkSlipNumber)
+        {
+            //...Create New Instance of Object...
+            Order ins = new Order();
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_Order WHERE PinkSlipNumber = '" + PinkSlipNumber + "'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins.OrderID = Convert.ToInt32(drI["OrderID"]);
+                    ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
+                    ins.ExpectedDeliveryDate = Convert.ToDateTime(drI["ExpectedDeliveryDate"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
+                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.CommentID = Convert.ToInt32(drI["CommentID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.PinkSlipNumber = drI["PinkSlipNumber"].ToString();
                 }
             }
 
@@ -85,11 +130,11 @@ namespace SparStelsel.Models
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     ins.supplier = drI["Supplier"].ToString();
                     ins.Suffix = drI["Suffix"].ToString();
-                    ins.PinkSlipNumber = Convert.ToInt32(drI["PinkSlipNumber"]);
+                    ins.PinkSlipNumber = Convert.ToString(drI["PinkSlipNumber"]);
                     list.Add(ins);
                 }
             }
@@ -103,11 +148,17 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<Order> GetAllOrder(string PinkSlipNumber)
+        public List<Order> GetAllOrder(string Suffix, string PinkSlipNumber, string Supplier, string From, string To, string Comment)
         {
             //...Create New Instance of Object...
             List<Order> list = new List<Order>();
             Order ins;
+
+            if (From.Equals(""))
+                From = "1900-01-01";
+
+            if (To.Equals(""))
+                To = "2100-01-01";
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -115,7 +166,47 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT o.*,s.Supplier FROM t_Order o inner join t_Supplier s on o.SupplierID=s.SupplierID WHERE o.Removed=0 AND PinkSlipNumber LIKE '%" + PinkSlipNumber + "'", con);
+            if (Supplier.Equals(""))
+            {
+                if(Comment.Equals(""))
+                {
+                    cmdI = new SqlCommand("SELECT o.*,s.Supplier,c.Comment FROM t_Order o inner join t_Supplier s on o.SupplierID=s.SupplierID "
+                    + " inner join t_Comment c on o.CommentID = c.CommentID "
+                    + " WHERE o.Removed=0 AND o.PinkSlipNumber LIKE '%" + PinkSlipNumber + "'"
+                    + " AND o.Suffix LIKE '%" + Suffix + "'"
+                    + " AND o.OrderDate >= '" + From + "' AND o.OrderDate <= '" + To + "'", con);
+                }                
+                else
+                {
+                    cmdI = new SqlCommand("SELECT o.*,s.Supplier,c.Comment FROM t_Order o inner join t_Supplier s on o.SupplierID=s.SupplierID "
+                    + " inner join t_Comment c on o.CommentID = c.CommentID "
+                    + " WHERE o.Removed=0 AND o.PinkSlipNumber LIKE '%" + PinkSlipNumber + "'"
+                    + " AND o.Suffix LIKE '%" + Suffix + "' AND o.CommentID = " + Comment
+                    + " AND o.OrderDate >= '" + From + "' AND o.OrderDate <= '" + To + "'", con);
+                }
+            }
+            else
+            {
+                if(Comment.Equals(""))
+                {
+                    cmdI = new SqlCommand("SELECT o.*,s.Supplier,c.Comment FROM t_Order o inner join t_Supplier s on o.SupplierID=s.SupplierID "
+                    + " inner join t_Comment c on o.CommentID = c.CommentID "
+                    + " WHERE o.Removed=0 AND o.PinkSlipNumber LIKE '%" + PinkSlipNumber + "'"
+                    + " AND o.Suffix LIKE '%" + Suffix + "'"
+                    + " AND o.OrderDate >= '" + From + "' AND o.OrderDate <= '" + To + "'"
+                    + " AND o.SupplierID = " + Supplier, con);
+                }
+                else
+                {
+                    cmdI = new SqlCommand("SELECT o.*,s.Supplier,c.Comment FROM t_Order o inner join t_Supplier s on o.SupplierID=s.SupplierID "
+                    + " inner join t_Comment c on o.CommentID = c.CommentID "
+                    + " WHERE o.Removed=0 AND o.PinkSlipNumber LIKE '%" + PinkSlipNumber + "'"
+                    + " AND o.Suffix LIKE '%" + Suffix + "' AND o.CommentID = " + Comment
+                    + " AND o.OrderDate >= '" + From + "' AND o.OrderDate <= '" + To + "'"
+                    + " AND o.SupplierID = " + Supplier, con);
+                }
+            }
+            
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -135,11 +226,12 @@ namespace SparStelsel.Models
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     ins.supplier = drI["Supplier"].ToString();
                     ins.Suffix = drI["Suffix"].ToString();
-                    ins.PinkSlipNumber = Convert.ToInt32(drI["PinkSlipNumber"]);
+                    ins.PinkSlipNumber = Convert.ToString(drI["PinkSlipNumber"]);
+                    ins.ordercomment = drI["Comment"].ToString();
                     list.Add(ins);
                 }
             }
@@ -185,7 +277,7 @@ namespace SparStelsel.Models
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
@@ -232,7 +324,7 @@ namespace SparStelsel.Models
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
@@ -279,7 +371,7 @@ namespace SparStelsel.Models
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
@@ -326,7 +418,7 @@ namespace SparStelsel.Models
                     ins.CommentID = Convert.ToInt32(drI["CommentID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
@@ -345,7 +437,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+             string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
             string strTrx = "OrderIns_" + EmployeeId;
 
             //...Database Connection...
@@ -375,7 +467,7 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@CommentID", ins.CommentID);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
                 cmdI.Parameters.AddWithValue("@PinkSlipNumber", ins.PinkSlipNumber);
                 cmdI.Parameters.AddWithValue("@Suffix", checkNullString(ins.Suffix));
@@ -402,6 +494,9 @@ namespace SparStelsel.Models
                 cmdI.Dispose();
                 trx.Dispose();
             }
+
+            RepopulateGRVList(ins.PinkSlipNumber);
+
             return ins;
         }
 
@@ -409,7 +504,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
              string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+             string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -432,7 +527,7 @@ namespace SparStelsel.Models
                  cmdI.Parameters.AddWithValue("@CommentID", ins.CommentID);
                  cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                  cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-                 cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+                 cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
                  cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
                  cmdI.Parameters.AddWithValue("@PinkSlipNumber", ins.PinkSlipNumber);
                  cmdI.Parameters.AddWithValue("@Suffix", checkNullString(ins.Suffix)); 
@@ -448,7 +543,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+             string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -463,7 +558,7 @@ namespace SparStelsel.Models
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@OrderID", OrderID);
             cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
-	        cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+	        cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
             cmdI.Parameters.AddWithValue("@Removed", 1);
 
             cmdI.ExecuteNonQuery();
@@ -501,6 +596,18 @@ namespace SparStelsel.Models
         public string checkNullString(string check)
         {
             return (check == null) ? "" : check;
+        }
+
+        public void RepopulateGRVList(string PinkSlipNumber)
+        {
+            GRVListRepository grvrep = new GRVListRepository();
+            List<GRVList> list = grvrep.GetAllGRVList(PinkSlipNumber);
+
+            foreach(GRVList item in list)
+            {
+                item.ExpectedPayDate = grvrep.GetExpectedPayDate(PinkSlipNumber, item.SupplierID);
+                grvrep.Update(item);
+            }
         }
     }
 }

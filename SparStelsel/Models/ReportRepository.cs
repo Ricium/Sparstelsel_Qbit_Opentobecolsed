@@ -72,6 +72,76 @@ namespace SparStelsel.Models
             return lst;
         }
 
+        public List<OrdervsGRVReport> GetOrdervsGRVReport(DateTimeFromToQuery query)
+        {
+            string FromDate = query.From.ToString();
+            string ToDate = query.To.ToString();
+
+            if(query.To.Year.Equals(1))
+            {
+                ToDate = "2050-01-01";      //...Max date of Report (Can be changed anytime)
+            }
+
+            List<OrdervsGRVReport> lst = new List<OrdervsGRVReport>();
+            OrdervsGRVReport ins;
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand();
+            cmdI.CommandTimeout = 540;
+            cmdI.Connection = con;
+            cmdI.CommandText = "f_Admin_Report_OrdersvsGRVPerDay";
+            cmdI.CommandType = System.Data.CommandType.StoredProcedure;
+            cmdI.Parameters.AddWithValue("@FromDate", FromDate);                 
+            cmdI.Parameters.AddWithValue("@ToDate", ToDate);               
+            cmdI.Connection.Open();
+
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new OrdervsGRVReport();
+                    ins.Date = Convert.ToDateTime(drI["Date"]).ToShortDateString();
+                    ins.GRVTotal = drI["GRVAmount"].ToString();
+                    ins.OrderTotal = drI["OrderAmount"].ToString();
+                    lst.Add(ins);
+                }
+            }
+
+            DateTime parser;
+            decimal ortotal = 0;
+            decimal grvtotal = 0;
+
+            foreach (OrdervsGRVReport item in lst)
+            {
+                DateTime.TryParse(item.Date, out parser);
+                item.Day = parser.DayOfWeek.ToString();
+                ortotal += Convert.ToDecimal(item.OrderTotal);
+                grvtotal += Convert.ToDecimal(item.GRVTotal);
+
+                if (parser.DayOfWeek == DayOfWeek.Friday)
+                {
+                    item.FridayOrderTotal = ortotal.ToString();
+                    item.FridayGRVTotal = grvtotal.ToString();
+                    ortotal = 0;
+                    grvtotal = 0;
+                }
+                else
+                {
+                    item.FridayGRVTotal = "";
+                    item.FridayOrderTotal = "";
+                }
+            }
+
+            cmdI.Connection.Close();
+            con.Dispose();
+
+            return lst;
+        }
+
         public List<SelectListItem> GetMonthNameSelectList()
         {
             List<SelectListItem> obj = new List<SelectListItem>();

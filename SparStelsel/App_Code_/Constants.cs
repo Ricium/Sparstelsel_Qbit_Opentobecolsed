@@ -96,7 +96,8 @@ namespace SparStelsel
         public static readonly string PickUpRemove = "f_Admin_Remove_PickUp";
 
         public static readonly string ProofOfPaymentInsert = "f_Admin_Insert_ProofOfPayment";
-        public static readonly string ProofOfPaymentRemove = "ProofOfPaymentRemove";
+        public static readonly string ProofOfPaymentUpdate = "f_Admin_Update_ProofOfPayment";
+        public static readonly string ProofOfPaymentRemove = "f_Admin_Remove_ProofOfPayment";
 
         public static readonly string SupplierInsert = "f_Admin_Insert_Supplier";
         public static readonly string SupplierRemove = "f_Admin_Remove_Supplier";

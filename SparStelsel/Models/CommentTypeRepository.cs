@@ -33,7 +33,7 @@ namespace SparStelsel.Models
                     ins.CommentTypes = Convert.ToString(drI["CommentType"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                 }
             }
@@ -73,7 +73,7 @@ namespace SparStelsel.Models
                     ins.CommentTypes = Convert.ToString(drI["CommentType"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
@@ -92,7 +92,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
              string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-             int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+              string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
              string strTrx = "CommentTypeIns_" + EmployeeId;
 
             //...Database Connection...
@@ -116,7 +116,7 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@CommentType", ins.CommentTypes);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
 
@@ -149,7 +149,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
              string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-             int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+              string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -166,7 +166,7 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@CommentType", ins.CommentTypes);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
 
 
             cmdI.ExecuteNonQuery();
@@ -180,7 +180,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
             //string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            //int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+            // string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();

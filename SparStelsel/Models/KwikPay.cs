@@ -32,7 +32,7 @@ namespace SparStelsel.Models
         public int KwikPayTypeID { get; set; }
         [DisplayName("Kwik Pay Type ID")]
         [Required(ErrorMessage = "Kwik Pay Type ID is required.")]
-        public string kwikpaytypeid { get; set; }
+        public string kwikpaytype{ get; set; }
 
         [DisplayName("User ID")]
         [Required(ErrorMessage = "User ID is required.")]
@@ -48,7 +48,7 @@ namespace SparStelsel.Models
 
         [DisplayName("Modified By")]
         [Required(ErrorMessage = "Modified By is required.")]
-        public int ModifiedBy { get; set; }
+          public string ModifiedBy { get; set; }
 
         [DisplayName("Removed")]
         [Required(ErrorMessage = "Removed is required.")]

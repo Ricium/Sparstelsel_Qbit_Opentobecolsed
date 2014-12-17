@@ -51,15 +51,7 @@
                         </td>
                     </tr>
 
-                                                                                <tr>
-                        <td>
-                           <%: Html.LabelFor(m => m.PayDate) %>
-                        </td>
-                        <td>
-                            <%: Html.Telerik().DatePickerFor(m => m.PayDate) %>
-                            <%: Html.ValidationMessageFor(m => m.PayDate) %>
-                        </td>
-                    </tr>
+    
 
                                                             <tr>
                         <td>
@@ -121,7 +113,15 @@
                             <%: Html.ValidationMessageFor(model => model.SupplierID) %>
                         </td>
                     </tr> 
-                    <tr>
+                                                                                <tr>
+                        <td>
+                           <%: Html.LabelFor(m => m.ExpectedPayDate) %>
+                        </td>
+                        <td>
+                            <%: Html.Telerik().DatePickerFor(m => m.ExpectedPayDate) %>
+                            <%: Html.ValidationMessageFor(m => m.ExpectedPayDate) %>
+                        </td>
+                    </tr>
                                
                   
                                      

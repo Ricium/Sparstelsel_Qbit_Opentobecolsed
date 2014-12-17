@@ -124,7 +124,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
              string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-             int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+              string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
              string strTrx = "UserTypePermissionIns_" + EmployeeId;
 
             //...Database Connection...
@@ -177,7 +177,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
             // string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            // int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+            //  string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -205,7 +205,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
             //string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            //int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+            // string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();

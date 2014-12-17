@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<YearMonthQuery>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<DateTimeFromToQuery>" %>
 <%@ Import Namespace="SparStelsel"%>
 <%@ Import Namespace="SparStelsel.Models"%>
 <%@ Import Namespace="SparStelsel.Controllers"%>
@@ -10,7 +10,7 @@
     <h3>Order vs GRV Report</h3>
    <% using (Html.BeginForm("GetOrdervsGRVReport", "Orders", FormMethod.Post))
        { %>
-        <table>
+        <%--<table>
             <tr>
                 <td>
                     <%: Html.LabelFor(m => m.Month) %>
@@ -25,6 +25,24 @@
                 </td>
                 <td>
                     <%: Html.Telerik().DropDownListFor(m => m.Year).BindTo((IEnumerable<SelectListItem>)ViewData["Year"]) %>
+                </td>
+            </tr>
+        </table>--%>
+        <table>
+            <tr>
+                <td>
+                    From Date:
+                </td>
+                <td>
+                    <%: Html.Telerik().DatePickerFor(m => m.From) %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    To Date:
+                </td>
+                <td>
+                    <%: Html.Telerik().DatePickerFor(m => m.To) %>
                 </td>
             </tr>
         </table>

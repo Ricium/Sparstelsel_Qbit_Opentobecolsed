@@ -37,9 +37,10 @@ namespace SparStelsel.Models
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     ins.InvoiceNumber = drI["InvoiceNumber"].ToString();
+                    ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
                 }
             }
 
@@ -64,7 +65,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT pop.*,s.Supplier FROM t_ProofOfPayment pop inner join t_Supplier s on pop.SupplierID =s.SupplierID ", con);
+            cmdI = new SqlCommand("SELECT pop.*,s.Supplier,c.CashType FROM t_ProofOfPayment pop inner join t_Supplier s on pop.SupplierID =s.SupplierID inner join l_CashType c on pop.CashTypeID = c.CashTypeID WHERE pop.Removed = 0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -81,9 +82,12 @@ namespace SparStelsel.Models
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     ins.InvoiceNumber = drI["InvoiceNumber"].ToString();
+                    ins.supplier = drI["Supplier"].ToString();
+                    ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
+                    ins.cashtype = drI["CashType"].ToString();
                     list.Add(ins);
                 }
             }
@@ -126,9 +130,10 @@ namespace SparStelsel.Models
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     ins.InvoiceNumber = drI["InvoiceNumber"].ToString();
+                    ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -171,9 +176,10 @@ namespace SparStelsel.Models
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     ins.InvoiceNumber = drI["InvoiceNumber"].ToString();
+                    ins.CashTypeID = Convert.ToInt32(drI["CashTypeID"]);
                     list.Add(ins);
                 }
             }
@@ -191,7 +197,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+             string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
             string strTrx = "ProofOfPaymentIns_" + EmployeeId;
 
             //...Database Connection...
@@ -218,9 +224,10 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
+               cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
                 cmdI.Parameters.AddWithValue("@InvoiceNumber", ins.InvoiceNumber);
+                cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);
 
                 //...Return new ID
                 ins.ProofOfPaymentID = (int)cmdI.ExecuteScalar();
@@ -251,7 +258,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+             string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -262,7 +269,7 @@ namespace SparStelsel.Models
 
             //...Update Record...
             cmdI.Parameters.Clear();
-            cmdI.CommandText = StoredProcedures.PickUpUpdate;
+            cmdI.CommandText = StoredProcedures.ProofOfPaymentUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@ProofOfPaymentID", ins.ProofOfPaymentID);
             cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
@@ -271,8 +278,9 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
+           cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
             cmdI.Parameters.AddWithValue("@InvoiceNumber", ins.InvoiceNumber);
+            cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);
     
 
             cmdI.ExecuteNonQuery();
@@ -286,7 +294,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+             string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -300,6 +308,9 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.ProofOfPaymentRemove;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@ProofOfPaymentID", ProofOfPaymentID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+            cmdI.Parameters.AddWithValue("@Removed", 1);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

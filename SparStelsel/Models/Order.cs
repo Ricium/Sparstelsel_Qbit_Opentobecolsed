@@ -61,7 +61,7 @@ namespace SparStelsel.Models
 
         [DisplayName("Modified By")]
         [Required(ErrorMessage = "Modified By is required.")]
-        public int ModifiedBy { get; set; }
+          public string ModifiedBy { get; set; }
 
         [DisplayName("Removed")]
         [Required(ErrorMessage = "Removed is required.")]
@@ -69,9 +69,11 @@ namespace SparStelsel.Models
 
         [DisplayName("Pink Slip Number")]
         [Required(ErrorMessage = "Pink Slip Number is required.")]
-        public int PinkSlipNumber { get; set; }
+        public string PinkSlipNumber { get; set; }
 
         [DisplayName("Suffix")]
         public string Suffix { get; set; }
+
+        public string ordercomment { get; set; }
     }
 }

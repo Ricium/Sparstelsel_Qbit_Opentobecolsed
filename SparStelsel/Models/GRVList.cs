@@ -51,6 +51,10 @@ namespace SparStelsel.Models
         [Required(ErrorMessage = "GRV Date is required.")]
         public DateTime GRVDate { get; set; }
 
+        [DisplayName("Expected Pay Date")]
+        public DateTime ExpectedPayDate { get; set; }
+
+
         [DisplayName("Invoice Date")]
         [Required(ErrorMessage = "Invoice Date is required.")]
         public DateTime InvoiceDate { get; set; }
@@ -85,7 +89,7 @@ namespace SparStelsel.Models
 
         [DisplayName("Modified By")]
         [Required(ErrorMessage = "Modified By is required.")]
-        public int ModifiedBy { get; set; }
+          public string ModifiedBy { get; set; }
 
         [DisplayName("Removed")]
         [Required(ErrorMessage = "Removed is required.")]
@@ -102,7 +106,7 @@ namespace SparStelsel.Models
         public int BatchId { get; set; }
         public string FileName { get; set; }
         public DateTime ModifiedDate { get; set; }
-        public int ModifiedBy { get; set; }
+          public string ModifiedBy { get; set; }
     }
 
     public class GRVListImport
@@ -170,7 +174,7 @@ namespace SparStelsel.Models
 
         [DisplayName("Modified By")]
         [Required(ErrorMessage = "Modified By is required.")]
-        public int ModifiedBy { get; set; }
+          public string ModifiedBy { get; set; }
 
         [DisplayName("Removed")]
         [Required(ErrorMessage = "Removed is required.")]
@@ -199,9 +203,9 @@ namespace SparStelsel.Models
         public string GRVDate { get; set; }
         public string InvDate { get; set; }
         public string SupplierName { get; set; }
-        public decimal ExclVAT { get; set; }
-        public decimal VAT { get; set; }
-        public decimal InclVAT  { get; set; }
+        public string ExclVAT { get; set; }
+        public string VAT { get; set; }
+        public string InclVAT  { get; set; }
 
     }
 }

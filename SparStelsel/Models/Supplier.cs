@@ -57,7 +57,7 @@ namespace SparStelsel.Models
 
 
         [DisplayName("Modified By")]
-        public int ModifiedBy { get; set; }
+        public string ModifiedBy { get; set; }
 
         [DisplayName("Removed")]
         public bool Removed { get; set; }

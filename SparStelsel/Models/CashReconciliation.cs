@@ -49,7 +49,7 @@ namespace SparStelsel.Models
 
         [DisplayName("Modified By")]
         [Required(ErrorMessage = "Modified By is required.")]
-        public int ModifiedBy { get; set; }
+          public string ModifiedBy { get; set; }
 
         [DisplayName("Removed")]
         [Required(ErrorMessage = "Removed is required.")]

@@ -36,7 +36,7 @@ namespace SparStelsel.Controllers
         {
             List<GRVList> report = GRVRep.GetAllGRVList(Invoice, Pink, Supplier, DDRep.TelerikDateToString(From), DDRep.TelerikDateToString(To));
             StringWriter sw = new StringWriter();
-            sw.WriteLine("\"Invoice Number\",\"State Date\",\"Number\",\"Pay Date\",\"Pink Slip Number\",\"GRV Date\",\"Invoice Date\",\"Excluding VAT\",\"VAT\",\"Including VAT\",\"Supplier\"");
+            sw.WriteLine("\"Invoice Number\",\"State Date\",\"Number\",\"Pay Date\",\"Pink Slip Number\",\"GRV Date\",\"Invoice Date\",\"Excluding VAT\",\"VAT\",\"Including VAT\",\"Supplier\",\"Expected Paydate From Delivery Date\"");
 
             string name = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
 
@@ -46,7 +46,7 @@ namespace SparStelsel.Controllers
 
             foreach (GRVList ex in report)
             {
-                sw.WriteLine(string.Format("\"{0}\",\"\"{1}\"\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\"",
+                sw.WriteLine(string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\"",
                                            ex.InvoiceNumber.ToString()
                                            , ex.StateDate.ToShortDateString()
                                            , ex.Number.ToString()
@@ -57,7 +57,8 @@ namespace SparStelsel.Controllers
                                            , ex.ExcludingVat.ToString()
                                            , (ex.IncludingVat - ex.ExcludingVat).ToString()
                                            , ex.IncludingVat.ToString()                                           
-                                           , ex.SupplierDetails));
+                                           , ex.SupplierDetails
+                                           , (ex.ExpectedPayDate == DateTime.MinValue) ? "No Order Linked To GRV" : ex.ExpectedPayDate.ToShortDateString()));
             }
 
             Response.Write(sw.ToString());
@@ -101,8 +102,7 @@ namespace SparStelsel.Controllers
         public ActionResult _RemoveGRVLists(int id)
         {
             //...Update Object
-            string ins = GRVRep.GetGRVList(id).ToString();
-            GRVRep.Remove(ins);
+            GRVRep.Remove(id);
 
             //...Repopulate Grid...
             return View(new GridModel(GRVRep.GetAllGRVList()));
@@ -248,7 +248,7 @@ namespace SparStelsel.Controllers
         }
 
         [GridAction]
-        public ActionResult _AddSupplier(GRVListImport ins)
+        public JsonResult _AddSupplier(GRVListImport ins)
         {
             //...Update Object
             if (ins.SupplierID == 0)
@@ -281,7 +281,7 @@ namespace SparStelsel.Controllers
             }
 
             //...Repopulate Grid...
-            return View(new GridModel(GRVRep.GetAllGRVList(ins.BatchId)));
+            return Json(new GridModel(GRVRep.GetAllGRVList(ins.BatchId)));
         }
 
         public ActionResult GRVImportProcess(int BatchId)

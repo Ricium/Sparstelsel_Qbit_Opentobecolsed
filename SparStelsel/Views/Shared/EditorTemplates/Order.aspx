@@ -7,8 +7,8 @@
 
 <html>
 <head id="Head1" runat="server">
-    <title>Orders </title>
-</head>
+    <title>Order</title>
+ </head>
 <body>
     <%: Html.ValidationSummary(false) %>
 
@@ -17,7 +17,6 @@
                         <td>
                             <%: Html.HiddenFor(m => m.OrderID) %>
                         </td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td>

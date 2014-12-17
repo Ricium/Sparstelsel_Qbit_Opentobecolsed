@@ -37,7 +37,7 @@ namespace SparStelsel.Models
         public DateTime CreatedDate { get; set; }
 
         [DisplayName("Supplier ID")]
-        public string supplierid { get; set; }
+        public string supplier { get; set; }
         [Required(ErrorMessage = "Supplier ID is required.")]
         public int SupplierID { get; set; }
 
@@ -51,7 +51,7 @@ namespace SparStelsel.Models
 
         [DisplayName("Modified By")]
 
-        public int ModifiedBy { get; set; }
+          public string ModifiedBy { get; set; }
 
         [DisplayName("Removed")]
     
@@ -60,5 +60,11 @@ namespace SparStelsel.Models
         [DisplayName("Invoice Number")]
         [Required(ErrorMessage = "Invoice Number is required.")]
         public string InvoiceNumber { get; set; }
+
+        [DisplayName("CashType")]
+        public int CashTypeID { get; set; }
+
+        [DisplayName("CashType")]
+        public string cashtype { get; set; }
     }
 }

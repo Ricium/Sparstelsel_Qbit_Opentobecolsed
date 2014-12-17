@@ -62,7 +62,15 @@
                     </tr>
               
  
-                    <tr>
+                                                                        <tr>
+                     <td>
+                           <%: Html.LabelFor(m => m.CashTypeID)%>
+                        </td>
+                        <td>
+                           <%: Html.Telerik().DropDownListFor(m => m.CashTypeID).BindTo((IEnumerable<SelectListItem>) ViewData["CashTypeID"]).HtmlAttributes(new { style = "width: 250px" })%>
+                            <%: Html.ValidationMessageFor(model => model.CashTypeID) %>
+                        </td>
+                    </tr>
                   
                                      
 

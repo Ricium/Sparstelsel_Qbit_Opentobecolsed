@@ -29,8 +29,9 @@ namespace SparStelsel.Controllers
         //Functions
         public ActionResult ProofOfPayments()
         {
-            ViewData["SupplierType"] = DDRep.GetSupplierTypeList();
-            ViewData["SupplierID"] = DDRep.GetSupplierList();
+   
+            ViewData["SupplierID"] = DDRep.GetDISupplierList();
+            ViewData["CashTypeID"] = DDRep.GetCashTypeList();
             return View();
         }
         //[AcceptVerbs(HttpVerbs.Post)]
@@ -59,8 +60,7 @@ namespace SparStelsel.Controllers
         public ActionResult _RemoveProofOfPayments(int id)
         {
             //...Update Object
-            string ins = POPRep.GetProofOfPayment(id).ToString();
-            POPRep.Remove(ins);
+            POPRep.Remove(id);
 
             //...Repopulate Grid...
             return View(new GridModel(POPRep.GetAllProofOfPayment()));

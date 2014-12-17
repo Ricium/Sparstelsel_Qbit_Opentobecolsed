@@ -17,7 +17,7 @@ namespace SparStelsel.Models
         public string Surname { get; set; }
         public int CompanyID { get; set; }
         public DateTime ModifiedDate { get; set; }
-        public int ModifiedBy { get; set; }
+          public string ModifiedBy { get; set; }
         public bool Removed { get; set; }
         
     }

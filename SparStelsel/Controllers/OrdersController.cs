@@ -18,19 +18,48 @@ namespace SparStelsel.Controllers
         DropDownRepository DDRep = new DropDownRepository();
         SupplierRepository SRep = new SupplierRepository();
         ReportRepository reportrepo = new ReportRepository();
+
         //List
         // List SupplierType
         [GridAction]
-        public ActionResult _ListOrders(string Pink = "")
+        public ActionResult _ListOrders(string Suffix = "", string Pink = "", string Supplier = "", string From = "", string To = "", string Comment = "")
         {
-            return View(new GridModel(ORep.GetAllOrder(Pink)));
+            return View(new GridModel(ORep.GetAllOrder(Suffix, Pink, Supplier, DDRep.TelerikDateToString(From), DDRep.TelerikDateToString(To), Comment)));
+        }
+
+        [HttpPost]
+        public ActionResult _OrderGridExport(string Suffix = "", string Pink = "", string Supplier = "", string From = "", string To = "", string Comment = "")
+        {
+            List<Order> report = ORep.GetAllOrder(Suffix, Pink, Supplier, DDRep.TelerikDateToString(From), DDRep.TelerikDateToString(To), Comment);
+            StringWriter sw = new StringWriter();
+            sw.WriteLine("\"Pink Slip Number\",\"Order Date\",\"Expected Delivery Date\", \"Amount\", \"Supplier\", \"Comment\", \"Suffix\"");
+
+            string name = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
+
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", "attachment;filename=Orders_" + name + ".csv");
+            Response.ContentType = "text/csv";
+
+            foreach (Order ex in report)
+            {
+                sw.WriteLine(string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\"",
+                                           ex.PinkSlipNumber.ToString()
+                                           , ex.OrderDate.ToShortDateString()
+                                           , ex.ExpectedDeliveryDate.ToString()
+                                           , ex.Amount.ToString()
+                                           , ex.supplier.ToString()
+                                           , ex.ordercomment.ToString()
+                                           , ex.Suffix.ToString()
+                                          ));
+            }
+
+            Response.Write(sw.ToString());
+            Response.End();
+
+            return null;
         }
 
 
-        //Functions
-
-
-        // CashBox 
         public ActionResult Orders()
         {
             ViewData["Supllier"] = DDRep.GetSupplierList();
@@ -39,18 +68,21 @@ namespace SparStelsel.Controllers
             return View();
         }
 
-        //Add CashBox
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public JsonResult _InsertOrders(Order ins)
         {
             //...Insert Object
-            Order ins2 = ORep.Insert(ins);
+            if (ORep.GetOrder(ins.PinkSlipNumber).OrderID == 0)
+            {
+                Order ins2 = ORep.Insert(ins);
+            }
+                   
 
             //...Repopulate Grid...
             return Json(new GridModel(ORep.GetAllOrder()));
         }
-        //Update CashBox
+
         [GridAction]
         public JsonResult _UpdateOrders(Order ins)
         {
@@ -60,7 +92,7 @@ namespace SparStelsel.Controllers
             //...Repopulate Grid...
             return Json(new GridModel(ORep.GetAllOrder()));
         }
-        //Remove CashBox
+
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public ActionResult _RemoveOrders(int id)
@@ -75,11 +107,11 @@ namespace SparStelsel.Controllers
         {
             ViewData["Month"] = reportrepo.GetMonthNameSelectList();
             ViewData["Year"] = reportrepo.GetYearSelectList();
-            return View(new YearMonthQuery());
+            return View(new DateTimeFromToQuery());
         }
 
         [HttpPost]
-        public ActionResult GetOrdervsGRVReport(YearMonthQuery ins)
+        public ActionResult GetOrdervsGRVReport(DateTimeFromToQuery ins)
         {
 
             List<OrdervsGRVReport> report = reportrepo.GetOrdervsGRVReport(ins);

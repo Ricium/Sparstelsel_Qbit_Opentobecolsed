@@ -34,7 +34,7 @@ namespace SparStelsel.Models
                     ins.Surname = drI["Surname"].ToString();
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                 }
             }
@@ -75,7 +75,7 @@ namespace SparStelsel.Models
                     ins.Surname = drI["Surname"].ToString();
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
@@ -185,7 +185,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
             //string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            //int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+            // string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();

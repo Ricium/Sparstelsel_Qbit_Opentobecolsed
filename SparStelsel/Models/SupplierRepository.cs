@@ -37,7 +37,7 @@ namespace SparStelsel.Models
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     ins.FromFriday = Convert.ToBoolean(drI["FromFriday"]);
                 }
@@ -64,7 +64,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT s.*,st.SupplierType FROM t_Supplier s inner join l_SupplierType st on s.SupplierTypeID=st.SupplierTypeID", con);
+            cmdI = new SqlCommand("SELECT s.*,st.SupplierType FROM t_Supplier s inner join l_SupplierType st on s.SupplierTypeID=st.SupplierTypeID where s.Removed = 0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -83,8 +83,9 @@ namespace SparStelsel.Models
                     ins.suppliertypeid2 = drI["SupplierType"].ToString();
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.FromFriday = Convert.ToBoolean(drI["FromFriday"]);
                     list.Add(ins);
                 }
             }
@@ -128,7 +129,7 @@ namespace SparStelsel.Models
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
@@ -173,7 +174,7 @@ namespace SparStelsel.Models
                     ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
@@ -192,7 +193,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
              string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-             int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+             string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
              string strTrx = "SupplierIns_" + EmployeeId;
 
             //...Database Connection...
@@ -218,7 +219,7 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@Term", ins.Term);
                 cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
                 cmdI.Parameters.AddWithValue("@SupplierTypeID", ins.SupplierTypeID);
-                cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+                cmdI.Parameters.AddWithValue("@CompanyID", 1);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
                 cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
@@ -253,7 +254,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
              string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-             int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+              string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -274,7 +275,7 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@SupplierTypeID", ins.SupplierTypeID);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
+           cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
         
 
             cmdI.ExecuteNonQuery();
@@ -303,7 +304,7 @@ namespace SparStelsel.Models
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@SupplierID", SupplierID);
             cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
-	        cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+	        cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
             cmdI.Parameters.AddWithValue("@Removed", 1);
 
             cmdI.ExecuteNonQuery();

@@ -14,6 +14,12 @@ namespace SparStelsel.Models
         public int Year { get; set; }
     }
 
+    public class DateTimeFromToQuery
+    {
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
+    }
+
     public class OrdervsGRVReport
     {
         public string Day { get; set; }

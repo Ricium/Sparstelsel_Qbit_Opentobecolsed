@@ -31,7 +31,8 @@
                         columns.Bound(model => model.ActualDate);
                         columns.Bound(model => model.ModifiedDate);
                         columns.Bound(model => model.PaymentDescription);
-                        columns.Bound(model => model.SupplierID);
+                        columns.Bound(model => model.supplier);
+                        columns.Bound(model => model.cashtype);
                                                
                    
                             columns.Command(commands =>

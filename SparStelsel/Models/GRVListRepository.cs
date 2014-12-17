@@ -46,7 +46,7 @@ namespace SparStelsel.Models
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                 }
             }
@@ -72,7 +72,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_GRVList", con);
+            cmdI = new SqlCommand("SELECT * FROM t_GRVList WHERE Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -97,7 +97,59 @@ namespace SparStelsel.Models
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<GRVList> GetAllGRVList(string PinkSlipNumber)
+        {
+            //...Create New Instance of Object...
+            List<GRVList> list = new List<GRVList>();
+            GRVList ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_GRVList WHERE PinkSlipNumber = '" + PinkSlipNumber + "'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new GRVList();
+                    ins.GRVListID = Convert.ToInt32(drI["GRVListID"]);
+                    ins.InvoiceNumber = Convert.ToString(drI["InvoiceNumber"]);
+                    ins.StateDate = Convert.ToDateTime(drI["StateDate"]);
+                    ins.Number = Convert.ToInt32(drI["Number"]);
+                    ins.PayDate = Convert.ToDateTime(drI["PayDate"]);
+                    ins.PinkSlipNumber = Convert.ToString(drI["PinkSlipNumber"]);
+                    ins.GRVDate = Convert.ToDateTime(drI["GRVDate"]);
+                    ins.InvoiceDate = Convert.ToDateTime(drI["InvoiceDate"]);
+                    ins.ExcludingVat = Convert.ToDecimal(drI["ExcludingVat"]);
+                    ins.IncludingVat = Convert.ToDecimal(drI["IncludingVat"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.GRVTypeID = Convert.ToInt32(drI["GRVTypeID"]);
+                    ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
@@ -136,7 +188,7 @@ namespace SparStelsel.Models
                             + "WHERE G.InvoiceNumber LIKE '%" + InvoiceNumber
                             + "' AND G.PinkSlipNumber LIKE '%" + PinkSlipNumber + "'"
                             + " AND G.GRVDate >= '" + From + "'"
-                            + " AND G.GRVDate <= '" + To + "'", con);
+                            + " AND G.GRVDate <= '" + To + "' AND G.Removed=0", con);
             }
             else
             {
@@ -145,7 +197,7 @@ namespace SparStelsel.Models
                             + "' AND G.PinkSlipNumber LIKE '%" + PinkSlipNumber + "'"
                             + " AND G.SupplierID =" + Supplier
                             + " AND G.GRVDate >= '" + From + "'"
-                            + " AND G.GRVDate <= '" + To + "'", con);
+                            + " AND G.GRVDate <= '" + To + "' AND G.Removed=0", con);
             }
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
@@ -172,9 +224,19 @@ namespace SparStelsel.Models
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     ins.SupplierDetails = drI["Supplier"].ToString();
+
+                    if (drI["ExpectedPayDate"] == DBNull.Value)
+                    {
+                        ins.ExpectedPayDate = DateTime.MinValue;
+                    }
+                    else
+                    {
+                        ins.ExpectedPayDate = Convert.ToDateTime(drI["ExpectedPayDate"]);
+                    }
+                    
                     list.Add(ins);
                 }
             }
@@ -225,7 +287,7 @@ namespace SparStelsel.Models
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     ins.hasError = Convert.ToBoolean(drI["hasError"]);
                     ins.SupplierDetails = Convert.ToString(drI["SupplierDetails"]);
@@ -280,7 +342,7 @@ namespace SparStelsel.Models
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     ins.hasError = Convert.ToBoolean(drI["hasError"]);
                     ins.SupplierDetails = Convert.ToString(drI["SupplierDetails"]);
@@ -335,7 +397,7 @@ namespace SparStelsel.Models
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
@@ -387,7 +449,7 @@ namespace SparStelsel.Models
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
@@ -439,7 +501,7 @@ namespace SparStelsel.Models
                     ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     list.Add(ins);
                 }
@@ -468,10 +530,11 @@ namespace SparStelsel.Models
             ret.ModifiedBy = ins.ModifiedBy;
             ret.ModifiedDate = ins.ModifiedDate;
             ret.Number = ins.Number;
-            ret.PayDate = ins.PayDate;
+            ret.PayDate = GetPaymentDate(ins.SupplierID, ins.GRVDate);
             ret.PinkSlipNumber = ins.PinkSlipNumber;
             ret.StateDate = ins.StateDate;
             ret.SupplierID = ins.SupplierID;
+            ret.ExpectedPayDate = GetExpectedPayDate(ins.PinkSlipNumber, ins.SupplierID);
 
             return ret;
         }
@@ -480,7 +543,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
              string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-             int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+              string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
              string strTrx = "GRVListIns_" + EmployeeId;
 
             //...Database Connection...
@@ -515,8 +578,9 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+                cmdI.Parameters.AddWithValue("@ExpectedPayDate", ins.ExpectedPayDate);
                
                 //...Return new ID
                 ins.GRVListID = (int)cmdI.ExecuteScalar();
@@ -547,7 +611,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+             string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
             string strTrx = "GRVListIns_" + EmployeeId;
 
             //...Database Connection...
@@ -561,6 +625,11 @@ namespace SparStelsel.Models
             trx = con.BeginTransaction(strTrx);
             cmdI.Connection = con;
             cmdI.Transaction = trx;
+
+            if (ins.PayDate == DateTime.MinValue)
+            {
+                ins.PayDate = DateTime.Now;
+            }
 
             try
             {
@@ -582,7 +651,7 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
                 cmdI.Parameters.AddWithValue("@BatchId", ins.BatchId);
                 cmdI.Parameters.AddWithValue("@hasError", ins.hasError);
@@ -617,7 +686,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+             string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
             string strTrx = "GRVImportIns_" + EmployeeId;
 
             //...Database Connection...
@@ -639,7 +708,7 @@ namespace SparStelsel.Models
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;       
                 cmdI.Parameters.AddWithValue("@FileName", ins.FileName);
                 cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
                 
                 ins.BatchId = (int)cmdI.ExecuteScalar();
 
@@ -669,7 +738,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
              string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-             int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+              string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -697,7 +766,8 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+            cmdI.Parameters.AddWithValue("@ExpectedPayDate", ins.ExpectedPayDate);
          
 
             cmdI.ExecuteNonQuery();
@@ -711,7 +781,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+             string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -727,7 +797,7 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@GRVListID", ins.GRVListID);
             cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
             cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
             cmdI.Parameters.AddWithValue("@hasError", ins.hasError);
 
             cmdI.ExecuteNonQuery();
@@ -740,8 +810,8 @@ namespace SparStelsel.Models
         public void Remove(int GRVListID)
         {
             //...Get User and Date Data...
-            //string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            //int EmployeeId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
+            string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -755,6 +825,9 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.GRVListRemove;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@GRVListID", GRVListID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+            cmdI.Parameters.AddWithValue("@Remove", 1);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
@@ -857,21 +930,47 @@ namespace SparStelsel.Models
             return date.AddDays(offset);            
         }
 
-        public DateTime GetPaymentDate(int SupplierId, DateTime InvoiceDate)
+        public DateTime GetPaymentDate(int SupplierId, DateTime GRVDate)
         {
-            Supplier sup = suprep.GetSupplier(SupplierId);
+            if (GRVDate == null)
+            {
+                return  DateTime.MinValue;
+            }
+            else
+            {
+                Supplier sup = suprep.GetSupplier(SupplierId);
 
-            /*
-             * Execpt for direct
-             * First Friday from GRV + Supplier Term
-             */
+                /*
+                 * Execpt for direct
+                 * First Friday from GRV + Supplier Term
+                 */
 
-            // If paydate sunday = move to monday
+                // If paydate sunday = move to monday
 
-            DateTime Ret = (sup.SupplierID == 0) ? DateTime.Now : InvoiceDate; 
-            Ret = (sup.FromFriday) ? GetFirstFriday(Ret).AddDays(checkInt(sup.Term)) : Ret.AddDays(checkInt(sup.Term));
-                        
-            return Ret;
+                DateTime Ret = (sup.SupplierID == 0) ? DateTime.MinValue : GRVDate;
+                Ret = (sup.FromFriday) ? GetFirstFriday(Ret).AddDays(checkInt(sup.Term)) : Ret.AddDays(checkInt(sup.Term));
+
+                return Ret;
+            }
+
+           
+        }
+
+        public DateTime GetExpectedPayDate(string PinkSlip, int SupplierId)
+        {
+            OrderRepository orderrep = new OrderRepository();
+            Order order = orderrep.GetOrder(PinkSlip);
+
+            if(order.OrderID == 0)
+            {
+                return DateTime.Now;
+            }
+            else
+            {
+                return GetPaymentDate(SupplierId, order.ExpectedDeliveryDate);
+            }
+
+            
         }
 
         public List<GRVList> setData(IQueryable<GRVExcel> data, int BatchId)
@@ -879,7 +978,7 @@ namespace SparStelsel.Models
             List<GRVList> lst = new List<GRVList>();
 
             DateTime parse;
-
+            int count = 0;
             foreach (GRVExcel row in data)
             {
                 GRVList imp = new GRVList();
@@ -887,19 +986,21 @@ namespace SparStelsel.Models
 
                 imp.InvoiceNumber = row.InvNo;                                              //...String
                 //imp.Number = checkInt(row[1]);                                           //...Int
+                count++;
+                if (row.Typ == null) { row.Typ = "CLM"; }
                 imp.GRVTypeID = (row.Typ.Equals("GRV")) ? 1 : 2;                         //..Int
                 // GRV Unique
                 imp.Number = row.Number;                                           //...Int
                 //imp.PinkSlipNumber = row[4];                                            //...String
                 imp.PinkSlipNumber = row.GRVBook;                                            //...String
                 imp.GRVDate = (DateTime.TryParse(row.GRVDate, out parse)) ? Convert.ToDateTime(row.GRVDate) : DateTime.Now;      //...Date
-                imp.InvoiceDate = (DateTime.TryParse(row.InvDate, out parse)) ? Convert.ToDateTime(row.InvDate) : DateTime.Now;  //...Date
+                imp.InvoiceDate = (DateTime.TryParse(row.InvDate, out parse)) ? Convert.ToDateTime(row.InvDate) : imp.GRVDate;  //...Date
                 imp.SupplierID = GetSupplierByName(row.SupplierName);
                 imp.SupplierDetails = row.SupplierName;
-                imp.ExcludingVat = row.ExclVAT;
-                imp.IncludingVat = row.InclVAT;
+                imp.ExcludingVat = checkDecimal(row.ExclVAT);
+                imp.IncludingVat = checkDecimal(row.InclVAT);
                 imp.StateDate = DateTime.Now;
-                imp.PayDate = GetPaymentDate(imp.SupplierID, imp.InvoiceDate);
+                imp.PayDate = GetPaymentDate(imp.SupplierID, imp.GRVDate);
 
                 imp.hasError = (imp.SupplierID == 0) ? true : false;
 
@@ -972,7 +1073,7 @@ namespace SparStelsel.Models
                     ins.BatchId = Convert.ToInt32(drI["BatchID"]);
                     ins.FileName = Convert.ToString(drI["FileName"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
-                    ins.ModifiedBy = Convert.ToInt32(drI["ModifiedBy"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     list.Add(ins);
                 }
             }
@@ -997,7 +1098,7 @@ namespace SparStelsel.Models
                     {
                         int supid = GetSupplierByName(imp.SupplierDetails);
                         imp.SupplierID = supid;
-                        imp.PayDate = GetPaymentDate(imp.SupplierID, imp.InvoiceDate);
+                        imp.PayDate = GetPaymentDate(imp.SupplierID, imp.GRVDate);
                         imp.hasError = false;
                         GRVListImport imp2 = UpdateTemp(imp);
                     }

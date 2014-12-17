@@ -205,6 +205,7 @@
                         columns.Bound(model => model.ExcludingVat).Format("{0:c}");
                         columns.Bound(model => model.IncludingVat).Format("{0:c}");
                         columns.Bound(model => model.SupplierDetails);
+                        columns.Bound(model => model.ExpectedPayDate).Format("{0:yyyy/MM/dd}");
                                           
                    
                             columns.Command(commands =>

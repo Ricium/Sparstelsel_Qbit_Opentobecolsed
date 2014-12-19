@@ -70,7 +70,7 @@ namespace SparStelsel.Controllers
         public ActionResult GRVLists()
         {
             ViewData["SupplierType"] = DDRep.GetSupplierTypeList();
-            ViewData["SupplierID"] = DDRep.GetSupplierListAddedAll();
+            ViewData["SupplierID"] = DDRep.GetSupplierListWithAll();
             ViewData["GRVType"] = DDRep.GetGRVTypeList();
 
             return View();

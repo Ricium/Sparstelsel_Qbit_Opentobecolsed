@@ -367,6 +367,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstantMoneyController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
+    <Compile Include="Controllers\MoneyController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
@@ -754,10 +755,12 @@
     <Content Include="Views\Maintenance\Budgets.aspx" />
     <Content Include="Views\Maintenance\Comment.aspx" />
     <Content Include="Views\Maintenance\Status.aspx" />
+    <Content Include="Views\Money\CashUp.aspx" />
     <Content Include="Views\Orders\Orders.aspx" />
     <Content Include="Views\Orders\OrdervsGRVReport.aspx" />
     <Content Include="Views\Verslae\OrdersExpectedDateReport.aspx" />
     <Content Include="Views\Verslae\OrdervsGRVReport.aspx" />
+    <Content Include="Views\Verslae\PaymentReport.aspx" />
     <Content Include="Views\Verslae\PinkSlipGRVReport.aspx" />
     <Content Include="Views\Verslae\PinkSlipOrderReport.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CashBox.aspx" />

@@ -7,7 +7,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h3>Order vs GRV Report</h3>
+    <h3>Orders per Pinkslip Report</h3>
    <% using (Html.BeginForm("GetPinkslipOrderReport", "Verslae", FormMethod.Post))
        { %>
         <table>

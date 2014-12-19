@@ -29,8 +29,8 @@ namespace SparStelsel.Controllers
         //Functions
         public ActionResult ProofOfPayments()
         {
-   
-            ViewData["SupplierID"] = DDRep.GetDISupplierList();
+
+            ViewData["SupplierID"] = DDRep.GetSupplierList();
             ViewData["CashTypeID"] = DDRep.GetCashTypeList();
             return View();
         }

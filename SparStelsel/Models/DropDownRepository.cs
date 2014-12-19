@@ -69,6 +69,7 @@ namespace SparStelsel.Models
 
             return obj;
         }
+
         public List<SelectListItem> GetSupplierList()
         {
             List<SelectListItem> obj = new List<SelectListItem>();
@@ -76,7 +77,7 @@ namespace SparStelsel.Models
         
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT SupplierID,Supplier FROM t_Supplier WHERE Removed=0", con);
+            SqlCommand cmdI = new SqlCommand("SELECT SupplierID,Supplier FROM t_Supplier WHERE Removed=0 ORDER BY Supplier", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -109,7 +110,40 @@ namespace SparStelsel.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT SupplierID,Supplier FROM t_Supplier WHERE Removed=0", con);
+            SqlCommand cmdI = new SqlCommand("SELECT SupplierID,Supplier FROM t_Supplier WHERE Removed=0 ORDER BY Supplier", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["Supplier"].ToString();
+                    result.Value = drI["SupplierID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+        public List<SelectListItem> GetSupplierListWithSpecialAll()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+            SelectListItem all = new SelectListItem();
+            all.Selected = true;
+            all.Value = "%";
+            all.Text = "All";
+            obj.Add(all);
+
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT SupplierID,Supplier FROM t_Supplier WHERE Removed=0 ORDER BY Supplier", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -137,7 +171,7 @@ namespace SparStelsel.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT SupplierID,Supplier FROM t_Supplier s inner join l_SupplierType t on s.SupplierTypeID = t.SupplierTypeID and t.SupplierType = 'DI'", con);
+            SqlCommand cmdI = new SqlCommand("SELECT SupplierID,Supplier FROM t_Supplier s inner join l_SupplierType t on s.SupplierTypeID = t.SupplierTypeID and t.SupplierType = 'DI' WHERE s.Removed = 0 ORDER BY Supplier", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -165,7 +199,7 @@ namespace SparStelsel.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT CashTypeID,CashType FROM l_CashType", con);
+            SqlCommand cmdI = new SqlCommand("SELECT CashTypeID,CashType FROM l_CashType where Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -186,7 +220,39 @@ namespace SparStelsel.Models
             return obj;
         }
 
-        public List<SelectListItem> GetSupplierListAddedAll()
+        public List<SelectListItem> GetCashTypeListWithSpecialAll()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+            SelectListItem all = new SelectListItem();
+            all.Selected = true;
+            all.Value = "%";
+            all.Text = "All";
+            obj.Add(all);
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT CashTypeID,CashType FROM l_CashType where Removed=0", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["CashType"].ToString();
+                    result.Value = drI["CashTypeID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+        /*public List<SelectListItem> GetSupplierListAddedAll()
         {
             List<SelectListItem> obj = new List<SelectListItem>();
             SelectListItem all = new SelectListItem();
@@ -217,7 +283,7 @@ namespace SparStelsel.Models
             con.Dispose();
 
             return obj;
-        }
+        }*/
 
         public List<SelectListItem> GetGRVTypeList()
         {
@@ -425,7 +491,7 @@ namespace SparStelsel.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT * FROM l_CommentType", con);
+            SqlCommand cmdI = new SqlCommand("SELECT * FROM l_CommentType where Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -453,7 +519,7 @@ namespace SparStelsel.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT ElectronicTypeID,ElectronicType FROM l_ElectronicType", con);
+            SqlCommand cmdI = new SqlCommand("SELECT ElectronicTypeID,ElectronicType FROM l_ElectronicType where Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -481,7 +547,7 @@ namespace SparStelsel.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT FNBTypeID,FNBType FROM l_FNBType", con);
+            SqlCommand cmdI = new SqlCommand("SELECT FNBTypeID,FNBType FROM l_FNBType where Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -510,7 +576,7 @@ namespace SparStelsel.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT InstantMoneyTypeID,InstantMoneyType FROM l_InstantMoneyType", con);
+            SqlCommand cmdI = new SqlCommand("SELECT InstantMoneyTypeID,InstantMoneyType FROM l_InstantMoneyType where Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -538,7 +604,7 @@ namespace SparStelsel.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT KwikPayTypeID,KwikPayType FROM l_KwikPayType", con);
+            SqlCommand cmdI = new SqlCommand("SELECT KwikPayTypeID,KwikPayType FROM l_KwikPayType where Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

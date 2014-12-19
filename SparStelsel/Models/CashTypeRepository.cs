@@ -59,7 +59,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM l_CashType", con);
+            cmdI = new SqlCommand("SELECT * FROM l_CashType where Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -178,8 +178,8 @@ namespace SparStelsel.Models
         public void Remove(int CashTypeID)
         {
             //...Get User and Date Data...
-            //string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            // string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
+            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
+             string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -193,7 +193,9 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.CashTypeRemove;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@CashTypeID", CashTypeID);
-
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@Removed", 1);
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
         }

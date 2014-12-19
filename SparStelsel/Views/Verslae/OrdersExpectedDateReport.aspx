@@ -7,7 +7,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h3>Order vs GRV Report</h3>
+    <h3>Orders for Expected Delivery Date</h3>
    <% using (Html.BeginForm("GetOrdersExpectedDateReport", "Verslae", FormMethod.Post))
        { %>
         <table>

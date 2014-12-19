@@ -127,13 +127,13 @@ namespace SparStelsel.Controllers
         //Add PickUps kwikpay
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult _InsertPickUps(PickUp ins)
+        public ActionResult _InsertPickUps(FormCollection ins)
         {
             //...Insert Object
-            ins.CashTypeID = 1;//Change to 
+            //ins.CashTypeID = 1;//Change to 
             
 
-            PickUp ins2 = PRep.Insert(ins);
+           // PickUp ins2 = PRep.Insert(ins);
 
             //...Repopulate Grid...
             return View(new GridModel(PRep.GetAllPickUp()));
@@ -701,13 +701,13 @@ namespace SparStelsel.Controllers
         //Add PickUps InstantMoney
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult _InsertPickUpFNB(PickUp ins)
+        public ActionResult _InsertPickUpFNB(FormCollection ins)
         {
             //...Insert Object
-            ins.CashTypeID = 1;//Change to 
+            //ins.CashTypeID = 1;//Change to 
 
 
-            PickUp ins2 = PRep.Insert(ins);
+            //PickUp ins2 = PRep.Insert(ins);
 
             //...Repopulate Grid...
             return View(new GridModel(PRep.GetAllPickUp()));

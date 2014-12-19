@@ -53,11 +53,11 @@
 
                                                                 <tr>
                      <td>
-                           <%: Html.LabelFor(m => m.SupplierID)%>
+                           <%: Html.LabelFor(m => m.Amount)%>
                         </td>
                         <td>
-                           <%: Html.Telerik().DropDownListFor(m => m.SupplierID).BindTo((IEnumerable<SelectListItem>) ViewData["SupplierID"]).HtmlAttributes(new { style = "width: 250px" })%>
-                            <%: Html.ValidationMessageFor(model => model.SupplierID) %>
+                           <%: Html.Telerik().CurrencyTextBoxFor(m => m.Amount).CurrencySymbol("R")%>
+                            <%: Html.ValidationMessageFor(model => model.Amount) %>
                         </td>
                     </tr>
               

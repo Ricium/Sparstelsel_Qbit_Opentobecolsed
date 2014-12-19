@@ -204,13 +204,14 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("select o.PinkSlipNumber, o.OrderDate"
+            cmdI = new SqlCommand("select o.PinkSlipNumber, s.Supplier, o.OrderDate"
                                     + " ,o.Amount as OrderAmount"
                                     + " ,SUM(g.IncludingVat) as GRVTotal"
                                     + " ,(SELECT TOP 1 t.GRVDate FROM t_GRVList t WHERE t.PinkSlipNumber = o.PinkSlipNumber ORDER BY t.GRVDate DESC) as LastDate"
                                     + " from t_Order o inner join t_GRVList g on o.PinkSlipNumber = g.PinkSlipNumber"
+                                    + " inner join t_Supplier s on o.SupplierID = s.SupplierID"
                                     + " where o.PinkSlipNumber >= " + query.From + " and o.PinkSlipNumber <= " + query.To
-                                    + " Group by o.PinkSlipNumber, o.OrderDate, o.Amount", con);
+                                    + " Group by o.PinkSlipNumber, s.Supplier, o.OrderDate, o.Amount", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -225,6 +226,7 @@ namespace SparStelsel.Models
                     ins.GRVDate = Convert.ToDateTime(drI["LastDate"]).ToShortDateString();
                     ins.OrderTotal = drI["OrderAmount"].ToString();
                     ins.GRVTotal = drI["GRVTotal"].ToString();
+                    ins.Supplier = drI["Supplier"].ToString();
                     list.Add(ins);
                 }
             }
@@ -275,7 +277,71 @@ namespace SparStelsel.Models
 
             //...Return...
             return list;
-        } 
+        }
+
+        public List<PaymentReport> GetPaymentReport(PaymentQuery query)
+        {
+            //...Create New Instance of Object...
+            List<PaymentReport> list = new List<PaymentReport>();
+            PaymentReport ins;
+
+            if (query.ToDate.Year.Equals(1))
+            {
+                query.ToDate = new DateTime(2015, 12, 31); ;     //...Max date of Report (Can be changed anytime)
+            }
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("Select g.InvoiceNumber, g.PinkSlipNumber, g.ExpectedPayDate, g.PayDate, g.InvoiceDate, g.StateDate "
+                + ", p.ActualDate, p.PaymentDescription, c.CashType, g.ExcludingVat, g.IncludingVat, p.Amount, s.Supplier "
+                + " from t_GRVList g "
+                + "	inner join t_ProofOfPayment p on g.InvoiceNumber = p.InvoiceNumber "
+                + "	inner join t_Supplier s on g.SupplierID = s.SupplierID"
+                + "	inner join l_CashType c on p.CashTypeID = c.CashTypeID "
+                    + "	where p.ActualDate >= '" + query.FromDate.ToShortDateString() + "' "
+                    + "	and p.ActualDate <= '" + query.ToDate.ToShortDateString() + "' "
+                    + "	and g.InvoiceNumber LIKE '%" + query.InvoiceNumber + "' "
+                    + "	and g.PinkSlipNumber LIKE '%" + query.PinkSlip + "' "
+                    + "	and p.CashTypeID LIKE '%" + query.Paymenthod + "' "
+                    + "	and g.SupplierID LIKE '%" + query.Supplier + "'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new PaymentReport();
+                    ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]).ToShortDateString();
+                    ins.Amount = drI["Amount"].ToString();
+                    ins.CashType = drI["CashType"].ToString();
+                    ins.ExcludingVat = drI["ExcludingVat"].ToString();
+                    ins.ExpectedPayDate = Convert.ToDateTime(drI["ExpectedPayDate"]).ToShortDateString();
+                    ins.IncludingVat = drI["IncludingVat"].ToString();
+                    ins.InvoiceDate = Convert.ToDateTime(drI["InvoiceDate"]).ToShortDateString();
+                    ins.InvoiceNumber = drI["InvoiceNumber"].ToString();
+                    ins.PayDate = Convert.ToDateTime(drI["PayDate"]).ToShortDateString();
+                    ins.PaymentDescription = drI["PaymentDescription"].ToString();
+                    ins.PinkSlipNumber = drI["PinkSlipNumber"].ToString();
+                    ins.StateDate = Convert.ToDateTime(drI["StateDate"]).ToShortDateString();
+                    ins.Supplier = drI["Supplier"].ToString();
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+            //...Return...
+            return list;
+             
+        }
 
         public List<SelectListItem> GetMonthNameSelectList()
         {

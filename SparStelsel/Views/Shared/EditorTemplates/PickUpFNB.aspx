@@ -15,34 +15,10 @@
     <table>
         <tr>
             <td>
-                <table>
-                    <tr>
-                        <td>
-                            <%: Html.HiddenFor(m => m.PickUpID) %>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>
-                           <%: Html.LabelFor(m => m.ActualDate) %>
-                        </td>
-                        <td>
-                            <%: Html.Telerik().DatePickerFor(m => m.ActualDate) %>
-                            <%: Html.ValidationMessageFor(m => m.ActualDate) %>
-                        </td>
-                    </tr>
-                                        <tr>
-                        <td>
-                           <%: Html.LabelFor(m => m.Amount) %>
-                        </td>
-                        <td>
-                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.Amount) %>
-                            <%: Html.ValidationMessageFor(m => m.Amount) %>
-                        </td>
-                    </tr>
-                                     
-
-                </table>
+               <%: Html.TextBox("r100") %>
+            </td>
+            <td>
+               <%: Html.TextBox("r200") %>
             </td>
         </tr>
     </table>

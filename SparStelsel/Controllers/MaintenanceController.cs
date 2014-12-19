@@ -127,23 +127,23 @@ namespace SparStelsel.Controllers
             //Add Cash Type
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult _InsertCashTypes(CashType ins)
+        public JsonResult _InsertCashTypes(CashType ins)
         {
                 //...Insert Object
             CashType ins2 = CashRep.Insert(ins);
 
                 //...Repopulate Grid...
-            return View(new GridModel(CashRep.GetAllCashType()));
+            return Json(new GridModel(CashRep.GetAllCashType()));
         }
             //Update Cash Type
         [GridAction]
-        public ActionResult _UpdateCashTypes(CashType ins)
+        public JsonResult _UpdateCashTypes(CashType ins)
         {
                 //...Update Object
             CashType ins2 = CashRep.Update(ins);
 
                 //...Repopulate Grid...
-            return View(new GridModel(CashRep.GetAllCashType()));
+            return Json(new GridModel(CashRep.GetAllCashType()));
         }
             //Remove CashType
         [AcceptVerbs(HttpVerbs.Post)]
@@ -151,8 +151,7 @@ namespace SparStelsel.Controllers
         public ActionResult _RemoveCashTypes(int id)
         {
                 //...Update Object
-            string ins = CashRep.GetCashType(id).ToString();
-           CashRep.Remove(ins);
+           CashRep.Remove(id);
 
                 //...Repopulate Grid...
            return View(new GridModel(CashRep.GetAllCashType()));

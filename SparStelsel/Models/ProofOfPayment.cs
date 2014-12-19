@@ -36,10 +36,9 @@ namespace SparStelsel.Models
         [Required(ErrorMessage = "Created Date is required.")]
         public DateTime CreatedDate { get; set; }
 
-        [DisplayName("Supplier ID")]
-        public string supplier { get; set; }
-        [Required(ErrorMessage = "Supplier ID is required.")]
-        public int SupplierID { get; set; }
+        [DisplayName("Amount Paid")]
+        [Required(ErrorMessage = "Amount Paid is required.")]
+        public decimal Amount { get; set; }
 
         [DisplayName("Company ID")]
         [Required(ErrorMessage = "Company ID is required.")]

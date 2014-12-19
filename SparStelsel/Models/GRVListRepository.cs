@@ -899,7 +899,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_Supplier WHERE Supplier ='" + Name + "'", con);
+            cmdI = new SqlCommand("SELECT TOP 1 SupplierID FROM t_Supplier WHERE Supplier ='" + Name + "' AND Removed = 0 ORDER BY SupplierID", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

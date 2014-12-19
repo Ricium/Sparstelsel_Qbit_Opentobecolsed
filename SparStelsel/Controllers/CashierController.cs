@@ -32,6 +32,8 @@ namespace SparStelsel.Controllers
         public ActionResult Cashier()
         {
             ViewData["Company"] = DDRep.GetCompanyList();
+            List<string> test = new List<string>();
+      
             return View();
         }
 

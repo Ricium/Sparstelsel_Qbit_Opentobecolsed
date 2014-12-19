@@ -64,7 +64,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT s.*,st.SupplierType FROM t_Supplier s inner join l_SupplierType st on s.SupplierTypeID=st.SupplierTypeID where s.Removed = 0", con);
+            cmdI = new SqlCommand("SELECT s.*,st.SupplierType FROM t_Supplier s inner join l_SupplierType st on s.SupplierTypeID=st.SupplierTypeID where s.Removed = 0 order by s.Supplier", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

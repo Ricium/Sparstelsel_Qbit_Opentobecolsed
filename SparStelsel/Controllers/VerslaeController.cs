@@ -99,7 +99,7 @@ namespace SparStelsel.Controllers
             List<PinkslipGRVReport> report = reportrepo.GetPinkslipGRVRange(ins);
 
             StringWriter sw = new StringWriter();
-            sw.WriteLine("\"Pink Slip Number\",\"Order Date\",\"Order Total\",\"Last GRV Date\",\"GRV Total\"");
+            sw.WriteLine("\"Pink Slip Number\",\"Supplier\",\"Order Date\",\"Order Total\",\"Last GRV Date\",\"GRV Total\"");
 
             string name = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
 
@@ -111,6 +111,7 @@ namespace SparStelsel.Controllers
             {
                 sw.WriteLine(string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\"",
                                            ex.PinkslipNumber
+                                           , ex.Supplier
                                            , ex.OrderDate
                                            , ex.OrderTotal
                                            , ex.GRVDate
@@ -155,5 +156,52 @@ namespace SparStelsel.Controllers
             Response.End();
             return null;
         }
+
+        public ActionResult PaymentReport()
+        {
+            ViewData["Supllier"] = DDRep.GetSupplierListWithSpecialAll();
+            ViewData["CashType"] = DDRep.GetCashTypeListWithSpecialAll();
+            return View(new PaymentQuery());
+        }
+
+        [HttpPost]
+        public ActionResult GetPaymentReport(PaymentQuery ins)
+        {
+            List<PaymentReport> report = reportrepo.GetPaymentReport(ins);
+
+            StringWriter sw = new StringWriter();
+            sw.WriteLine("\"Invoice Number \",\"Pink Slip Number\",\"Supplier\",\"Expected Pay Date\",\"Pay By Date\",\"Invoice Date\",\"State Date\",\"Actual Payment Date\","
+                + "\"Payment Comment\",\"Payment Method\",\"Exculding Vat\",\"Including Vat\",\"Payment Amount\"");
+
+            string name = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
+
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", "attachment;filename=Payments_from_" + ins.FromDate.ToShortDateString() + "_" + name + ".csv");
+            Response.ContentType = "text/csv";
+
+            foreach (PaymentReport ex in report)
+            {
+                sw.WriteLine(string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\"",
+                                           ex.InvoiceNumber
+                                           , ex.PinkSlipNumber
+                                           , ex.Supplier
+                                           , ex.ExpectedPayDate
+                                           , ex.PayDate
+                                           , ex.InvoiceDate
+                                           , ex.StateDate
+                                           , ex.ActualDate
+                                           , ex.PaymentDescription
+                                           , ex.CashType
+                                           , ex.ExcludingVat
+                                           , ex.IncludingVat
+                                           , ex.Amount
+                                           ));
+            }
+
+            Response.Write(sw.ToString());
+            Response.End();
+            return null;
+        }
+
     }
 }

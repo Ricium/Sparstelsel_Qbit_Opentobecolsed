@@ -37,7 +37,6 @@
                             <%: Html.ValidationMessageFor(m => m.Surname) %>
                         </td>
                     </tr>
-                  
                                          <tr>
                      <td>
                            <%: Html.LabelFor(m => m.CompanyID)%>

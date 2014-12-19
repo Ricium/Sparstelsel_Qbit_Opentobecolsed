@@ -28,8 +28,8 @@
                       {
 
                           columns.Bound(model => model.KwikPayID);
-                          columns.Bound(model => model.kwikpaytypeid);
-                          columns.Bound(model => model.ActualDate);
+                          columns.Bound(model => model.kwikpaytype);
+                          columns.Bound(model => model.ActualDate).Format("{0:yyyy/MM/dd}");
                           columns.Bound(model => model.Amount);
           
 

@@ -41,7 +41,8 @@ namespace SparStelsel.Controllers
         [GridAction]
         public ActionResult _ListCashMovements()
         {
-            return View(new GridModel(CMRep.GetCashMovementsPerCashType(1)));
+            String user = HttpContext.User.ToString();
+            return View(new GridModel(CMRep.GetCashMovementsPerCashType(1,user)));
         }
         // Cashmovements
         public ActionResult CashMovements()
@@ -64,16 +65,16 @@ namespace SparStelsel.Controllers
         {
             CashMovement z = new CashMovement();
             
-            z.ActualDate = ins.ActualDate;
+            z.ActualDate = DateTime.Now;
             z.Amount = ins.Amount;
             z.CashMovementID = ins.CashMovementID;
             z.MoneyUnitID = 0;
             z.CashTypeID = 1;//For Cards
             
             CashMovement ins2 = CMRep.Insert(z);
-
+            String user = HttpContext.User.ToString();
             //...Repopulate Grid...
-            return View(new GridModel(CMRep.GetCashMovementsPerCashType(1)));
+            return View(new GridModel(CMRep.GetCashMovementsPerCashType(1,user)));
         }
         //Update CashMovementsKwikPay
         [GridAction]
@@ -88,9 +89,9 @@ namespace SparStelsel.Controllers
             z.CashTypeID = 1;// For Cards
 
             CashMovement ins2 = CMRep.Update(z);
-
+            String user = HttpContext.User.ToString();
             //...Repopulate Grid...
-            return View(new GridModel(CMRep.GetCashMovementsPerCashType(1)));
+            return View(new GridModel(CMRep.GetCashMovementsPerCashType(1,user)));
         }
         //Remove CashMovementsKwikPay
         [AcceptVerbs(HttpVerbs.Post)]
@@ -98,11 +99,12 @@ namespace SparStelsel.Controllers
         public ActionResult _RemoveCashMovements(int id)
         {
             //...Update Object
+            String  user = HttpContext.User.ToString();
             string ins = CMRep.GetCashMovement(id).ToString();
             CMRep.Remove(ins);
 
             //...Repopulate Grid...
-            return View(new GridModel(CMRep.GetCashMovementsPerCashType(1)));
+            return View(new GridModel(CMRep.GetCashMovementsPerCashType(1,user)));
         }
 
 
@@ -164,7 +166,8 @@ namespace SparStelsel.Controllers
         [GridAction]
         public ActionResult _ListCashMovementsC()
         {
-            return View(new GridModel(CMRep.GetCashMovementsPerCashType(2)));
+            String user = HttpContext.User.ToString();
+            return View(new GridModel(CMRep.GetCashMovementsPerCashType(2,user)));
         }
         // Cheques kwikpay
         public ActionResult CashMovementsC()
@@ -181,17 +184,17 @@ namespace SparStelsel.Controllers
         {
             CashMovement z = new CashMovement();
             //...Update Object
-            z.ActualDate = ins.ActualDate;
+            z.ActualDate = DateTime.Now;
             z.Amount = ins.Amount;
             z.CashMovementID = ins.CashMovementID;
             z.MoneyUnitID = 0;
             z.CashTypeID = 2;//For cheques
             CashMovement ins2 = CMRep.Insert(z);
             //...Repopulate Grid...
-   
+    String  user = HttpContext.User.ToString();
 
             //...Repopulate Grid...
-            return View(new GridModel(CMRep.GetCashMovementsPerCashType(2)));
+            return View(new GridModel(CMRep.GetCashMovementsPerCashType(2,user)));
         }
         //Update Cheques kwikpay
         [GridAction]
@@ -205,9 +208,9 @@ namespace SparStelsel.Controllers
             z.MoneyUnitID = 0;
             z.CashTypeID = 2;//For cheques
             CashMovement ins2 = CMRep.Update(z);
-
+            String user = HttpContext.User.ToString();
             //...Repopulate Grid...
-            return View(new GridModel(CMRep.GetCashMovementsPerCashType(2)));
+            return View(new GridModel(CMRep.GetCashMovementsPerCashType(2, user)));
         }
         //Remove Cheques kwikpay
         [AcceptVerbs(HttpVerbs.Post)]
@@ -217,9 +220,9 @@ namespace SparStelsel.Controllers
             //...Update Object
             string ins = CMRep.GetCashMovement(id).ToString();
             CMRep.Remove(ins);
-
+            String user = HttpContext.User.ToString();
             //...Repopulate Grid...
-            return View(new GridModel(CMRep.GetCashMovementsPerCashType(2)));
+            return View(new GridModel(CMRep.GetCashMovementsPerCashType(2,user)));
         }
 
 

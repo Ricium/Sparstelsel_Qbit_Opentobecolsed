@@ -87,6 +87,8 @@
                     Tritems.Add().Text("Orders").Url("~/Orders/Orders");
                     //Tritems.Add().Text("Order vs GRV - Report").Url("~/Orders/OrdervsGRVReport");
                 });
+            
+
 
             items.Add()
                 .Text("Reports")
@@ -145,7 +147,7 @@
               });
            
             
-            
+             */
            
             
            items.Add()
@@ -165,8 +167,8 @@
                     Tritems.Add().Text("InstantMoney").Url("~/CashUp/InstantMoneys");
                     Tritems.Add().Text("FNB").Url("~/CashUp/FNBs");
                 });
-            */
-                
-            })      
+           
+
+        })      
             .Render();
  %>

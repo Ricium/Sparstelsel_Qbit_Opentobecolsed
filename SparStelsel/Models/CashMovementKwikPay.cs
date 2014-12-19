@@ -15,7 +15,6 @@ namespace SparStelsel.Models
         public int CashMovementID { get; set; }
 
         [DisplayName("Actual Date")]
-        [Required(ErrorMessage = "Actual Date is required.")]
         public DateTime ActualDate { get; set; }
 
         [DisplayName("Modified Date")]

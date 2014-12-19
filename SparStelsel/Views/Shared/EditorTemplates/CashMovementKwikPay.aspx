@@ -7,44 +7,30 @@
 
 <html>
 <head id="Head1" runat="server">
-    <title>CashMovements </title>
+    <title>KwikPay </title>
 </head>
 <body>
     <%: Html.ValidationSummary(false) %>
 
-    <table>
-        <tr>
-            <td>
+  
                 <table>
                     <tr>
                         <td>
                             <%: Html.HiddenFor(m => m.CashMovementID) %>
+                      
                         </td>
                         <td></td>
-                    </tr>
-                    <tr>
-                        <td>
-                           <%: Html.LabelFor(m => m.ActualDate) %>
-                        </td>
-                        <td>
-                            <%: Html.Telerik().DatePickerFor(m => m.ActualDate) %>
-                            <%: Html.ValidationMessageFor(m => m.ActualDate) %>
-                        </td>
                     </tr>
                                         <tr>
                         <td>
                            <%: Html.LabelFor(m => m.Amount) %>
                         </td>
                         <td>
-                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.Amount) %>
+                            <%: Html.TextBoxFor(m => m.Amount) %>
                             <%: Html.ValidationMessageFor(m => m.Amount) %>
                         </td>
                     </tr>
-                                     
-
-                </table>
-            </td>
-        </tr>
+                   
     </table>
 
     

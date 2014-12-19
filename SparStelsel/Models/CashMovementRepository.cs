@@ -96,7 +96,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<CashMovement> GetCashMovementsPerCashType(int CashTypeID)
+        public List<CashMovement> GetCashMovementsPerCashType(int CashTypeID,string UserID)
         {
             //...Create New Instance of Object...
             List<CashMovement> list = new List<CashMovement>();
@@ -108,7 +108,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_CashMovement WHERE CashTypeID = " + CashTypeID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_CashMovement WHERE CashTypeID = " + CashTypeID + " Where Removed=0 and UserID= " +UserID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

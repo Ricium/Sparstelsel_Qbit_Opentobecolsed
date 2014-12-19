@@ -29,7 +29,7 @@
 
                           columns.Bound(model => model.FNBID);
                           columns.Bound(model => model.fnbtype);
-                          columns.Bound(model => model.ActualDate);
+                          columns.Bound(model => model.ActualDate).Format("{0:yyyy/MM/dd}");
                           columns.Bound(model => model.Amount);
           
 

@@ -24,39 +24,32 @@ namespace SparStelsel.Models
         public int CashMovementID { get; set; }
 
         [DisplayName("Actual Date")]
-        [Required(ErrorMessage = "Actual Date is required.")]
         public DateTime ActualDate { get; set; }
 
         [DisplayName("Modified Date")]
         public DateTime ModifiedDate { get; set; }
 
         [DisplayName("Amount")]
-        [Required(ErrorMessage = "Amount is required.")]
         public decimal Amount { get; set; }
 
         [DisplayName("Cash Type ID")]
-        [Required(ErrorMessage = "Cash Type ID is required.")]
         public string cashtype { get; set; }
         public int CashTypeID { get; set; }
 
         [DisplayName("Money Unit ID")]
-        [Required(ErrorMessage = "Money Unit ID is required.")]
         public string moneyunit { get; set; }
         public int MoneyUnitID { get; set; }
 
 
         [DisplayName("Employee")]
-        [Required(ErrorMessage = "Employee is required.")]
         public string employee { get; set; }
         [DisplayName("Employee")]
         public int EmployeeID { get; set; }
 
         [DisplayName("User ID")]
-        [Required(ErrorMessage = "User ID is required.")]
         public int UserID { get; set; }
 
         [DisplayName("User Type ID")]
-        [Required(ErrorMessage = "User Type ID is required.")]
         public int UserTypeID { get; set; }
     }
 }

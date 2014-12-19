@@ -7,18 +7,17 @@
 
 <html>
 <head id="Head1" runat="server">
-    <title>Expected </title>
+    <title>KwikPay </title>
 </head>
 <body>
     <%: Html.ValidationSummary(false) %>
 
-    <table>
-        <tr>
-            <td>
+  
                 <table>
                     <tr>
                         <td>
                             <%: Html.HiddenFor(m => m.KwikPayID) %>
+                            <%: Html.HiddenFor(m => m.KwikPayTypeID) %>
                         </td>
                         <td></td>
                     </tr>
@@ -27,7 +26,7 @@
                            <%: Html.LabelFor(m => m.ActualDate) %>
                         </td>
                         <td>
-                            <%: Html.Telerik().DatePickerFor(m => m.ActualDate) %>
+                            <%: Html.Telerik().DateTimePickerFor(m => m.ActualDate) %>
                             <%: Html.ValidationMessageFor(m => m.ActualDate) %>
                         </td>
                     </tr>
@@ -36,23 +35,11 @@
                            <%: Html.LabelFor(m => m.Amount) %>
                         </td>
                         <td>
-                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.Amount) %>
+                            <%: Html.TextBoxFor(m => m.Amount) %>
                             <%: Html.ValidationMessageFor(m => m.Amount) %>
                         </td>
                     </tr>
-                                      <tr>
-                     <td>
-                           <%: Html.LabelFor(m => m.KwikPayTypeID)%>
-                        </td>
-                        <td>
-                           <%: Html.Telerik().DropDownListFor(m => m.KwikPayTypeID).BindTo((IEnumerable<SelectListItem>) ViewData["KwikPayType"]).HtmlAttributes(new { style = "width: 250px" })%>
-                            <%: Html.ValidationMessageFor(model => model.KwikPayTypeID) %>
-                        </td>
-                    </tr>          
-
-                </table>
-            </td>
-        </tr>
+                   
     </table>
 
     

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace SparStelsel.Controllers
 {
+    [AutoLogOffActionFilter]
     public class PinkSlipController : Controller
     {
         //

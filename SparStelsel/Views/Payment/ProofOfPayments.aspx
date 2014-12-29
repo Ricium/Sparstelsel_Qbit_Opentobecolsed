@@ -12,7 +12,7 @@
         <tr>
             <td>
                 <h2>
-                     ProofOfPayments
+                     Payments
                 </h2>
             </td>
         </tr>
@@ -23,15 +23,14 @@
                  Html.Telerik().Grid<ProofOfPayment>()
                     .Name("ProofOfPayments")
                     .DataKeys(keys => keys.Add(s => s.ProofOfPaymentID))
-                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add ProofOfPayment"))
+                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add Payment"))
                     .Columns(columns =>
                     {
 
-                        columns.Bound(model => model.ProofOfPaymentID);
-                        columns.Bound(model => model.ActualDate);
-                        columns.Bound(model => model.ModifiedDate);
+                        columns.Bound(model => model.ActualDate).Format("{0:yyyy/MM/dd}");
+                        columns.Bound(model => model.ModifiedDate).Format("{0:yyyy/MM/dd}");
                         columns.Bound(model => model.PaymentDescription);
-                        columns.Bound(model => model.Amount);
+                        columns.Bound(model => model.Amount).Format("{0:c}");
                         columns.Bound(model => model.cashtype);
                                                
                    

@@ -50,5 +50,10 @@ namespace SparStelsel.Models
         [Required(ErrorMessage = "Removed is required.")]
         public bool Removed { get; set; }
 
+        [DisplayName("Transit Type")]
+        public string transittype { get; set; }
+
+        [DisplayName("Transit Type")]
+        public int TransitTypeID { get; set; }
     }
 }

@@ -7,7 +7,7 @@
 
 <html>
 <head id="Head1" runat="server">
-    <title>KwikPay </title>
+    <title>Kwik Pay</title>
 </head>
 <body>
     <%: Html.ValidationSummary(false) %>
@@ -17,25 +17,42 @@
                     <tr>
                         <td>
                             <%: Html.HiddenFor(m => m.KwikPayID) %>
-                            <%: Html.HiddenFor(m => m.KwikPayTypeID) %>
                         </td>
                         <td></td>
                     </tr>
+                    <tr>
+                     <td>
+                           <%: Html.LabelFor(m => m.EmployeeID)%>
+                        </td>
+                        <td>
+                           <%: Html.Telerik().DropDownListFor(m => m.EmployeeID).BindTo((IEnumerable<SelectListItem>) ViewData["Employees"]).HtmlAttributes(new { style = "width: 250px" })%>
+                            <%: Html.ValidationMessageFor(model => model.EmployeeID) %>
+                        </td>
+                    </tr> 
                     <tr>
                         <td>
                            <%: Html.LabelFor(m => m.ActualDate) %>
                         </td>
                         <td>
-                            <%: Html.Telerik().DateTimePickerFor(m => m.ActualDate) %>
+                            <%: Html.Telerik().DatePickerFor(m => m.ActualDate).Value(DateTime.Today).TodayButton() %>
                             <%: Html.ValidationMessageFor(m => m.ActualDate) %>
                         </td>
                     </tr>
-                                        <tr>
+                    <tr>
+                     <td>
+                           <%: Html.LabelFor(m => m.KwikPayTypeID)%>
+                        </td>
+                        <td>
+                           <%: Html.Telerik().DropDownListFor(m => m.KwikPayTypeID).BindTo((IEnumerable<SelectListItem>) ViewData["KwikPayType"]).HtmlAttributes(new { style = "width: 250px" })%>
+                            <%: Html.ValidationMessageFor(model => model.KwikPayTypeID) %>
+                        </td>
+                    </tr> 
+                    <tr>
                         <td>
                            <%: Html.LabelFor(m => m.Amount) %>
                         </td>
                         <td>
-                            <%: Html.TextBoxFor(m => m.Amount) %>
+                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.Amount).CurrencySymbol("R")%>
                             <%: Html.ValidationMessageFor(m => m.Amount) %>
                         </td>
                     </tr>

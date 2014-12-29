@@ -31,7 +31,7 @@ namespace SparStelsel.Models
         public int FNBTypeID { get; set; }
 
         [DisplayName("User")]
-        public int UserID { get; set; }
+        public string UserID { get; set; }
 
         [DisplayName("Company ID")]
         public int CompanyID { get; set; }
@@ -44,5 +44,8 @@ namespace SparStelsel.Models
 
         [DisplayName("Removed")]
         public bool Removed { get; set; }
+
+        [DisplayName("Employee")]
+        public string EmployeeID { get; set; }
     }
 }

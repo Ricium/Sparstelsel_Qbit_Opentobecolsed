@@ -94,7 +94,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int UserID = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+            string UserID = HttpContext.Current.Session["Username"].ToString();
             string strTrx = "CashierIns_" + UserID;
 
             //...Database Connection...
@@ -119,7 +119,7 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@Surname", ins.Surname);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", UserID);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
 
@@ -152,7 +152,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int UserID = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
+            //int UserID = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -170,7 +170,7 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@Surname", ins.Surname);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", UserID);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", ins.ModifiedBy);
             cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
 
@@ -184,8 +184,8 @@ namespace SparStelsel.Models
         public void Remove(int CashierID)
         {
             //...Get User and Date Data...
-            //string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            // string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
+            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
+            string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -199,6 +199,9 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.CashierRemove;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@EmployeeID", CashierID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@Removed", 1);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

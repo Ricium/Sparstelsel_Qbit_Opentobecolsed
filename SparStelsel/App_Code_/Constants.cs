@@ -29,9 +29,9 @@ namespace SparStelsel
         public static readonly string CashMovementRemove = "f_Admin_Remove_CashMovement";
         public static readonly string CashMovementUpdate = "f_Admin_Update_CashMovement";
 
-        public static readonly string CashReconcilationInsert = "f_Admin_Insert_CashReconcilation";
-        public static readonly string CashReconcilationRemove = "f_Admin_Remove_CashReconcilation";
-        public static readonly string CashReconcilationUpdate = "f_Admin_Update_CashReconcilation";
+        public static readonly string CashReconcilationInsert = "f_Admin_Insert_CashReconciliation";
+        public static readonly string CashReconcilationRemove = "f_Admin_Remove_CashReconciliation";
+        public static readonly string CashReconcilationUpdate = "f_Admin_Update_CashReconciliation";
 
         public static readonly string CashTypeInsert = "f_Admin_Insert_CashType";
         public static readonly string CashTypeRemove = "f_Admin_Remove_CashType";
@@ -148,6 +148,8 @@ namespace SparStelsel
         public static readonly string CashierInsert = "f_Admin_Insert_Employee";
         public static readonly string CashierRemove = "f_Admin_Remove_Employee";
         public static readonly string CashierUpdate = "f_Admin_Update_Employee";
-        
+
+        public static readonly string CashOfficeInsert = "f_Admin_Insert_CashOffice";
+        public static readonly string CashOfficeUpdate = "f_Admin_Update_CashOffice";
     }
 }

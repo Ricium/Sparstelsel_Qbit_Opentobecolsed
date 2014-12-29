@@ -10,32 +10,27 @@ using Telerik.Web.Mvc.Extensions;
 
 namespace SparStelsel.Controllers
 {
+    [AutoLogOffActionFilter]
     public class PaymentController : Controller
     {
-        //
-        // GET: /Payment/
 
-        //Repository
         ProofOfPaymentRepository POPRep = new ProofOfPaymentRepository();
         DropDownRepository DDRep = new DropDownRepository();
-        //List
+
         [GridAction]
         public ActionResult _ListProofOfPayments()
         {
             return View(new GridModel(POPRep.GetAllProofOfPayment()));
         }
 
-      
-        //Functions
         public ActionResult ProofOfPayments()
         {
-
             ViewData["SupplierID"] = DDRep.GetSupplierList();
             ViewData["CashTypeID"] = DDRep.GetCashTypeList();
+            ViewData["Invoices"] = DDRep.GetAutoCompleteInvoiceNumbers();
             return View();
         }
-        //[AcceptVerbs(HttpVerbs.Post)]
-        //[GridAction]
+
         public JsonResult _Insert(ProofOfPayment ins)
         {
             //...Insert Object
@@ -44,7 +39,7 @@ namespace SparStelsel.Controllers
             //...Repopulate Grid...
             return Json(new GridModel(POPRep.GetAllProofOfPayment()));
         }
-        //Update SupplierType
+
         [GridAction]
         public ActionResult _UpdateProofOfPayments(ProofOfPayment ins)
         {
@@ -54,7 +49,7 @@ namespace SparStelsel.Controllers
             //...Repopulate Grid...
             return View(new GridModel(POPRep.GetAllProofOfPayment()));
         }
-        //Remove SupplierType
+
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public ActionResult _RemoveProofOfPayments(int id)

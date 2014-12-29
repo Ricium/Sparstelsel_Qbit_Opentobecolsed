@@ -33,8 +33,8 @@ namespace SparStelsel.Models
         public decimal Amount { get; set; }
 
         [DisplayName("Cash Type ID")]
-        public string cashtype { get; set; }
-        public int CashTypeID { get; set; }
+        public string movementtype { get; set; }
+        public int MovementTypeID { get; set; }
 
         [DisplayName("Money Unit ID")]
         public string moneyunit { get; set; }
@@ -47,7 +47,7 @@ namespace SparStelsel.Models
         public int EmployeeID { get; set; }
 
         [DisplayName("User ID")]
-        public int UserID { get; set; }
+        public string UserID { get; set; }
 
         [DisplayName("User Type ID")]
         public int UserTypeID { get; set; }

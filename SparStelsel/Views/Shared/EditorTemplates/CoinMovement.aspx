@@ -7,14 +7,11 @@
 
 <html>
 <head id="Head1" runat="server">
-    <title>CoinMovements </title>
+    <title>Coin Movement </title>
 </head>
 <body>
     <%: Html.ValidationSummary(false) %>
 
-    <table>
-        <tr>
-            <td>
                 <table>
                     <tr>
                         <td>
@@ -27,20 +24,19 @@
                            <%: Html.LabelFor(m => m.ActualDate) %>
                         </td>
                         <td>
-                            <%: Html.Telerik().DatePickerFor(m => m.ActualDate) %>
+                            <%: Html.Telerik().DatePickerFor(m => m.ActualDate).Value(DateTime.Now).TodayButton() %>
                             <%: Html.ValidationMessageFor(m => m.ActualDate) %>
                         </td>
                     </tr>
-                                        <tr>
-                        <td>
-                           <%: Html.LabelFor(m => m.Amount) %>
+                    <tr>
+                     <td>
+                           <%: Html.LabelFor(m => m.MovementTypeID)%>
                         </td>
                         <td>
-                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.Amount) %>
-                            <%: Html.ValidationMessageFor(m => m.Amount) %>
+                           <%: Html.Telerik().DropDownListFor(m => m.MovementTypeID).BindTo((IEnumerable<SelectListItem>) ViewData["CoinMovementType"]).HtmlAttributes(new { style = "width: 250px" })%>
+                            <%: Html.ValidationMessageFor(model => model.MovementTypeID) %>
                         </td>
-                    </tr>
-  
+                    </tr> 
                     <tr>
                      <td>
                            <%: Html.LabelFor(m => m.MoneyUnitID)%>
@@ -49,25 +45,19 @@
                            <%: Html.Telerik().DropDownListFor(m => m.MoneyUnitID).BindTo((IEnumerable<SelectListItem>) ViewData["MoneyUnit"]).HtmlAttributes(new { style = "width: 250px" })%>
                             <%: Html.ValidationMessageFor(model => model.MoneyUnitID) %>
                         </td>
-                    </tr> 
+                    </tr>
                     <tr>
-                               
-                    <tr>
-                     <td>
-                           <%: Html.LabelFor(m => m.MovementTypeID)%>
+                        <td>
+                           <%: Html.LabelFor(m => m.Amount) %>
                         </td>
                         <td>
-                           <%: Html.Telerik().DropDownListFor(m => m.MovementTypeID).BindTo((IEnumerable<SelectListItem>) ViewData["MovementType"]).HtmlAttributes(new { style = "width: 250px" })%>
-                            <%: Html.ValidationMessageFor(model => model.MovementTypeID) %>
+                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.Amount).CurrencySymbol("R") %>
+                            <%: Html.ValidationMessageFor(m => m.Amount) %>
                         </td>
-                    </tr> 
-                    <tr>
-                                     
+                    </tr>                                    
 
                 </table>
-            </td>
-        </tr>
-    </table>
+
 
     
 </body>

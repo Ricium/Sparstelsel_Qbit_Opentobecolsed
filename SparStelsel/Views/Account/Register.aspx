@@ -78,11 +78,13 @@
                                 <legend>Companies</legend>
                                 <div class="editor-field">
                                     <% List<string> citems = (List<string>)ViewData["companyNames"];
-                    
-                                   foreach(string item in citems)
-                                   {                       
-                                       %> <input type="checkbox" name="roles" value ="<%: item %>" /> <%: item %> <%
-                                   } %>
+                                    if(citems != null)
+                                    { 
+                                       foreach(string item in citems)
+                                       {                       
+                                           %> <input type="checkbox" name="roles" value ="<%: item %>" /> <%: item %> <%
+                                        } 
+                                   }%>
                                 </div>
                             </fieldset>
                             <br />

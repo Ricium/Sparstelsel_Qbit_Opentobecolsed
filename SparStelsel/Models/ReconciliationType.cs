@@ -29,7 +29,7 @@ namespace SparStelsel.Models
 
         [DisplayName("User ID")]
         [Required(ErrorMessage = "User ID is required.")]
-        public int UserID { get; set; }
+        public string UserID { get; set; }
 
         [DisplayName("Company ID")]
         [Required(ErrorMessage = "Company ID is required.")]

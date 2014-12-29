@@ -14,6 +14,7 @@ using LinqToExcel;
 
 namespace SparStelsel.Controllers
 {
+    [AutoLogOffActionFilter]
     public class GRVController : Controller
     {
         //
@@ -66,11 +67,12 @@ namespace SparStelsel.Controllers
 
             return null;
         }
-        //Functions
+    
         public ActionResult GRVLists()
         {
             ViewData["SupplierType"] = DDRep.GetSupplierTypeList();
-            ViewData["SupplierID"] = DDRep.GetSupplierListWithAll();
+            ViewData["SupplierID"] = DDRep.GetSupplierList();
+            ViewData["AllSuplliers"] = DDRep.GetSupplierListWithAll();
             ViewData["GRVType"] = DDRep.GetGRVTypeList();
 
             return View();
@@ -78,15 +80,16 @@ namespace SparStelsel.Controllers
 
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult _InsertGRVLists(GRVList ins)
+        public JsonResult _InsertGRVLists(GRVList ins)
         {
             //...Insert Object
+            ins.PayDate = GRVRep.GetPaymentDate(ins.SupplierID, ins.GRVDate);
             GRVList ins2 = GRVRep.Insert(ins);
 
             //...Repopulate Grid...
-            return View(new GridModel(GRVRep.GetAllGRVList()));
+            return Json(new GridModel(GRVRep.GetAllGRVList()));
         }
-        //Update SupplierType
+
         [GridAction]
         public JsonResult _UpdateGRVLists(GRVList ins)
         {
@@ -96,16 +99,16 @@ namespace SparStelsel.Controllers
             //...Repopulate Grid...
             return Json(new GridModel(GRVRep.GetAllGRVList()));
         }
-        //Remove SupplierType
+
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult _RemoveGRVLists(int id)
+        public JsonResult _RemoveGRVLists(int id)
         {
             //...Update Object
             GRVRep.Remove(id);
 
             //...Repopulate Grid...
-            return View(new GridModel(GRVRep.GetAllGRVList()));
+            return Json(new GridModel(GRVRep.GetAllGRVList()));
         }
 
         public ActionResult ImportGRVList()
@@ -143,55 +146,7 @@ namespace SparStelsel.Controllers
                 excel.AddMapping<GRVExcel>(x => x.VAT, "VAT");
                 excel.AddMapping<GRVExcel>(x => x.InclVAT, "Incl VAT");
 
-                var grvlist = from c in excel.Worksheet<GRVExcel>()
-                                       select c;
-                
-
-                    /*//...Create connection string to Excel work book
-                    string excelConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path1 + ";Persist Security Info=False;Extended Properties=\"Excel 12.0;IMEX=1\"";
-                    //string excelConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source='"+path1+"';Extended Properties= \"Excel 8.0;HDR=Yes;IMEX=1\"";                 //...Create Connection to Excel work book
-                    OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
-
-                    //...Create OleDbCommand to fetch data from Excel
-                    OleDbCommand cmd = new OleDbCommand("Select * from [Sheet1$]", excelConnection);
-
-                    //...Open Connection to File...
-                    excelConnection.Open();
-                    OleDbDataReader dReader;
-                    dReader = cmd.ExecuteReader();
-
-                    //...Read-in Strings from file...
-                    StringBuilder values = new StringBuilder();
-
-                    //...Excel data...
-                    List<string> columns = new List<string>();
-                    List<List<string>> data = new List<List<string>>();
-
-                    //...Get Data...
-                    DataTable dataTable = new DataTable();
-                    dataTable.Load(dReader);
-
-                    //...Get Row Data....
-                    foreach (DataRow row in dataTable.Rows)
-                    {
-                        var rowValue = row.ItemArray;
-                        values.Clear();
-
-                        List<string> rowData = new List<string>();
-
-                        for (int i = 0; i < rowValue.Length; i++)
-                        {
-                            if (!rowValue[i].ToString().Trim().Equals(""))
-                                rowData.Add(rowValue[i].ToString().Trim());
-                            else
-                                rowData.Add("");
-                        }
-
-                        data.Add(rowData);
-                    }
-
-                    //...Close File Connection...
-                    excelConnection.Close();*/
+                var grvlist = from c in excel.Worksheet<GRVExcel>() select c;
 
                     //...Insert Batch...
                     GRVImport imp = new GRVImport();

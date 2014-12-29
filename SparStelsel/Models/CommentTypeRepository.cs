@@ -116,7 +116,7 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@CommentType", ins.CommentTypes);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
 
 
@@ -166,7 +166,7 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@CommentType", ins.CommentTypes);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
 
 
             cmdI.ExecuteNonQuery();

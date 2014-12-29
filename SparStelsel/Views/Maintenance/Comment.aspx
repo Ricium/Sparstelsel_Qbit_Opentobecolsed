@@ -12,7 +12,7 @@
         <tr>
             <td>
                 <h2>
-                     Comment
+                     Comments
                 </h2>
             </td>
         </tr>
@@ -23,12 +23,11 @@
                      Html.Telerik().Grid<Comment>()
                     .Name("Comments")
                     .DataKeys(keys => keys.Add(s => s.CommentID))
-                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add CommentType"))
+                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add Comment"))
                     .Columns(columns =>
                     {
 
-                        columns.Bound(model => model.CommentID);
-                        columns.Bound(model => model.Comments);
+                        columns.Bound(model => model.Comments).Title("Comment");
                       
                         
                    

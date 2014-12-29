@@ -33,12 +33,12 @@ namespace SparStelsel.Models
         [DisplayName("CreatedDate")]
         public DateTime CreatedDate { get; set; }
 
-        [DisplayName("Instant Money Type ID")]
+        [DisplayName("Instant Money Type")]
         public string instantmoneytype { get; set; }
         public int InstantMoneyTypeID { get; set; }
 
         [DisplayName("User ID")]
-        public int UserID { get; set; }
+        public string UserID { get; set; }
 
         [DisplayName("Company ID")]
         public int CompanyID { get; set; }
@@ -51,5 +51,8 @@ namespace SparStelsel.Models
 
         [DisplayName("Removed")]
         public bool Removed { get; set; }
+
+        [DisplayName("Employee")]
+        public string EmployeeID { get; set; }
     }
 }

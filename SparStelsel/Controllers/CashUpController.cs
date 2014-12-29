@@ -10,11 +10,12 @@ using Telerik.Web.Mvc.Extensions;
 
 namespace SparStelsel.Controllers
 {
+    [AutoLogOffActionFilter]
     public class CashUpController : Controller
     {
         //
         // GET: /CashUp/
-        DropDownRepository DDRep = new DropDownRepository();
+        /*DropDownRepository DDRep = new DropDownRepository();
         CashMovementRepository CMRep = new CashMovementRepository();
         PickUpRepository PRep = new PickUpRepository();
         KwikPayRepository KRep = new KwikPayRepository();
@@ -69,7 +70,7 @@ namespace SparStelsel.Controllers
             z.Amount = ins.Amount;
             z.CashMovementID = ins.CashMovementID;
             z.MoneyUnitID = 0;
-            z.CashTypeID = 1;//For Cards
+            z.MovementTypeID = 1;//For Cards
             
             CashMovement ins2 = CMRep.Insert(z);
             String user = HttpContext.User.ToString();
@@ -188,7 +189,7 @@ namespace SparStelsel.Controllers
             z.Amount = ins.Amount;
             z.CashMovementID = ins.CashMovementID;
             z.MoneyUnitID = 0;
-            z.CashTypeID = 2;//For cheques
+            z.MovementTypeID = 2;//For cheques
             CashMovement ins2 = CMRep.Insert(z);
             //...Repopulate Grid...
     String  user = HttpContext.User.ToString();
@@ -206,7 +207,7 @@ namespace SparStelsel.Controllers
             z.Amount = ins.Amount;
             z.CashMovementID = ins.CashMovementID;
             z.MoneyUnitID = 0;
-            z.CashTypeID = 2;//For cheques
+            z.MovementTypeID = 2;//For cheques
             CashMovement ins2 = CMRep.Update(z);
             String user = HttpContext.User.ToString();
             //...Repopulate Grid...
@@ -393,7 +394,7 @@ namespace SparStelsel.Controllers
             z.Amount = ins.Amount;
             z.CashMovementID = ins.CashMovementID;
             z.MoneyUnitID = 0;
-            z.CashTypeID = 2;//For cheques
+            z.MovementTypeID = 2;//For cheques
 
             CashMovement ins2 = CMRep.Insert(z);
 
@@ -577,7 +578,7 @@ namespace SparStelsel.Controllers
             z.Amount = ins.Amount;
             z.CashMovementID = ins.CashMovementID;
             z.MoneyUnitID = 0;
-            z.CashTypeID = 1;//For Cards
+            z.MovementTypeID = 1;//For Cards
 
             CashMovement ins2 = CMRep.Insert(z);
 
@@ -661,7 +662,7 @@ namespace SparStelsel.Controllers
             z.Amount = ins.Amount;
             z.CashMovementID = ins.CashMovementID;
             z.MoneyUnitID = 0;
-            z.CashTypeID = 2;//For cheques
+            z.MovementTypeID = 2;//For cheques
 
             CashMovement ins2 = CMRep.Update(z);
 
@@ -785,5 +786,6 @@ namespace SparStelsel.Controllers
             //...Repopulate Grid...
             return View(new GridModel(FNBRep.GetAllFNB()));
         }
+    }*/
     }
 }

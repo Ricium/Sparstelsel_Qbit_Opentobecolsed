@@ -34,7 +34,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.FNBTypeID = Convert.ToInt32(drI["FNBTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
@@ -63,7 +63,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT f.*,ft.FNBType FROM t_FNB f inner join l_FNBType ft on f.FNBTypeID=ft.FNBTypeID", con);
+            cmdI = new SqlCommand("SELECT f.*,ft.FNBType, e.Name FROM t_FNB f inner join l_FNBType ft on f.FNBTypeID=ft.FNBTypeID inner join Employee e on f.EmployeeID = e.EmployeeID where f.Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -78,11 +78,13 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.FNBTypeID = Convert.ToInt32(drI["FNBTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
-                    ins.Removed = Convert.ToBoolean(drI["Removed"]);                    
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.fnbtype = drI["FNBType"].ToString();
+                    ins.EmployeeID = drI["Name"].ToString();
                     list.Add(ins);
                 }
             }
@@ -123,7 +125,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.FNBTypeID = Convert.ToInt32(drI["FNBTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
@@ -168,7 +170,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.FNBTypeID = Convert.ToInt32(drI["FNBTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
@@ -213,7 +215,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.FNBTypeID = Convert.ToInt32(drI["FNBTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
@@ -263,8 +265,9 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+                cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
 
                 //...Return new ID
                 ins.FNBID = (int)cmdI.ExecuteScalar();
@@ -316,8 +319,8 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
-          
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
@@ -344,6 +347,9 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.FNBRemove;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@FNBID", FNBID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@Removed", 1);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

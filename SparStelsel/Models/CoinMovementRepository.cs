@@ -35,7 +35,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                 }
             }
@@ -61,7 +61,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_CoinMovement", con);
+            cmdI = new SqlCommand("SELECT cm.*, ct.CoinMovementType, m.MoneyUnit FROM t_CoinMovement cm inner join l_CoinMovementType ct on cm.MovementTypeId = ct.CoinMovementTypeId inner join l_MoneyUnit m on cm.MoneyUnitID = m.MoneyUnitID where cm.Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -77,8 +77,9 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
-                    ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
+                    ins.moneyunit = drI["MoneyUnit"].ToString();
+                    ins.movementtype = drI["CoinMovementType"].ToString();
                     list.Add(ins);
                 }
             }
@@ -120,7 +121,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
@@ -163,7 +164,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
@@ -206,7 +207,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
@@ -249,7 +250,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
                     ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.UserTypeID = Convert.ToInt32(drI["UserTypeID"]);
                     list.Add(ins);
                 }
@@ -291,11 +292,15 @@ namespace SparStelsel.Models
                 //cmdI.Parameters.AddWithValue("@InstantMoneyID", ins.InstantMoneyID);             
                 cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
+                cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
                 cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
                 cmdI.Parameters.AddWithValue("@MovementTypeID", ins.MovementTypeID);
                 cmdI.Parameters.AddWithValue("@MoneyUnitID", ins.MoneyUnitID);
-                cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
-                cmdI.Parameters.AddWithValue("@UserTypeID", ins.UserTypeID);
+                cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
+                cmdI.Parameters.AddWithValue("@CompanyID", 0);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+                cmdI.Parameters.AddWithValue("@Removed", 0);
+
 
                 //...Return new ID
                 ins.CoinMovementID = (int)cmdI.ExecuteScalar();
@@ -341,11 +346,14 @@ namespace SparStelsel.Models
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@CoinMovementID", ins.CoinMovementID);
             cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
-            cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
             cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
             cmdI.Parameters.AddWithValue("@MovementTypeID", ins.MovementTypeID);
             cmdI.Parameters.AddWithValue("@MoneyUnitID", ins.MoneyUnitID);
             cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
+            cmdI.Parameters.AddWithValue("@CompanyID", 0);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
         
 
             cmdI.ExecuteNonQuery();
@@ -373,6 +381,9 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.CoinMovementRemove;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@CoinMovementID", CoinMovementID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@Removed", 1);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

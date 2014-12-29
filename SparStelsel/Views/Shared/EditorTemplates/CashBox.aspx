@@ -11,10 +11,6 @@
 </head>
 <body>
     <%: Html.ValidationSummary(false) %>
-
-    <table>
-        <tr>
-            <td>
                 <table>
                     <tr>
                         <td>
@@ -27,39 +23,29 @@
                            <%: Html.LabelFor(m => m.ActualDate) %>
                         </td>
                         <td>
-                            <%: Html.Telerik().DatePickerFor(m => m.ActualDate) %>
+                            <%: Html.Telerik().DatePickerFor(m => m.ActualDate).Value(DateTime.Today).TodayButton() %>
                             <%: Html.ValidationMessageFor(m => m.ActualDate) %>
                         </td>
                     </tr>
-                                        <tr>
-                        <td>
-                           <%: Html.LabelFor(m => m.Amount) %>
-                        </td>
-                        <td>
-                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.Amount) %>
-                            <%: Html.ValidationMessageFor(m => m.Amount) %>
-                        </td>
-                    </tr>
-  
                     <tr>
                      <td>
                            <%: Html.LabelFor(m => m.MovementTypeID)%>
                         </td>
                         <td>
-                           <%: Html.Telerik().DropDownListFor(m => m.MovementTypeID).BindTo((IEnumerable<SelectListItem>) ViewData["MovementType"]).HtmlAttributes(new { style = "width: 250px" })%>
+                           <%: Html.Telerik().DropDownListFor(m => m.MovementTypeID).BindTo((IEnumerable<SelectListItem>) ViewData["CashboxType"]).HtmlAttributes(new { style = "width: 250px" })%>
                             <%: Html.ValidationMessageFor(model => model.MovementTypeID) %>
                         </td>
                     </tr> 
                     <tr>
-                               
-                  
-                                     
-
+                        <td>
+                           <%: Html.LabelFor(m => m.Amount) %>
+                        </td>
+                        <td>
+                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.Amount).CurrencySymbol("R") %>
+                            <%: Html.ValidationMessageFor(m => m.Amount) %>
+                        </td>
+                    </tr> 
                 </table>
-            </td>
-        </tr>
-    </table>
-
     
 </body>
 </html>

@@ -82,4 +82,27 @@ namespace SparStelsel.Models
         public string Supplier { get; set; }
     }
 
+    public class DayEndCashupQuery
+    {
+        public DateTime Date { get; set; }
+        public decimal OpeningBalance { get; set; }
+        public decimal PettyCash { get; set; }
+        public decimal SigmaCardsExpected { get; set; }
+    }
+
+    public class DayEndCashupReport
+    {
+        public decimal SigmaTotal { get; set; }
+        public decimal CounterTotal { get; set; }
+        public decimal Change { get; set; }
+        public decimal SassaTotal { get; set; }
+        public decimal Cashbox { get; set; }
+        public decimal Transits { get; set; }
+        public decimal ActualCash { get; set; }
+        public decimal CashReceived { get; set; }
+        public decimal StartUpFloats { get; set; }
+        public decimal DeclaredSlips { get; set; }
+        public decimal CashDeclared { get; set; }
+    }
+
 }

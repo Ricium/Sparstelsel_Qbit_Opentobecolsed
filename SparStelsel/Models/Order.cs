@@ -45,7 +45,7 @@ namespace SparStelsel.Models
 
         [DisplayName("User ID")]
         [Required(ErrorMessage = "User ID is required.")]
-        public int UserID { get; set; }
+        public string UserID { get; set; }
 
         [DisplayName("Comment ID")]
         [Required(ErrorMessage = "Comment ID is required.")]

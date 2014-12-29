@@ -165,7 +165,7 @@
        <tr>
             <td width="100px" title="">Invoice Number:</td><td><%: Html.TextBox("sInvoice", "", new { style = "width:120px;" })%></td>
             <td width="100px" title="">Pink Slip Number: </td><td><%: Html.TextBox("sPink", "", new { style = "width:120px;" }) %></td>
-            <td width="30px" title="">Supplier: </td><td title=""><%: Html.DropDownList("sSupplier", ViewData["SupplierID"]  as IEnumerable<SelectListItem>)%></td>  
+            <td width="30px" title="">Supplier: </td><td title=""><%: Html.DropDownList("sSupplier", ViewData["AllSuplliers"]  as IEnumerable<SelectListItem>)%></td>  
        </tr>
        <tr>
            <td width="30px" title="">From: </td><td title=""><%: Html.Telerik().DatePicker().Name("sFrom")%></td> 

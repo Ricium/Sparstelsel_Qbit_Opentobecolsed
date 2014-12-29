@@ -9,6 +9,7 @@ using System.IO;
 using Telerik.Web.Mvc.Extensions;
 namespace SparStelsel.Controllers
 {
+    [AutoLogOffActionFilter]
     public class TransitsController : Controller
     {
         //

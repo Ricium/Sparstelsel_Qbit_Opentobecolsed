@@ -7,7 +7,7 @@
 
 <html>
 <head id="Head1" runat="server">
-    <title>ProofOfPayment </title>
+    <title>Payment</title>
 </head>
 <body>
     <%: Html.ValidationSummary(false) %>
@@ -27,12 +27,12 @@
                            <%: Html.LabelFor(m => m.ActualDate) %>
                         </td>
                         <td>
-                            <%: Html.Telerik().DatePickerFor(m => m.ActualDate) %>
+                            <%: Html.Telerik().DatePickerFor(m => m.ActualDate).Value(DateTime.Today).TodayButton()  %>
                             <%: Html.ValidationMessageFor(m => m.ActualDate) %>
                         </td>
                     </tr>
                    
-                                                            <tr>
+                    <tr>
                         <td>
                            <%: Html.LabelFor(m => m.PaymentDescription) %>
                         </td>
@@ -46,7 +46,8 @@
                            <%: Html.LabelFor(m => m.InvoiceNumber) %>
                         </td>
                         <td>
-                            <%: Html.TextBoxFor(m => m.InvoiceNumber) %>
+                            <%: Html.Telerik().AutoCompleteFor(m => m.InvoiceNumber).BindTo((IEnumerable<String>) ViewData["Invoices"])
+                                .AutoFill(true).Filterable(f => f.FilterMode(AutoCompleteFilterMode.StartsWith)) %>
                             <%: Html.ValidationMessageFor(m => m.InvoiceNumber) %>
                         </td>
                     </tr>

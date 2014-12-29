@@ -34,7 +34,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.KwikPayTypeID = Convert.ToInt32(drI["KwikPayTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
@@ -63,7 +63,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT kp.*,kpt.KwikPayType FROM t_KwikPay kp inner join l_KwikPayType kpt on kp.KwikPayTypeID = kpt.KwikPayTypeID", con);
+            cmdI = new SqlCommand("SELECT kp.*,kpt.KwikPayType, e.Name FROM t_KwikPay kp inner join l_KwikPayType kpt on kp.KwikPayTypeID = kpt.KwikPayTypeID inner join Employee e on kp.EmployeeID = e.EmployeeID where kp.Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -79,11 +79,12 @@ namespace SparStelsel.Models
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.KwikPayTypeID = Convert.ToInt32(drI["KwikPayTypeID"]);
                     ins.kwikpaytype = drI["KwikPayType"].ToString();
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.EmployeeID = drI["Name"].ToString();
                     list.Add(ins);
                 }
             }
@@ -124,7 +125,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.KwikPayTypeID = Convert.ToInt32(drI["KwikPayTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
@@ -169,7 +170,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.KwikPayTypeID = Convert.ToInt32(drI["KwikPayTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
@@ -214,7 +215,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.KwikPayTypeID = Convert.ToInt32(drI["KwikPayTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
@@ -264,8 +265,9 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+                cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
 
                 //...Return new ID
                 ins.KwikPayID = (int)cmdI.ExecuteScalar();
@@ -317,8 +319,8 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
-       
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
@@ -345,6 +347,9 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.KwikPayRemove;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@KwikPayID", KwikPayId);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@Removed", 1);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

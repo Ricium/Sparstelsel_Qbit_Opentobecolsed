@@ -34,7 +34,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.InstantMoneyTypeID = Convert.ToInt32(drI["InstantMoneyTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
@@ -63,7 +63,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_InstantMoney", con);
+            cmdI = new SqlCommand("select i.*, e.Name, t.InstantMoneyType from t_InstantMoney i inner join Employee e on i.EmployeeID = e.EmployeeID inner join l_InstantMoneyType t on i.InstantMoneyTypeID = t.InstantMoneyTypeID where i.Removed = 0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -78,11 +78,13 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.InstantMoneyTypeID = Convert.ToInt32(drI["InstantMoneyTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.EmployeeID = drI["Name"].ToString();
+                    ins.instantmoneytype = drI["InstantMoneyType"].ToString();
                     list.Add(ins);
                 }
             }
@@ -123,7 +125,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.InstantMoneyTypeID = Convert.ToInt32(drI["InstantMoneyTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
@@ -168,7 +170,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.InstantMoneyTypeID = Convert.ToInt32(drI["InstantMoneyTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
@@ -213,7 +215,7 @@ namespace SparStelsel.Models
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.InstantMoneyTypeID = Convert.ToInt32(drI["InstantMoneyTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
@@ -263,8 +265,9 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+                cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
 
                 //...Return new ID
                 ins.InstantMoneyID = (int)cmdI.ExecuteScalar();
@@ -316,8 +319,8 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
-    
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
@@ -344,6 +347,9 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.InstantMoneyRemove;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@InstantMoneyID", InstantMoneyID);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@Removed", 1);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

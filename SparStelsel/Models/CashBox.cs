@@ -35,8 +35,9 @@ namespace SparStelsel.Models
         [Required(ErrorMessage = "CreatedDate is required.")]
         public DateTime CreatedDate { get; set; }
 
-        [DisplayName("Movement Type ID")]
+        [DisplayName("Cashbox Movement")]
         public string movementtyepe { get; set; }
+        [DisplayName("Cashbox Movement")]
         [Required(ErrorMessage = "Movement Type ID is required.")]
         public int MovementTypeID { get; set; }
 

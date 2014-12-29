@@ -578,7 +578,7 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
                 cmdI.Parameters.AddWithValue("@ExpectedPayDate", ins.ExpectedPayDate);
                
@@ -651,7 +651,7 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
                 cmdI.Parameters.AddWithValue("@BatchId", ins.BatchId);
                 cmdI.Parameters.AddWithValue("@hasError", ins.hasError);
@@ -708,7 +708,7 @@ namespace SparStelsel.Models
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;       
                 cmdI.Parameters.AddWithValue("@FileName", ins.FileName);
                 cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
                 
                 ins.BatchId = (int)cmdI.ExecuteScalar();
 
@@ -766,7 +766,7 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
             cmdI.Parameters.AddWithValue("@ExpectedPayDate", ins.ExpectedPayDate);
          
 
@@ -797,7 +797,7 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@GRVListID", ins.GRVListID);
             cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
             cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
             cmdI.Parameters.AddWithValue("@hasError", ins.hasError);
 
             cmdI.ExecuteNonQuery();
@@ -826,7 +826,7 @@ namespace SparStelsel.Models
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@GRVListID", GRVListID);
             cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
             cmdI.Parameters.AddWithValue("@Remove", 1);
 
             cmdI.ExecuteNonQuery();
@@ -984,22 +984,21 @@ namespace SparStelsel.Models
                 GRVList imp = new GRVList();
                 imp.BatchId = BatchId;
 
-                imp.InvoiceNumber = row.InvNo;                                              //...String
-                //imp.Number = checkInt(row[1]);                                           //...Int
+                imp.InvoiceNumber = row.InvNo;                                             
                 count++;
+
                 if (row.Typ == null) { row.Typ = "CLM"; }
-                imp.GRVTypeID = (row.Typ.Equals("GRV")) ? 1 : 2;                         //..Int
-                // GRV Unique
-                imp.Number = row.Number;                                           //...Int
-                //imp.PinkSlipNumber = row[4];                                            //...String
-                imp.PinkSlipNumber = row.GRVBook;                                            //...String
-                imp.GRVDate = (DateTime.TryParse(row.GRVDate, out parse)) ? Convert.ToDateTime(row.GRVDate) : DateTime.Now;      //...Date
-                imp.InvoiceDate = (DateTime.TryParse(row.InvDate, out parse)) ? Convert.ToDateTime(row.InvDate) : imp.GRVDate;  //...Date
+                imp.GRVTypeID = (row.Typ.Equals("GRV")) ? 1 : 2;                        
+                imp.Number = row.Number;                                         
+
+                imp.PinkSlipNumber = row.GRVBook;                                           
+                imp.GRVDate = (DateTime.TryParse(row.GRVDate, out parse)) ? Convert.ToDateTime(row.GRVDate) : DateTime.Now;      
+                imp.InvoiceDate = (DateTime.TryParse(row.InvDate, out parse)) ? Convert.ToDateTime(row.InvDate) : imp.GRVDate;  
                 imp.SupplierID = GetSupplierByName(row.SupplierName);
                 imp.SupplierDetails = row.SupplierName;
                 imp.ExcludingVat = checkDecimal(row.ExclVAT);
                 imp.IncludingVat = checkDecimal(row.InclVAT);
-                imp.StateDate = DateTime.Now;
+                imp.StateDate = new DateTime(1900, 1, 1);
                 imp.PayDate = GetPaymentDate(imp.SupplierID, imp.GRVDate);
 
                 imp.hasError = (imp.SupplierID == 0) ? true : false;

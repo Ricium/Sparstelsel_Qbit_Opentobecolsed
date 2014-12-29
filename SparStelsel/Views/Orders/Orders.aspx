@@ -168,10 +168,10 @@
 <table>  
     <tr>
         <td width="100px" title="">Pink Slip Number: </td><td><%: Html.TextBox("sPink", "", new { style = "width:120px;" }) %></td> 
-         <td width="30px" title="">Supplier: </td><td title=""><%: Html.DropDownList("sSupplier", ViewData["Supllier"]  as IEnumerable<SelectListItem>)%></td>  
+         <td width="30px" title="">Supplier: </td><td title=""><%: Html.DropDownList("sSupplier", ViewData["SupllierWithAll"]  as IEnumerable<SelectListItem>)%></td>  
     </tr> 
     <tr>
-        <td width="100px" title="">Comment: </td><td><%: Html.DropDownList("sComment", ViewData["Comments"]  as IEnumerable<SelectListItem>)%></td>
+        <td width="100px" title="">Comment: </td><td><%: Html.DropDownList("sComment", ViewData["CommentsWithAll"]  as IEnumerable<SelectListItem>)%></td>
         <td width="100px" title="">Suffix: </td><td><%: Html.TextBox("sSuffix", "", new { style = "width:120px;" }) %></td>
     </tr>
     <tr>

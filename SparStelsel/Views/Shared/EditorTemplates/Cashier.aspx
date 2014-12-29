@@ -7,7 +7,7 @@
 
 <html>
 <head id="Head1" runat="server">
-    <title>Cashier </title>
+    <title>Cashier</title>
 </head>
 <body>
     <%: Html.ValidationSummary(false) %>
@@ -37,7 +37,7 @@
                             <%: Html.ValidationMessageFor(m => m.Surname) %>
                         </td>
                     </tr>
-                                         <tr>
+                    <tr>
                      <td>
                            <%: Html.LabelFor(m => m.CompanyID)%>
                         </td>
@@ -46,7 +46,15 @@
                             <%: Html.ValidationMessageFor(model => model.CompanyID) %>
                         </td>
                     </tr>               
-
+                    <tr>
+                        <td>
+                            <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.ModifiedBy) %>
+                        </td>
+                        <td>
+                            <%: Html.TextBoxFor(m => m.ModifiedBy) %>
+                            <%: Html.ValidationMessageFor(m => m.ModifiedBy) %>
+                        </td>
+                    </tr>
                 </table>
     
 

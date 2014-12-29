@@ -28,7 +28,8 @@ namespace SparStelsel.Controllers
             return View();
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles="admin, cashadmin, selfcashier")]
+        [AutoLogOffActionFilter]
         public ActionResult Home()
         {
             return View();

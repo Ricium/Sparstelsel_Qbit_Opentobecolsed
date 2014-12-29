@@ -21,7 +21,7 @@
                  .Text("Home")
                  .Url("~/Home/Home");
 
-            /*if (roles.Contains("admin"))
+            if (roles.Contains("admin"))
             {
                 items.Add()
                     .Text("Accounts")
@@ -35,54 +35,45 @@
                             c.Add().Text("Add Role").Url("~/Account/RoleManagement");
                         }
                     });
-            }*/
+            }
             
             items.Add()
                  .Text("Maintenance")
-                 .Url("~/Home/Home")
+                 .Url("#")
                  .Items(item =>
                      {
-                         item.Add().Text("CashUp Type").Url("~/Maintenance/CashTypes");
-                         item.Add().Text("Comment").Url("~/Maintenance/Comment");
-                        // item.Add().Text("GRVType").Url("~/Maintenance/GRVTypes");
-                        // item.Add().Text("InstantMoneyType").Url("~/Maintenance/InstantMoneyTypes");
-                         //item.Add().Text("KwikPayType").Url("~/Maintenance/KwikPayTypes");
-                        // item.Add().Text("MoneyUnit").Url("~/Maintenance/MoneyUnits");
-                         //item.Add().Text("MovementType").Url("~/Maintenance/MovementTypes");
-                         //item.Add().Text("UserType").Url("~/Maintenance/UserTypes");
-                         //item.Add().Text("Budget").Url("~/Maintenance/Budgets");
-                         //item.Add().Text("Status").Url("~/Maintenance/Status");
+                         item.Add().Text("Payment Types").Url("~/Maintenance/CashTypes");
+                         item.Add().Text("Comments").Url("~/Maintenance/Comment");
                      });
 
             items.Add()
                 .Text("Supplier")
-                .Url("~/Home/Home")
+                .Url("#")
                 .Items(Sitem =>
                     {
                         Sitem.Add().Text("Supplier").Url("~/Supplier/Suppliers");
-                        //Sitem.Add().Text("SupplierType").Url("~/Supplier/SupplierTypes");
                     });
 
             items.Add()
                 .Text("Payments")
-                .Url("~/Home/Home")
+                .Url("#")
                 .Items(Payitems =>
                 {
-                    Payitems.Add().Text("Proof Of Payment").Url("~/Payment/ProofOfPayments");
+                    Payitems.Add().Text("Add Payment").Url("~/Payment/ProofOfPayments");
                 });
             
             items.Add()
             .Text("GRV")
-            .Url("~/Home/Home")
+            .Url("#")
             .Items(GRVitems =>
             {
-                GRVitems.Add().Text("GRV").Url("~/GRV/GRVLists");
-                GRVitems.Add().Text("GRV Import").Url("~/GRV/ImportGRVList");
+                GRVitems.Add().Text("GRV List").Url("~/GRV/GRVLists");
+                GRVitems.Add().Text("Import GRV List").Url("~/GRV/ImportGRVList");
             });
             
             items.Add()
-                .Text("Order")
-                .Url("~/Home/Home")
+                .Text("Orders")
+                .Url("#")
                 .Items(Tritems =>
                 {
                     Tritems.Add().Text("Orders").Url("~/Orders/Orders");
@@ -100,76 +91,44 @@
                             i.Add().Text("Order vs GRV").Url("~/Verslae/OrdervsGRVReport");
                             i.Add().Text("Orders For Expected Delivery Date").Url("~/Verslae/OrdersExpectedDateReport");
                         });
+                    
                     item.Add().Text("Pinkslip Reports").Url("#").Items(i =>
                         {
                             i.Add().Text("Orders by Pinkslip").Url("~/Verslae/PinkSlipOrderReport");
                             i.Add().Text("GRV Totals by Pinkslip").Url("~/Verslae/PinkSlipGRVReport");
                         });
+                    
                     item.Add().Text("Payment Reports").Url("#").Items(i =>
                         {
                             i.Add().Text("Payment Report").Url("~/Verslae/PaymentReport");
-                        });                          
-                });
-
-            items.Add()
-                 .Text("Log off")
-                 .Url("~/Account/Logoff");
-
-            /*items.Add()
-              .Text("Cashier")
-              .Url("#")
-              .Items(Tritems =>
-              {
-                  Tritems.Add().Text("Cashier").Url("~/Cashier/Cashier");
-              });*/
-
-            /*
-            items.Add()
-             .Text("Users")
-             .Url("~/Home/Home")
-             .Items(Uitems =>
-             {
-                 Uitems.Add().Text("Users").Url("~/Users/Users");
-             });
-            
-            items.Add()
-                .Text("Transits")
-                .Url("~/Home/Home")
-                .Items(Tritems =>
-                {
-                    Tritems.Add().Text("Transits").Url("~/Transits/Transits");
-                });
-            
-            items.Add()
-              .Text("CashBox")
-              .Url("~/Home/Home")
-              .Items(Tritems =>
-              {
-                  Tritems.Add().Text("CashBoxs").Url("~/Cash/CashBoxs");
-              });
-           
-            
-             */
-           
-            
-           /*items.Add()
-                    .Text("Cashier CashUp")
-                    .Url("~/Cashier/CashierCashUp")
-                    .Items(Tritems =>
+                        });
+                    
+                    item.Add().Text("Cash-up Reports").Url("#").Items(i =>
                     {
-                        Tritems.Add().Text("CashierCashUp").Url("~/Cashier/CashierCashUp");
-                    });
-            
+                        i.Add().Text("Day End Cash Up Report").Url("~/Verslae/DayendcashupReport");
+                    });                         
+                });
+
             items.Add()
-                .Text("CashUp")
-                .Url("~/Home/Home")
-                .Items(Tritems =>
+                .Text("Cash-up")
+                .Url("#")
+                .Items(item =>
                 {
-                    Tritems.Add().Text("KwikPay").Url("~/CashUp/KwikPays");
-                    Tritems.Add().Text("InstantMoney").Url("~/CashUp/InstantMoneys");
-                    Tritems.Add().Text("FNB").Url("~/CashUp/FNBs");
-                });*/
-           
+                    item.Add().Text("Cashiers").Url("~/Cashier/Cashier");
+                    item.Add().Text("Cash-up").Url("~/Money/Cashup");
+
+                    item.Add().Text("Cash Movements").Url("#").Items(i =>
+                    {
+                        i.Add().Text("Coin Movement").Url("~/Money/CoinMovement"); 
+                        i.Add().Text("Transits").Url("~/Money/Transits");
+                        i.Add().Text("Cashbox").Url("~/Money/Cashbox");
+                        i.Add().Text("Cash Office").Url("~/Money/CashOffice");                                               
+                    });                    
+                });
+
+            items.Add()
+                 .Text("Log off: " + HttpContext.Current.Session["Username"].ToString())
+                 .Url("~/Account/Logoff");          
 
         }).Render();
  %>

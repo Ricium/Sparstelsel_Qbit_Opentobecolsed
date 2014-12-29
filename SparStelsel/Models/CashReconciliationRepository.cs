@@ -32,8 +32,10 @@ namespace SparStelsel.Models
                     ins.CashReconciliationID = Convert.ToInt32(drI["CashReconcilationID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
                     ins.ReconciliationTypeID = Convert.ToInt32(drI["ReconciliationTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
@@ -62,7 +64,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_CashReconcilation", con);
+            cmdI = new SqlCommand("SELECT cr.*,mt.MovementType,e.Name,rt.Reconciliation FROM t_CashReconciliation cr inner join l_MovementType mt on cr.MovementTypeID = mt.MovementTypeID inner join Employee e on cr.EmployeeID = e.EmployeeID inner join l_ReconciliationType rt on cr.ReconciliationTypeID = rt.ReconciliationTypeID where cr.Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -76,11 +78,17 @@ namespace SparStelsel.Models
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.ReconciliationTypeID = Convert.ToInt32(drI["ReconciliationTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.recontype = drI["Reconciliation"].ToString();
+                    ins.employee = drI["Name"].ToString();
+                    ins.movementtype = drI["MovementType"].ToString();
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     list.Add(ins);
                 }
             }
@@ -120,11 +128,14 @@ namespace SparStelsel.Models
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.ReconciliationTypeID = Convert.ToInt32(drI["ReconciliationTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     list.Add(ins);
                 }
             }
@@ -164,11 +175,14 @@ namespace SparStelsel.Models
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.ReconciliationTypeID = Convert.ToInt32(drI["ReconciliationTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     list.Add(ins);
                 }
             }
@@ -208,11 +222,14 @@ namespace SparStelsel.Models
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.ReconciliationTypeID = Convert.ToInt32(drI["ReconciliationTypeID"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
                     list.Add(ins);
                 }
             }
@@ -253,12 +270,15 @@ namespace SparStelsel.Models
                 //cmdI.Parameters.AddWithValue("@CashReconcilationID", ins.CashReconcilationID);             
                 cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
                 cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
-                cmdI.Parameters.AddWithValue("@ReconciliationTypeID", ins.ReconciliationTypeID);
-                cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
+                cmdI.Parameters.AddWithValue("@ReconcilationTypeID", ins.ReconciliationTypeID);
+                cmdI.Parameters.AddWithValue("@MovementTypeID", ins.MovementTypeID);
+                cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
+                cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+                cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
 
                 //...Return new ID
                 ins.CashReconciliationID = (int)cmdI.ExecuteScalar();
@@ -306,10 +326,14 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
             cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
             cmdI.Parameters.AddWithValue("@ReconciliationTypeID", ins.ReconciliationTypeID);
-            cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
+            cmdI.Parameters.AddWithValue("@MovementTypeID", ins.MovementTypeID);
+            cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
+            cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
-            cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+            cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
       
 
             cmdI.ExecuteNonQuery();
@@ -337,6 +361,9 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.CashReconcilationRemove;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@CashReconcilationID", CashReconciliationID);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@Removed", 1);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

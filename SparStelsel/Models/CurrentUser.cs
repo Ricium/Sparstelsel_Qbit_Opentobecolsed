@@ -10,7 +10,7 @@ namespace SparStelsel.Models
 {
     public class CurrentUser
     {
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         public DateTime CurrentDate { get; set; }
     }
 }

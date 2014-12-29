@@ -5,6 +5,7 @@ using System.Web;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+
 namespace SparStelsel.Models
 {
     public class Cashier

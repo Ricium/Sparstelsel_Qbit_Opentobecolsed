@@ -308,7 +308,7 @@ namespace SparStelsel.Models
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@ProofOfPaymentID", ProofOfPaymentID);
             cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
             cmdI.Parameters.AddWithValue("@Removed", 1);
 
             cmdI.ExecuteNonQuery();

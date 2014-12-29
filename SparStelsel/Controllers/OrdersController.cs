@@ -9,6 +9,7 @@ using System.IO;
 using Telerik.Web.Mvc.Extensions;
 namespace SparStelsel.Controllers
 {
+    [AutoLogOffActionFilter]
     public class OrdersController : Controller
     {
         //
@@ -62,8 +63,10 @@ namespace SparStelsel.Controllers
 
         public ActionResult Orders()
         {
-            ViewData["Supllier"] = DDRep.GetSupplierListWithAll();
-            ViewData["Comments"] = DDRep.GetCommentListWithAll();
+            ViewData["SupllierWithAll"] = DDRep.GetSupplierListWithAll();
+            ViewData["Supllier"] = DDRep.GetSupplierList();
+            ViewData["CommentsWithAll"] = DDRep.GetCommentListWithAll();
+            ViewData["Comments"] = DDRep.GetCommentList();
            
             return View();
         }

@@ -96,3 +96,4 @@ C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\bin\WebMatrix.WebData.
 C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\obj\Release\SparStelsel.csproj.ResolveComReference.cache
 C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\obj\Release\SparStelsel.dll
 C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\obj\Release\SparStelsel.pdb
+C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\obj\Release\SparStelsel.csprojResolveAssemblyReference.cache

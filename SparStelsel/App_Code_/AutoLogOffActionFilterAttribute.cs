@@ -12,7 +12,7 @@ namespace SparStelsel
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             HttpContextBase ctx = filterContext.HttpContext;
-            if (ctx.Session["UserID"] == null)
+            if (ctx.Session["Username"] == null || ctx.Session["Companies"] == null)
             {
                 ctx.Session.Abandon();
                 filterContext.Result = OnSessionExpiryRedirectResult(filterContext);
@@ -20,6 +20,7 @@ namespace SparStelsel
 
             base.OnActionExecuting(filterContext);
         }
+
 
         public virtual ActionResult OnSessionExpiryRedirectResult(ActionExecutingContext filterContext)
         {

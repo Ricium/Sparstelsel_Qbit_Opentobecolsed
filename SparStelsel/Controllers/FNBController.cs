@@ -10,6 +10,7 @@ using Telerik.Web.Mvc.Extensions;
 
 namespace SparStelsel.Controllers
 {
+    [AutoLogOffActionFilter]
     public class FNBController : Controller
     {
         //

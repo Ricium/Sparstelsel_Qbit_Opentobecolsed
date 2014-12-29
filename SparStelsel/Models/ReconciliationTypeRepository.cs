@@ -31,7 +31,7 @@ namespace SparStelsel.Models
                 {
                     ins.ReconciliationTypeID = Convert.ToInt32(drI["ReconciliationTypeID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
@@ -72,7 +72,7 @@ namespace SparStelsel.Models
                     ins = new ReconciliationType();
                     ins.ReconciliationTypeID = Convert.ToInt32(drI["ReconciliationTypeID"]);
                     ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
-                    ins.UserID = Convert.ToInt32(drI["UserID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
                     ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);

@@ -3,7 +3,7 @@
 <%@ Import Namespace="SparStelsel.Models"%>
 <%@ Import Namespace="SparStelsel.Controllers"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-   CashType
+   Payment Types
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -12,7 +12,7 @@
         <tr>
             <td>
                 <h2>
-                     CashType
+                     Payment Types
                 </h2>
             </td>
         </tr>
@@ -23,12 +23,11 @@
                      Html.Telerik().Grid<CashType>()
                     .Name("CashTypes")
                     .DataKeys(keys => keys.Add(s => s.CashTypeID))
-                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add CashType"))
+                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add Payment Type"))
                     .Columns(columns =>
                     {
 
-                        columns.Bound(model => model.CashTypeID);
-                        columns.Bound(model => model.CashTypes);
+                         columns.Bound(model => model.CashTypes).Title("Payment Type");
                         
                    
                             columns.Command(commands =>

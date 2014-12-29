@@ -62,7 +62,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT cb.*,m.MovementType FROM t_CashBox cb inner join l_MovementType m on cb.MovementTypeID = m.MovementTypeID", con);
+            cmdI = new SqlCommand("SELECT cb.*,m.CashboxType FROM t_CashBox cb inner join l_CashboxType m on cb.MovementTypeID = m.CashboxTypeID where cb.Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -81,6 +81,7 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.movementtyepe = drI["CashboxType"].ToString();
                     list.Add(ins);
                 }
             }
@@ -169,7 +170,7 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@MovementTypeID", ins.MovementTypeID);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-                cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", 0);
 
                 //...Return new ID
@@ -221,7 +222,7 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@MovementTypeID", ins.MovementTypeID);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
-            cmdI.Parameters.AddWithValue("@ModifiedBy", 1);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
          
 
             cmdI.ExecuteNonQuery();
@@ -235,7 +236,7 @@ namespace SparStelsel.Models
         {
             //...Get User and Date Data...
             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-             string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
+            string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -249,6 +250,9 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.CashBoxRemove;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@CashBoxID", CashBoxID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@Removed", 1);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

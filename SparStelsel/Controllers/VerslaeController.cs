@@ -14,6 +14,7 @@ using LinqToExcel;
 
 namespace SparStelsel.Controllers
 {
+    [AutoLogOffActionFilter]
     public class VerslaeController : Controller
     {
         DropDownRepository DDRep = new DropDownRepository();
@@ -109,7 +110,7 @@ namespace SparStelsel.Controllers
 
             foreach (PinkslipGRVReport ex in report)
             {
-                sw.WriteLine(string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\"",
+                sw.WriteLine(string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\"",
                                            ex.PinkslipNumber
                                            , ex.Supplier
                                            , ex.OrderDate
@@ -197,6 +198,64 @@ namespace SparStelsel.Controllers
                                            , ex.Amount
                                            ));
             }
+
+            Response.Write(sw.ToString());
+            Response.End();
+            return null;
+        }
+
+        public ActionResult DayEndCashupReport()
+        {
+            return View(new DayEndCashupQuery());
+        }
+
+        [HttpPost]
+        public ActionResult GetDayEndCashupReport(DayEndCashupQuery ins)
+        {
+            DayEndCashupReport report = reportrepo.GetDayEndCashupReport(ins);
+            decimal ExpectedClosing = ins.OpeningBalance + report.SigmaTotal 
+                                       + report.CounterTotal + report.Change 
+                                        - ins.PettyCash - report.SassaTotal - report.Cashbox 
+                                        - report.Transits;
+            decimal Shortage = report.CashReceived - report.StartUpFloats - report.SigmaTotal;
+
+            StringWriter sw = new StringWriter();
+            sw.WriteLine("\"Opening Balance\",\"{0}\"", ins.OpeningBalance);
+            sw.WriteLine("\"Sigma Cash Sales\",\"{0}\"", report.SigmaTotal);
+            sw.WriteLine("\"Cash Counter Netto\",\"{0}\"", report.CounterTotal);
+            sw.WriteLine("\"Change Movement\",\"{0}\"", report.Change);
+            sw.WriteLine("\"Cash transactions (Petty cash Total)\",\"{0}\"", ins.PettyCash);
+            sw.WriteLine("\"Sassa Payouts\",\"{0}\"", report.SassaTotal);
+            sw.WriteLine("\"Total dropped in Cashbox for today\",\"{0}\"", report.Cashbox);
+            sw.WriteLine("\"Transits\",\"{0}\"", report.Transits);
+            sw.WriteLine("\"Expected Closing Balance\",\"{0}\"", ExpectedClosing);
+            sw.WriteLine("\"Actual Cash\",\"{0}\"", report.ActualCash);
+            sw.WriteLine("\"Day End: {0}\",\"{1}\"", (((ExpectedClosing - report.ActualCash) < 0) ? "Shortage" : "Over"), (ExpectedClosing - report.ActualCash));
+            sw.WriteLine("\" \"");
+            sw.WriteLine("\"SIGMA CASHIER - CASH RECON\"");
+            sw.WriteLine("\"Cash Expected\",\"{0}\"", report.SigmaTotal);
+            sw.WriteLine("\"Cash Received\",\"{0}\"", report.CashReceived);
+            sw.WriteLine("\"Startup Floats\",\"{0}\"", report.StartUpFloats);
+            sw.WriteLine("\"Shortage\",\"{0}\"", Shortage);
+            sw.WriteLine("\"Sassa Payouts\",\"{0}\"", report.SassaTotal);
+            sw.WriteLine("\"{0}\",\"{1}\"", (((Shortage + report.SassaTotal) > 0) ? "Over" : "Short"), (Shortage + report.SassaTotal));
+            sw.WriteLine("\" \"");
+            sw.WriteLine("\"SIGMA CASHIER - CARD RECON\"");
+            sw.WriteLine("\"Sigma Cards Expected\",\"{0}\"", ins.SigmaCardsExpected);
+            sw.WriteLine("\"Declared Slips Total\",\"{0}\"", report.DeclaredSlips);
+            sw.WriteLine("\"CARDS NOT CAPTURED\",\"{0}\"", (ins.SigmaCardsExpected - report.DeclaredSlips));
+            sw.WriteLine("\" \"");
+            sw.WriteLine("\"PAYZONE CASHIERS\"");
+            sw.WriteLine("\"Cash Expected\",\"{0}\"", report.CounterTotal);
+            sw.WriteLine("\"Cash Received\",\"{0}\"", report.CashDeclared);
+            sw.WriteLine("\"{0}\",\"{1}\"", (((report.CashDeclared - report.CounterTotal) > 0) ? "Over" : "Short"), (report.CashDeclared - report.CounterTotal));
+
+
+            string name = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
+
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", "attachment;filename=DayEndCashup_" + ins.Date.ToShortDateString() + "_" + name + ".csv");
+            Response.ContentType = "text/csv";
 
             Response.Write(sw.ToString());
             Response.End();

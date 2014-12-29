@@ -20,7 +20,15 @@
                 </div>
                           
             <div id="menucontainer">
-               <% Html.RenderPartial("_MainMenu", Model); %>
+                <% if (Page.User.Identity.IsAuthenticated)
+                   {
+                       Html.RenderPartial("_MainMenu", Model);
+                   }
+                   else
+                   { 
+                       %> You are not logged in! Please login: <%: Html.ActionLink("Login","LogOn","Account") %>  
+                   <% } %>
+
             </div>
 
         </div>
@@ -29,14 +37,16 @@
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
 
             <div id="footer">
-                        <asp:ContentPlaceHolder ID="FootContent" runat="server" > 
-                          
+                <asp:ContentPlaceHolder ID="FootContent" runat="server" > 
+                    <%: typeof(SparStelsel.MvcApplication).Assembly.GetName().Version %>
+ &nbsp &nbsp | &nbsp &nbsp 
+ &copy 2014 Marapyane Spar &amp Netintercom &nbsp &nbsp | &nbsp &nbsp Developed By: <a href="http://www.netintercom.co.za" target="_blank">Netintercom</a> 
+                    | &nbsp &nbsp Hosted By: <a href="http://www.4dtech.co.za" target="_blank">4D Tech</a>
+
+
                     <%= Html.Telerik().StyleSheetRegistrar()
                  .DefaultGroup(group => group.Add("telerik.common.min.css")
-                 .Add("telerik.office2007.min.css")
-                     //.Add("telerik." + Html.GetCurrentTheme() + ".css")
-                        )
-%>
+                 .Add("telerik.office2007.min.css"))%>
       <%= Html.Telerik().ScriptRegistrar() %>
 
       <script src="<%= Url.Content("~/Scripts/jquery.cookie.js")%>"  type="text/javascript"></script>  

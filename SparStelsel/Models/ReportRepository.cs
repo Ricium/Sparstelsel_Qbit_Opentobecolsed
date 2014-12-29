@@ -279,6 +279,52 @@ namespace SparStelsel.Models
             return list;
         }
 
+        public DayEndCashupReport GetDayEndCashupReport(DayEndCashupQuery query)
+        {
+            //...Create New Instance of Object...
+            DayEndCashupReport ins = new DayEndCashupReport();
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand();
+            cmdI.CommandTimeout = 540;
+            cmdI.Connection = con;
+            cmdI.CommandText = "f_Admin_Report_DayEndCashUp";
+            cmdI.CommandType = System.Data.CommandType.StoredProcedure;
+            cmdI.Parameters.AddWithValue("@date", query.Date);
+
+            cmdI.Connection.Open();
+
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins.ActualCash = Convert.ToDecimal(drI["ActualCash"]);
+                    ins.Cashbox = Convert.ToDecimal(drI["Cashbox"]);
+                    ins.CashDeclared = Convert.ToDecimal(drI["CashDeclared"]);
+                    ins.CashReceived = Convert.ToDecimal(drI["CashReceived"]);
+                    ins.Change = Convert.ToDecimal(drI["Change"]);
+                    ins.CounterTotal = Convert.ToDecimal(drI["CounterTotal"]);
+                    ins.DeclaredSlips = Convert.ToDecimal(drI["DeclaredSlips"]);
+                    ins.SassaTotal = Convert.ToDecimal(drI["SassaTotal"]);
+                    ins.SigmaTotal = Convert.ToDecimal(drI["SigmaTotal"]);
+                    ins.StartUpFloats = Convert.ToDecimal(drI["StartUpFloats"]);
+                    ins.Transits = Convert.ToDecimal(drI["Transits"]);
+                }
+            }
+
+            //...Close Connections...
+            cmdI.Connection.Close();
+            con.Dispose();
+
+            //...Return...
+            return ins;
+        }
+
         public List<PaymentReport> GetPaymentReport(PaymentQuery query)
         {
             //...Create New Instance of Object...

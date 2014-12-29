@@ -62,7 +62,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_Transit", con);
+            cmdI = new SqlCommand("select t.*, tt.TransitType from t_Transit t inner join l_TransitType tt on t.TransitTypeID = tt.TransitTypeID where t.Removed = 0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -80,6 +80,8 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.TransitTypeID = Convert.ToInt32(drI["TransitTypeID"]);
+                    ins.transittype = drI["TransitType"].ToString();
                     list.Add(ins);
                 }
             }
@@ -93,13 +95,11 @@ namespace SparStelsel.Models
             return list;
         }
 
-
-
         public Transit Insert(Transit ins)
         {
             //...Get User and Date Data...
             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-             string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
+            string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
             string strTrx = "TransitIns_" + EmployeeId;
 
             //...Database Connection...
@@ -125,8 +125,9 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-               cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
+                cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", 0);
+                cmdI.Parameters.AddWithValue("@TransitTypeID", ins.TransitTypeID);               
                 
 
                 //...Return new ID
@@ -177,7 +178,8 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-           cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
+            cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
+            cmdI.Parameters.AddWithValue("@TransitTypeID", ins.TransitTypeID); 
         
 
             cmdI.ExecuteNonQuery();
@@ -205,6 +207,9 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.TransitRemove;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@TransitID", TransitID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@Removed", 1);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

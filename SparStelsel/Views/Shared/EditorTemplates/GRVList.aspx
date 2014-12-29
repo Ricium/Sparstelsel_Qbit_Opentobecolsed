@@ -7,7 +7,7 @@
 
 <html>
 <head id="Head1" runat="server">
-    <title>GRVList </title>
+    <title>GRV</title>
 </head>
 <body>
     <%: Html.ValidationSummary(false) %>
@@ -20,7 +20,8 @@
                         <td>
                             <%: Html.HiddenFor(m => m.GRVListID) %>
                         </td>
-                        <td></td>
+                        <td><%: Html.HiddenFor(m => m.PayDate) %></td>
+                        <td><%: Html.HiddenFor(m => m.CreatedDate) %></td>
                     </tr>
                     <tr>
                         <td>

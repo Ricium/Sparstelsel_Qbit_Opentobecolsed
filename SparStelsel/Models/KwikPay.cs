@@ -25,13 +25,13 @@ namespace SparStelsel.Models
         [DisplayName("CreatedDate")]
         public DateTime CreatedDate { get; set; }
 
-        [DisplayName("Kwik Pay Type ID")]
+        [DisplayName("Kwik Pay Type")]
         public int KwikPayTypeID { get; set; }
-        [DisplayName("Kwik Pay Type ID")]
+        [DisplayName("Kwik Pay Type")]
         public string kwikpaytype{ get; set; }
 
         [DisplayName("User ID")]
-        public int UserID { get; set; }
+        public string UserID { get; set; }
 
         [DisplayName("Company ID")]
 
@@ -45,5 +45,8 @@ namespace SparStelsel.Models
 
         [DisplayName("Removed")]
         public bool Removed { get; set; }
+
+        [DisplayName("Employee")]
+        public string EmployeeID { get; set; }
     }
 }

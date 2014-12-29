@@ -7,14 +7,11 @@
 
 <html>
 <head id="Head1" runat="server">
-    <title>FNBs </title>
+    <title>FNB</title>
 </head>
 <body>
     <%: Html.ValidationSummary(false) %>
 
-    <table>
-        <tr>
-            <td>
                 <table>
                     <tr>
                         <td>
@@ -23,24 +20,23 @@
                         <td></td>
                     </tr>
                     <tr>
+                     <td>
+                           <%: Html.LabelFor(m => m.EmployeeID)%>
+                        </td>
+                        <td>
+                           <%: Html.Telerik().DropDownListFor(m => m.EmployeeID).BindTo((IEnumerable<SelectListItem>) ViewData["Employees"]).HtmlAttributes(new { style = "width: 250px" })%>
+                            <%: Html.ValidationMessageFor(model => model.EmployeeID) %>
+                        </td>
+                    </tr> 
+                    <tr>
                         <td>
                            <%: Html.LabelFor(m => m.ActualDate) %>
                         </td>
                         <td>
-                            <%: Html.Telerik().DatePickerFor(m => m.ActualDate) %>
+                            <%: Html.Telerik().DatePickerFor(m => m.ActualDate).Value(DateTime.Today).TodayButton() %>
                             <%: Html.ValidationMessageFor(m => m.ActualDate) %>
                         </td>
                     </tr>
-                                        <tr>
-                        <td>
-                           <%: Html.LabelFor(m => m.Amount) %>
-                        </td>
-                        <td>
-                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.Amount) %>
-                            <%: Html.ValidationMessageFor(m => m.Amount) %>
-                        </td>
-                    </tr>
-  
                     <tr>
                      <td>
                            <%: Html.LabelFor(m => m.FNBTypeID)%>
@@ -51,13 +47,14 @@
                         </td>
                     </tr> 
                     <tr>
-                               
-                  
-                                     
-
-                </table>
-            </td>
-        </tr>
+                        <td>
+                           <%: Html.LabelFor(m => m.Amount) %>
+                        </td>
+                        <td>
+                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.Amount).CurrencySymbol("R") %>
+                            <%: Html.ValidationMessageFor(m => m.Amount) %>
+                        </td>
+                    </tr>
     </table>
 
     

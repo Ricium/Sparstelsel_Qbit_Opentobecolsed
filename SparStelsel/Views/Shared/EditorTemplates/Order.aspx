@@ -32,7 +32,7 @@
                            <%: Html.LabelFor(m => m.OrderDate) %>
                         </td>
                         <td>
-                            <%: Html.Telerik().DatePickerFor(m => m.OrderDate) %>
+                            <%: Html.Telerik().DatePickerFor(m => m.OrderDate).Value(DateTime.Today).TodayButton()  %>
                             <%: Html.ValidationMessageFor(m => m.OrderDate) %>
                         </td>
                     </tr>
@@ -50,7 +50,7 @@
                            <%: Html.LabelFor(m => m.ExpectedDeliveryDate) %>
                         </td>
                         <td>
-                            <%: Html.TextBoxFor(m => m.ExpectedDeliveryDate, new { type = "date" })%>
+                            <%: Html.Telerik().DatePickerFor(m => m.ExpectedDeliveryDate).TodayButton() %>
                             <%: Html.ValidationMessageFor(m => m.ExpectedDeliveryDate) %>
                         </td>
                     </tr>

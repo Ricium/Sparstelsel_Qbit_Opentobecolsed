@@ -12,8 +12,7 @@
         <tr>
             <td>
                 <h2>
-                        Cashier
-
+                       Cashier
                 </h2>
             </td>
         </tr>
@@ -24,14 +23,14 @@
                  Html.Telerik().Grid<Cashier>()
                     .Name("Cashiers")
                     .DataKeys(keys => keys.Add(s => s.CashierID))
-                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add Cashiers"))
+                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add Cashier"))
                     .Columns(columns =>
                     {
 
-                        columns.Bound(model => model.CashierID);
                         columns.Bound(model => model.Name);
                         columns.Bound(m => m.Surname);
                         columns.Bound(m => m.CompanyID);
+                        columns.Bound(m => m.ModifiedBy).Title("Connected User");
                         
                    
                             columns.Command(commands =>

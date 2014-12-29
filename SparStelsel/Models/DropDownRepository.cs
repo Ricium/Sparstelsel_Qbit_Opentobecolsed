@@ -340,33 +340,7 @@ namespace SparStelsel.Models
             return obj;
         }
 
-        public List<SelectListItem> GetMovementTypeList()
-        {
-            List<SelectListItem> obj = new List<SelectListItem>();
 
-
-            DataBaseConnection dbConn = new DataBaseConnection();
-            SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT MovementTypeID,MovementType FROM l_MovementType", con);
-            cmdI.Connection.Open();
-            SqlDataReader drI = cmdI.ExecuteReader();
-
-            if (drI.HasRows)
-            {
-                while (drI.Read())
-                {
-                    var result = new SelectListItem();
-                    result.Text = drI["MovementType"].ToString();
-                    result.Value = drI["MovementTypeID"].ToString();
-                    obj.Add(result);
-                }
-            }
-            drI.Close();
-            con.Close();
-            con.Dispose();
-
-            return obj;
-        }
 
         public List<SelectListItem> GetCashTypeList1()
         {
@@ -540,6 +514,103 @@ namespace SparStelsel.Models
             return obj;
         }
 
+        public List<SelectListItem> GetCashReconList()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT ReconciliationTypeID,Reconciliation FROM l_ReconciliationType", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["Reconciliation"].ToString();
+                    result.Value = drI["ReconciliationTypeID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+
+        public List<SelectListItem> GetEmployeeList()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+
+            string[] roles = Roles.GetRolesForUser(HttpContext.Current.Session["Username"].ToString());          
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            if (roles.Contains("admin") || roles.Contains("cashadmin"))
+            {
+                cmdI = new SqlCommand("SELECT EmployeeID,Name FROM Employee where Removed=0", con);
+            }
+            else
+            {
+                cmdI = new SqlCommand("SELECT EmployeeID,Name FROM Employee where Removed=0 and ModifiedBy='" + HttpContext.Current.Session["Username"].ToString()+"'", con);
+            }
+
+            
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["Name"].ToString();
+                    result.Value = drI["EmployeeID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+        public List<SelectListItem> GetMovementTypeList()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT MovementTypeID,MovementType FROM l_MovementType where Removed=0", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["MovementType"].ToString();
+                    result.Value = drI["MovementTypeID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
         public List<SelectListItem> GetFNBType()
         {
             List<SelectListItem> obj = new List<SelectListItem>();
@@ -643,6 +714,177 @@ namespace SparStelsel.Models
                     result.Text = drI["CompanyName"].ToString();
                     result.Value = drI["CompanyID"].ToString();
                     obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+        public List<SelectListItem> GetTransitType()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT * FROM l_TransitType", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["TransitType"].ToString();
+                    result.Value = drI["TransitTypeID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+        public List<SelectListItem> GetCashboxType()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT * FROM l_CashboxType", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["CashboxType"].ToString();
+                    result.Value = drI["CashboxTypeID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+        public List<SelectListItem> GetCoinMovementType()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT * FROM l_CoinMovementType", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["CoinMovementType"].ToString();
+                    result.Value = drI["CoinMovementTypeID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+        public List<SelectListItem> GetCashOfficeType()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT * FROM l_CashOfficeType", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["CashOfficeType"].ToString();
+                    result.Value = drI["CashOfficeTypeID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+        public List<SelectListItem> GetCashOfficeStatusList()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            SelectListItem s = new SelectListItem();
+            s.Text = "Sealed";
+            s.Value = "1";
+
+            SelectListItem o = new SelectListItem();
+            o.Text = "Opened";
+            o.Value = "2";
+
+            SelectListItem n = new SelectListItem();
+            n.Text = "N/A";
+            n.Value = "3";
+
+            list.Add(s);
+            list.Add(o);
+            list.Add(n);
+
+            return list;
+        }
+
+        public string GetCashOfficeStatus(int stat)
+        {
+            switch (stat)
+            {
+                case 1: return "Sealed"; 
+                case 2: return "Opened"; 
+                case 3: return "N/A";
+                default: return "N/A";
+            }
+        }
+
+        public List<string> GetAutoCompleteInvoiceNumbers()
+        {
+            List<string> obj = new List<string>();
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("Select DISTINCT g.InvoiceNumber from t_GRVList g left join t_ProofOfPayment p "
+                    + " on g.InvoiceNumber = p.InvoiceNumber where COALESCE(p.InvoiceNumber,0) = 0  and g.Removed=0 order by g.InvoiceNumber ", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    obj.Add(drI["InvoiceNumber"].ToString());
                 }
             }
             drI.Close();

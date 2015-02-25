@@ -9,6 +9,7 @@ namespace SparStelsel.Models
 {
     public class OrderRepository
     {
+        #region Normal Orders
         public Order GetOrders(int OrderID)
         {
             //...Create New Instance of Object...
@@ -41,6 +42,8 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.Suffix = drI["Suffix"].ToString();
+                    ins.PinkSlipNumber = Convert.ToString(drI["PinkSlipNumber"]);
                 }
             }
 
@@ -524,7 +527,7 @@ namespace SparStelsel.Models
                  cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
                  cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
                  cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
-                 cmdI.Parameters.AddWithValue("@UserID", ins.UserID);
+                 cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
                  cmdI.Parameters.AddWithValue("@CommentID", ins.CommentID);
                  cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                  cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
@@ -566,34 +569,6 @@ namespace SparStelsel.Models
             cmdI.Connection.Close();
         }
 
-        public void Remove(string OrderIds)
-        {
-            List<int> RemoveIds = OrderIds.Split(',').ToList().Select(int.Parse).ToList();
-
-            //...Get Date and Current User
-            //string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            //int UserId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
-
-            //...Database Connection...
-            DataBaseConnection dbConn = new DataBaseConnection();
-            SqlConnection con = dbConn.SqlConn();
-            con.Open();
-            SqlCommand cmdI = con.CreateCommand();
-            cmdI.Connection = con;
-
-            foreach (int ID in RemoveIds)
-            {
-                //...Remove Record...
-                cmdI.Parameters.Clear();
-                cmdI.CommandText = StoredProcedures.OrderRemove;
-                cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                cmdI.Parameters.AddWithValue("@OrderID", ID);
-                cmdI.ExecuteNonQuery();
-            }
-
-            cmdI.Connection.Close();
-        }
-
         public string checkNullString(string check)
         {
             return (check == null) ? "" : check;
@@ -610,5 +585,342 @@ namespace SparStelsel.Models
                 grvrep.Update(item);
             }
         }
+        #endregion
+
+        #region Orders with Products
+
+        public List<Order> GetAllProductOrders(string Suffix, string PinkSlipNumber, string Supplier, string From, string To, string Comment)
+        {
+            //...Create New Instance of Object...
+            List<Order> list = new List<Order>();
+            Order ins;
+
+            if (From.Equals(""))
+                From = "1900-01-01";
+
+            if (To.Equals(""))
+                To = "2100-01-01";
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            if (Supplier.Equals(""))
+            {
+                if (Comment.Equals(""))
+                {
+                    cmdI = new SqlCommand("SELECT o.*,s.Supplier,c.Comment FROM t_Order o inner join t_Supplier s on o.SupplierID=s.SupplierID "
+                    + " inner join t_Comment c on o.CommentID = c.CommentID "
+                    + " WHERE o.Removed=0 AND o.PinkSlipNumber LIKE '%" + PinkSlipNumber + "'"
+                    + " AND o.Suffix LIKE '%" + Suffix + "'"
+                    + " AND o.OrderDate >= '" + From + "' AND o.OrderDate <= '" + To + "'"
+                    + " AND o.Amount = 0", con);
+                }
+                else
+                {
+                    cmdI = new SqlCommand("SELECT o.*,s.Supplier,c.Comment FROM t_Order o inner join t_Supplier s on o.SupplierID=s.SupplierID "
+                    + " inner join t_Comment c on o.CommentID = c.CommentID "
+                    + " WHERE o.Removed=0 AND o.PinkSlipNumber LIKE '%" + PinkSlipNumber + "'"
+                    + " AND o.Suffix LIKE '%" + Suffix + "' AND o.CommentID = " + Comment
+                    + " AND o.OrderDate >= '" + From + "' AND o.OrderDate <= '" + To + "'"
+                    + " AND o.Amount = 0", con);
+                }
+            }
+            else
+            {
+                if (Comment.Equals(""))
+                {
+                    cmdI = new SqlCommand("SELECT o.*,s.Supplier,c.Comment FROM t_Order o inner join t_Supplier s on o.SupplierID=s.SupplierID "
+                    + " inner join t_Comment c on o.CommentID = c.CommentID "
+                    + " WHERE o.Removed=0 AND o.PinkSlipNumber LIKE '%" + PinkSlipNumber + "'"
+                    + " AND o.Suffix LIKE '%" + Suffix + "'"
+                    + " AND o.OrderDate >= '" + From + "' AND o.OrderDate <= '" + To + "'"
+                    + " AND o.SupplierID = " + Supplier
+                    + " AND o.Amount = 0", con);
+                }
+                else
+                {
+                    cmdI = new SqlCommand("SELECT o.*,s.Supplier,c.Comment FROM t_Order o inner join t_Supplier s on o.SupplierID=s.SupplierID "
+                    + " inner join t_Comment c on o.CommentID = c.CommentID "
+                    + " WHERE o.Removed=0 AND o.PinkSlipNumber LIKE '%" + PinkSlipNumber + "'"
+                    + " AND o.Suffix LIKE '%" + Suffix + "' AND o.CommentID = " + Comment
+                    + " AND o.OrderDate >= '" + From + "' AND o.OrderDate <= '" + To + "'"
+                    + " AND o.SupplierID = " + Supplier
+                    + " AND o.Amount = 0", con);
+                }
+            }
+
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new Order();
+                    ins.OrderID = Convert.ToInt32(drI["OrderID"]);
+                    ins.OrderDate = Convert.ToDateTime(drI["OrderDate"]);
+                    ins.ExpectedDeliveryDate = Convert.ToDateTime(drI["ExpectedDeliveryDate"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
+                    ins.CommentID = Convert.ToInt32(drI["CommentID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.supplier = drI["Supplier"].ToString();
+                    ins.Suffix = drI["Suffix"].ToString();
+                    ins.PinkSlipNumber = Convert.ToString(drI["PinkSlipNumber"]);
+                    ins.ordercomment = drI["Comment"].ToString();
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public OrderProduct GetOrderProducts(int OrderProductID)
+        {
+            //...Create New Instance of Object...
+            OrderProduct ins = new OrderProduct();
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_OrderProduct WHERE OrderProductID =" + OrderProductID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins.OrderProductID = Convert.ToInt32(drI["OrderProductID"]);
+                    ins.OrderID = Convert.ToInt32(drI["OrderID"]);
+                    ins.ProductID = Convert.ToInt32(drI["ProductID"]);
+                    ins.Quantity = Convert.ToInt32(drI["Quantity"]);
+                    ins.StatusID = Convert.ToBoolean(drI["StatusID"]);
+                    ins.Price = Convert.ToDecimal(drI["Price"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
+
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return ins;
+        }
+
+        public List<OrderProduct> GetOrderProductsPerOrder(int OrderId)
+        {
+            //...Create New Instance of Object...
+            List<OrderProduct> list = new List<OrderProduct>();
+            OrderProduct ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("Select op.*,p.Product from t_OrderProduct op "
+                + "inner join t_Product p on op.ProductID = p.ProductID where op.Removed = 0 and op.OrderID = " + OrderId, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new OrderProduct();
+                    ins.OrderProductID = Convert.ToInt32(drI["OrderProductID"]);
+                    ins.OrderID = Convert.ToInt32(drI["OrderID"]);
+                    ins.ProductID = Convert.ToInt32(drI["ProductID"]);
+                    ins.Quantity = Convert.ToInt32(drI["Quantity"]);
+                    ins.StatusID = Convert.ToBoolean(drI["StatusID"]);
+                    ins.Price = Convert.ToDecimal(drI["Price"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public OrderProduct InsertOrderProduct(OrderProduct ins)
+        {
+            //...Get User and Date Data...
+            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
+            string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
+            
+            string strTrx = "OrderProductIns_" + EmployeeId;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            con.Open();
+
+            //...Command Interface...
+            SqlCommand cmdI = con.CreateCommand();
+            SqlTransaction trx;
+            trx = con.BeginTransaction(strTrx);
+            cmdI.Connection = con;
+            cmdI.Transaction = trx;
+
+            try
+            {
+                //...Insert Record...
+                cmdI.CommandText = StoredProcedures.OrderProductInsert;
+                cmdI.CommandType = System.Data.CommandType.StoredProcedure;
+                cmdI.Parameters.AddWithValue("@OrderID", ins.OrderID);
+                cmdI.Parameters.AddWithValue("@ProductID", ins.ProductID);
+                cmdI.Parameters.AddWithValue("@StatusID", ins.StatusID);
+                cmdI.Parameters.AddWithValue("@Quantity", ins.Quantity);
+                cmdI.Parameters.AddWithValue("@Price", ins.Price);
+                cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+                cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+
+                //...Return new ID
+                ins.OrderProductID = (int)cmdI.ExecuteScalar();
+
+                trx.Commit();
+                cmdI.Connection.Close();
+            }
+            catch (SqlException ex)
+            {
+                if (trx != null) trx.Rollback();
+            }
+            finally
+            {
+                //Check for close and respond accordingly
+                if (con.State != ConnectionState.Closed)
+                {
+                    con.Close();
+                }
+                //Clean up
+                con.Dispose();
+                cmdI.Dispose();
+                trx.Dispose();
+            }
+
+            return ins;
+        }
+
+        public OrderProduct UpdateOrderProduct(OrderProduct ins)
+        {
+            //...Get User and Date Data...
+            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
+            string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            con.Open();
+            SqlCommand cmdI = con.CreateCommand();
+            cmdI.Connection = con;
+
+            //...Update Record...
+            cmdI.Parameters.Clear();
+            cmdI.CommandText = StoredProcedures.OrderProductUpdate;
+            cmdI.CommandType = System.Data.CommandType.StoredProcedure;
+            cmdI.Parameters.AddWithValue("@OrderProductID", ins.OrderProductID);
+            cmdI.Parameters.AddWithValue("@OrderID", ins.OrderID);
+            cmdI.Parameters.AddWithValue("@ProductID", ins.ProductID);
+            cmdI.Parameters.AddWithValue("@StatusID", ins.StatusID);
+            cmdI.Parameters.AddWithValue("@Quantity", ins.Quantity);
+            cmdI.Parameters.AddWithValue("@Price", ins.Price);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+
+            cmdI.ExecuteNonQuery();
+            cmdI.Connection.Close();
+
+            return ins;
+
+        }
+
+        public void RemoveOrderProduct(int OrderProductID)
+        {
+            //...Get User and Date Data...
+            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
+            string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            con.Open();
+            SqlCommand cmdI = con.CreateCommand();
+            cmdI.Connection = con;
+
+            //...Update Record...
+            cmdI.Parameters.Clear();
+            cmdI.CommandText = StoredProcedures.OrderProductRemove;
+            cmdI.CommandType = System.Data.CommandType.StoredProcedure;
+            cmdI.Parameters.AddWithValue("@OrderProductID", OrderProductID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+
+            cmdI.ExecuteNonQuery();
+            cmdI.Connection.Close();
+        }
+
+        public void ProcessProductOrder(int OrderId)
+        {        
+            //...Get User and Date Data...
+            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
+            string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            con.Open();
+            SqlCommand cmdI = con.CreateCommand();
+            cmdI.Connection = con;
+
+            //...Update Record...
+            cmdI.Parameters.Clear();
+            cmdI.CommandText = StoredProcedures.OrderProductProcess;
+            cmdI.CommandType = System.Data.CommandType.StoredProcedure;
+            cmdI.Parameters.AddWithValue("@OrderID", OrderId);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+
+            cmdI.ExecuteNonQuery();
+            cmdI.Connection.Close();
+
+        }
+        #endregion
     }
 }

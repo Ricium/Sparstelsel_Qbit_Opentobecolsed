@@ -389,32 +389,6 @@ namespace SparStelsel.Models
             cmdI.Connection.Close();
         }
 
-        public void Remove(string CoinMovementIds)
-        {
-            List<int> RemoveIds = CoinMovementIds.Split(',').ToList().Select(int.Parse).ToList();
 
-            //...Get Date and Current User
-            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int UserId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
-
-            //...Database Connection...
-            DataBaseConnection dbConn = new DataBaseConnection();
-            SqlConnection con = dbConn.SqlConn();
-            con.Open();
-            SqlCommand cmdI = con.CreateCommand();
-            cmdI.Connection = con;
-
-            foreach (int ID in RemoveIds)
-            {
-                //...Remove Record...
-                cmdI.Parameters.Clear();
-                cmdI.CommandText = StoredProcedures.CoinMovementRemove;
-                cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                cmdI.Parameters.AddWithValue("@CoinMovementID", ID);
-                cmdI.ExecuteNonQuery();
-            }
-
-            cmdI.Connection.Close();
-        } 
     }
 }

@@ -39,6 +39,7 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.RefNo = drI["RefNo"].ToString();
                 }
             }
 
@@ -85,6 +86,7 @@ namespace SparStelsel.Models
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     ins.fnbtype = drI["FNBType"].ToString();
                     ins.EmployeeID = drI["Name"].ToString();
+                    ins.RefNo = drI["RefNo"].ToString();
                     list.Add(ins);
                 }
             }
@@ -130,6 +132,7 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.RefNo = drI["RefNo"].ToString();
                     list.Add(ins);
                 }
             }
@@ -155,7 +158,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_FNB WHERE UserID = " + UserID, con);
+            cmdI = new SqlCommand("SELECT * FROM t_FNB WHERE EmployeeID = " + UserID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -175,6 +178,53 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.RefNo = drI["RefNo"].ToString();
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<FNB> GetFNBsPerEmployee(int UserID, DateTime date)
+        {
+            //...Create New Instance of Object...
+            List<FNB> list = new List<FNB>();
+            FNB ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_FNB WHERE EmployeeID = " + UserID + " AND ActualDate = '" + date.ToShortDateString() + "' AND Removed=0", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new FNB();
+                    ins.FNBID = Convert.ToInt32(drI["FNBID"]);
+                    ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.FNBTypeID = Convert.ToInt32(drI["FNBTypeID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.RefNo = drI["RefNo"].ToString();
                     list.Add(ins);
                 }
             }
@@ -220,6 +270,7 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.RefNo = drI["RefNo"].ToString();
                     list.Add(ins);
                 }
             }
@@ -268,6 +319,7 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
                 cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
+                cmdI.Parameters.AddWithValue("@RefNo", ins.RefNo);
 
                 //...Return new ID
                 ins.FNBID = (int)cmdI.ExecuteScalar();
@@ -321,6 +373,7 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
             cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
             cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
+            cmdI.Parameters.AddWithValue("@RefNo", ins.RefNo);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
@@ -355,32 +408,5 @@ namespace SparStelsel.Models
             cmdI.Connection.Close();
         }
 
-        public void Remove(string FNBIds)
-        {
-            List<int> RemoveIds = FNBIds.Split(',').ToList().Select(int.Parse).ToList();
-
-            //...Get Date and Current User
-            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int UserId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
-
-            //...Database Connection...
-            DataBaseConnection dbConn = new DataBaseConnection();
-            SqlConnection con = dbConn.SqlConn();
-            con.Open();
-            SqlCommand cmdI = con.CreateCommand();
-            cmdI.Connection = con;
-
-            foreach (int ID in RemoveIds)
-            {
-                //...Remove Record...
-                cmdI.Parameters.Clear();
-                cmdI.CommandText = StoredProcedures.FNBRemove;
-                cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                cmdI.Parameters.AddWithValue("@FNBID", ID);
-                cmdI.ExecuteNonQuery();
-            }
-
-            cmdI.Connection.Close();
-        }
     }
 }

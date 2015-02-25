@@ -7,14 +7,11 @@
 
 <html>
 <head id="Head1" runat="server">
-    <title>Product </title>
+    <title>Product</title>
 </head>
 <body>
     <%: Html.ValidationSummary(false) %>
 
-    <table>
-        <tr>
-            <td>
                 <table>
                     <tr>
                         <td>
@@ -32,7 +29,7 @@
                             <%: Html.ValidationMessageFor(m => m.Products) %>
                         </td>
                     </tr>
-                                        <tr>
+                    <tr>
                         <td>
                            <%: Html.LabelFor(m => m.ProductDescription) %>
                         </td>
@@ -41,16 +38,7 @@
                             <%: Html.ValidationMessageFor(m => m.ProductDescription) %>
                         </td>
                     </tr>
-                                                            <tr>
-                        <td>
-                           <%: Html.LabelFor(m => m.BTW) %>
-                        </td>
-                        <td>
-                            <%: Html.TextBoxFor(m => m.BTW) %>
-                            <%: Html.ValidationMessageFor(m => m.BTW) %>
-                        </td>
-                    </tr>
-                                                                                <tr>
+                    <tr>
                         <td>
                            <%: Html.LabelFor(m => m.Quantity) %>
                         </td>
@@ -59,32 +47,37 @@
                             <%: Html.ValidationMessageFor(m => m.Quantity) %>
                         </td>
                     </tr>
-                                                                                <tr>
+                    <tr>
+                        <td>
+                           <%: Html.LabelFor(m => m.BTW) %>
+                        </td>
+                        <td>
+                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.BTW).CurrencySymbol("R").MinValue(0) %>
+                            <%: Html.ValidationMessageFor(m => m.BTW) %>
+                        </td>
+                    </tr>                    
+                    <tr>
                         <td>
                            <%: Html.LabelFor(m => m.Price) %>
                         </td>
                         <td>
-                            <%: Html.TextBoxFor(m => m.Price) %>
+                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.Price) %>
                             <%: Html.ValidationMessageFor(m => m.Price) %>
                         </td>
-
-                                            <tr>
-                     <td>
+                     </tr>
+                     <tr>
+                        <td>
                            <%: Html.LabelFor(m => m.SupplierID)%>
                         </td>
                         <td>
                            <%: Html.Telerik().DropDownListFor(m => m.SupplierID).BindTo((IEnumerable<SelectListItem>) ViewData["Supplier"]).HtmlAttributes(new { style = "width: 250px" })%>
                             <%: Html.ValidationMessageFor(model => model.SupplierID) %>
                         </td>
-                    </tr> 
-                    <tr>
-                  
+                    </tr>               
                                      
 
                 </table>
-            </td>
-        </tr>
-    </table>
+
 
     
 </body>

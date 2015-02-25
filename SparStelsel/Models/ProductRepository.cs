@@ -30,7 +30,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.ProductID = Convert.ToInt32(drI["ProductID"]);
-                    ins.Products = (drI["Products"]).ToString();
+                    ins.Products = (drI["Product"]).ToString();
                     ins.ProductDescription = (drI["ProductDescription"]).ToString();
                     ins.Price = Convert.ToDecimal(drI["Price"]);
                     ins.Quantity = Convert.ToInt32(drI["Quantity"]);
@@ -41,6 +41,7 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                 }
             }
 
@@ -65,7 +66,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT t.*,s.Supplier FROM t_Product t inner join t_Supplier s on t.SupplierID = s.SupplierID", con);
+            cmdI = new SqlCommand("SELECT t.*,s.Supplier FROM t_Product t inner join t_Supplier s on t.SupplierID = s.SupplierID WHERE t.Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -76,7 +77,7 @@ namespace SparStelsel.Models
                 {
                     ins = new Product();
                     ins.ProductID = Convert.ToInt32(drI["ProductID"]);
-                    ins.Products = (drI["Products"]).ToString();
+                    ins.Products = (drI["Product"]).ToString();
                     ins.ProductDescription = (drI["ProductDescription"]).ToString();
                     ins.Price = Convert.ToDecimal(drI["Price"]);
                     ins.Quantity = Convert.ToInt32(drI["Quantity"]);
@@ -88,6 +89,7 @@ namespace SparStelsel.Models
                     ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
                     list.Add(ins);
                 }
             }
@@ -99,8 +101,7 @@ namespace SparStelsel.Models
 
             //...Return...
             return list;
-        }
-                   
+        }                   
 
         public Product Insert(Product ins)
         {
@@ -192,9 +193,8 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-           cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
+            cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
             cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
-    ;
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
@@ -206,8 +206,8 @@ namespace SparStelsel.Models
         public void Remove(int ProductID)
         {
             //...Get User and Date Data...
-            //string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            // string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
+            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
+            string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -221,6 +221,8 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.ProductRemove;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@ProductID", ProductID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();

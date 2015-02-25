@@ -13,25 +13,37 @@
             <td>
              <%
                 
-                 Html.Telerik().Grid<Cash>()
-                      .Name("Cash")
-                      .DataKeys(d => d.Add("EmployeeName"))
-                      .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add Cash Movement"))
+                 Html.Telerik().Grid<CashMovement>()
+                      .Name("CashMovements")
+                      .DataKeys(d => d.Add(s => s.CashMovementID))
+                      .ToolBar(p => p.Template("<button type='button' class='t-button' id='InsertMultipleCashMovements' onclick='LoadMultipleCashMovements()'>Insert Day-end Cash</button>"))
                       .Columns(columns =>
                       {
-                          columns.Bound(model => model.Date).Format("{0:yyyy/MM/dd}");
-                          columns.Bound(model => model.EmployeeName);
-                          columns.Bound(model => model.MovementType);
-                          columns.Bound(model => model.TotalDeclared).Format("{0:c}");
-                          columns.Bound(model => model.TotalExpected).Format("{0:c}");
-                          columns.Bound(model => model.CashExpected).Format("{0:c}");
-                          columns.Bound(model => model.CashOver).Format("{0:c}");
+                          columns.Bound(model => model.ActualDate).Format("{0:yyyy/MM/dd}");
+                          columns.Bound(model => model.employee);
+                          columns.Bound(model => model.movementtype);
+                          columns.Bound(model => model.moneyunit);
+                          columns.Bound(model => model.Amount).Format("{0:c}");
+                          columns.Bound(model => model.ModifiedDate).Format("{0:yyyy/MM/dd}");
+                          columns.Bound(model => model.ModifiedBy);
+
+                          columns.Command(commands =>
+                          {
+                              commands.Edit().ButtonType(GridButtonType.ImageAndText).Text("Update");
+                          }).Title("").Width(90);
+
+                          columns.Command(commands =>
+                          {
+                              commands.Delete().ButtonType(GridButtonType.ImageAndText).Text("Delete");
+                          }).Title("").Width(90);
                       })
                       .DataBinding(dataBinding =>
                       {
                           dataBinding.Ajax()
                                      .Select("_ListCash", "Money")
-                                     .Insert("_InsertCash", "Money");
+                                     .Update("_UpdateCash", "Money")
+                                     .Delete("_DeleteCash", "Money");
+                                     //.Insert("_InsertCash", "Money");
                       })
 
                       .Pageable(paging => paging.PageSize(50))

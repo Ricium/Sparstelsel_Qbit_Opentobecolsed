@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<ProofOfPayment>" %>
+﻿
+<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<ProofOfPayment>" %>
 <%@ Import Namespace="SparStelsel"%>
 <%@ Import Namespace="SparStelsel.Models"%>
 <%@ Import Namespace="SparStelsel.Controllers"%>
@@ -41,16 +42,38 @@
                             <%: Html.ValidationMessageFor(m => m.PaymentDescription) %>
                         </td>
                     </tr>
-                     <tr>
-                        <td>
-                           <%: Html.LabelFor(m => m.InvoiceNumber) %>
+                    <tr>
+                     <td>
+                           <%: Html.LabelFor(m => m.SupplierID)%>
                         </td>
                         <td>
-                            <%: Html.Telerik().AutoCompleteFor(m => m.InvoiceNumber).BindTo((IEnumerable<String>) ViewData["Invoices"])
-                                .AutoFill(true).Filterable(f => f.FilterMode(AutoCompleteFilterMode.StartsWith)) %>
-                            <%: Html.ValidationMessageFor(m => m.InvoiceNumber) %>
+                           <%: Html.Telerik().DropDownListFor(m => m.SupplierID).BindTo((IEnumerable<SelectListItem>) ViewData["SupplierID"])
+                                    .HtmlAttributes(new { style = "width: 250px" }).ClientEvents(e => e.OnChange("OpenInvoices")) %>
+                            <%: Html.ValidationMessageFor(model => model.SupplierID) %>
                         </td>
                     </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div id="Invoiceload" style="display: none;">
+                                <table>
+                                    <tr>
+                                        <td>
+                                           <%: Html.LabelFor(m => m.InvoiceNumber) %>
+                                        </td>
+                                        <td>                            
+                                            <%: Html.Telerik().AutoCompleteFor(m => m.InvoiceNumber) 
+                                                .DataBinding(d => d.Ajax().Select("_GetInvoiceNumbers", "Payment"))
+                                                .ClientEvents(e => e.OnDataBinding("CheckSupplier"))
+                                                .AutoFill(true).Filterable(f => f.FilterMode(AutoCompleteFilterMode.StartsWith))
+                                                .Enable(true).HtmlAttributes(new { style = "width: 300px" }) %>
+                                            <%: Html.ValidationMessageFor(m => m.InvoiceNumber) %>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                     
 
                                                                 <tr>
                      <td>
@@ -60,10 +83,9 @@
                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.Amount).CurrencySymbol("R")%>
                             <%: Html.ValidationMessageFor(model => model.Amount) %>
                         </td>
-                    </tr>
-              
+                    </tr>            
  
-                                                                        <tr>
+                    <tr>
                      <td>
                            <%: Html.LabelFor(m => m.CashTypeID)%>
                         </td>

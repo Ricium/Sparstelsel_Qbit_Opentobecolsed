@@ -8,6 +8,12 @@ using System.Web.Mvc;
 
 namespace SparStelsel.Models
 {
+    public class SupplierInvoiceSplit
+    {
+        public int SupplierId;
+        public string InvoiceNumber;
+    }
+
     public class ProofOfPaymentRepository
     {
         public ProofOfPayment GetProofOfPayment(int ProofOfPaymentID)
@@ -223,10 +229,11 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
                 cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
                 cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-               cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
+                cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
                 cmdI.Parameters.AddWithValue("@InvoiceNumber", ins.InvoiceNumber);
                 cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);
+                cmdI.Parameters.AddWithValue("@SupplierId", ins.SupplierID);
 
                 //...Return new ID
                 ins.ProofOfPaymentID = (int)cmdI.ExecuteScalar();
@@ -277,10 +284,10 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
             cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
             cmdI.Parameters.AddWithValue("@ModifiedDate",ModifiedDate);
-           cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
+            cmdI.Parameters.AddWithValue("@ModifiedBy",EmployeeId);
             cmdI.Parameters.AddWithValue("@InvoiceNumber", ins.InvoiceNumber);
             cmdI.Parameters.AddWithValue("@CashTypeID", ins.CashTypeID);
-    
+            cmdI.Parameters.AddWithValue("@SupplierId", ins.SupplierID);
 
             cmdI.ExecuteNonQuery();
             cmdI.Connection.Close();
@@ -344,6 +351,23 @@ namespace SparStelsel.Models
             cmdI.Connection.Close();
         }
 
+        public SupplierInvoiceSplit RemoveSupplierFormInvoiceNumber(string InvoiceNumberWithSupplier, List<string> Suppliers)
+        {
+            SupplierInvoiceSplit ins = new SupplierInvoiceSplit();
+            SupplierRepository suprep = new SupplierRepository();
+
+            foreach(string supplier in Suppliers)
+            {
+                if(InvoiceNumberWithSupplier.Contains(supplier))
+                {
+                    InvoiceNumberWithSupplier = InvoiceNumberWithSupplier.Replace((" " + supplier), "");
+                    ins.InvoiceNumber = InvoiceNumberWithSupplier;
+                    ins.SupplierId = suprep.GetSupplier(supplier).SupplierID;
+                }
+            }
+
+            return ins;
+        }
        
     }
 

@@ -20,7 +20,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT * FROM t_Supplier WHERE SupplierID =" + SupplierID, con);
+            cmdI = new SqlCommand("SELECT s.*, st.SupplierType FROM t_Supplier s INNER JOIN l_SupplierType st on s.SupplierTypeID = st.SupplierTypeID WHERE SupplierID =" + SupplierID, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -40,6 +40,51 @@ namespace SparStelsel.Models
                     ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     ins.FromFriday = Convert.ToBoolean(drI["FromFriday"]);
+                    ins.suppliertypeid2 = drI["SupplierType"].ToString();
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return ins;
+        }
+
+        public Supplier GetSupplier(string SupplierName)
+        {
+            //...Create New Instance of Object...
+            Supplier ins = new Supplier();
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT s.*, st.SupplierType FROM t_Supplier s INNER JOIN l_SupplierType st on s.SupplierTypeID = st.SupplierTypeID WHERE s.Supplier ='" + SupplierName + "'", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins.SupplierID = Convert.ToInt32(drI["SupplierID"]);
+                    ins.Suppliers = (drI["Supplier"]).ToString();
+                    ins.StockCondition = (drI["StockCondition"]).ToString();
+                    ins.Term = Convert.ToString(drI["Term"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.SupplierTypeID = Convert.ToInt32(drI["SupplierTypeID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.FromFriday = Convert.ToBoolean(drI["FromFriday"]);
+                    ins.suppliertypeid2 = drI["SupplierType"].ToString();
                 }
             }
 

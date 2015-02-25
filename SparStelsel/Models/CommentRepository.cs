@@ -229,8 +229,8 @@ namespace SparStelsel.Models
         public void Remove(int CommentID)
         {
             //...Get User and Date Data...
-            //string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            // string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
+            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
+            string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
 
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
@@ -249,32 +249,6 @@ namespace SparStelsel.Models
             cmdI.Connection.Close();
         }
 
-        public void Remove(string CommentIds)
-        {
-            List<int> RemoveIds = CommentIds.Split(',').ToList().Select(int.Parse).ToList();
-
-            //...Get Date and Current User
-            //string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            //int UserId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
-
-            //...Database Connection...
-            DataBaseConnection dbConn = new DataBaseConnection();
-            SqlConnection con = dbConn.SqlConn();
-            con.Open();
-            SqlCommand cmdI = con.CreateCommand();
-            cmdI.Connection = con;
-
-            foreach (int ID in RemoveIds)
-            {
-                //...Remove Record...
-                cmdI.Parameters.Clear();
-                cmdI.CommandText = StoredProcedures.CommentRemove;
-                cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                cmdI.Parameters.AddWithValue("@CommentID", ID);
-                cmdI.ExecuteNonQuery();
-            }
-
-            cmdI.Connection.Close();
-        } 
+       
     }
 }

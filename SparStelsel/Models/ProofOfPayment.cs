@@ -28,7 +28,7 @@ namespace SparStelsel.Models
         public DateTime ActualDate { get; set; }
 
         [DisplayName("Payment Description")]
-        [Required(ErrorMessage = "Payment Description is required.")]
+       // [Required(ErrorMessage = "Payment Description is required.")]
         [StringLength(50, ErrorMessage = "Payment Description may not be longer than 50 characters")]
         public string PaymentDescription { get; set; }
 
@@ -45,19 +45,15 @@ namespace SparStelsel.Models
         public int CompanyID { get; set; }
 
         [DisplayName("Modified Date")]
-
         public DateTime ModifiedDate { get; set; }
 
         [DisplayName("Modified By")]
+        public string ModifiedBy { get; set; }
 
-          public string ModifiedBy { get; set; }
-
-        [DisplayName("Removed")]
-    
+        [DisplayName("Removed")]    
         public bool Removed { get; set; }
 
         [DisplayName("Invoice Number")]
-        [Required(ErrorMessage = "Invoice Number is required.")]
         public string InvoiceNumber { get; set; }
 
         [DisplayName("CashType")]
@@ -65,5 +61,8 @@ namespace SparStelsel.Models
 
         [DisplayName("CashType")]
         public string cashtype { get; set; }
+
+        [DisplayName("Supplier")]
+        public string SupplierID { get; set; }
     }
 }

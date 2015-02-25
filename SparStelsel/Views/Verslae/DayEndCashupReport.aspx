@@ -7,7 +7,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h3>Orders for Expected Delivery Date</h3>
+    <h3>Day end Cashup</h3>
    <% using (Html.BeginForm("GetDayEndCashupReport", "Verslae", FormMethod.Post))
        { %>
         <table>

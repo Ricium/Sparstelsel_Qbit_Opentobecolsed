@@ -47,7 +47,7 @@
                     <%= Html.Telerik().StyleSheetRegistrar()
                  .DefaultGroup(group => group.Add("telerik.common.min.css")
                  .Add("telerik.office2007.min.css"))%>
-      <%= Html.Telerik().ScriptRegistrar() %>
+      <%= Html.Telerik().ScriptRegistrar().Globalization(true) %>
 
       <script src="<%= Url.Content("~/Scripts/jquery.cookie.js")%>"  type="text/javascript"></script>  
       <script src="<%= Url.Content("~/Scripts/jquery.blockUI.js")%>" type="text/javascript"></script>

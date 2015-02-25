@@ -44,6 +44,7 @@
                      {
                          item.Add().Text("Payment Types").Url("~/Maintenance/CashTypes");
                          item.Add().Text("Comments").Url("~/Maintenance/Comment");
+                         item.Add().Text("Products").Url("~/Products/Products");
                      });
 
             items.Add()
@@ -77,6 +78,7 @@
                 .Items(Tritems =>
                 {
                     Tritems.Add().Text("Orders").Url("~/Orders/Orders");
+                    Tritems.Add().Text("Product Orders").Url("~/Orders/ProductOrders");
                 });
             
 
@@ -105,8 +107,23 @@
                     
                     item.Add().Text("Cash-up Reports").Url("#").Items(i =>
                     {
+                        i.Add().Text("Cash Office Day End Report").Url("~/Verslae/CashOfficeReport");
+                        i.Add().Text("Cashier Report").Url("~/Verslae/CashierReport");
                         i.Add().Text("Day End Cash Up Report").Url("~/Verslae/DayendcashupReport");
-                    });                         
+                    });
+
+                    item.Add().Text("Reconciliation Reports").Url("#").Items(i =>
+                    {
+                        i.Add().Text("Spar Invoice Recon Report").Url("~/Verslae/SparReconReport");
+                    });                       
+                });
+
+            items.Add()
+                .Text("Cash-Office")
+                .Url("#")
+                .Items(item =>
+                {
+                    item.Add().Text("Cashier Day End").Url("~/Money/CashierDayEnd"); 
                 });
 
             items.Add()
@@ -117,6 +134,8 @@
                     item.Add().Text("Cashiers").Url("~/Cashier/Cashier");
                     item.Add().Text("Cash-up").Url("~/Money/Cashup");
 
+                    item.Add().Text("Live Cashier Status").Url("~/Money/CashierStatus");
+                    
                     item.Add().Text("Cash Movements").Url("#").Items(i =>
                     {
                         i.Add().Text("Coin Movement").Url("~/Money/CoinMovement"); 
@@ -127,8 +146,19 @@
                 });
 
             items.Add()
+                .Text("Spar Recon")
+                .Url("#")
+                .Items(item =>
+                {
+                    item.Add().Text("Invoice Recon").Url("~/SparRecon/SparInvoiceRecon");
+                });
+
+            items.Add()
                  .Text("Log off: " + HttpContext.Current.Session["Username"].ToString())
-                 .Url("~/Account/Logoff");          
+                 .Url("~/Account/Logoff"); 
+            
+            //items.Add()
+            //    .Text("Test").Url("~/Money/MultiElectronic");         
 
         }).Render();
  %>

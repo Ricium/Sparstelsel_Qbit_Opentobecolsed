@@ -47,5 +47,8 @@ namespace SparStelsel.Models
 
         [DisplayName("Employee")]
         public string EmployeeID { get; set; }
+
+        [DisplayName("RefNo")]
+        public string RefNo { get; set; }
     }
 }

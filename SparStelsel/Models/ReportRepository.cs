@@ -341,8 +341,8 @@ namespace SparStelsel.Models
             SqlConnection con = dbConn.SqlConn();
             SqlCommand cmdI;
 
-            //...SQL Commands...
-            cmdI = new SqlCommand("Select g.InvoiceNumber, g.PinkSlipNumber, g.ExpectedPayDate, g.PayDate, g.InvoiceDate, g.StateDate "
+            /*
+              "Select g.InvoiceNumber, g.PinkSlipNumber, g.ExpectedPayDate, g.PayDate, g.InvoiceDate, g.StateDate "
                 + ", p.ActualDate, p.PaymentDescription, c.CashType, g.ExcludingVat, g.IncludingVat, p.Amount, s.Supplier "
                 + " from t_GRVList g "
                 + "	inner join t_ProofOfPayment p on g.InvoiceNumber = p.InvoiceNumber "
@@ -353,7 +353,34 @@ namespace SparStelsel.Models
                     + "	and g.InvoiceNumber LIKE '%" + query.InvoiceNumber + "' "
                     + "	and g.PinkSlipNumber LIKE '%" + query.PinkSlip + "' "
                     + "	and p.CashTypeID LIKE '%" + query.Paymenthod + "' "
-                    + "	and g.SupplierID LIKE '%" + query.Supplier + "'", con);
+                    + "	and g.SupplierID LIKE '%" + query.Supplier + "'"
+             */
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("Select g.InvoiceNumber, g.PinkSlipNumber, g.ExpectedPayDate, g.PayDate, g.InvoiceDate, g.StateDate "
+                            + " , COALESCE(p.ActualDate,'') as ActualDate "
+                            + " , COALESCE(p.PaymentDescription,'') as PaymentDescription "
+                            + " , COALESCE(c.CashType,'') as CashType "
+                            + " , g.ExcludingVat, g.IncludingVat "
+                            + " , COALESCE(p.Amount,0) as Amount "
+                            + " , s.Supplier  "
+                            + " from t_GRVList g  "
+                            + " left join t_ProofOfPayment p on g.InvoiceNumber = p.InvoiceNumber  "
+                            + " inner join t_Supplier s on g.SupplierID = s.SupplierID "
+                            + " left join l_CashType c on p.CashTypeID = c.CashTypeID  "
+                            + " where   "
+                            + " g.InvoiceNumber LIKE '%" + query.InvoiceNumber + "' "
+                            + " and (g.PayDate >= '" + query.FromDate.ToShortDateString() + "' "
+                            + " and g.PayDate <= '" + query.ToDate.ToShortDateString() + "' "
+                            + " and s.SupplierTypeID = 2 )"
+                            + " or ( p.ActualDate >= '" + query.FromDate.ToShortDateString() + "' " 
+                            + " and p.ActualDate <= '" + query.ToDate.ToShortDateString() + "' "
+                            + " and s.SupplierTypeID = 2 )"
+                            + " and g.PinkSlipNumber LIKE '%" + query.PinkSlip + "' "
+                            + " and COALESCE(p.CashTypeID,'') LIKE '%" + query.Paymenthod + "' "
+                            + " and g.SupplierID LIKE '%" + query.Supplier + "'"
+                            
+                            + " ORDER BY p.ActualDate DESC, s.Supplier", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -469,6 +496,312 @@ namespace SparStelsel.Models
             }
 
             return obj;
+        }
+
+        public decimal GetPickUpTotal(DateTime date)
+        {
+            decimal total = 0;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("Select SUM(Amount) as Total from t_PickUp where ActualDate = '" + date.ToShortDateString() + "' and Removed = 0", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    total = Convert.ToDecimal(drI["Total"]);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+            return total;
+        }
+
+        public List<CashOfficeReport> GetCashOfficeReport(DateTimeFromToQuery query)
+        {
+            //...Create New Instance of Object...
+            List<CashOfficeReport> list = new List<CashOfficeReport>();
+            CashOfficeReport ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand();
+            cmdI.CommandTimeout = 540;
+            cmdI.Connection = con;
+            cmdI.CommandText = "f_Admin_Report_CashOffice";
+            cmdI.CommandType = System.Data.CommandType.StoredProcedure;
+            cmdI.Parameters.AddWithValue("@SelectedDate", query.From);
+
+            cmdI.Connection.Open();
+
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new CashOfficeReport();
+                    ins.MoneyUnit = drI["MoneyUnit"].ToString();
+                    ins.Sealed = Convert.ToDecimal(drI["Sealed"]);
+                    ins.Opened = Convert.ToDecimal(drI["Opened"]);
+                    ins.TotalInOffice = Convert.ToDecimal(drI["Notes"]);
+                    ins.CashierTotal = Convert.ToDecimal(drI["Cashiers"]);
+                    ins.Drop = Convert.ToDecimal(drI["Drops"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            cmdI.Connection.Close();
+            con.Dispose();
+
+            //...Return...
+            return list;
+        }
+
+        public CashierReport GetCashierReport(CashierReportQuery query)
+        {
+            #region Repositories
+            CashierRepository cashierrep = new CashierRepository();
+            CashMovementRepository cashmovementrep = new CashMovementRepository();
+            ElectronicFundRepository elecrep = new ElectronicFundRepository();
+            PickUpRepository pickuprep = new PickUpRepository();
+            CashReconciliationRepository cashreconrep = new CashReconciliationRepository();
+            InstantMoneyRepository imrep = new InstantMoneyRepository();
+            FNBRepository fnbrep = new FNBRepository();
+            KwikPayRepository kwikrep = new KwikPayRepository();
+            #endregion
+
+            //...Get All Details
+            CashierReport report = new CashierReport();
+
+            report.CashierId = query.Cashier;
+            report.ReportDate = query.Date;
+
+            report.Cashier = cashierrep.GetCashier(query.Cashier);
+            report.CashMovements = cashmovementrep.GetCashMovementsPerEmployee(query.Cashier, query.Date);
+            report.ElectronicFunds = elecrep.GetElectronicFundsPerEmployee(query.Cashier, query.Date);
+            report.FNB = fnbrep.GetFNBsPerEmployee(query.Cashier, query.Date);
+            report.InstantMoney = imrep.GetInstantMoneysPerEmployee(query.Cashier, query.Date);
+            report.KwikPays = kwikrep.GetKwikPaysPerEmployee(query.Cashier, query.Date);
+            report.Pickups = pickuprep.GetPickUpsPerEmployee(query.Cashier, query.Date);
+            report.Recons = cashreconrep.GetCashReconcilationsPerEmployee(query.Cashier, query.Date);
+
+            //...Initialize Totals
+            report.CashTotal= 0;
+            report.CardsTotal= 0;
+            report.ChequeTotal= 0;
+            report.SassaTotal= 0;
+            report.PickupTotal= 0;
+            report.FloatTotal= 0;
+            report.ExtraFloatTotal= 0;
+            report.SigmaTotal= 0;
+            report.IMFloatTotal= 0;
+            report.IMRecTotal= 0;
+            report.IMPaidTotal= 0;
+            report.FNBRefTotal= 0;
+            report.FNBRetTotal= 0;
+            report.ElecTotal= 0;
+            report.AirTotal= 0;
+            report.AccTotal= 0;
+
+            //...Get Totals
+            foreach(CashMovement item in report.CashMovements)
+            {
+                report.CashTotal += item.Amount;
+            }
+
+            foreach(ElectronicFund item in report.ElectronicFunds)
+            {
+                switch(item.ElectronicTypeID)
+                {
+                    case 1: report.SassaTotal += item.Total; break;
+                    case 2: report.CardsTotal += item.Total; break;
+                    case 3: report.ChequeTotal += item.Total; break;
+                }                
+            }
+
+            foreach(PickUp item in report.Pickups)
+            {
+                report.PickupTotal += item.Amount;
+                //report.CardsTotal += item.Amount;
+            }
+
+            foreach(CashReconciliation item in report.Recons)
+            {
+                switch (item.ReconciliationTypeID)
+                {
+                    case 1: report.FloatTotal += item.Amount; break;
+                    case 2: report.ExtraFloatTotal += item.Amount; break;
+                    case 3: report.SigmaTotal += item.Amount; break;
+                } 
+            }
+
+            foreach(InstantMoney item in report.InstantMoney)
+            {
+                switch (item.InstantMoneyTypeID)
+                {
+                    case 1: report.IMFloatTotal += item.Amount; break;
+                    case 2: report.IMRecTotal += item.Amount; break;
+                    case 3: report.IMPaidTotal += item.Amount; break;
+                } 
+            }
+
+            foreach(FNB item in report.FNB)
+            {
+                switch (item.FNBTypeID)
+                {
+                    case 1: report.FNBRefTotal += item.Amount; break;
+                    case 2: report.FNBRetTotal += item.Amount; break;
+                }
+            }
+
+            foreach (KwikPay item in report.KwikPays)
+            {
+                switch (item.KwikPayTypeID)
+                {
+                    case 1: report.ElecTotal += item.Amount; break;
+                    case 2: report.AirTotal += item.Amount; break;
+                    case 3: report.AccTotal += item.Amount; break;
+                }
+            }
+
+            return report;
+        }
+
+        public List<SparReconReport> GetSparReconReport(DateTimeFromToQuery query)
+        {
+            SparReconRepository reconrepo = new SparReconRepository();
+
+            //...Create New Instance of Object...
+            List<SparReconReport> list = new List<SparReconReport>();
+            SparReconReport ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand();
+            cmdI.CommandTimeout = 540;
+            cmdI.Connection = con;
+            cmdI.CommandText = "f_Admin_Report_SparRecon";
+            cmdI.CommandType = System.Data.CommandType.StoredProcedure;
+            cmdI.Parameters.AddWithValue("@SelectedDate", query.From);
+
+            cmdI.Connection.Open();
+
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new SparReconReport();
+                    ins.GRVDate = Convert.ToDateTime(drI["GRVDate"]).ToShortDateString();
+                    ins.GRVExVAT = drI["GRVExVAT"].ToString();
+                    ins.GRVInVAT = drI["GRVInVAT"].ToString();
+                    ins.GRVInvoiceNumber = drI["GRVInvoiceNumber"].ToString();
+                    ins.GRVPayDate = Convert.ToDateTime(drI["GRVPayDate"]).ToShortDateString();
+                    ins.GRVPinkSlipNumber = drI["GRVPinkSlipNumber"].ToString();
+                    ins.GRVType = drI["GRVType"].ToString();
+
+                    ins.ReconAmount = drI["ReconAmount"].ToString();
+                    ins.ReconDate = Convert.ToDateTime(drI["ReconDate"]).ToShortDateString();
+                    ins.ReconInvoiceNumber = drI["ReconInvoiceNumber"].ToString();
+                    ins.ReconType = drI["ReconType"].ToString();
+
+                    ins.Supplier = drI["Supplier"].ToString();
+                    ins.Status = reconrepo.GetReconStatus(Convert.ToDecimal(ins.ReconAmount), Convert.ToInt32(ins.ReconType), ins.ReconInvoiceNumber
+                            , Convert.ToDecimal(ins.GRVInVAT), Convert.ToInt32(ins.GRVType), ins.GRVInvoiceNumber);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            cmdI.Connection.Close();
+            con.Dispose();
+
+            //...Return...
+            return list;
+        }
+
+        public CashierDayEndReport GetCashierReport(DateTime ActualDate, int EmployeeId)
+        {
+            #region Repositories
+            CashierRepository cashierrep = new CashierRepository();
+            CashMovementRepository cashmovementrep = new CashMovementRepository();
+            ElectronicFundRepository elecrep = new ElectronicFundRepository();
+            PickUpRepository pickuprep = new PickUpRepository();
+            CashReconciliationRepository cashreconrep = new CashReconciliationRepository();
+            #endregion
+
+            //...Get All Details
+            CashierDayEndReport report = new CashierDayEndReport();
+            report.CashierId = EmployeeId;
+            report.ReportDate = ActualDate;
+
+            
+            report.Cashier = cashierrep.GetCashier(EmployeeId);
+            report.CashMovements = cashmovementrep.GetCashMovementsPerEmployee(EmployeeId, ActualDate);
+            report.ElectronicFunds = elecrep.GetElectronicFundsPerEmployee(EmployeeId, ActualDate);
+            report.Pickups = pickuprep.GetPickUpsPerEmployee(EmployeeId, ActualDate);
+            report.Recons = cashreconrep.GetCashReconcilationsPerEmployee(EmployeeId, ActualDate);
+
+            //...Initialize Totals
+            report.CashTotal = 0;
+            report.CardsTotal = 0;
+            report.ChequeTotal = 0;
+            report.SassaTotal = 0;
+            report.PickupTotal = 0;
+            report.FloatTotal = 0;
+            report.ExtraFloatTotal = 0;
+            report.SigmaTotal = 0;
+            
+            //...Get Totals
+            foreach (CashMovement item in report.CashMovements)
+            {
+                report.CashTotal += item.Amount;
+            }
+
+            foreach (ElectronicFund item in report.ElectronicFunds)
+            {
+                switch (item.ElectronicTypeID)
+                {
+                    case 1: report.SassaTotal += item.Total; break;
+                    case 2: report.CardsTotal += item.Total; break;
+                    case 3: report.ChequeTotal += item.Total; break;
+                }
+            }
+
+            foreach (PickUp item in report.Pickups)
+            {
+                report.PickupTotal += item.Amount;
+            }
+
+            foreach (CashReconciliation item in report.Recons)
+            {
+                switch (item.ReconciliationTypeID)
+                {
+                    case 1: report.FloatTotal += item.Amount; break;
+                    case 2: report.ExtraFloatTotal += item.Amount; break;
+                    case 3: report.SigmaTotal += item.Amount; break;
+                }
+            }
+
+            return report;
         }
     }
 }

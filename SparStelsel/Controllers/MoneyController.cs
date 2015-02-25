@@ -7,12 +7,14 @@ using SparStelsel.Models;
 using Telerik.Web.Mvc;
 using System.IO;
 using Telerik.Web.Mvc.Extensions;
+using System.Globalization;
 
 namespace SparStelsel.Controllers
 {
     [AutoLogOffActionFilter]
     public class MoneyController : Controller
     {
+        #region Repositories
         DropDownRepository DDRep = new DropDownRepository();
         MoneyRepository MRep = new MoneyRepository();
         CashMovementRepository CashRep = new CashMovementRepository();
@@ -26,11 +28,15 @@ namespace SparStelsel.Controllers
         CashBoxRepository CBRep = new CashBoxRepository();
         CoinMovementRepository CoinRep = new CoinMovementRepository();
         CashOfficeRepository CORep = new CashOfficeRepository();
+        MoneyUnitRepository MuRep = new MoneyUnitRepository();
+        ReportRepository RepRep = new ReportRepository();
+        #endregion
 
         public ActionResult CashUp()
         {
             ViewData["Employees"] = DDRep.GetEmployeeList();
             ViewData["Movements"] = DDRep.GetMovementTypeList();
+            ViewData["MoneyUnit"] = DDRep.GetMoneyUnitList();
             ViewData["ElectronicType"] = DDRep.GetElectronicFundTypeList();
             ViewData["ReconciliationTypeID"] = DDRep.GetCashReconList();
             ViewData["InstantMoneyType"] = DDRep.GetInstantMoneyType();
@@ -39,129 +45,84 @@ namespace SparStelsel.Controllers
             return View();
         }
 
+        #region Cashier Live Report
+        public ActionResult CashierStatus()
+        {
+            return View();
+        }
+
+        [GridAction]
+        public JsonResult _ListCashierStatus()
+        {
+            return Json(new GridModel(MRep.GetCashMovementsReport()));
+        }
+        #endregion
+
+        #region Cash
         [GridAction]
         public JsonResult _ListCash()
         {
             return Json(new GridModel(MRep.GetCashMovements()));
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
-        public JsonResult _InsertCash(FormCollection ins)
+        public ActionResult _MultipleCashMovements()
         {
-            CashMovement c5 = new CashMovement();
-            c5.MovementTypeID = Convert.ToInt32(ins["Movement"]);
-            c5.MoneyUnitID = 1; // 5c
-            c5.Amount = Convert.ToDecimal(ins["r005"]) * (decimal)0.05;
-            c5.ActualDate = Convert.ToDateTime(ins["cashDate"]);
-            c5.EmployeeID = Convert.ToInt32(ins["Employee"]);
-            c5.UserTypeID = 1;
-            c5 = CashRep.Insert(c5);
+            ViewData["Employees"] = DDRep.GetEmployeeList();
+            ViewData["Movements"] = DDRep.GetMovementTypeList();
 
-            CashMovement c10 = new CashMovement();
-            c10.MovementTypeID = Convert.ToInt32(ins["Movement"]);
-            c10.MoneyUnitID = 2; // 10c
-            c10.Amount = Convert.ToDecimal(ins["r010"]) * (decimal)(0.10);
-            c10.ActualDate = Convert.ToDateTime(ins["cashDate"]);
-            c10.EmployeeID = Convert.ToInt32(ins["Employee"]);
-            c10.UserTypeID = 1;
-            c10 = CashRep.Insert(c10);
+            CashMovementMultiple ins = new CashMovementMultiple();
+            ins.Movements = new List<CashMovement>();
+            
+            for(int i = 1; i <= 12; i++)
+            {                
+                ins.Movements.Add(new CashMovement());
+                ins.Movements[i - 1].MoneyUnitID = i;
+                ins.Movements[i - 1].moneyunit = MuRep.GetMoneyUnitString(i);
+            }
 
-            CashMovement c20 = new CashMovement();
-            c20.MovementTypeID = Convert.ToInt32(ins["Movement"]);
-            c20.MoneyUnitID = 3; // 20c
-            c20.Amount = Convert.ToDecimal(ins["r020"]) * (decimal)(0.20);
-            c20.ActualDate = Convert.ToDateTime(ins["cashDate"]);
-            c20.EmployeeID = Convert.ToInt32(ins["Employee"]);
-            c20.UserTypeID = 1;
-            c20 = CashRep.Insert(c20);
+            return PartialView(ins);
+        }
 
-            CashMovement c50 = new CashMovement();
-            c50.MovementTypeID = Convert.ToInt32(ins["Movement"]);
-            c50.MoneyUnitID = 4; // 50c
-            c50.Amount = Convert.ToDecimal(ins["r050"]) * (decimal)(0.5);
-            c50.ActualDate = Convert.ToDateTime(ins["cashDate"]);
-            c50.EmployeeID = Convert.ToInt32(ins["Employee"]);
-            c50.UserTypeID = 1;
-            c50 = CashRep.Insert(c50);
+        [HttpPost]
+        public ActionResult _InsertMultipleCash(CashMovementMultiple ins)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                ins.Movements[i].ActualDate = ins.ActualDate;
+                ins.Movements[i].MovementTypeID = ins.MovementTypeID;
+                ins.Movements[i].EmployeeID = ins.EmployeeID;
+                ins.Movements[i].Amount = ins.Movements[i].Count * MuRep.GetMoneyUnitValue(ins.Movements[i].MoneyUnitID);
+                ins.Movements[i] = CashRep.Insert(ins.Movements[i]);
+            }
 
-            CashMovement R1 = new CashMovement();
-            R1.MovementTypeID = Convert.ToInt32(ins["Movement"]);
-            R1.MoneyUnitID = 5; // R1
-            R1.Amount = Convert.ToDecimal(ins["r1"]) * (decimal)(1.00);
-            R1.ActualDate = Convert.ToDateTime(ins["cashDate"]);
-            R1.EmployeeID = Convert.ToInt32(ins["Employee"]);
-            R1.UserTypeID = 1;
-            R1 = CashRep.Insert(R1);
+            return null;
+        }
 
-            CashMovement R2 = new CashMovement();
-            R2.MovementTypeID = Convert.ToInt32(ins["Movement"]);
-            R2.MoneyUnitID = 6; // R2
-            R2.Amount = Convert.ToDecimal(ins["r2"]) * (decimal)(2.00);
-            R2.ActualDate = Convert.ToDateTime(ins["cashDate"]);
-            R2.EmployeeID = Convert.ToInt32(ins["Employee"]);
-            R2.UserTypeID = 1;
-            R2 = CashRep.Insert(R2);
+        
 
-            CashMovement R5 = new CashMovement();
-            R5.MovementTypeID = Convert.ToInt32(ins["Movement"]);
-            R5.MoneyUnitID = 7; // R5
-            R5.Amount = Convert.ToDecimal(ins["r5"]) * (decimal)(5.00);
-            R5.ActualDate = Convert.ToDateTime(ins["cashDate"]);
-            R5.EmployeeID = Convert.ToInt32(ins["Employee"]);
-            R5.UserTypeID = 1;
-            R5 = CashRep.Insert(R5);
-
-            CashMovement R10 = new CashMovement();
-            R10.MovementTypeID = Convert.ToInt32(ins["Movement"]);
-            R10.MoneyUnitID = 8; // R10
-            R10.Amount = Convert.ToDecimal(ins["r10"]) * (decimal)(10.00);
-            R10.ActualDate = Convert.ToDateTime(ins["cashDate"]);
-            R10.EmployeeID = Convert.ToInt32(ins["Employee"]);
-            R10.UserTypeID = 1;
-            R10 = CashRep.Insert(R10);
-
-            CashMovement R20 = new CashMovement();
-            R20.MovementTypeID = Convert.ToInt32(ins["Movement"]);
-            R20.MoneyUnitID = 9; // R20
-            R20.Amount = Convert.ToDecimal(ins["r20"]) * (decimal)(20.00);
-            R20.ActualDate = Convert.ToDateTime(ins["cashDate"]);
-            R20.EmployeeID = Convert.ToInt32(ins["Employee"]);
-            R20.UserTypeID = 1;
-            R20 = CashRep.Insert(R20);
-
-            CashMovement R50 = new CashMovement();
-            R50.MovementTypeID = Convert.ToInt32(ins["Movement"]);
-            R50.MoneyUnitID = 10; // R50
-            R50.Amount = Convert.ToDecimal(ins["r50"]) * (decimal)(50.00);
-            R50.ActualDate = Convert.ToDateTime(ins["cashDate"]);
-            R50.EmployeeID = Convert.ToInt32(ins["Employee"]);
-            R50.UserTypeID = 1;
-            R50 = CashRep.Insert(R50);
-
-            CashMovement R100 = new CashMovement();
-            R100.MovementTypeID = Convert.ToInt32(ins["Movement"]);
-            R100.MoneyUnitID = 11; // R100
-            R100.Amount = Convert.ToDecimal(ins["r100"]) * (decimal)(100.00);
-            R100.ActualDate = Convert.ToDateTime(ins["cashDate"]);
-            R100.EmployeeID = Convert.ToInt32(ins["Employee"]);
-            R100.UserTypeID = 1;
-            R100 = CashRep.Insert(R100);
-
-            CashMovement R200 = new CashMovement();
-            R200.MovementTypeID = Convert.ToInt32(ins["Movement"]);
-            R200.MoneyUnitID = 12; // R200
-            R200.Amount = Convert.ToDecimal(ins["r200"]) * (decimal)(200.00);
-            R200.ActualDate = Convert.ToDateTime(ins["cashDate"]);
-            R200.EmployeeID = Convert.ToInt32(ins["Employee"]);
-            R200.UserTypeID = 1;
-            R200 = CashRep.Insert(R200);
+        [GridAction]
+        public JsonResult _UpdateCash(CashMovement ins)
+        {
+            ins.Amount = ins.Count * MuRep.GetMoneyUnitValue(ins.MoneyUnitID);
+            CashMovement ins2 = CashRep.Update(ins);
 
             //...Repopulate Grid...
             return Json(new GridModel(MRep.GetCashMovements()));
         }
 
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public JsonResult _DeleteCash(int id)
+        {
+            //...Update Object
+            CashRep.Remove(id);
 
+            //...Repopulate Grid...
+            return Json(new GridModel(MRep.GetCashMovements()));
+        }
+        #endregion
+
+        #region Electronic Funds
         [GridAction]
         public JsonResult _ListElectronic()
         {
@@ -202,7 +163,9 @@ namespace SparStelsel.Controllers
             //...Repopulate Grid...
             return Json(new GridModel(ELRep.GetAllElectronicFund()));
         }
+        #endregion
 
+        #region Pickups
         [GridAction]
         public JsonResult _ListPickup()
         {
@@ -238,8 +201,9 @@ namespace SparStelsel.Controllers
             //...Repopulate Grid...
             return Json(new GridModel(PickRep.GetAllPickUp()));
         }
+        #endregion
 
-
+        #region Reconciliations
         [GridAction]
         public JsonResult _ListRecon()
         {
@@ -275,7 +239,9 @@ namespace SparStelsel.Controllers
             //...Repopulate Grid...
             return Json(new GridModel(CRRep.GetAllCashReconcilation()));
         }
+        #endregion
 
+        #region Instant Money
         [GridAction]
         public JsonResult _ListInstantMoney()
         {
@@ -311,7 +277,9 @@ namespace SparStelsel.Controllers
             //...Repopulate Grid...
             return Json(new GridModel(ImRep.GetAllInstantMoney()));
         }
+        #endregion
 
+        #region FNB
         [GridAction]
         public JsonResult _ListFNB()
         {
@@ -347,7 +315,9 @@ namespace SparStelsel.Controllers
             //...Repopulate Grid...
             return Json(new GridModel(FNBRep.GetAllFNB()));
         }
+        #endregion
 
+        #region KwikPay
         [GridAction]
         public JsonResult _ListKwikPay()
         {
@@ -383,9 +353,9 @@ namespace SparStelsel.Controllers
             //...Repopulate Grid...
             return Json(new GridModel(KwikRep.GetAllKwikPay()));
         }
+        #endregion
 
-
-
+        #region Transits
         public ActionResult Transits()
         {
             ViewData["TransitType"] = DDRep.GetTransitType();
@@ -427,7 +397,9 @@ namespace SparStelsel.Controllers
             //...Repopulate Grid...
             return Json(new GridModel(TransRep.GetAllTransit()));
         }
+        #endregion
 
+        #region Cashbox
         public ActionResult Cashbox()
         {
             ViewData["CashboxType"] = DDRep.GetCashboxType();
@@ -469,7 +441,9 @@ namespace SparStelsel.Controllers
             //...Repopulate Grid...
             return Json(new GridModel(CBRep.GetAllCashBox()));
         }
+        #endregion
 
+        #region Coin Movements
         public ActionResult CoinMovement()
         {
             ViewData["CoinMovementType"] = DDRep.GetCoinMovementType();
@@ -512,7 +486,9 @@ namespace SparStelsel.Controllers
             //...Repopulate Grid...
             return Json(new GridModel(CoinRep.GetAllCoinMovement()));
         }
+        #endregion
 
+        #region Cash Office
         public ActionResult CashOffice()
         {
             ViewData["CashOfficeType"] = DDRep.GetCashOfficeType();
@@ -556,5 +532,105 @@ namespace SparStelsel.Controllers
             //...Repopulate Grid...
             return Json(new GridModel(CORep.GetAllCashOffice()));
         }
+        #endregion
+
+        #region Cashier Day End
+        public ActionResult CashierDayEnd()
+        {
+            ViewData["Employees"] = DDRep.GetEmployeeList();
+            ViewData["Movements"] = DDRep.GetMovementTypeList();
+            ViewData["MoneyUnit"] = DDRep.GetMoneyUnitList();
+            ViewData["ElectronicType"] = DDRep.GetElectronicFundTypeList();
+            ViewData["ReconciliationTypeID"] = DDRep.GetCashReconList();
+            ViewData["InstantMoneyType"] = DDRep.GetInstantMoneyType();
+            ViewData["FNBType"] = DDRep.GetFNBType();
+            ViewData["KwikPayType"] = DDRep.GetKwikPayType();
+
+            CashMovementMultiple ins = new CashMovementMultiple();
+            ins.Movements = new List<CashMovement>();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                ins.Movements.Add(new CashMovement());
+                ins.Movements[i - 1].MoneyUnitID = i;
+                ins.Movements[i - 1].moneyunit = MuRep.GetMoneyUnitString(i);
+                ins.MovementTypeID = 1;
+            }
+
+            CashierDayEnd model = new CashierDayEnd();
+            model.CashMovements = ins;
+            model.SigmaSale = new CashReconciliation();
+            model.SigmaSale.ReconciliationTypeID = 3;
+            model.SigmaSale.MovementTypeID = 1;
+            model.ElectronicFund = new ElectronicFund();
+            model.ElectronicFund.MovementTypeID = 1;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult _InsertMultipleCashCashier(CashierDayEnd ins)
+        {
+            decimal total = 0;
+
+            for (int i = 0; i < 12; i++)
+            {
+                ins.CashMovements.Movements[i].ActualDate = ins.CashMovements.ActualDate;
+                ins.CashMovements.Movements[i].MovementTypeID = ins.CashMovements.MovementTypeID;
+                ins.CashMovements.Movements[i].EmployeeID = ins.CashMovements.EmployeeID;
+                ins.CashMovements.Movements[i].Amount = ins.CashMovements.Movements[i].Count * MuRep.GetMoneyUnitValue(ins.CashMovements.Movements[i].MoneyUnitID);
+                ins.CashMovements.Movements[i] = CashRep.Insert(ins.CashMovements.Movements[i]);
+
+                if (ins.CashMovements.Movements[i].CashMovementID != 0)
+                {
+                    total = total + ins.CashMovements.Movements[i].Amount;
+                }
+            }
+
+            return Content(total.ToString(), "text/html");
+        }
+
+        [HttpPost]
+        public ActionResult _InsertElectronicFromMulti(CashierDayEnd ins)
+        {
+            //ins.ElectronicFund.ActualDate = ins.ActualDate;
+            //ins.ElectronicFund.EmployeeID = ins.EmployeeID;
+            ElectronicFund ins2 = ELRep.Insert(ins.ElectronicFund);
+
+            if(ins2.ElectronicFundID != 0)
+            {
+                return Content(ins2.Total.ToString(), "text/html");
+            }
+            else
+            {
+                return Content("0", "text/html");
+            }
+            
+        }
+
+        [HttpPost]
+        public ActionResult _SigmaCashier(CashierDayEnd ins)
+        {
+            CashReconciliation ins2 = CRRep.Insert(ins.SigmaSale);
+
+            if(ins2.CashReconciliationID != 0)
+            {
+                return Content(ins2.Amount.ToString(), "text/html");
+            }
+            else
+            {
+                return Content("0", "text/html");
+            }
+            
+        }
+
+        [HttpPost]
+        public ActionResult _CashierDayEndReportShow(CashierDayEnd ins)
+        {
+            ins.Report = RepRep.GetCashierReport(ins.ReportActualDate, ins.ReportEmployeeID);
+            return PartialView("_CashierDayEndReport",ins);
+        }
+
+        #endregion
     }
 }

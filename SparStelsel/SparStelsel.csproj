@@ -60,6 +60,12 @@
     <Reference Include="DotNetOpenAuth.OpenId.RelyingParty">
       <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
     </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2.1\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah.Mvc">
+      <HintPath>..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -93,6 +99,9 @@
     <Reference Include="Remotion.Interfaces, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Users\RM\Downloads\Compressed\LinqToExcel_x64_1.7.1\Remotion.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Rotativa">
+      <HintPath>..\packages\Rotativa.1.6.1\lib\net40\Rotativa.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -357,42 +366,30 @@
       <DependentUpon>UploadLocalization.zh-CN.resx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CashController.cs" />
     <Compile Include="Controllers\CashierController.cs" />
-    <Compile Include="Controllers\CashUpController.cs" />
-    <Compile Include="Controllers\ElectronicFundsController.cs" />
     <Compile Include="Controllers\FillerController.cs" />
-    <Compile Include="Controllers\FNBController.cs" />
     <Compile Include="Controllers\GRVController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InstantMoneyController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\MoneyController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
-    <Compile Include="Controllers\PaymentsController.cs" />
-    <Compile Include="Controllers\PinkSlipController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\SparReconController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
-    <Compile Include="Controllers\TransitsController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VerslaeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\Budget.cs" />
-    <Compile Include="Models\BudgetRepository.cs" />
     <Compile Include="Models\Cash.cs" />
     <Compile Include="Models\CashBox.cs" />
     <Compile Include="Models\CashBoxRepository.cs" />
     <Compile Include="Models\CashEntry.cs" />
     <Compile Include="Models\Cashier.cs" />
+    <Compile Include="Models\CashierDayEnd.cs" />
     <Compile Include="Models\CashierRepository.cs" />
     <Compile Include="Models\CashMovement.cs" />
-    <Compile Include="Models\CashMovementFNB.cs" />
-    <Compile Include="Models\CashMovementInstantMoney.cs" />
-    <Compile Include="Models\CashMovementKwikPay.cs" />
     <Compile Include="Models\CashMovementRepository.cs" />
     <Compile Include="Models\CashOffice.cs" />
     <Compile Include="Models\CashOfficeRepository.cs" />
@@ -404,67 +401,42 @@
     <Compile Include="Models\CoinMovementRepository.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\CommentRepository.cs" />
-    <Compile Include="Models\CommentType.cs" />
-    <Compile Include="Models\CommentTypeRepository.cs" />
     <Compile Include="Models\CurrentUser.cs" />
     <Compile Include="Models\DropDownRepository.cs" />
     <Compile Include="Models\ElectronicFund.cs" />
     <Compile Include="Models\ElectronicFundRepository.cs" />
-    <Compile Include="Models\ElectronicType.cs" />
-    <Compile Include="Models\ElectronicTypeRepository.cs" />
     <Compile Include="Models\FNB.cs" />
     <Compile Include="Models\FNBRepository.cs" />
-    <Compile Include="Models\FNBType.cs" />
-    <Compile Include="Models\FNBTypeRepository.cs" />
     <Compile Include="Models\GRVList.cs" />
     <Compile Include="Models\GRVListRepository.cs" />
-    <Compile Include="Models\GRVType.cs" />
-    <Compile Include="Models\GRVTypeRepository.cs" />
     <Compile Include="Models\InstantMoney.cs" />
     <Compile Include="Models\InstantMoneyRepository.cs" />
-    <Compile Include="Models\InstantMoneyType.cs" />
-    <Compile Include="Models\InstantMoneyTypeRepository.cs" />
     <Compile Include="Models\KwikPay.cs" />
     <Compile Include="Models\KwikPayRepository.cs" />
     <Compile Include="Models\KwikPaySummary.cs" />
-    <Compile Include="Models\KwikPayType.cs" />
-    <Compile Include="Models\KwikPayTypeRepository.cs" />
     <Compile Include="Models\MoneyRepository.cs" />
     <Compile Include="Models\MoneyUnit.cs" />
     <Compile Include="Models\MoneyUnitRepository.cs" />
-    <Compile Include="Models\MovementType.cs" />
-    <Compile Include="Models\MovementTypeRepository.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderRepository.cs" />
     <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\PermissionRepository.cs" />
     <Compile Include="Models\PickUp.cs" />
-    <Compile Include="Models\PickUpFNB.cs" />
-    <Compile Include="Models\PickUpInstantMoney.cs" />
-    <Compile Include="Models\PickUpKwikpay.cs" />
     <Compile Include="Models\PickUpRepository.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductRepository.cs" />
     <Compile Include="Models\ProofOfPayment.cs" />
     <Compile Include="Models\ProofOfPaymentRepository.cs" />
-    <Compile Include="Models\ReconciliationType.cs" />
-    <Compile Include="Models\ReconciliationTypeRepository.cs" />
     <Compile Include="Models\ReportModels.cs" />
     <Compile Include="Models\ReportRepository.cs" />
-    <Compile Include="Models\Status.cs" />
-    <Compile Include="Models\StatusRepository.cs" />
+    <Compile Include="Models\SparInvoiceRecon.cs" />
+    <Compile Include="Models\SparReconRepository.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Models\SupplierRepository.cs" />
     <Compile Include="Models\SupplierType.cs" />
     <Compile Include="Models\SupplierTypeRepository.cs" />
     <Compile Include="Models\Transit.cs" />
     <Compile Include="Models\TransitRepository.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserRepository.cs" />
-    <Compile Include="Models\UserType.cs" />
-    <Compile Include="Models\UserTypePermission.cs" />
-    <Compile Include="Models\UserTypePermissionRepository.cs" />
-    <Compile Include="Models\UserTypeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -669,9 +641,18 @@
     <Content Include="Content\2013.2.611\Windows7\sprite-vertical.png" />
     <Content Include="Content\2013.2.611\Windows7\sprite.png" />
     <Content Include="Content\style.css" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\logo.jpg" />
+    <Content Include="NuGet.exe" />
+    <Content Include="Rotativa\libeay32.dll" />
+    <Content Include="Rotativa\libgcc_s_dw2-1.dll" />
+    <Content Include="Rotativa\mingwm10.dll" />
+    <Content Include="Rotativa\README.txt" />
+    <Content Include="Rotativa\ssleay32.dll" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\2013.2.611\jquery-1.7.1.min.js" />
     <Content Include="Scripts\2013.2.611\jquery.validate.min.js" />
     <Content Include="Scripts\2013.2.611\telerik.all.min.js" />
@@ -727,26 +708,6 @@
     <Content Include="Views\Cashier\_CashMovement.ascx" />
     <Content Include="Views\Cashier\_ElectronicFund.ascx" />
     <Content Include="Views\Cashier\_PickUp.ascx" />
-    <Content Include="Views\CashUp\FNBs.aspx" />
-    <Content Include="Views\CashUp\InstantMoneys.aspx" />
-    <Content Include="Views\CashUp\KwikPays.aspx" />
-    <Content Include="Views\CashUp\_CashFNB.ascx" />
-    <Content Include="Views\CashUp\_ElectronicFund.ascx" />
-    <Content Include="Views\CashUp\_ElectronicFundFNB.ascx" />
-    <Content Include="Views\CashUp\_ElectronicFundInstantMoney.ascx" />
-    <Content Include="Views\CashUp\_Cash.ascx" />
-    <Content Include="Views\CashUp\_CashInstantMoney.ascx" />
-    <Content Include="Views\CashUp\_FNB.ascx" />
-    <Content Include="Views\CashUp\_InstantMoney.ascx" />
-    <Content Include="Views\CashUp\_KwikPays.ascx" />
-    <Content Include="Views\CashUp\_PickUp.ascx" />
-    <Content Include="Views\CashUp\_PickUpFNB.ascx" />
-    <Content Include="Views\CashUp\_PickUpInstantMoney.ascx" />
-    <Content Include="Views\Cash\CashBoxs.aspx" />
-    <Content Include="Views\Cash\CashMovements.aspx" />
-    <Content Include="Views\Cash\CoinMovements.aspx" />
-    <Content Include="Views\ElectronicFunds\ElectronicFunds.aspx" />
-    <Content Include="Views\FNBs\FNBs.aspx" />
     <Content Include="Views\GRV\GRVImportBatch.aspx" />
     <Content Include="Views\GRV\GRVLists.aspx" />
     <Content Include="Views\GRV\ImportGRVList.aspx" />
@@ -755,28 +716,43 @@
     <Content Include="Views\Home\Home.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Home\Services.aspx" />
-    <Content Include="Views\InstantMoneys\InstantMoneys.aspx" />
-    <Content Include="Views\Maintenance\Budgets.aspx" />
     <Content Include="Views\Maintenance\Comment.aspx" />
-    <Content Include="Views\Maintenance\Status.aspx" />
     <Content Include="Views\Money\Cashbox.aspx" />
+    <Content Include="Views\Money\CashierDayEnd.aspx" />
+    <Content Include="Views\Money\CashierStatus.aspx" />
     <Content Include="Views\Money\CashOffice.aspx" />
     <Content Include="Views\Money\CashUp.aspx" />
     <Content Include="Views\Money\CoinMovement.aspx" />
+    <Content Include="Views\Money\MultiElectronic.aspx" />
     <Content Include="Views\Money\Transits.aspx" />
     <Content Include="Views\Money\_Cash.ascx" />
+    <Content Include="Views\Money\_CashierDayEndReport.ascx" />
     <Content Include="Views\Money\_CashRecon.ascx" />
     <Content Include="Views\Money\_Electronic.ascx" />
     <Content Include="Views\Money\_FNB.ascx" />
     <Content Include="Views\Money\_InstantMoney.ascx" />
     <Content Include="Views\Money\_KwikPay.ascx" />
+    <Content Include="Views\Money\_MultipleCashMovements.ascx" />
     <Content Include="Views\Money\_PickUps.ascx" />
     <Content Include="Views\Orders\Orders.aspx" />
     <Content Include="Views\Orders\OrdervsGRVReport.aspx" />
+    <Content Include="Views\Orders\ProductOrder.aspx" />
+    <Content Include="Views\Orders\ProductOrders.aspx" />
+    <Content Include="Views\Orders\_LoadOrder.ascx" />
+    <Content Include="Views\Products\Products.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Cash.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\CashMovement.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CashOffice.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CashReconciliation.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\OrderProduct.aspx" />
     <Content Include="Views\Shared\EditorTemplates\PickUp.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Product.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\SparInvoiceRecon.aspx" />
+    <Content Include="Views\SparRecon\SparInvoiceRecon.aspx" />
+    <Content Include="Views\Verslae\CashierReport.aspx" />
+    <Content Include="Views\Verslae\CashierReportPDF.aspx" />
+    <Content Include="Views\Verslae\GetCashierReport.aspx" />
+    <Content Include="Views\Verslae\CashOfficeReport.aspx" />
     <Content Include="Views\Verslae\DayEndCashupReport.aspx" />
     <Content Include="Views\Verslae\OrdersExpectedDateReport.aspx" />
     <Content Include="Views\Verslae\OrdervsGRVReport.aspx" />
@@ -785,59 +761,28 @@
     <Content Include="Views\Verslae\PinkSlipOrderReport.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CashBox.aspx" />
     <Content Include="Views\Maintenance\CashTypes.aspx" />
-    <Content Include="Views\Maintenance\CommentTypes.aspx" />
-    <Content Include="Views\Maintenance\ElectronicTypes.aspx" />
-    <Content Include="Views\Maintenance\FNBTypes.aspx" />
-    <Content Include="Views\Maintenance\GRVTypes.aspx" />
-    <Content Include="Views\Maintenance\InstantMoneyTypes.aspx" />
-    <Content Include="Views\Maintenance\KwikPayTypes.aspx" />
-    <Content Include="Views\Maintenance\MoneyUnits.aspx" />
-    <Content Include="Views\Maintenance\MovementTypes.aspx" />
-    <Content Include="Views\Maintenance\UserTypes.aspx" />
     <Content Include="Views\Payment\ProofOfPayments.aspx" />
-    <Content Include="Views\Products\Products.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\Budget.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Cashier.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\CashMovement.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\CashMovementFNB.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\CashMovementInstantMoney.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\CashMovementKwikPay.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CashType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CoinMovement.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Comment.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\CommentType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\ElectronicFund.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\ElectronicType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\FNB.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\FNBType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\GRVList.aspx" />
     <Content Include="Views\Shared\EditorTemplates\GRVListImport.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\GRVType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\InstantMoney.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\InstantMoneyType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\KwikPay.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\KwikPayType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\MoneyUnit.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\MovementType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Order.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\PickUpFNB.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\PickUpInstantMoney.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\PickUpKwikPay.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\Product.aspx" />
     <Content Include="Views\Shared\EditorTemplates\ProofOfPayment.aspx" />
     <Content Include="Views\Shared\EditorTemplates\RegisterModel.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\Status.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Supplier.aspx" />
     <Content Include="Views\Shared\EditorTemplates\SupplierType.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Transit.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\User.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\UserType.aspx" />
     <Content Include="Views\Shared\_MainMenu.ascx" />
     <Content Include="Views\Supplier\Suppliers.aspx" />
     <Content Include="Views\Supplier\SupplierTypes.aspx" />
-    <Content Include="Views\Transits\Transits.aspx" />
-    <Content Include="Views\Users\Comments.aspx" />
-    <Content Include="Views\Users\Users.aspx" />
+    <Content Include="Views\Verslae\SparReconReport.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -910,6 +855,7 @@
     <Content Include="App_GlobalResources\UploadLocalization.en-US.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>UploadLocalization.en-US.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -988,6 +934,7 @@
     <Content Include="App_GlobalResources\GridLocalization.en-US.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>GridLocalization.en-US.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -1024,12 +971,14 @@
     <Content Include="App_GlobalResources\EditorLocalization.ru-RU.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>EditorLocalization.ru-RU.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\EditorLocalization.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>EditorLocalization.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

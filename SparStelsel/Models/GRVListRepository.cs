@@ -777,6 +777,49 @@ namespace SparStelsel.Models
 
         }
 
+        public GRVList UpdateFromImport(GRVList ins)
+        {
+            //...Get User and Date Data...
+            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
+            string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            con.Open();
+            SqlCommand cmdI = con.CreateCommand();
+            cmdI.Connection = con;
+
+            //...Update Record...
+            cmdI.Parameters.Clear();
+            cmdI.CommandText = StoredProcedures.GRVListUpdateImport;
+            cmdI.CommandType = System.Data.CommandType.StoredProcedure;
+            //cmdI.Parameters.AddWithValue("@GRVListID", ins.GRVListID);
+            cmdI.Parameters.AddWithValue("@InvoiceNumber", ins.InvoiceNumber);
+            cmdI.Parameters.AddWithValue("@StateDate", ins.StateDate);
+            cmdI.Parameters.AddWithValue("@Number", ins.Number);
+            cmdI.Parameters.AddWithValue("@PayDate", ins.PayDate);
+            cmdI.Parameters.AddWithValue("@PinkSlipNumber", ins.PinkSlipNumber);
+            cmdI.Parameters.AddWithValue("@GRVDate", ins.GRVDate);
+            cmdI.Parameters.AddWithValue("@InvoiceDate", ins.InvoiceDate);
+            cmdI.Parameters.AddWithValue("@ExcludingVat", ins.ExcludingVat);
+            cmdI.Parameters.AddWithValue("@IncludingVat", ins.IncludingVat);
+            cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+            cmdI.Parameters.AddWithValue("@GRVTypeID", ins.GRVTypeID);
+            cmdI.Parameters.AddWithValue("@SupplierID", ins.SupplierID);
+            cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+            cmdI.Parameters.AddWithValue("@ExpectedPayDate", ins.ExpectedPayDate);
+
+
+            cmdI.ExecuteNonQuery();
+            cmdI.Connection.Close();
+
+            return ins;
+
+        }
+
         public GRVListImport UpdateTemp(GRVListImport ins)
         {
             //...Get User and Date Data...
@@ -833,33 +876,6 @@ namespace SparStelsel.Models
             cmdI.Connection.Close();
         }
 
-        public void Remove(string GRVListIds)
-        {
-            List<int> RemoveIds = GRVListIds.Split(',').ToList().Select(int.Parse).ToList();
-
-            //...Get Date and Current User
-            //string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            //int UserId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
-
-            //...Database Connection...
-            DataBaseConnection dbConn = new DataBaseConnection();
-            SqlConnection con = dbConn.SqlConn();
-            con.Open();
-            SqlCommand cmdI = con.CreateCommand();
-            cmdI.Connection = con;
-
-            foreach (int ID in RemoveIds)
-            {
-                //...Remove Record...
-                cmdI.Parameters.Clear();
-                cmdI.CommandText = StoredProcedures.GRVListRemove;
-                cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                cmdI.Parameters.AddWithValue("@GRVListID", ID);
-                cmdI.ExecuteNonQuery();
-            }
-
-            cmdI.Connection.Close();
-        }
 
         public void RemoveTemp(int id)
         {
@@ -912,6 +928,35 @@ namespace SparStelsel.Models
                 {
                     ret = Convert.ToInt32(drI["SupplierID"]);                    
                 }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return ret;
+        }
+
+        public bool CheckGRVDuplicate(string Number)
+        {
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT GRVListID FROM t_GRVList WHERE Number ='" + Number + "' AND Removed = 0", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            bool ret = false;
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                    ret = true; 
             }
 
             //...Close Connections...
@@ -981,30 +1026,33 @@ namespace SparStelsel.Models
             int count = 0;
             foreach (GRVExcel row in data)
             {
-                GRVList imp = new GRVList();
-                imp.BatchId = BatchId;
+                //if (!CheckGRVDuplicate(row.Number.ToString()))
+                //{
+                    GRVList imp = new GRVList();
+                    imp.BatchId = BatchId;
 
-                imp.InvoiceNumber = row.InvNo;                                             
-                count++;
+                    imp.InvoiceNumber = row.InvNo;
+                    count++;
 
-                if (row.Typ == null) { row.Typ = "CLM"; }
-                imp.GRVTypeID = (row.Typ.Equals("GRV")) ? 1 : 2;                        
-                imp.Number = row.Number;                                         
+                    if (row.Typ == null) { row.Typ = "CLM"; }
+                    imp.GRVTypeID = (row.Typ.Equals("GRV")) ? 1 : 2;
+                    imp.Number = row.Number;
 
-                imp.PinkSlipNumber = row.GRVBook;                                           
-                imp.GRVDate = (DateTime.TryParse(row.GRVDate, out parse)) ? Convert.ToDateTime(row.GRVDate) : DateTime.Now;      
-                imp.InvoiceDate = (DateTime.TryParse(row.InvDate, out parse)) ? Convert.ToDateTime(row.InvDate) : imp.GRVDate;  
-                imp.SupplierID = GetSupplierByName(row.SupplierName);
-                imp.SupplierDetails = row.SupplierName;
-                imp.ExcludingVat = checkDecimal(row.ExclVAT);
-                imp.IncludingVat = checkDecimal(row.InclVAT);
-                imp.StateDate = new DateTime(1900, 1, 1);
-                imp.PayDate = GetPaymentDate(imp.SupplierID, imp.GRVDate);
+                    imp.PinkSlipNumber = row.GRVBook;
+                    imp.GRVDate = (DateTime.TryParse(row.GRVDate, out parse)) ? Convert.ToDateTime(row.GRVDate) : DateTime.Now;
+                    imp.InvoiceDate = (DateTime.TryParse(row.InvDate, out parse)) ? Convert.ToDateTime(row.InvDate) : imp.GRVDate;
+                    imp.SupplierID = GetSupplierByName(row.SupplierName);
+                    imp.SupplierDetails = row.SupplierName;
+                    imp.ExcludingVat = checkDecimal(row.ExclVAT);
+                    imp.IncludingVat = checkDecimal(row.InclVAT);
+                    imp.StateDate = new DateTime(1900, 1, 1);
+                    imp.PayDate = GetPaymentDate(imp.SupplierID, imp.GRVDate);
 
-                imp.hasError = (imp.SupplierID == 0) ? true : false;
+                    imp.hasError = (imp.SupplierID == 0) ? true : false;
 
-                //...Add to return list
-                lst.Add(imp);
+                    //...Add to return list
+                    lst.Add(imp);
+                //}
             }
 
             return lst;

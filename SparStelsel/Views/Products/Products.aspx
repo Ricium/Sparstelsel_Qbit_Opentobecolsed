@@ -3,7 +3,7 @@
 <%@ Import Namespace="SparStelsel.Models"%>
 <%@ Import Namespace="SparStelsel.Controllers"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-   Products
+   Product Maintenance
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -23,18 +23,16 @@
                  Html.Telerik().Grid<Product>()
                     .Name("Products")
                     .DataKeys(keys => keys.Add(s => s.ProductID))
-                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add Products"))
+                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add Product"))
                     .Columns(columns =>
                     {
-
-                        columns.Bound(model => model.ProductID);
                         columns.Bound(model => model.Products);
                         columns.Bound(model => model.ProductDescription);
-                        columns.Bound(model => model.BTW);
                         columns.Bound(model => model.Quantity);
-                        columns.Bound(model => model.Price);
-                        columns.Bound(model => model.Total);
-                        columns.Bound(model => model.supplierid);
+                        columns.Bound(model => model.BTW).Format("{0:c}");                        
+                        columns.Bound(model => model.Price).Format("{0:c}");
+                        columns.Bound(model => model.Total).Format("{0:c}");
+                        columns.Bound(model => model.supplier);
                         
                    
                             columns.Command(commands =>

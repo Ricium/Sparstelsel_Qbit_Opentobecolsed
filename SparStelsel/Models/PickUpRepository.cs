@@ -192,6 +192,53 @@ namespace SparStelsel.Models
             return list;
         }
 
+        public List<PickUp> GetPickUpsPerEmployee(int EmployeeID, DateTime date)
+        {
+            //...Create New Instance of Object...
+            List<PickUp> list = new List<PickUp>();
+            PickUp ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_PickUp WHERE EmployeeID = " + EmployeeID + " AND ActualDate = '" + date.ToShortDateString() + "'  AND Removed=0", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new PickUp();
+                    ins.PickUpID = Convert.ToInt32(drI["PickUpID"]);
+                    ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+
         public List<PickUp> GetKwikPaysPerEmployeeType(int UserTypeID)
         {
             //...Create New Instance of Object...

@@ -7,6 +7,51 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <script>
+        function LoadMultipleCashMovements() {
+            $.ajax({
+                type: 'POST',
+                url: '/Money/_MultipleCashMovements/',
+                data: { },
+                dataType: 'html',
+                success: function (htmlData) {
+                    var window = $('#WindowInsertMultipleCash').data('tWindow');
+                    window.content(htmlData).center();
+                    window.open();
+                }
+            })
+        };
+
+        function InsertMultipeCashMovements(e) {            
+            var form = $('#MultipleCashMovementsForm').serialize();
+            $.post('/Money/_InsertMultipleCash/', form, function (data) {
+                $('#MultipleCashMovementsForm').trigger('reset');
+                RefreshGrid();
+            });
+
+            var window = $('#WindowInsertMultipleCash').data('tWindow');
+            window.close();           
+
+            return false;
+        }
+
+        function RefreshGrid() {
+            var $gridrefresh = $('#CashMovements');
+            var gridrfsh = $gridrefresh.data('tGrid');
+            gridrfsh.ajaxRequest();
+        }
+    </script>
+
+    <%  Html.Telerik().Window()
+            .Name("WindowInsertMultipleCash")
+            .Title("Day-end Cash")   
+            .Width(350)
+            .Draggable(true)
+            .Modal(true)
+            .Visible(false)
+            .Render();
+    
+    %>
 
     <h2>
         Cash Up
@@ -18,7 +63,7 @@
            {
                tabstrip.Add()
                     .HtmlAttributes(new { id = "CashTab" })
-                    .Text("Cash")
+                    .Text("Cashier Day-end Cash")
                     .Content(() =>
                     {
                         Html.RenderPartial("_Cash");

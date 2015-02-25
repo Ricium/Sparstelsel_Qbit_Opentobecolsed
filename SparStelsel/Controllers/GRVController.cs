@@ -11,7 +11,7 @@ using System.Data.OleDb;
 using System.Text;
 using System.Data;
 using LinqToExcel;
-
+using System.Globalization;
 namespace SparStelsel.Controllers
 {
     [AutoLogOffActionFilter]
@@ -248,7 +248,16 @@ namespace SparStelsel.Controllers
                 if (!imp.hasError)
                 {
                     GRVList ins = GRVRep.ConvertToOther(imp);
-                    ins = GRVRep.Insert(ins);
+
+                    if (GRVRep.CheckGRVDuplicate(ins.Number.ToString()))
+                    {
+                        ins = GRVRep.UpdateFromImport(ins);
+                    }
+                    else
+                    {
+                        ins = GRVRep.Insert(ins);
+                    }
+                    
                     GRVRep.RemoveTemp(imp.GRVListID);
                 }
             }

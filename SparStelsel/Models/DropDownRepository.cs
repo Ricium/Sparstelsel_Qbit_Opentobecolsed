@@ -49,7 +49,34 @@ namespace SparStelsel.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT ProductID,Product FROM t_Product", con);
+            SqlCommand cmdI = new SqlCommand("SELECT ProductID,Product FROM t_Product WHERE Removed = 0", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["Product"].ToString();
+                    result.Value = drI["ProductID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+        public List<SelectListItem> GetProductsList(int SupplierId)
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT ProductID,Product FROM t_Product WHERE Removed = 0 and SupplierID = " + SupplierId, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -88,6 +115,32 @@ namespace SparStelsel.Models
                     var result = new SelectListItem();
                     result.Text = drI["Supplier"].ToString();
                     result.Value = drI["SupplierID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+        public List<string> GetSupplierNameList()
+        {
+            List<string> obj = new List<string>();
+
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT Supplier FROM t_Supplier WHERE Removed=0 ORDER BY Supplier", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    string result = drI["Supplier"].ToString();
                     obj.Add(result);
                 }
             }
@@ -875,8 +928,18 @@ namespace SparStelsel.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("Select DISTINCT g.InvoiceNumber from t_GRVList g left join t_ProofOfPayment p "
-                    + " on g.InvoiceNumber = p.InvoiceNumber where COALESCE(p.InvoiceNumber,0) = 0  and g.Removed=0 order by g.InvoiceNumber ", con);
+            /*SqlCommand cmdI = new SqlCommand("Select DISTINCT g.InvoiceNumber from t_GRVList g left join t_ProofOfPayment p "
+                    + " on g.InvoiceNumber = p.InvoiceNumber where COALESCE(p.InvoiceNumber,'') = ''  and g.Removed=0 order by g.InvoiceNumber ", con);
+            
+             */
+            SqlCommand cmdI = new SqlCommand("Select DISTINCT (g.InvoiceNumber + ' ' + s.Supplier) as InvoiceNumber " 
+                + " from t_GRVList g  " 
+                + " left join t_ProofOfPayment p   " 
+                + " on  UPPER(g.InvoiceNumber) = UPPER(p.InvoiceNumber) " 
+                + " inner join t_Supplier s on g.SupplierID = s.SupplierID " 
+                + " where g.Removed=0  "
+                + " and COALESCE(p.ProofOfPaymentID,0) = 0 " 
+                + " order by InvoiceNumber ", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -885,6 +948,99 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     obj.Add(drI["InvoiceNumber"].ToString());
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+        public List<string> GetAutoCompleteInvoiceNumbers(int SupplierId)
+        {
+            List<string> obj = new List<string>();
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("Select DISTINCT (g.InvoiceNumber + ' ' + s.Supplier) as InvoiceNumber "
+                + " from t_GRVList g  "
+                + " left join t_ProofOfPayment p   "
+                + " on  UPPER(g.InvoiceNumber) = UPPER(p.InvoiceNumber) "
+                + " inner join t_Supplier s on g.SupplierID = s.SupplierID "
+                + " where g.Removed=0 and g.SupplierID = " + SupplierId
+                + " and COALESCE(p.ProofOfPaymentID,0) = 0 "
+                + " order by InvoiceNumber ", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    obj.Add(drI["InvoiceNumber"].ToString());
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+        public List<string> GetAutoCompleteInvoiceNumbers(DateTime date, int SupplierId)
+        {
+            List<string> obj = new List<string>();
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("Select g.InvoiceNumber, g.GRVTypeID from t_GRVList g where g.GRVDate = '" 
+                + date.ToShortDateString() + "' and g.SupplierID = " + SupplierId, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    if(Convert.ToInt16(drI["GRVTypeID"]) == 1)
+                    {
+                        obj.Add(drI["InvoiceNumber"].ToString() + " - GRV");
+                    }
+                    else
+                    {
+                        obj.Add(drI["InvoiceNumber"].ToString() + " - CLM");
+                    }
+                    
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
+        public decimal GetInvoiceAmount(DateTime date, int SupplierId, string InvoiceNumber)
+        {
+            decimal obj = 0;
+
+            int GRVorCLM = (InvoiceNumber.Contains(" - GRV")) ? 1 : 2;
+
+            InvoiceNumber = (GRVorCLM == 1) ? InvoiceNumber.Replace(" - GRV", "") : InvoiceNumber.Replace(" - CLM", "");
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("Select g.IncludingVat from t_GRVList g where g.GRVDate = '" + date.ToShortDateString() + "' and g.SupplierID = " 
+                + SupplierId + " and g.InvoiceNumber = '" + InvoiceNumber + "' and g.GRVTypeID = " + GRVorCLM, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    obj = Convert.ToDecimal(drI["IncludingVat"]);
                 }
             }
             drI.Close();

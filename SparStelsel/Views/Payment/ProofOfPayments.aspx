@@ -7,7 +7,33 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    
+    <script>
+        function OpenInvoices()
+        {
+            var supplierdd = $('#SupplierID').data('tDropDownList');
+            var supplier = supplierdd.value();
+
+            $.post('/Payment/_CheckSupplierType/', { SupplierId: supplier }, function (data) {
+                if (data == "DI")
+                {
+                    $('#Invoiceload').show();
+                }
+                else
+                {
+                    $('#InvoiceNumber').attr('value', '');
+                    $('#Invoiceload').hide();
+                }
+            });
+        }
+
+        function CheckSupplier(e)
+        {
+            var supplierdd = $('#SupplierID').data('tDropDownList');
+            var supplier = supplierdd.value();
+
+            e.data = $.extend({}, e.data, { SupplierId: supplier });
+        }
+    </script>
     <table>
         <tr>
             <td>

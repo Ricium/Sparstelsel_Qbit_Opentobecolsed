@@ -590,3 +590,8 @@ table th
     border:solid;
     border-width:1px;
 }
+
+.td-right
+{
+    text-align:right;
+}

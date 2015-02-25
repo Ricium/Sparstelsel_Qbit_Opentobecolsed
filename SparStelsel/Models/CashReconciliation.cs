@@ -8,14 +8,7 @@ using System.Web.Mvc;
 
 namespace SparStelsel.Models
 {
-    /// <summary>
-    /// 
-    /// 
-    /// 
-    /// 
-    /// 
-    ///
-    /// </summary>
+
 
     public class CashReconciliation
     {

@@ -8,14 +8,6 @@ using System.Web.Mvc;
 
 namespace SparStelsel.Models
 {
-    /// <summary>
-    /// 
-    /// 
-    /// 
-    /// 
-    /// 
-    ///
-    /// </summary>
 
     public class Order
     {
@@ -75,5 +67,34 @@ namespace SparStelsel.Models
         public string Suffix { get; set; }
 
         public string ordercomment { get; set; }
+    }
+
+    public class OrderProduct
+    {
+        public int OrderProductID { get; set; }
+
+        [DisplayName("Select a Product")]
+        public int ProductID { get; set; }
+
+        [DisplayName("Quantity")]
+        public int Quantity { get; set; }
+
+        [DisplayName("Processed")]
+        public bool StatusID { get; set; }
+
+        [DisplayName("Order ID")]
+        public int OrderID { get; set; }
+
+        [DisplayName("Company")]
+        public int CompanyID { get; set; }
+
+        [DisplayName("Modified Date")]
+        public DateTime ModifiedDate { get; set; }
+
+        [DisplayName("Modified By")]
+        public string ModifiedBy { get; set; }
+
+        [DisplayName("Price")]
+        public decimal Price { get; set; }
     }
 }

@@ -9,8 +9,7 @@ namespace SparStelsel.Models
 {
     public class MoneyRepository
     {
-        /*
-         */
+        private MoneyUnitRepository murep = new MoneyUnitRepository();
 
         public List<Cash> GetCashMovementsOld()
         {
@@ -79,7 +78,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<Cash> GetCashMovements()
+        public List<Cash> GetCashMovementsReport()
         {
             //...Create New Instance of Object...
             List<Cash> list = new List<Cash>();
@@ -122,6 +121,178 @@ namespace SparStelsel.Models
             list = list.OrderBy(o => o.Date).ToList();
             //...Return...
             return list;
+        }
+
+        public List<CashMovement> GetCashMovements()
+        {
+            //...Create New Instance of Object...
+            List<CashMovement> list = new List<CashMovement>();
+            CashMovement ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT cm.*, mu.MoneyUnit, mt.MovementType, (e.Name + ' ' + e.Surname) as Employee "
+            + " FROM t_CashMovement cm INNER JOIN l_MoneyUnit mu on cm.MoneyUnitID = mu.MoneyUnitID "
+            + " INNER JOIN l_MovementType mt ON cm.MovementTypeID = mt.MovementTypeID "
+            + " INNER JOIN Employee e on cm.EmployeeID = e.EmployeeID "
+            + " WHERE cm.Removed = 0", con);
+
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new CashMovement();
+                    ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.CashMovementID = Convert.ToInt32(drI["CashMovementID"]);
+                    ins.employee = drI["Employee"].ToString();
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.moneyunit = drI["MoneyUnit"].ToString();
+                    ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
+                    ins.movementtype = drI["MovementType"].ToString();
+                    ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
+                    ins.ModifiedBy = drI["ModifiedBy"].ToString();
+                    ins.Count = (int)(ins.Amount / murep.GetMoneyUnitValue(ins.MoneyUnitID));
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public CashMovement Insert(CashMovement ins)
+        {
+            //...Get User and Date Data...
+            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
+            string UserID = HttpContext.Current.Session["Username"].ToString();
+            string strTrx = "CashMovementIns_" + UserID;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            con.Open();
+
+            //...Command Interface...
+            SqlCommand cmdI = con.CreateCommand();
+            SqlTransaction trx;
+            trx = con.BeginTransaction(strTrx);
+            cmdI.Connection = con;
+            cmdI.Transaction = trx;
+
+            try
+            {
+                //...Insert Record...
+                cmdI.CommandText = StoredProcedures.CashMovementInsert;
+                cmdI.CommandType = System.Data.CommandType.StoredProcedure;
+                cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
+                cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+                cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
+                cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
+                cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+                cmdI.Parameters.AddWithValue("@CompanyID", 0);
+                cmdI.Parameters.AddWithValue("@MovementTypeID", ins.MovementTypeID);
+                cmdI.Parameters.AddWithValue("@MoneyUnitID", ins.MoneyUnitID);
+                cmdI.Parameters.AddWithValue("@UserID", 0);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", UserID);
+                cmdI.Parameters.AddWithValue("@Removed", 0);
+
+                //...Return new ID
+                ins.CashMovementID = (int)cmdI.ExecuteScalar();
+
+                trx.Commit();
+                cmdI.Connection.Close();
+            }
+            catch (SqlException ex)
+            {
+                if (trx != null) trx.Rollback();
+            }
+            finally
+            {
+                //Check for close and respond accordingly
+                if (con.State != ConnectionState.Closed)
+                {
+                    con.Close();
+                }
+                //Clean up
+                con.Dispose();
+                cmdI.Dispose();
+                trx.Dispose();
+            }
+            return ins;
+        }
+
+        public CashMovement Update(CashMovement ins)
+        {
+            //...Get User and Date Data...
+            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
+            string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            con.Open();
+            SqlCommand cmdI = con.CreateCommand();
+            cmdI.Connection = con;
+
+            //...Update Record...
+            cmdI.Parameters.Clear();
+            cmdI.CommandText = StoredProcedures.CashMovementUpdate;
+            cmdI.CommandType = System.Data.CommandType.StoredProcedure;
+            cmdI.Parameters.AddWithValue("@CashMovementID", ins.CashMovementID);
+            cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
+            cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+            cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
+            cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
+            cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+            cmdI.Parameters.AddWithValue("@CompanyID", 0);
+            cmdI.Parameters.AddWithValue("@MovementTypeID", ins.MovementTypeID);
+            cmdI.Parameters.AddWithValue("@MoneyUnitID", ins.MoneyUnitID);
+            cmdI.Parameters.AddWithValue("@UserID", 0);
+            cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+
+            cmdI.ExecuteNonQuery();
+            cmdI.Connection.Close();
+
+            return ins;
+
+        }
+
+        public void Remove(int CashMovementID)
+        {
+            //...Get User and Date Data...
+            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
+            string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            con.Open();
+            SqlCommand cmdI = con.CreateCommand();
+            cmdI.Connection = con;
+
+            //...Update Record...
+            cmdI.Parameters.Clear();
+            cmdI.CommandText = StoredProcedures.CashMovementRemove;
+            cmdI.CommandType = System.Data.CommandType.StoredProcedure;
+            cmdI.Parameters.AddWithValue("@CashMovementID", CashMovementID);
+
+            cmdI.ExecuteNonQuery();
+            cmdI.Connection.Close();
         }
     }
 }

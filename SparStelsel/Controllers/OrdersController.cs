@@ -7,6 +7,7 @@ using SparStelsel.Models;
 using Telerik.Web.Mvc;
 using System.IO;
 using Telerik.Web.Mvc.Extensions;
+using System.Globalization;
 namespace SparStelsel.Controllers
 {
     [AutoLogOffActionFilter]
@@ -19,6 +20,7 @@ namespace SparStelsel.Controllers
         DropDownRepository DDRep = new DropDownRepository();
         SupplierRepository SRep = new SupplierRepository();
         ReportRepository reportrepo = new ReportRepository();
+        ProductRepository PRep = new ProductRepository();
 
         //List
         // List SupplierType
@@ -149,5 +151,109 @@ namespace SparStelsel.Controllers
 
             return null;
         }
+
+        #region Orders with Products
+        [GridAction]
+        public ActionResult _ListProductOrders(string Suffix = "", string Pink = "", string Supplier = "", string From = "", string To = "", string Comment = "")
+        {
+            return View(new GridModel(ORep.GetAllProductOrders(Suffix, Pink, Supplier, DDRep.TelerikDateToString(From), DDRep.TelerikDateToString(To), Comment)));
+        }
+
+        [GridAction]
+        public ActionResult _ListProduct(int OrderId)
+        {
+            return View(new GridModel(ORep.GetOrderProductsPerOrder(OrderId)));
+        }        
+
+        public ActionResult ProductOrders()
+        {
+            ViewData["Supllier"] = DDRep.GetSupplierList();
+            ViewData["Comments"] = DDRep.GetCommentList();
+            return View();
+        }
+
+        public ActionResult _LoadOrder()
+        {
+            ViewData["Supllier"] = DDRep.GetSupplierList();
+            ViewData["Comments"] = DDRep.GetCommentList();
+            return PartialView(new Order());
+        }
+
+        [HttpPost]
+        public ActionResult _InsertProductOrder(Order ins)
+        {
+            ins = ORep.Insert(ins);
+            return RedirectToAction("ProductOrder", new { OrderId = ins.OrderID });
+        }
+
+        public ActionResult ProductOrder(int OrderId)
+        {
+            Order ins = ORep.GetOrders(OrderId);
+
+            ViewData["Supllier"] = DDRep.GetSupplierList();
+            ViewData["Comments"] = DDRep.GetCommentList();
+            ViewData["OrderId"] = OrderId;
+            ViewData["Products"] = DDRep.GetProductsList(ins.SupplierID);
+            
+            return View(ins);
+        }
+
+        public ActionResult _GetProductPrice(int ProductId)
+        {
+            return Content(PRep.GetProduct(ProductId).Total.ToString(), "text");
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public JsonResult _InsertProduct(OrderProduct ins)
+        {
+            //...Insert Object
+            ins.StatusID = false;
+            ins = ORep.InsertOrderProduct(ins);
+
+            //...Repopulate Grid...
+            return Json(new GridModel(ORep.GetOrderProductsPerOrder(ins.OrderID)));
+        }
+
+        [GridAction]
+        public JsonResult _UpdateProduct(OrderProduct ins)
+        {
+            //...Update Object
+            ins = ORep.UpdateOrderProduct(ins);
+
+            //...Repopulate Grid...
+            return Json(new GridModel(ORep.GetOrderProductsPerOrder(ins.OrderID)));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _RemoveProduct(int id)
+        {
+            OrderProduct ins = ORep.GetOrderProducts(id);
+            ORep.RemoveOrderProduct(id);
+
+            //...Repopulate Grid...
+            return Json(new GridModel(ORep.GetOrderProductsPerOrder(ins.OrderID)));
+        }
+
+        [HttpPost]
+        public ActionResult _ProcessProductOrder(Order ins)
+        {
+            List<OrderProduct> products = ORep.GetOrderProductsPerOrder(ins.OrderID);
+            decimal total = 0;
+            foreach(OrderProduct product in products)
+            {
+                total += (product.Price * product.Quantity);
+            }
+
+            ins.Amount = total;
+            ins = ORep.Update(ins);
+            ORep.ProcessProductOrder(ins.OrderID);
+
+            return RedirectToAction("ProductOrders");
+
+        }
+
+        #endregion
     }
 }

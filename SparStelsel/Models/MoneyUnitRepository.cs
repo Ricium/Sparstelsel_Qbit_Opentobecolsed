@@ -47,6 +47,71 @@ namespace SparStelsel.Models
             return ins;
         }
 
+        public string GetMoneyUnitString(int MoneyUnitID)
+        {
+            //...Create New Instance of Object...
+            string ins = "Undefined";
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT MoneyUnit FROM l_MoneyUnit WHERE MoneyUnitID =" + MoneyUnitID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = drI["MoneyUnit"].ToString();                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return ins;
+        }
+
+        public decimal GetMoneyUnitValue(int MoneyUnitID)
+        {
+            //...Create New Instance of Object...
+            decimal ins = 0;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT Value FROM l_MoneyUnit WHERE MoneyUnitID =" + MoneyUnitID, con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = Convert.ToDecimal(drI["Value"]);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return ins;
+        }
+
         public List<MoneyUnit> GetAllMoneyUnit()
         {
             //...Create New Instance of Object...
@@ -199,32 +264,5 @@ namespace SparStelsel.Models
             cmdI.Connection.Close();
         }
 
-        public void Remove(string MoneyUnitIds)
-        {
-            List<int> RemoveIds = MoneyUnitIds.Split(',').ToList().Select(int.Parse).ToList();
-
-            //...Get Date and Current User
-            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
-            int UserId = Convert.ToInt32(HttpContext.Current.Session["UserID"]);
-
-            //...Database Connection...
-            DataBaseConnection dbConn = new DataBaseConnection();
-            SqlConnection con = dbConn.SqlConn();
-            con.Open();
-            SqlCommand cmdI = con.CreateCommand();
-            cmdI.Connection = con;
-
-            foreach (int ID in RemoveIds)
-            {
-                //...Remove Record...
-                cmdI.Parameters.Clear();
-                cmdI.CommandText = StoredProcedures.MoneyUnitRemove;
-                cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                cmdI.Parameters.AddWithValue("@MoneyUnitID", ID);
-                cmdI.ExecuteNonQuery();
-            }
-
-            cmdI.Connection.Close();
-        }  
     }
 }

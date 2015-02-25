@@ -37,6 +37,15 @@
                             <%: Html.ValidationMessageFor(m => m.ActualDate) %>
                         </td>
                     </tr>
+                                        <tr>
+                        <td>
+                           <%: Html.LabelFor(m => m.RefNo) %>
+                        </td>
+                        <td>
+                            <%: Html.TextBoxFor(m => m.RefNo)%>
+                            <%: Html.ValidationMessageFor(m => m.RefNo) %>
+                        </td>
+                    </tr>
                     <tr>
                      <td>
                            <%: Html.LabelFor(m => m.FNBTypeID)%>

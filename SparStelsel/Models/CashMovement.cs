@@ -8,15 +8,6 @@ using System.Web.Mvc;
 
 namespace SparStelsel.Models
 {
-    /// <summary>
-    /// 
-    /// 
-    /// 
-    /// 
-    /// 
-    ///
-    /// </summary>
-
     public class CashMovement
     {
         [DisplayName("Cash Movement ID")]
@@ -36,7 +27,7 @@ namespace SparStelsel.Models
         public string movementtype { get; set; }
         public int MovementTypeID { get; set; }
 
-        [DisplayName("Money Unit ID")]
+        [DisplayName("Money Unit")]
         public string moneyunit { get; set; }
         public int MoneyUnitID { get; set; }
 
@@ -46,10 +37,29 @@ namespace SparStelsel.Models
         [DisplayName("Employee")]
         public int EmployeeID { get; set; }
 
-        [DisplayName("User ID")]
+        [DisplayName("Modified By")]
+        public string ModifiedBy { get; set; }
+
+        public int Count { get; set; }
+
+        /*[DisplayName("User ID")]
         public string UserID { get; set; }
 
         [DisplayName("User Type ID")]
-        public int UserTypeID { get; set; }
+        public int UserTypeID { get; set; }*/
+    }
+
+    public class CashMovementMultiple
+    {
+        [DisplayName("Actual Date")]
+        public DateTime ActualDate { get; set; }
+
+        [DisplayName("Employee")]
+        public int EmployeeID { get; set; }
+
+        [DisplayName("Movement Type")]
+        public int MovementTypeID { get; set; }
+
+        public List<CashMovement> Movements { get; set; }
     }
 }

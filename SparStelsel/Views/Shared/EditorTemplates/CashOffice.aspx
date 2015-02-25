@@ -58,7 +58,7 @@
                            <%: Html.LabelFor(m => m.Amount) %>
                         </td>
                         <td>
-                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.Amount).CurrencySymbol("R") %>
+                            <%: Html.TextBoxFor(m => m.Amount)  %> <td style="color:red"><%: Html.Label(" If Cash Status is Opened the number of Cash notes/coins and If Cash Status is Sealed the amount in Rands ") %></td>
                             <%: Html.ValidationMessageFor(m => m.Amount) %>
                         </td>
                     </tr> 

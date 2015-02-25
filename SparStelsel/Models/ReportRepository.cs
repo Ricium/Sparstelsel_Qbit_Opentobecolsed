@@ -710,7 +710,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins = new SparReconReport();
-                    ins.GRVDate = Convert.ToDateTime(drI["GRVDate"]).ToShortDateString();
+                    ins.StateDate = Convert.ToDateTime(drI["StateDate"]).ToShortDateString();
                     ins.GRVExVAT = drI["GRVExVAT"].ToString();
                     ins.GRVInVAT = drI["GRVInVAT"].ToString();
                     ins.GRVInvoiceNumber = drI["GRVInvoiceNumber"].ToString();
@@ -803,5 +803,236 @@ namespace SparStelsel.Models
 
             return report;
         }
+
+        public CashierKwikpayReport GetCashierKwikpayReport(DateTime ActualDate, int EmployeeId)
+        {
+            #region Repositories
+            CashierRepository cashierrep = new CashierRepository();
+            CashMovementRepository cashmovementrep = new CashMovementRepository();
+            ElectronicFundRepository elecrep = new ElectronicFundRepository();
+            PickUpRepository pickuprep = new PickUpRepository();
+            CashReconciliationRepository cashreconrep = new CashReconciliationRepository();
+            KwikPayRepository KRep = new KwikPayRepository();
+            #endregion
+
+            //...Get All Details
+            CashierKwikpayReport report = new CashierKwikpayReport();
+            report.CashierId = EmployeeId;
+            report.ReportDate = ActualDate;
+
+
+            report.Cashier = cashierrep.GetCashier(EmployeeId);
+            report.CashMovements = cashmovementrep.GetCashMovementsPerEmployee(EmployeeId, ActualDate,2);
+            report.ElectronicFunds = elecrep.GetElectronicFundsPerEmployee(EmployeeId, ActualDate,2);
+            report.Pickups = pickuprep.GetPickUpsPerEmployee(EmployeeId, ActualDate);
+            report.Recons = cashreconrep.GetCashReconcilationsPerEmployee(EmployeeId, ActualDate);
+            report.Kwikpay = KRep.GetKwikPaysPerEmployee(EmployeeId, ActualDate);
+
+            //...Initialize Totals
+            report.CashTotal = 0;
+            report.CardsTotal = 0;
+            report.ChequeTotal = 0;
+            report.SassaTotal = 0;
+            report.PickupTotal = 0;
+            report.FloatTotal = 0;
+            report.ExtraFloatTotal = 0;
+            report.SigmaTotal = 0;
+            report.ElectricityTotal = 0;
+            report.AirTimeTotal = 0;
+            report.AccountPaymentTotal = 0;
+
+            //...Get Totals
+            foreach (CashMovement item in report.CashMovements)
+            {
+                report.CashTotal += item.Amount;
+            }
+
+            foreach (ElectronicFund item in report.ElectronicFunds)
+            {
+                switch (item.ElectronicTypeID)
+                {
+                    case 1: report.SassaTotal += item.Total; break;
+                    case 2: report.CardsTotal += item.Total; break;
+                    case 3: report.ChequeTotal += item.Total; break;
+                }
+            }
+
+            foreach (PickUp item in report.Pickups)
+            {
+                report.PickupTotal += item.Amount;
+            }
+
+            foreach (CashReconciliation item in report.Recons)
+            {
+                switch (item.ReconciliationTypeID)
+                {
+                    case 1: report.FloatTotal += item.Amount; break;
+                    case 2: report.ExtraFloatTotal += item.Amount; break;
+                    case 3: report.SigmaTotal += item.Amount; break;
+                }
+            }
+
+            foreach(KwikPay item in report.Kwikpay)
+            {
+                switch(item.KwikPayTypeID)
+                {
+                    case 1: report.ElectricityTotal += item.Amount; break;
+                    case 2: report.AirTimeTotal += item.Amount; break;
+                    case 3: report.AccountPaymentTotal += item.Amount; break;
+                }
+            }
+
+            return report;
+        }
+    
+     public CashierInstantMoneyReport GetCashierInstantMoneyReport(DateTime ActualDate, int EmployeeId)
+        {
+            #region Repositories
+            CashierRepository cashierrep = new CashierRepository();
+            CashMovementRepository cashmovementrep = new CashMovementRepository();
+            ElectronicFundRepository elecrep = new ElectronicFundRepository();
+            PickUpRepository pickuprep = new PickUpRepository();
+            CashReconciliationRepository cashreconrep = new CashReconciliationRepository();
+            InstantMoneyRepository IMRep = new InstantMoneyRepository();
+            #endregion
+
+            //...Get All Details
+            CashierInstantMoneyReport report = new CashierInstantMoneyReport();
+            report.CashierId = EmployeeId;
+            report.ReportDate = ActualDate;
+
+
+            report.Cashier = cashierrep.GetCashier(EmployeeId);
+            report.CashMovements = cashmovementrep.GetCashMovementsPerEmployee(EmployeeId, ActualDate,3);
+            report.ElectronicFunds = elecrep.GetElectronicFundsPerEmployee(EmployeeId, ActualDate,3);
+            report.Pickups = pickuprep.GetPickUpsPerEmployee(EmployeeId, ActualDate);
+            report.Recons = cashreconrep.GetCashReconcilationsPerEmployee(EmployeeId, ActualDate);
+            report.IM = IMRep.GetInstantMoneysPerEmployee(EmployeeId, ActualDate);
+            //...Initialize Totals
+            report.CashTotal = 0;
+            report.CardsTotal = 0;
+            report.ChequeTotal = 0;
+            report.SassaTotal = 0;
+            report.PickupTotal = 0;
+            report.FloatTotal = 0;
+            report.ExtraFloatTotal = 0;
+            report.SigmaTotal = 0;
+
+            //...Get Totals
+            foreach (CashMovement item in report.CashMovements)
+            {
+                report.CashTotal += item.Amount;
+            }
+
+            foreach (ElectronicFund item in report.ElectronicFunds)
+            {
+                switch (item.ElectronicTypeID)
+                {
+                    case 1: report.SassaTotal += item.Total; break;
+                    case 2: report.CardsTotal += item.Total; break;
+                    case 3: report.ChequeTotal += item.Total; break;
+                }
+            }
+
+            foreach (PickUp item in report.Pickups)
+            {
+                report.PickupTotal += item.Amount;
+            }
+
+            foreach (CashReconciliation item in report.Recons)
+            {
+                switch (item.ReconciliationTypeID)
+                {
+                    
+                    case 1: report.ExtraFloatTotal += item.Amount; break;
+                    case 2: report.SigmaTotal += item.Amount; break;
+                }
+            }
+         foreach(InstantMoney item in report.IM)
+         {
+             switch(item.InstantMoneyTypeID)
+             {
+                 case 1: report.FloatTotal += item.Amount; break;
+                 case 2: report.RecievedTotal += item.Amount; break;
+                 case 3: report.PaidTotal += item.Amount; break;
+             }
+         }
+
+            return report;
+        }
+     public CashierFNBReport GetCashierFNBReport(DateTime ActualDate, int EmployeeId)
+     {
+         #region Repositories
+         CashierRepository cashierrep = new CashierRepository();
+         CashMovementRepository cashmovementrep = new CashMovementRepository();
+         ElectronicFundRepository elecrep = new ElectronicFundRepository();
+         PickUpRepository pickuprep = new PickUpRepository();
+         CashReconciliationRepository cashreconrep = new CashReconciliationRepository();
+         FNBRepository FNBRep = new FNBRepository();
+         #endregion
+
+         //...Get All Details
+         CashierFNBReport report = new CashierFNBReport();
+         report.CashierId = EmployeeId;
+         report.ReportDate = ActualDate;
+
+
+         report.Cashier = cashierrep.GetCashier(EmployeeId);
+         report.CashMovements = cashmovementrep.GetCashMovementsPerEmployee(EmployeeId, ActualDate,4);
+         report.ElectronicFunds = elecrep.GetElectronicFundsPerEmployee(EmployeeId, ActualDate,4);
+         report.Pickups = pickuprep.GetPickUpsPerEmployee(EmployeeId, ActualDate);
+         report.Recons = cashreconrep.GetCashReconcilationsPerEmployee(EmployeeId, ActualDate);
+         report.FNBs = FNBRep.GetFNBsPerEmployee(EmployeeId,ActualDate);
+         //...Initialize Totals
+         report.CashTotal = 0;
+         report.CardsTotal = 0;
+         report.ChequeTotal = 0;
+         report.SassaTotal = 0;
+         report.PickupTotal = 0;
+         report.FloatTotal = 0;
+         report.ExtraFloatTotal = 0;
+         report.ReferenceTotal = 0;
+         report.RefundTotal = 0;
+         //...Get Totals
+         foreach (CashMovement item in report.CashMovements)
+         {
+             report.CashTotal += item.Amount;
+         }
+
+         foreach (ElectronicFund item in report.ElectronicFunds)
+         {
+             switch (item.ElectronicTypeID)
+             {
+                 case 1: report.SassaTotal += item.Total; break;
+                 case 2: report.CardsTotal += item.Total; break;
+                 case 3: report.ChequeTotal += item.Total; break;
+             }
+         }
+
+         foreach (PickUp item in report.Pickups)
+         {
+             report.PickupTotal += item.Amount;
+         }
+
+         foreach (CashReconciliation item in report.Recons)
+         {
+             switch (item.ReconciliationTypeID)
+             {
+                 case 1: report.FloatTotal += item.Amount; break;
+                 case 2: report.ExtraFloatTotal += item.Amount; break;
+                
+             }
+         }
+
+         foreach(FNB item in report.FNBs)
+         {
+             switch (item.FNBTypeID)
+             {
+                 case 1: report.ReferenceTotal += item.Amount; break;
+                 case 2: report.RefundTotal += item.Amount; break;
+             }
+         }
+         return report;
+     }
     }
 }

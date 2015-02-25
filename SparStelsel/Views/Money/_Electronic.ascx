@@ -20,7 +20,7 @@
                       .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add Electronic Fund"))
                       .Columns(columns =>
                       {
-                          columns.Bound(model => model.MovementTypeID);
+                          columns.Bound(model => model.movementtype);
                           columns.Bound(model => model.ActualDate);
                           columns.Bound(model => model.employee);
                           columns.Bound(model => model.electronictype);

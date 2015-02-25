@@ -12,7 +12,7 @@
             var supplierdd = $('#SupplierId').data('tDropDownList');
             var supplier = supplierdd.value();
 
-            var datepicker = $('#GRVDate').data('tDatePicker');
+            var datepicker = $('#StateDate').data('tDatePicker');
             var date = datepicker.inputValue;
 
             e.data = $.extend({}, e.data, { InvoiceDate: date, SupplierId: supplier });
@@ -26,7 +26,7 @@
             var supplierdd = $('#SupplierId').data('tDropDownList');
             var supplier = supplierdd.value();
 
-            var datepicker = $('#GRVDate').data('tDatePicker');
+            var datepicker = $('#StateDate').data('tDatePicker');
             var date = datepicker.inputValue;
             $.post('/SparRecon/_GetInvoiceAmount/', { InvoiceDate: date, SupplierId: supplier, InvoiceNumber: invoicenumber }, function (data) {
                 var numberTextBox = $("#Amount").data("tTextBox");
@@ -53,7 +53,7 @@
                     .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add Payment"))
                     .Columns(columns =>
                     {
-                        columns.Bound(model => model.GRVDate).Format("{0:yyyy-MM-dd}");
+                        columns.Bound(model => model.StateDate).Format("{0:yyyy-MM-dd}");
                         //columns.Bound(model => model.SupplierId);
                         columns.Bound(model => model.InvoiceNumber);
                         columns.Bound(model => model.Amount);

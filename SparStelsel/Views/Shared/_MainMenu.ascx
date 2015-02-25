@@ -119,11 +119,14 @@
                 });
 
             items.Add()
-                .Text("Cash-Office")
+                .Text("Cashier Cash-Office")
                 .Url("#")
                 .Items(item =>
                 {
-                    item.Add().Text("Cashier Day End").Url("~/Money/CashierDayEnd"); 
+                    item.Add().Text("Cashier Day End").Url("~/Money/CashierDayEnd");
+                    item.Add().Text("Cashier Kwikpay").Url("~/Money/CashierKwikpay");
+                    item.Add().Text("Cashier InstantMoney").Url("~/Money/CashierInstantMoney");
+                    item.Add().Text("Cashier FNB").Url("~/Money/CashierFNB"); 
                 });
 
             items.Add()
@@ -157,8 +160,8 @@
                  .Text("Log off: " + HttpContext.Current.Session["Username"].ToString())
                  .Url("~/Account/Logoff"); 
             
-            //items.Add()
-            //    .Text("Test").Url("~/Money/MultiElectronic");         
+            items.Add()
+               .Text("Test").Url("~/Money/MultiElectronic");         
 
         }).Render();
  %>

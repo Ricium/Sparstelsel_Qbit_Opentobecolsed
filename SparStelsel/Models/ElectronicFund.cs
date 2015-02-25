@@ -49,6 +49,7 @@ namespace SparStelsel.Models
         public bool Removed { get; set; }
 
         [DisplayName("Movement Type")]
+        public string movementtype { get; set; }
         public int MovementTypeID { get; set; }
     }
 }

@@ -65,7 +65,7 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("SELECT ef.*,et.ElectronicType,em.Name FROM t_ElectronicFund ef inner join l_ElectronicType et on ef.ElectronicTypeID=et.ElectronicTypeID inner join Employee em on ef.EmployeeID = em.EmployeeID where ef.Removed=0", con);
+            cmdI = new SqlCommand("SELECT ef.*,et.ElectronicType,em.Name,mt.MovementType FROM t_ElectronicFund ef inner join l_ElectronicType et on ef.ElectronicTypeID=et.ElectronicTypeID inner join Employee em on ef.EmployeeID = em.EmployeeID inner join l_MovementType mt on ef.MovementTypeID =mt.MovementTypeID where ef.Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -81,6 +81,7 @@ namespace SparStelsel.Models
                     ins.Total = Convert.ToDecimal(drI["Total"]);
                     ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
                     ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
+                    ins.movementtype = drI["MovementType"].ToString();
                     ins.employee = drI["Name"].ToString();
                     ins.electronictype = drI["ElectronicType"].ToString();
                     ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
@@ -211,6 +212,54 @@ namespace SparStelsel.Models
 
             //...SQL Commands...
             cmdI = new SqlCommand("SELECT * FROM t_ElectronicFund WHERE EmployeeID = " + EmployeeID + " AND ActualDate = '" + date.ToShortDateString() + "' AND Removed=0", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new ElectronicFund();
+                    ins.ElectronicFundID = Convert.ToInt32(drI["ElectronicFundID"]);
+                    ins.ElectronicFunds = Convert.ToString(drI["ElectronicFund"]);
+                    ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
+                    ins.Total = Convert.ToDecimal(drI["Total"]);
+                    ins.CreatedDate = Convert.ToDateTime(drI["CreatedDate"]);
+                    ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.ElectronicTypeID = Convert.ToInt32(drI["ElectronicTypeID"]);
+                    ins.UserID = Convert.ToString(drI["UserID"]);
+                    ins.CompanyID = Convert.ToInt32(drI["CompanyID"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return list;
+        }
+
+        public List<ElectronicFund> GetElectronicFundsPerEmployee(int EmployeeID, DateTime date, int MovementTypeID)
+        {
+            //...Create New Instance of Object...
+            List<ElectronicFund> list = new List<ElectronicFund>();
+            ElectronicFund ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT * FROM t_ElectronicFund WHERE EmployeeID = " + EmployeeID + " AND ActualDate = '" + date.ToShortDateString() + "'AND MovementTypeID='"+MovementTypeID+"' AND Removed=0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

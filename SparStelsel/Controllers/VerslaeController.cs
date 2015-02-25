@@ -388,7 +388,7 @@ namespace SparStelsel.Controllers
             List<SparReconReport> report = reportrepo.GetSparReconReport(ins);
 
             StringWriter sw = new StringWriter();
-            sw.WriteLine("\"Status\",\"GRV Invoice Number\",\"GRV Date\",\"GRV Pay Date\",\"Excluding VAT\",\"Including VAT\",\"Pink Slip Number\",\"GRV Type\" "
+            sw.WriteLine("\"Status\",\"GRV Invoice Number\",\"Sate Date\",\"GRV Pay Date\",\"Excluding VAT\",\"Including VAT\",\"Pink Slip Number\",\"GRV Type\" "
                 +" ,\"Supplier\",\"Recon Invoice Number\",\"Recon GRV Date\", Recon Amount, Recon GRV Type");
 
             string name = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
@@ -406,7 +406,7 @@ namespace SparStelsel.Controllers
                     sw.WriteLine(string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\"",
                                           "No Recon"
                                           , ex.GRVInvoiceNumber
-                                          , ex.GRVDate
+                                          , ex.StateDate
                                           , ex.GRVPayDate
                                           , ex.GRVExVAT
                                           , ex.GRVInVAT
@@ -456,7 +456,7 @@ namespace SparStelsel.Controllers
                     sw.WriteLine(string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\"",
                                           ex.Status
                                           , ex.GRVInvoiceNumber
-                                          , ex.GRVDate
+                                          , ex.StateDate
                                           , ex.GRVPayDate
                                           , ex.GRVExVAT
                                           , ex.GRVInVAT

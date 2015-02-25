@@ -32,8 +32,8 @@ namespace SparStelsel.Models
 
             //...SQL Commands...
             cmdI = new SqlCommand("select sr.*, COALESCE(g.IncludingVat,0) as GRVAmount, COALESCE(g.GRVTypeID,0) as GRVGRVType, COALESCE(g.InvoiceNumber,'No') as GRVInvoice "
-                                    + " from t_SparRecon sr left join t_GRVList g on sr.InvoiceNumber = g.InvoiceNumber and sr.GRVTypeId = g.GRVTypeID " 
-            + " where sr.Removed = 0 order by sr.GRVDate DESC, sr.SparReconId DESC", con);
+                                    + " from t_SparRecon sr left join t_GRVList g on sr.InvoiceNumber = g.InvoiceNumber and sr.GRVTypeId = g.GRVTypeID "
+            + " where sr.Removed = 0 order by sr.StateDate DESC, sr.SparReconId DESC", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -44,7 +44,7 @@ namespace SparStelsel.Models
                 {
                     ins = new SparInvoiceRecon();
                     ins.SparReconId = Convert.ToInt32(drI["SparReconId"]);
-                    ins.GRVDate = Convert.ToDateTime(drI["GRVDate"]);
+                    ins.StateDate = Convert.ToDateTime(drI["StateDate"]);
                     ins.InvoiceNumber = drI["InvoiceNumber"].ToString();
                     ins.GRVTypeId = Convert.ToInt32(drI["GRVTypeId"]);
                     ins.CompanyId = Convert.ToInt32(drI["CompanyId"]);
@@ -206,7 +206,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.SparReconId = Convert.ToInt32(drI["SparReconId"]);
-                    ins.GRVDate = Convert.ToDateTime(drI["GRVDate"]);
+                    ins.StateDate = Convert.ToDateTime(drI["StateDate"]);
                     ins.InvoiceNumber = drI["InvoiceNumber"].ToString();
                     ins.GRVTypeId = Convert.ToInt32(drI["GRVTypeId"]);
                     ins.CompanyId = Convert.ToInt32(drI["CompanyId"]);
@@ -250,8 +250,8 @@ namespace SparStelsel.Models
             {
                 //...Insert Record...
                 cmdI.CommandText = StoredProcedures.SparReconInsert;
-                cmdI.CommandType = System.Data.CommandType.StoredProcedure;             
-                cmdI.Parameters.AddWithValue("@GRVDate", ins.GRVDate);              // datetime
+                cmdI.CommandType = System.Data.CommandType.StoredProcedure;
+                cmdI.Parameters.AddWithValue("@StateDate", ins.StateDate);              // datetime
 		        cmdI.Parameters.AddWithValue("@SupplierId", ins.SupplierId);        // int
 		        cmdI.Parameters.AddWithValue("@InvoiceNumber", ins.InvoiceNumber);  // varchar(100)
 		        cmdI.Parameters.AddWithValue("@Amount", ins.Amount);                //  decimal(18,2)
@@ -303,7 +303,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.SparReconUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@SparReconId", ins.SparReconId);      // int
-            cmdI.Parameters.AddWithValue("@GRVDate", ins.GRVDate);              // datetime
+            cmdI.Parameters.AddWithValue("@StateDate", ins.StateDate);              // datetime
             cmdI.Parameters.AddWithValue("@SupplierId", ins.SupplierId);        // int
             cmdI.Parameters.AddWithValue("@InvoiceNumber", ins.InvoiceNumber);  // varchar(100)
             cmdI.Parameters.AddWithValue("@Amount", ins.Amount);                //  decimal(18,2)
@@ -379,8 +379,8 @@ namespace SparStelsel.Models
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
             SqlCommand cmdI = new SqlCommand("Select g.InvoiceNumber, g.GRVTypeID from t_GRVList g left join t_SparRecon sr on g.InvoiceNumber=sr.InvoiceNumber and g.GRVTypeID = sr.GRVTypeId "
-            + " where g.GRVDate = '" + date.ToShortDateString() + "' and g.SupplierID = " + SupplierId 
-            + " and COALESCE(sr.SparReconId,0) = 0", con);
+            + " where g.StateDate = '" + date.ToShortDateString() + "' and g.SupplierID = " + SupplierId 
+            + " and COALESCE(sr.SparReconId,0) = 0 and g.Removed =0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

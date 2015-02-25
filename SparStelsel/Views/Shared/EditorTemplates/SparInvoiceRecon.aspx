@@ -23,11 +23,11 @@
                     </tr>
                     <tr>
                         <td>
-                           <%: Html.LabelFor(m => m.GRVDate) %>
+                           <%: Html.LabelFor(m => m.StateDate) %>
                         </td>
                         <td>
-                            <%: Html.Telerik().DatePickerFor(m => m.GRVDate).Value(DateTime.Today).TodayButton()  %>
-                            <%: Html.ValidationMessageFor(m => m.GRVDate) %>
+                            <%: Html.Telerik().DatePickerFor(m => m.StateDate).Value(DateTime.Today).TodayButton()  %>
+                            <%: Html.ValidationMessageFor(m => m.StateDate) %>
                         </td>
                     </tr>
                     <tr>

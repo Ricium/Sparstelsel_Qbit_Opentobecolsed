@@ -109,7 +109,18 @@ namespace SparStelsel.Models
             string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
             string UserID = HttpContext.Current.Session["Username"].ToString();
             string strTrx = "CashoffIns_" + UserID;
-
+            DropDownRepository ddrep = new DropDownRepository();
+            MoneyUnitRepository mRep = new MoneyUnitRepository();
+            decimal moneyunit = mRep.GetMoneyUnitValue(ins.MoneyUnitTypeID);
+            string cashstatus = ddrep.GetCashOfficeStatus(ins.CashStatus);
+            if(cashstatus == "Sealed")
+            {
+                ins.Amount = ins.Amount;
+            }
+            else if (cashstatus == "Opened")
+            {
+                ins.Amount = ins.Amount * moneyunit;
+            }
             //...Database Connection...
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();

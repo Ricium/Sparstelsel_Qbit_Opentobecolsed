@@ -632,5 +632,302 @@ namespace SparStelsel.Controllers
         }
 
         #endregion
+
+        #region Cashier Kwikpay
+        public ActionResult CashierKwikpay()
+        {
+            ViewData["Employees"] = DDRep.GetEmployeeList();
+            ViewData["Movements"] = DDRep.GetMovementTypeList();
+            ViewData["MoneyUnit"] = DDRep.GetMoneyUnitList();
+            ViewData["ElectronicType"] = DDRep.GetElectronicFundTypeList();
+            ViewData["ReconciliationTypeID"] = DDRep.GetCashReconList();
+            ViewData["InstantMoneyType"] = DDRep.GetInstantMoneyType();
+            ViewData["FNBType"] = DDRep.GetFNBType();
+            ViewData["KwikPayType"] = DDRep.GetKwikPayType();
+
+            CashMovementMultiple ins = new CashMovementMultiple();
+            ins.Movements = new List<CashMovement>();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                ins.Movements.Add(new CashMovement());
+                ins.Movements[i - 1].MoneyUnitID = i;
+                ins.Movements[i - 1].moneyunit = MuRep.GetMoneyUnitString(i);
+                ins.MovementTypeID = 2;
+            }
+
+            CashierKwikpay model = new CashierKwikpay();
+            model.CashMovements = ins;
+            model.ElectronicFund = new ElectronicFund();
+            model.ElectronicFund.MovementTypeID = 2;
+            model.KiwkPay = new KwikPay();
+            
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult _InsertMultipleCashCashierKwikpay(CashierKwikpay ins)
+        {
+            decimal total = 0;
+
+            for (int i = 0; i < 12; i++)
+            {
+                ins.CashMovements.Movements[i].ActualDate = ins.CashMovements.ActualDate;
+                ins.CashMovements.Movements[i].MovementTypeID = ins.CashMovements.MovementTypeID;
+                ins.CashMovements.Movements[i].EmployeeID = ins.CashMovements.EmployeeID;
+                ins.CashMovements.Movements[i].Amount = ins.CashMovements.Movements[i].Count * MuRep.GetMoneyUnitValue(ins.CashMovements.Movements[i].MoneyUnitID);
+                ins.CashMovements.Movements[i] = CashRep.Insert(ins.CashMovements.Movements[i]);
+
+                if (ins.CashMovements.Movements[i].CashMovementID != 0)
+                {
+                    total = total + ins.CashMovements.Movements[i].Amount;
+                }
+            }
+
+            return Content(total.ToString(), "text/html");
+        }
+
+        [HttpPost]
+        public ActionResult _InsertElectronicFromMultiKwikpay(CashierKwikpay ins)
+        {
+            //ins.ElectronicFund.ActualDate = ins.ActualDate;
+            //ins.ElectronicFund.EmployeeID = ins.EmployeeID;
+            ElectronicFund ins2 = ELRep.Insert(ins.ElectronicFund);
+
+            if (ins2.ElectronicFundID != 0)
+            {
+                return Content(ins2.Total.ToString(), "text/html");
+            }
+            else
+            {
+                return Content("0", "text/html");
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult _InsertKwikpayFromMultiKwikpay(CashierKwikpay ins)
+        {
+            //ins.KiwkPay.ActualDate = ins.ActualDate;
+            //ins.KiwkPay.EmployeeID = ins.EmployeeID.ToString();
+            KwikPay ins2 = KwikRep.Insert(ins.KiwkPay);
+
+            if (ins2.KwikPayID != 0)
+            {
+                return Content(ins2.Amount.ToString(), "text/html");
+            }
+            else
+            {
+                return Content("0", "text/html");
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult _CashierKwikPayReportShow(CashierKwikpay ins)
+        {
+            ins.Report = RepRep.GetCashierKwikpayReport(ins.ReportActualDate, ins.ReportEmployeeID);
+            return PartialView("_CashierKwikPayReport", ins);
+        }
+        #endregion 
+
+        #region Instant Money
+        public ActionResult CashierInstantMoney()
+        {
+            ViewData["Employees"] = DDRep.GetEmployeeList();
+            ViewData["Movements"] = DDRep.GetMovementTypeList();
+            ViewData["MoneyUnit"] = DDRep.GetMoneyUnitList();
+            ViewData["ElectronicType"] = DDRep.GetElectronicFundTypeList();
+            ViewData["ReconciliationTypeID"] = DDRep.GetCashReconList();
+            ViewData["InstantMoneyType"] = DDRep.GetInstantMoneyType();
+            ViewData["FNBType"] = DDRep.GetFNBType();
+            ViewData["KwikPayType"] = DDRep.GetKwikPayType();
+
+            CashMovementMultiple ins = new CashMovementMultiple();
+            ins.Movements = new List<CashMovement>();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                ins.Movements.Add(new CashMovement());
+                ins.Movements[i - 1].MoneyUnitID = i;
+                ins.Movements[i - 1].moneyunit = MuRep.GetMoneyUnitString(i);
+                ins.MovementTypeID = 3;
+            }
+
+            CashierInstantMoney model = new CashierInstantMoney();
+            model.CashMovements = ins;
+            model.ElectronicFund = new ElectronicFund();
+            model.ElectronicFund.MovementTypeID = 3;
+            model.InstantMoney = new InstantMoney();
+
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult _InsertMultipleCashCashierInstantMoney(CashierInstantMoney ins)
+        {
+            decimal total = 0;
+
+            for (int i = 0; i < 12; i++)
+            {
+                ins.CashMovements.Movements[i].ActualDate = ins.CashMovements.ActualDate;
+                ins.CashMovements.Movements[i].MovementTypeID = ins.CashMovements.MovementTypeID;
+                ins.CashMovements.Movements[i].EmployeeID = ins.CashMovements.EmployeeID;
+                ins.CashMovements.Movements[i].Amount = ins.CashMovements.Movements[i].Count * MuRep.GetMoneyUnitValue(ins.CashMovements.Movements[i].MoneyUnitID);
+                ins.CashMovements.Movements[i] = CashRep.Insert(ins.CashMovements.Movements[i]);
+
+                if (ins.CashMovements.Movements[i].CashMovementID != 0)
+                {
+                    total = total + ins.CashMovements.Movements[i].Amount;
+                }
+            }
+
+            return Content(total.ToString(), "text/html");
+        }
+
+        [HttpPost]
+        public ActionResult _InsertElectronicFromMultiInstantMoney(CashierInstantMoney ins)
+        {
+            //ins.ElectronicFund.ActualDate = ins.ActualDate;
+            //ins.ElectronicFund.EmployeeID = ins.EmployeeID;
+            ElectronicFund ins2 = ELRep.Insert(ins.ElectronicFund);
+
+            if (ins2.ElectronicFundID != 0)
+            {
+                return Content(ins2.Total.ToString(), "text/html");
+            }
+            else
+            {
+                return Content("0", "text/html");
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult _InsertInstantMoneyFromMultiInstantMoney(CashierInstantMoney ins)
+        {
+            //ins.KiwkPay.ActualDate = ins.ActualDate;
+            //ins.KiwkPay.EmployeeID = ins.EmployeeID.ToString();
+            InstantMoney ins2 = ImRep.Insert(ins.InstantMoney);
+
+            if (ins2.InstantMoneyID != 0)
+            {
+                return Content(ins2.Amount.ToString(), "text/html");
+            }
+            else
+            {
+                return Content("0", "text/html");
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult _CashierInstantMoneyReport(CashierInstantMoney ins)
+        {
+            ins.Report = RepRep.GetCashierInstantMoneyReport(ins.ReportActualDate, ins.ReportEmployeeID);
+            return PartialView("_CashierInstantMoneyReport", ins);
+        }
+        #endregion
+
+        #region Cashier FNB
+        public ActionResult CashierFNB()
+        {
+            ViewData["Employees"] = DDRep.GetEmployeeList();
+            ViewData["Movements"] = DDRep.GetMovementTypeList();
+            ViewData["MoneyUnit"] = DDRep.GetMoneyUnitList();
+            ViewData["ElectronicType"] = DDRep.GetElectronicFundTypeList();
+            ViewData["ReconciliationTypeID"] = DDRep.GetCashReconList();
+            ViewData["InstantMoneyType"] = DDRep.GetInstantMoneyType();
+            ViewData["FNBType"] = DDRep.GetFNBType();
+            ViewData["KwikPayType"] = DDRep.GetKwikPayType();
+
+            CashMovementMultiple ins = new CashMovementMultiple();
+            ins.Movements = new List<CashMovement>();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                ins.Movements.Add(new CashMovement());
+                ins.Movements[i - 1].MoneyUnitID = i;
+                ins.Movements[i - 1].moneyunit = MuRep.GetMoneyUnitString(i);
+                ins.MovementTypeID = 4;
+            }
+
+            CashierFNB model = new CashierFNB();
+            model.CashMovements = ins;
+            model.ElectronicFund = new ElectronicFund();
+            model.ElectronicFund.MovementTypeID = 4;
+            model.FNB = new FNB();
+
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult _InsertMultipleCashCashierFNB(CashierFNB ins)
+        {
+            decimal total = 0;
+
+            for (int i = 0; i < 12; i++)
+            {
+                ins.CashMovements.Movements[i].ActualDate = ins.CashMovements.ActualDate;
+                ins.CashMovements.Movements[i].MovementTypeID = ins.CashMovements.MovementTypeID;
+                ins.CashMovements.Movements[i].EmployeeID = ins.CashMovements.EmployeeID;
+                ins.CashMovements.Movements[i].Amount = ins.CashMovements.Movements[i].Count * MuRep.GetMoneyUnitValue(ins.CashMovements.Movements[i].MoneyUnitID);
+                ins.CashMovements.Movements[i] = CashRep.Insert(ins.CashMovements.Movements[i]);
+
+                if (ins.CashMovements.Movements[i].CashMovementID != 0)
+                {
+                    total = total + ins.CashMovements.Movements[i].Amount;
+                }
+            }
+
+            return Content(total.ToString(), "text/html");
+        }
+
+        [HttpPost]
+        public ActionResult _InsertElectronicFromMultiFNB(CashierFNB ins)
+        {
+            //ins.ElectronicFund.ActualDate = ins.ActualDate;
+            //ins.ElectronicFund.EmployeeID = ins.EmployeeID;
+            ElectronicFund ins2 = ELRep.Insert(ins.ElectronicFund);
+
+            if (ins2.ElectronicFundID != 0)
+            {
+                return Content(ins2.Total.ToString(), "text/html");
+            }
+            else
+            {
+                return Content("0", "text/html");
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult _InsertFNBFromMultiFNB(CashierFNB ins)
+        {
+            //ins.KiwkPay.ActualDate = ins.ActualDate;
+            //ins.KiwkPay.EmployeeID = ins.EmployeeID.ToString();
+            FNB ins2 = FNBRep.Insert(ins.FNB);
+
+            if (ins2.FNBID != 0)
+            {
+                return Content(ins2.Amount.ToString(), "text/html");
+            }
+            else
+            {
+                return Content("0", "text/html");
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult _CashierFNBReportShow(CashierFNB ins)
+        {
+            ins.Report = RepRep.GetCashierFNBReport(ins.ReportActualDate, ins.ReportEmployeeID);
+            return PartialView("_CashierFNBReportShow", ins);
+        }
+        #endregion
     }
 }

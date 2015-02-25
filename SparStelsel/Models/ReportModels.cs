@@ -177,11 +177,84 @@ namespace SparStelsel.Models
         public int CashierId { get; set; }
         public DateTime ReportDate { get; set; }
     }
+    public class CashierKwikpayReport
+    {
+        public Cashier Cashier { get; set; }
+        public List<CashMovement> CashMovements { get; set; }
+        public List<ElectronicFund> ElectronicFunds { get; set; }
+        public List<PickUp> Pickups { get; set; }
+        public List<CashReconciliation> Recons { get; set; }
+        public List<KwikPay> Kwikpay { get; set; }
 
+        public decimal CashTotal { get; set; }
+        public decimal CardsTotal { get; set; }
+        public decimal ChequeTotal { get; set; }
+        public decimal SassaTotal { get; set; }
+        public decimal PickupTotal { get; set; }
+        public decimal FloatTotal { get; set; }
+        public decimal ExtraFloatTotal { get; set; }
+        public decimal SigmaTotal { get; set; }
+
+        public decimal ElectricityTotal { get; set; }
+        public decimal AirTimeTotal { get; set; }
+        public decimal AccountPaymentTotal { get; set; }
+        public int CashierId { get; set; }
+        public DateTime ReportDate { get; set; }
+    }
+
+    public class CashierInstantMoneyReport
+    {
+        public Cashier Cashier { get; set; }
+        public List<CashMovement> CashMovements { get; set; }
+        public List<ElectronicFund> ElectronicFunds { get; set; }
+        public List<PickUp> Pickups { get; set; }
+        public List<CashReconciliation> Recons { get; set; }
+        public List<InstantMoney> IM { get; set; }
+
+        public decimal CashTotal { get; set; }
+        public decimal CardsTotal { get; set; }
+        public decimal ChequeTotal { get; set; }
+        public decimal SassaTotal { get; set; }
+        public decimal PickupTotal { get; set; }
+        public decimal FloatTotal { get; set; }
+        public decimal ExtraFloatTotal { get; set; }
+        public decimal SigmaTotal { get; set; }
+
+      
+        public decimal RecievedTotal { get; set; }
+        public decimal PaidTotal { get; set; }
+
+        public int CashierId { get; set; }
+        public DateTime ReportDate { get; set; }
+    }
+
+    public class CashierFNBReport
+    {
+        public Cashier Cashier { get; set; }
+        public List<CashMovement> CashMovements { get; set; }
+        public List<ElectronicFund> ElectronicFunds { get; set; }
+        public List<FNB> FNBs { get; set; }
+        public List<PickUp> Pickups { get; set; }
+        public List<CashReconciliation> Recons { get; set; }
+
+        public decimal CashTotal { get; set; }
+        public decimal CardsTotal { get; set; }
+        public decimal ChequeTotal { get; set; }
+        public decimal SassaTotal { get; set; }
+        public decimal PickupTotal { get; set; }
+        public decimal FloatTotal { get; set; }
+        public decimal ExtraFloatTotal { get; set; }
+        public decimal ReferenceTotal { get; set; }
+        public decimal RefundTotal { get; set; }
+
+
+        public int CashierId { get; set; }
+        public DateTime ReportDate { get; set; }
+    }
     public class SparReconReport
     {
         public string GRVInvoiceNumber { get; set; }
-        public string GRVDate { get; set; }
+        public string StateDate { get; set; }
         public string GRVPayDate { get; set; }
         public string GRVPinkSlipNumber { get; set; }
         public string GRVExVAT { get; set; }

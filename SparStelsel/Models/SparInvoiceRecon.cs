@@ -11,7 +11,7 @@ namespace SparStelsel.Models
     public class SparInvoiceRecon
     {
         public int SparReconId { get; set; }
-        public DateTime GRVDate { get; set; }
+        public DateTime StateDate { get; set; }
         public int SupplierId { get; set; }
         public string InvoiceNumber { get; set; }
         public decimal Amount { get; set; }

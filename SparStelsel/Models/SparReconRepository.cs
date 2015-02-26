@@ -31,9 +31,9 @@ namespace SparStelsel.Models
             SqlCommand cmdI;
 
             //...SQL Commands...
-            cmdI = new SqlCommand("select sr.*, COALESCE(g.IncludingVat,0) as GRVAmount, COALESCE(g.GRVTypeID,0) as GRVGRVType, COALESCE(g.InvoiceNumber,'No') as GRVInvoice "
+            cmdI = new SqlCommand("select sr.*, COALESCE(g.InvoiceDate,0) as StateDate, COALESCE(g.IncludingVat,0) as GRVAmount, COALESCE(g.GRVTypeID,0) as GRVGRVType, COALESCE(g.InvoiceNumber,'No') as GRVInvoice "
                                     + " from t_SparRecon sr left join t_GRVList g on sr.InvoiceNumber = g.InvoiceNumber and sr.GRVTypeId = g.GRVTypeID "
-            + " where sr.Removed = 0 order by sr.StateDate DESC, sr.SparReconId DESC", con);
+            + " where sr.Removed = 0 order by g.StateDate DESC, sr.SparReconId DESC", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -251,7 +251,7 @@ namespace SparStelsel.Models
                 //...Insert Record...
                 cmdI.CommandText = StoredProcedures.SparReconInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                cmdI.Parameters.AddWithValue("@StateDate", ins.StateDate);              // datetime
+                cmdI.Parameters.AddWithValue("@GRVDate", ins.StateDate);              // datetime
 		        cmdI.Parameters.AddWithValue("@SupplierId", ins.SupplierId);        // int
 		        cmdI.Parameters.AddWithValue("@InvoiceNumber", ins.InvoiceNumber);  // varchar(100)
 		        cmdI.Parameters.AddWithValue("@Amount", ins.Amount);                //  decimal(18,2)
@@ -303,7 +303,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.SparReconUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@SparReconId", ins.SparReconId);      // int
-            cmdI.Parameters.AddWithValue("@StateDate", ins.StateDate);              // datetime
+            cmdI.Parameters.AddWithValue("@GRVDate", ins.StateDate);              // datetime
             cmdI.Parameters.AddWithValue("@SupplierId", ins.SupplierId);        // int
             cmdI.Parameters.AddWithValue("@InvoiceNumber", ins.InvoiceNumber);  // varchar(100)
             cmdI.Parameters.AddWithValue("@Amount", ins.Amount);                //  decimal(18,2)
@@ -379,7 +379,7 @@ namespace SparStelsel.Models
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
             SqlCommand cmdI = new SqlCommand("Select g.InvoiceNumber, g.GRVTypeID from t_GRVList g left join t_SparRecon sr on g.InvoiceNumber=sr.InvoiceNumber and g.GRVTypeID = sr.GRVTypeId "
-            + " where g.StateDate = '" + date.ToShortDateString() + "' and g.SupplierID = " + SupplierId 
+            + " where g.InvoiceDate = '" + date.ToShortDateString() + "' and g.SupplierID = " + SupplierId 
             + " and COALESCE(sr.SparReconId,0) = 0 and g.Removed =0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();

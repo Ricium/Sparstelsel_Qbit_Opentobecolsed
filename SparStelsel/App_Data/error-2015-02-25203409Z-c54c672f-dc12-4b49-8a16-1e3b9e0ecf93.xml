@@ -1,0 +1,213 @@
+﻿<error errorId="c54c672f-dc12-4b49-8a16-1e3b9e0ecf93" application="/LM/W3SVC/4/ROOT" host="RM-LAPTOP" type="System.NullReferenceException" message="Object reference not set to an instance of an object." source="App_Web_dnqe4zkb" detail="System.Web.HttpException (0x80004005): Error executing child request for handler 'System.Web.Mvc.HttpHandlerUtil+ServerExecuteHttpHandlerWrapper'. ---&gt; System.Web.HttpUnhandledException (0x80004005): Exception of type 'System.Web.HttpUnhandledException' was thrown. ---&gt; System.NullReferenceException: Object reference not set to an instance of an object.&#xD;&#xA;   at ASP.views_shared__mainmenu_ascx.&lt;&gt;c__DisplayClass13.&lt;__Render__control1&gt;b__0(MenuItemFactory items) in c:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\Views\Shared\_MainMenu.ascx:line 159&#xD;&#xA;   at Telerik.Web.Mvc.UI.MenuBuilder.Items(Action`1 addAction)&#xD;&#xA;   at ASP.views_shared__mainmenu_ascx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) in c:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\Views\Shared\_MainMenu.ascx:line 10&#xD;&#xA;   at System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)&#xD;&#xA;   at System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)&#xD;&#xA;   at System.Web.UI.Control.Render(HtmlTextWriter writer)&#xD;&#xA;   at System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)&#xD;&#xA;   at System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)&#xD;&#xA;   at System.Web.UI.Control.RenderControl(HtmlTextWriter writer)&#xD;&#xA;   at System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)&#xD;&#xA;   at System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)&#xD;&#xA;   at System.Web.UI.Page.Render(HtmlTextWriter writer)&#xD;&#xA;   at System.Web.Mvc.ViewPage.Render(HtmlTextWriter writer)&#xD;&#xA;   at System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)&#xD;&#xA;   at System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)&#xD;&#xA;   at System.Web.UI.Control.RenderControl(HtmlTextWriter writer)&#xD;&#xA;   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)&#xD;&#xA;   at System.Web.UI.Page.HandleError(Exception e)&#xD;&#xA;   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)&#xD;&#xA;   at System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)&#xD;&#xA;   at System.Web.UI.Page.ProcessRequest()&#xD;&#xA;   at System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)&#xD;&#xA;   at System.Web.UI.Page.ProcessRequest(HttpContext context)&#xD;&#xA;   at System.Web.Mvc.ViewPage.ProcessRequest(HttpContext context)&#xD;&#xA;   at System.Web.Mvc.ViewUserControl.ViewUserControlContainerPage.ProcessRequest(HttpContext context)&#xD;&#xA;   at System.Web.Mvc.ViewPage.RenderView(ViewContext viewContext)&#xD;&#xA;   at System.Web.Mvc.ViewUserControl.RenderViewAndRestoreContentType(ViewPage containerPage, ViewContext viewContext)&#xD;&#xA;   at System.Web.Mvc.ViewUserControl.RenderView(ViewContext viewContext)&#xD;&#xA;   at System.Web.Mvc.WebFormView.RenderViewUserControl(ViewContext context, ViewUserControl control)&#xD;&#xA;   at System.Web.Mvc.WebFormView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)&#xD;&#xA;   at System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)&#xD;&#xA;   at System.Web.Mvc.HtmlHelper.RenderPartialInternal(String partialViewName, ViewDataDictionary viewData, Object model, TextWriter writer, ViewEngineCollection viewEngineCollection)&#xD;&#xA;   at System.Web.Mvc.Html.RenderPartialExtensions.RenderPartial(HtmlHelper htmlHelper, String partialViewName, Object model)&#xD;&#xA;   at ASP.views_shared_site_master.__Render__control1(HtmlTextWriter __w, Control parameterContainer) in c:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\Views\Shared\Site.Master:line 25&#xD;&#xA;   at System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)&#xD;&#xA;   at System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)&#xD;&#xA;   at System.Web.UI.Control.Render(HtmlTextWriter writer)&#xD;&#xA;   at System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)&#xD;&#xA;   at System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)&#xD;&#xA;   at System.Web.UI.Control.RenderControl(HtmlTextWriter writer)&#xD;&#xA;   at System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)&#xD;&#xA;   at System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)&#xD;&#xA;   at System.Web.UI.Page.Render(HtmlTextWriter writer)&#xD;&#xA;   at System.Web.Mvc.ViewPage.Render(HtmlTextWriter writer)&#xD;&#xA;   at System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)&#xD;&#xA;   at System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)&#xD;&#xA;   at System.Web.UI.Control.RenderControl(HtmlTextWriter writer)&#xD;&#xA;   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)&#xD;&#xA;   at System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)&#xD;&#xA;   at System.Web.UI.Page.ProcessRequest()&#xD;&#xA;   at System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)&#xD;&#xA;   at System.Web.UI.Page.ProcessRequest(HttpContext context)&#xD;&#xA;   at System.Web.Mvc.ViewPage.ProcessRequest(HttpContext context)&#xD;&#xA;   at ASP.views_sparrecon_sparinvoicerecon_aspx.ProcessRequest(HttpContext context) in c:\Users\RM\AppData\Local\Temp\Temporary ASP.NET Files\vs\917af7b4\e2e5e938\App_Web_cxf0fu5n.0.cs:line 0&#xD;&#xA;   at System.Web.Mvc.HttpHandlerUtil.ServerExecuteHttpHandlerWrapper.&lt;&gt;c__DisplayClass1.&lt;ProcessRequest&gt;b__0()&#xD;&#xA;   at System.Web.Mvc.HttpHandlerUtil.ServerExecuteHttpHandlerWrapper.&lt;&gt;c__DisplayClass4.&lt;Wrap&gt;b__3()&#xD;&#xA;   at System.Web.Mvc.HttpHandlerUtil.ServerExecuteHttpHandlerWrapper.Wrap[TResult](Func`1 func)&#xD;&#xA;   at System.Web.Mvc.HttpHandlerUtil.ServerExecuteHttpHandlerWrapper.Wrap(Action action)&#xD;&#xA;   at System.Web.Mvc.HttpHandlerUtil.ServerExecuteHttpHandlerWrapper.ProcessRequest(HttpContext context)&#xD;&#xA;   at System.Web.HttpServerUtility.ExecuteInternal(IHttpHandler handler, TextWriter writer, Boolean preserveForm, Boolean setPreviousPage, VirtualPath path, VirtualPath filePath, String physPath, Exception error, String queryStringOverride)&#xD;&#xA;   at System.Web.HttpServerUtility.ExecuteInternal(IHttpHandler handler, TextWriter writer, Boolean preserveForm, Boolean setPreviousPage, VirtualPath path, VirtualPath filePath, String physPath, Exception error, String queryStringOverride)&#xD;&#xA;   at System.Web.HttpServerUtility.Execute(IHttpHandler handler, TextWriter writer, Boolean preserveForm, Boolean setPreviousPage)&#xD;&#xA;   at System.Web.HttpServerUtility.Execute(IHttpHandler handler, TextWriter writer, Boolean preserveForm)&#xD;&#xA;   at System.Web.HttpServerUtilityWrapper.Execute(IHttpHandler handler, TextWriter writer, Boolean preserveForm)&#xD;&#xA;   at System.Web.Mvc.ViewPage.RenderView(ViewContext viewContext)&#xD;&#xA;   at System.Web.Mvc.WebFormView.RenderViewPage(ViewContext context, ViewPage page)&#xD;&#xA;   at System.Web.Mvc.WebFormView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)&#xD;&#xA;   at System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)&#xD;&#xA;   at System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)&#xD;&#xA;   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)&#xD;&#xA;   at System.Web.Mvc.ControllerActionInvoker.&lt;&gt;c__DisplayClass1a.&lt;InvokeActionResultWithFilters&gt;b__17()&#xD;&#xA;   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilter(IResultFilter filter, ResultExecutingContext preContext, Func`1 continuation)&#xD;&#xA;   at System.Web.Mvc.ControllerActionInvoker.&lt;&gt;c__DisplayClass1a.&lt;&gt;c__DisplayClass1c.&lt;InvokeActionResultWithFilters&gt;b__19()&#xD;&#xA;   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass25.&lt;&gt;c__DisplayClass2a.&lt;BeginInvokeAction&gt;b__20()&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass25.&lt;BeginInvokeAction&gt;b__22(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Controller.&lt;&gt;c__DisplayClass1d.&lt;BeginExecuteCore&gt;b__18(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.&lt;&gt;c__DisplayClass4.&lt;MakeVoidDelegate&gt;b__3(IAsyncResult ar)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.End(IAsyncResult asyncResult, Object tag)&#xD;&#xA;   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.&lt;&gt;c__DisplayClass4.&lt;MakeVoidDelegate&gt;b__3(IAsyncResult ar)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.End(IAsyncResult asyncResult, Object tag)&#xD;&#xA;   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.&lt;&gt;c__DisplayClass8.&lt;BeginProcessRequest&gt;b__3(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.&lt;&gt;c__DisplayClass4.&lt;MakeVoidDelegate&gt;b__3(IAsyncResult ar)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.End(IAsyncResult asyncResult, Object tag)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)&#xD;&#xA;   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()&#xD;&#xA;   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)" user="sparadmin" time="2015-02-25T20:34:09.4175974Z" statusCode="500" webHostHtmlMessage="&lt;!DOCTYPE html&gt;&#xD;&#xA;&lt;html&gt;&#xD;&#xA;    &lt;head&gt;&#xD;&#xA;        &lt;title&gt;Object reference not set to an instance of an object.&lt;/title&gt;&#xD;&#xA;        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot; /&gt;&#xD;&#xA;        &lt;style&gt;&#xD;&#xA;         body {font-family:&quot;Verdana&quot;;font-weight:normal;font-size: .7em;color:black;} &#xD;&#xA;         p {font-family:&quot;Verdana&quot;;font-weight:normal;color:black;margin-top: -5px}&#xD;&#xA;         b {font-family:&quot;Verdana&quot;;font-weight:bold;color:black;margin-top: -5px}&#xD;&#xA;         H1 { font-family:&quot;Verdana&quot;;font-weight:normal;font-size:18pt;color:red }&#xD;&#xA;         H2 { font-family:&quot;Verdana&quot;;font-weight:normal;font-size:14pt;color:maroon }&#xD;&#xA;         pre {font-family:&quot;Consolas&quot;,&quot;Lucida Console&quot;,Monospace;font-size:11pt;margin:0;padding:0.5em;line-height:14pt}&#xD;&#xA;         .marker {font-weight: bold; color: black;text-decoration: none;}&#xD;&#xA;         .version {color: gray;}&#xD;&#xA;         .error {margin-bottom: 10px;}&#xD;&#xA;         .expandable { text-decoration:underline; font-weight:bold; color:navy; cursor:hand; }&#xD;&#xA;         @media screen and (max-width: 639px) {&#xD;&#xA;          pre { width: 440px; overflow: auto; white-space: pre-wrap; word-wrap: break-word; }&#xD;&#xA;         }&#xD;&#xA;         @media screen and (max-width: 479px) {&#xD;&#xA;          pre { width: 280px; }&#xD;&#xA;         }&#xD;&#xA;        &lt;/style&gt;&#xD;&#xA;    &lt;/head&gt;&#xD;&#xA;&#xD;&#xA;    &lt;body bgcolor=&quot;white&quot;&gt;&#xD;&#xA;&#xD;&#xA;            &lt;span&gt;&lt;H1&gt;Server Error in '/' Application.&lt;hr width=100% size=1 color=silver&gt;&lt;/H1&gt;&#xD;&#xA;&#xD;&#xA;            &lt;h2&gt; &lt;i&gt;Object reference not set to an instance of an object.&lt;/i&gt; &lt;/h2&gt;&lt;/span&gt;&#xD;&#xA;&#xD;&#xA;            &lt;font face=&quot;Arial, Helvetica, Geneva, SunSans-Regular, sans-serif &quot;&gt;&#xD;&#xA;&#xD;&#xA;            &lt;b&gt; Description: &lt;/b&gt;An unhandled exception occurred during the execution of the current web request. Please review the stack trace for more information about the error and where it originated in the code.&#xD;&#xA;&#xD;&#xA;            &lt;br&gt;&lt;br&gt;&#xD;&#xA;&#xD;&#xA;            &lt;b&gt; Exception Details: &lt;/b&gt;System.NullReferenceException: Object reference not set to an instance of an object.&lt;br&gt;&lt;br&gt;&#xD;&#xA;&#xD;&#xA;            &lt;b&gt;Source Error:&lt;/b&gt; &lt;br&gt;&lt;br&gt;&#xD;&#xA;&#xD;&#xA;            &lt;table width=100% bgcolor=&quot;#ffffcc&quot;&gt;&#xD;&#xA;               &lt;tr&gt;&#xD;&#xA;                  &lt;td&gt;&#xD;&#xA;                      &lt;code&gt;&lt;pre&gt;&#xD;&#xA;&#xD;&#xA;Line 157:                });&#xD;&#xA;Line 158:&#xD;&#xA;&lt;font color=red&gt;Line 159:            items.Add()&#xD;&#xA;&lt;/font&gt;Line 160:                 .Text(&amp;quot;Log off: &amp;quot; + HttpContext.Current.Session[&amp;quot;Username&amp;quot;].ToString())&#xD;&#xA;Line 161:                 .Url(&amp;quot;~/Account/Logoff&amp;quot;); &lt;/pre&gt;&lt;/code&gt;&#xD;&#xA;&#xD;&#xA;                  &lt;/td&gt;&#xD;&#xA;               &lt;/tr&gt;&#xD;&#xA;            &lt;/table&gt;&#xD;&#xA;&#xD;&#xA;            &lt;br&gt;&#xD;&#xA;&#xD;&#xA;            &lt;b&gt; Source File: &lt;/b&gt; c:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\Views\Shared\_MainMenu.ascx&lt;b&gt; &amp;nbsp;&amp;nbsp; Line: &lt;/b&gt; 159&#xD;&#xA;            &lt;br&gt;&lt;br&gt;&#xD;&#xA;&#xD;&#xA;            &lt;b&gt;Stack Trace:&lt;/b&gt; &lt;br&gt;&lt;br&gt;&#xD;&#xA;&#xD;&#xA;            &lt;table width=100% bgcolor=&quot;#ffffcc&quot;&gt;&#xD;&#xA;               &lt;tr&gt;&#xD;&#xA;                  &lt;td&gt;&#xD;&#xA;                      &lt;code&gt;&lt;pre&gt;&#xD;&#xA;&#xD;&#xA;[NullReferenceException: Object reference not set to an instance of an object.]&amp;#13;&amp;#10;   ASP.&amp;lt;&amp;gt;c__DisplayClass13.&amp;lt;__Render__control1&amp;gt;b__0(MenuItemFactory items) in c:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\Views\Shared\_MainMenu.ascx:159&amp;#13;&amp;#10;   Telerik.Web.Mvc.UI.MenuBuilder.Items(Action`1 addAction) +141&amp;#13;&amp;#10;   ASP.views_shared__mainmenu_ascx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) in c:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\Views\Shared\_MainMenu.ascx:10&amp;#13;&amp;#10;   System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children) +268&amp;#13;&amp;#10;   System.Web.UI.Control.RenderChildren(HtmlTextWriter writer) +8&amp;#13;&amp;#10;   System.Web.UI.Control.Render(HtmlTextWriter writer) +10&amp;#13;&amp;#10;   System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter) +57&amp;#13;&amp;#10;   System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter) +100&amp;#13;&amp;#10;   System.Web.UI.Control.RenderControl(HtmlTextWriter writer) +25&amp;#13;&amp;#10;   System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children) +128&amp;#13;&amp;#10;   System.Web.UI.Control.RenderChildren(HtmlTextWriter writer) +8&amp;#13;&amp;#10;   System.Web.UI.Page.Render(HtmlTextWriter writer) +29&amp;#13;&amp;#10;   System.Web.Mvc.ViewPage.Render(HtmlTextWriter writer) +53&amp;#13;&amp;#10;   System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter) +57&amp;#13;&amp;#10;   System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter) +100&amp;#13;&amp;#10;   System.Web.UI.Control.RenderControl(HtmlTextWriter writer) +25&amp;#13;&amp;#10;   System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint) +1386&amp;#13;&amp;#10;&lt;/pre&gt;&lt;/code&gt;&#xD;&#xA;&#xD;&#xA;                  &lt;/td&gt;&#xD;&#xA;               &lt;/tr&gt;&#xD;&#xA;            &lt;/table&gt;&#xD;&#xA;&#xD;&#xA;            &lt;br&gt;&#xD;&#xA;&#xD;&#xA;    &lt;/body&gt;&#xD;&#xA;&lt;/html&gt;&#xD;&#xA;">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CACHE_CONTROL:max-age=0&#xD;&#xA;HTTP_CONNECTION:keep-alive&#xD;&#xA;HTTP_ACCEPT:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip, deflate, sdch&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:en-US,en;q=0.8,af;q=0.6,it;q=0.4&#xD;&#xA;HTTP_COOKIE:_ga=GA1.1.1594863309.1406212976; ASP.NET_SessionId=tnmil4s5vxsztrcu1jowzj5l; Invoice=658773; Pink=; Supplier=; Branch=%25; Surname=; IDNumber=; GroupRef=; PolicyNumber=; Group=203; Gender=%25; PayingStatus=0; Month=0; Year=%25; Status=%25; .ASPXAUTH=955EF400D6F9059EA8E1A3348BD838CCB5E4626D496828C12FD5703CE21DB0C527FA2D02C77F37F5D48AD03E37B106249E68FA3D41AD0E77B96461AF1CF2C4867D644BCC9CBB236520716C9134D54E2905B07AAB6E0F3691B964FB42B7ED24DF&#xD;&#xA;HTTP_HOST:localhost:59787&#xD;&#xA;HTTP_REFERER:http://localhost:59787/Home/Home&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Cache-Control: max-age=0&#xD;&#xA;Connection: keep-alive&#xD;&#xA;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#xD;&#xA;Accept-Encoding: gzip, deflate, sdch&#xD;&#xA;Accept-Language: en-US,en;q=0.8,af;q=0.6,it;q=0.4&#xD;&#xA;Cookie: _ga=GA1.1.1594863309.1406212976; ASP.NET_SessionId=tnmil4s5vxsztrcu1jowzj5l; Invoice=658773; Pink=; Supplier=; Branch=%25; Surname=; IDNumber=; GroupRef=; PolicyNumber=; Group=203; Gender=%25; PayingStatus=0; Month=0; Year=%25; Status=%25; .ASPXAUTH=955EF400D6F9059EA8E1A3348BD838CCB5E4626D496828C12FD5703CE21DB0C527FA2D02C77F37F5D48AD03E37B106249E68FA3D41AD0E77B96461AF1CF2C4867D644BCC9CBB236520716C9134D54E2905B07AAB6E0F3691B964FB42B7ED24DF&#xD;&#xA;Host: localhost:59787&#xD;&#xA;Referer: http://localhost:59787/Home/Home&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="/LM/W3SVC/4/ROOT" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="Forms" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="sparadmin" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="sparadmin" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="sparadmin" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="0" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="CGI/1.1" />
+    </item>
+    <item name="HTTPS">
+      <value string="off" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="4" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="/LM/W3SVC/4" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/SparRecon/SparInvoiceRecon" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\SparRecon\SparInvoiceRecon" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="56887" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="GET" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/SparRecon/SparInvoiceRecon" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="59787" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="Microsoft-IIS/8.0" />
+    </item>
+    <item name="URL">
+      <value string="/SparRecon/SparInvoiceRecon" />
+    </item>
+    <item name="HTTP_CACHE_CONTROL">
+      <value string="max-age=0" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="keep-alive" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip, deflate, sdch" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="en-US,en;q=0.8,af;q=0.6,it;q=0.4" />
+    </item>
+    <item name="HTTP_COOKIE">
+      <value string="_ga=GA1.1.1594863309.1406212976; ASP.NET_SessionId=tnmil4s5vxsztrcu1jowzj5l; Invoice=658773; Pink=; Supplier=; Branch=%25; Surname=; IDNumber=; GroupRef=; PolicyNumber=; Group=203; Gender=%25; PayingStatus=0; Month=0; Year=%25; Status=%25; .ASPXAUTH=955EF400D6F9059EA8E1A3348BD838CCB5E4626D496828C12FD5703CE21DB0C527FA2D02C77F37F5D48AD03E37B106249E68FA3D41AD0E77B96461AF1CF2C4867D644BCC9CBB236520716C9134D54E2905B07AAB6E0F3691B964FB42B7ED24DF" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:59787" />
+    </item>
+    <item name="HTTP_REFERER">
+      <value string="http://localhost:59787/Home/Home" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36" />
+    </item>
+  </serverVariables>
+  <cookies>
+    <item name="_ga">
+      <value string="GA1.1.1594863309.1406212976" />
+    </item>
+    <item name="ASP.NET_SessionId">
+      <value string="tnmil4s5vxsztrcu1jowzj5l" />
+    </item>
+    <item name="Invoice">
+      <value string="658773" />
+    </item>
+    <item name="Pink">
+      <value string="" />
+    </item>
+    <item name="Supplier">
+      <value string="" />
+    </item>
+    <item name="Branch">
+      <value string="%25" />
+    </item>
+    <item name="Surname">
+      <value string="" />
+    </item>
+    <item name="IDNumber">
+      <value string="" />
+    </item>
+    <item name="GroupRef">
+      <value string="" />
+    </item>
+    <item name="PolicyNumber">
+      <value string="" />
+    </item>
+    <item name="Group">
+      <value string="203" />
+    </item>
+    <item name="Gender">
+      <value string="%25" />
+    </item>
+    <item name="PayingStatus">
+      <value string="0" />
+    </item>
+    <item name="Month">
+      <value string="0" />
+    </item>
+    <item name="Year">
+      <value string="%25" />
+    </item>
+    <item name="Status">
+      <value string="%25" />
+    </item>
+    <item name=".ASPXAUTH">
+      <value string="955EF400D6F9059EA8E1A3348BD838CCB5E4626D496828C12FD5703CE21DB0C527FA2D02C77F37F5D48AD03E37B106249E68FA3D41AD0E77B96461AF1CF2C4867D644BCC9CBB236520716C9134D54E2905B07AAB6E0F3691B964FB42B7ED24DF" />
+    </item>
+  </cookies>
+</error>

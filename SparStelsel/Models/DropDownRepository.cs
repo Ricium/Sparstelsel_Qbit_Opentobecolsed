@@ -1032,7 +1032,7 @@ namespace SparStelsel.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("Select g.IncludingVat from t_GRVList g where g.StateDate = '" + date.ToShortDateString() + "' and g.SupplierID = " 
+            SqlCommand cmdI = new SqlCommand("Select g.IncludingVat from t_GRVList g where g.InvoiceDate = '" + date.ToShortDateString() + "' and g.SupplierID = " 
                 + SupplierId + " and g.InvoiceNumber = '" + InvoiceNumber + "' and g.GRVTypeID = " + GRVorCLM, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();

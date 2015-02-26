@@ -159,9 +159,7 @@
             items.Add()
                  .Text("Log off: " + HttpContext.Current.Session["Username"].ToString())
                  .Url("~/Account/Logoff"); 
-            
-            items.Add()
-               .Text("Test").Url("~/Money/MultiElectronic");         
+                 
 
         }).Render();
  %>

@@ -756,7 +756,7 @@ namespace SparStelsel.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT * FROM Company WHERE CompanyId IN ("+HttpContext.Current.Session["Companies"].ToString()+")", con);
+            SqlCommand cmdI = new SqlCommand("SELECT * FROM Company WHERE CompanyId IN ('"+HttpContext.Current.Session["Companies"].ToString()+"')", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 
@@ -1032,7 +1032,7 @@ namespace SparStelsel.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("Select g.IncludingVat from t_GRVList g where g.InvoiceDate = '" + date.ToShortDateString() + "' and g.SupplierID = " 
+            SqlCommand cmdI = new SqlCommand("Select g.IncludingVat from t_GRVList g where g.SupplierID = " 
                 + SupplierId + " and g.InvoiceNumber = '" + InvoiceNumber + "' and g.GRVTypeID = " + GRVorCLM, con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();

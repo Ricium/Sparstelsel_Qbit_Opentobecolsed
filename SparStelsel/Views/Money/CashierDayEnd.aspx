@@ -129,6 +129,7 @@
                 var total = parseFloat(data);
                 $('#SigmaSelector').hide();
                 $('#SigmaCompleted').show();
+                $('#DoneSelect').show();
                 $('#SigmaContainer').append("Sigma Total: " + total.formatMoney(2, "R ", " ", "."));
                 DisableCashierSelect();
             });
@@ -325,101 +326,36 @@
                         <%: Html.ValidationMessageFor(m => m.SigmaSale.Amount) %>
                     </td>
                 </tr>
+                 <tr>
+                    <td>
+                        <%: Html.LabelFor(m => m.SigmaSale.Cash) %>
+                    </td>
+                    <td>
+                        <%: Html.Telerik().CurrencyTextBoxFor(m => m.SigmaSale.Cash) %>
+                        <%: Html.ValidationMessageFor(m => m.SigmaSale.Cash) %>
+                    </td>
+                </tr>
+                                 <tr>
+                    <td>
+                        <%: Html.LabelFor(m => m.SigmaSale.EFT) %>
+                    </td>
+                    <td>
+                        <%: Html.Telerik().CurrencyTextBoxFor(m => m.SigmaSale.EFT) %>
+                        <%: Html.ValidationMessageFor(m => m.SigmaSale.EFT) %>
+                    </td>
+                </tr>
             </table>
-        </form>
+        </form><table>
+                        <tr><td>       <div id="DoneSelect" style="display: none">
+                    <button id="DoneButton" onclick="GotoReport()" class="t-button">Go To Report</button>
+                </div></td></tr></table>    
         <button id="SubmitSigma" onclick="InsertSigma()" class="t-button">Save</button>
     </div>
     <div id="SigmaContainer" style="font-size: large"></div> 
+
                     <% }).Enabled(false);
 
-                      tab.Add().Text("Electronic Funds").Content(() =>
-                          { %>
-    <table>
-        <tr>
-            <td>
-                <form id="FundForm">
-                    <table>
-                        <tr>
-                            <td>
-                                <%: Html.HiddenFor(m => m.ElectronicFund.ElectronicFundID)%>
-                                <%: Html.HiddenFor(m => m.ElectronicFund.ActualDate) %>
-                                <%: Html.HiddenFor(m => m.ElectronicFund.EmployeeID) %>                                
-                                <%: Html.HiddenFor(m => m.ElectronicFund.MovementTypeID) %>
-                                <input type="hidden" value="0" id="col" />
-                                <input type="hidden" value="0" id="Count" />
-                                <input type="hidden" value="0" id="BigTotal" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <%: Html.LabelFor(m => m.ElectronicFund.ElectronicTypeID)%>
-                            </td>
-                            <td>
-                                <%: Html.Telerik().DropDownListFor(m => m.ElectronicFund.ElectronicTypeID).BindTo((IEnumerable<SelectListItem>)ViewData["ElectronicType"]).HtmlAttributes(new { style = "width: 250px" })%>
-                                <%: Html.ValidationMessageFor(model => model.ElectronicFund.ElectronicTypeID)%>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <%: Html.LabelFor(m => m.ElectronicFund.Total)%>
-                            </td>
-                            <td>
-                                <%: Html.TextBoxFor(m => m.ElectronicFund.Total, new { onkeyup = "InsertFunds(event)" })%>
-                                <%: Html.ValidationMessageFor(m => m.ElectronicFund.Total)%>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-                <button type='button' class='t-button' id='InsertFund' onclick='buttonInsertFunds()'>Insert</button>
-            </td>
-            <td>
-                <div id="InsertedContent">
-                    <table>
-                        <tr>
-                            <td id="col1"></td>
-                            <td id="col2"></td>
-                            <td id="col3"></td>
-                            <td id="col4"></td>
-                            <td id="col5"></td>
-                            <td id="col6"></td>
-                            <td id="col7"></td>
-                            <td id="col8"></td>
-                            <td id="col9"></td>
-                            <td id="col10"></td>
-                            <td id="col11"></td>
-                            <td id="col12"></td>
-                            <td id="col13"></td>
-                            <td id="col14"></td>
-                            <td id="col15"></td>
-                        </tr>
-                    </table>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <div id="CountValue" style="font-size: large"></div>
-                <div id="BigTotalValue" style="font-size: large"></div>
-            </td>
-            <td>
-                <div id="DoneSelect" style="display: none">
-                    <button id="DoneButton" onclick="GotoReport()" class="t-button">Go To Report</button>
-                </div>
-            </td>
-        </tr>
-    </table>
-                    <%
-                    }).Enabled(false);
-
-                tab.Add().Text("Report").Content(() =>
-                    {
-                        %> 
-                            <form id="ReportForm">
-                                <%: Html.HiddenFor(m => m.ReportActualDate) %>
-                                <%: Html.HiddenFor(m => m.ReportEmployeeID) %>
-                            </form>
-                            <div id="Report"></div> <%
-                    }).Enabled(false);
+                     
             })
             .SelectedIndex(0).Effects(e => e.Expand())
             .Render();

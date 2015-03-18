@@ -19,13 +19,13 @@
                     {
                         Html.RenderPartial("_Cash");
                     });
-               tabstrip.Add()
-                   .HtmlAttributes(new { id = "ElectronicFundTab" })
-                   .Text("ElectronicFunds")
-                   .Content(() =>
-                   {
-                       Html.RenderPartial("_ElectronicFund");
-                   });
+               //tabstrip.Add()
+               //    .HtmlAttributes(new { id = "ElectronicFundTab" })
+               //    .Text("ElectronicFunds")
+               //    .Content(() =>
+               //    {
+               //        Html.RenderPartial("_ElectronicFund");
+               //    });
 
                tabstrip.Add()
                   .HtmlAttributes(new { id = "PickUpTab" })

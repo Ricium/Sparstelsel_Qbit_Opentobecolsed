@@ -568,6 +568,34 @@ namespace SparStelsel.Models
             return obj;
         }
 
+        public List<SelectListItem> GetElectronicFundTypeListC()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT ElectronicTypeID,ElectronicType FROM l_ElectronicType where ElectronicTypeID!='1' and Removed=0", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["ElectronicType"].ToString();
+                    result.Value = drI["ElectronicTypeID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
         public List<SelectListItem> GetCashReconList()
         {
             List<SelectListItem> obj = new List<SelectListItem>();
@@ -722,6 +750,33 @@ namespace SparStelsel.Models
             return obj;
         }
 
+        public List<SelectListItem> GetInstantMoneyTypeC()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT InstantMoneyTypeID,InstantMoneyType FROM l_InstantMoneyType where InstantMoneyTypeID !='1' and  Removed=0", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["InstantMoneyType"].ToString();
+                    result.Value = drI["InstantMoneyTypeID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
         public List<SelectListItem> GetKwikPayType()
         {
             List<SelectListItem> obj = new List<SelectListItem>();

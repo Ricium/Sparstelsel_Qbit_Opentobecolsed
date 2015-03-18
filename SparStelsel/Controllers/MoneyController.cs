@@ -42,6 +42,10 @@ namespace SparStelsel.Controllers
             ViewData["InstantMoneyType"] = DDRep.GetInstantMoneyType();
             ViewData["FNBType"] = DDRep.GetFNBType();
             ViewData["KwikPayType"] = DDRep.GetKwikPayType();
+            ViewData["TransitType"] = DDRep.GetTransitType();
+            ViewData["CoinMovementType"] = DDRep.GetCoinMovementType();
+            ViewData["MoneyUnit"] = DDRep.GetMoneyUnitList();
+            ViewData["CashboxType"] = DDRep.GetCashboxType();
             return View();
         }
 
@@ -69,6 +73,7 @@ namespace SparStelsel.Controllers
         {
             ViewData["Employees"] = DDRep.GetEmployeeList();
             ViewData["Movements"] = DDRep.GetMovementTypeList();
+            ViewData["TransitType"] = DDRep.GetTransitType();
 
             CashMovementMultiple ins = new CashMovementMultiple();
             ins.Movements = new List<CashMovement>();
@@ -639,9 +644,9 @@ namespace SparStelsel.Controllers
             ViewData["Employees"] = DDRep.GetEmployeeList();
             ViewData["Movements"] = DDRep.GetMovementTypeList();
             ViewData["MoneyUnit"] = DDRep.GetMoneyUnitList();
-            ViewData["ElectronicType"] = DDRep.GetElectronicFundTypeList();
+            ViewData["ElectronicType"] = DDRep.GetElectronicFundTypeListC();
             ViewData["ReconciliationTypeID"] = DDRep.GetCashReconList();
-            ViewData["InstantMoneyType"] = DDRep.GetInstantMoneyType();
+            ViewData["InstantMoneyType"] = DDRep.GetInstantMoneyTypeC();
             ViewData["FNBType"] = DDRep.GetFNBType();
             ViewData["KwikPayType"] = DDRep.GetKwikPayType();
 
@@ -738,9 +743,9 @@ namespace SparStelsel.Controllers
             ViewData["Employees"] = DDRep.GetEmployeeList();
             ViewData["Movements"] = DDRep.GetMovementTypeList();
             ViewData["MoneyUnit"] = DDRep.GetMoneyUnitList();
-            ViewData["ElectronicType"] = DDRep.GetElectronicFundTypeList();
+            ViewData["ElectronicType"] = DDRep.GetElectronicFundTypeListC();
             ViewData["ReconciliationTypeID"] = DDRep.GetCashReconList();
-            ViewData["InstantMoneyType"] = DDRep.GetInstantMoneyType();
+            ViewData["InstantMoneyType"] = DDRep.GetInstantMoneyTypeC();
             ViewData["FNBType"] = DDRep.GetFNBType();
             ViewData["KwikPayType"] = DDRep.GetKwikPayType();
 
@@ -837,7 +842,7 @@ namespace SparStelsel.Controllers
             ViewData["Employees"] = DDRep.GetEmployeeList();
             ViewData["Movements"] = DDRep.GetMovementTypeList();
             ViewData["MoneyUnit"] = DDRep.GetMoneyUnitList();
-            ViewData["ElectronicType"] = DDRep.GetElectronicFundTypeList();
+            ViewData["ElectronicType"] = DDRep.GetElectronicFundTypeListC();
             ViewData["ReconciliationTypeID"] = DDRep.GetCashReconList();
             ViewData["InstantMoneyType"] = DDRep.GetInstantMoneyType();
             ViewData["FNBType"] = DDRep.GetFNBType();

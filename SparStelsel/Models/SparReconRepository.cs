@@ -44,7 +44,7 @@ namespace SparStelsel.Models
                 {
                     ins = new SparInvoiceRecon();
                     ins.SparReconId = Convert.ToInt32(drI["SparReconId"]);
-                    ins.StateDate = Convert.ToDateTime(drI["StateDate"]);
+                    ins.GRVDate = Convert.ToDateTime(drI["GRVDate"]);
                     ins.InvoiceNumber = drI["InvoiceNumber"].ToString();
                     ins.GRVTypeId = Convert.ToInt32(drI["GRVTypeId"]);
                     ins.CompanyId = Convert.ToInt32(drI["CompanyId"]);
@@ -53,7 +53,7 @@ namespace SparStelsel.Models
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     ins.SupplierId = Convert.ToInt32(drI["SupplierId"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
-
+                    ins.PaidAmount = Convert.ToDecimal(drI["PaidAmount"]);
                     GRVInvoice = drI["GRVInvoice"].ToString();
                     GRVType = Convert.ToInt32(drI["GRVGRVType"]);
                     GRVAmount = Convert.ToDecimal(drI["GRVAmount"]);
@@ -206,7 +206,7 @@ namespace SparStelsel.Models
                 while (drI.Read())
                 {
                     ins.SparReconId = Convert.ToInt32(drI["SparReconId"]);
-                    ins.StateDate = Convert.ToDateTime(drI["StateDate"]);
+                    ins.GRVDate = Convert.ToDateTime(drI["GRVDate"]);
                     ins.InvoiceNumber = drI["InvoiceNumber"].ToString();
                     ins.GRVTypeId = Convert.ToInt32(drI["GRVTypeId"]);
                     ins.CompanyId = Convert.ToInt32(drI["CompanyId"]);
@@ -215,6 +215,7 @@ namespace SparStelsel.Models
                     ins.Removed = Convert.ToBoolean(drI["Removed"]);
                     ins.SupplierId = Convert.ToInt32(drI["SupplierId"]);
                     ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.PaidAmount = Convert.ToDecimal(drI["PaidAmount"]);
                  }
             }
 
@@ -251,10 +252,11 @@ namespace SparStelsel.Models
                 //...Insert Record...
                 cmdI.CommandText = StoredProcedures.SparReconInsert;
                 cmdI.CommandType = System.Data.CommandType.StoredProcedure;
-                cmdI.Parameters.AddWithValue("@StateDate", ins.StateDate);              // datetime
+                cmdI.Parameters.AddWithValue("@GRVDate", ins.GRVDate);              // datetime
 		        cmdI.Parameters.AddWithValue("@SupplierId", ins.SupplierId);        // int
 		        cmdI.Parameters.AddWithValue("@InvoiceNumber", ins.InvoiceNumber);  // varchar(100)
 		        cmdI.Parameters.AddWithValue("@Amount", ins.Amount);                //  decimal(18,2)
+                cmdI.Parameters.AddWithValue("@PaidAmount", ins.PaidAmount);        //  decimal(18,2)
 		        cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);            // varchar(100)
 		        cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);        // datetime
 		        cmdI.Parameters.AddWithValue("@CompanyId", 1);                      // int
@@ -303,10 +305,11 @@ namespace SparStelsel.Models
             cmdI.CommandText = StoredProcedures.SparReconUpdate;
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@SparReconId", ins.SparReconId);      // int
-            cmdI.Parameters.AddWithValue("@StateDate", ins.StateDate);              // datetime
+            cmdI.Parameters.AddWithValue("@GRVDate", ins.GRVDate);              // datetime
             cmdI.Parameters.AddWithValue("@SupplierId", ins.SupplierId);        // int
             cmdI.Parameters.AddWithValue("@InvoiceNumber", ins.InvoiceNumber);  // varchar(100)
             cmdI.Parameters.AddWithValue("@Amount", ins.Amount);                //  decimal(18,2)
+            cmdI.Parameters.AddWithValue("@PaidAmount", ins.PaidAmount);  
             cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);            // varchar(100)
             cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);        // datetime
             cmdI.Parameters.AddWithValue("@CompanyId", 1);                      // int
@@ -379,7 +382,7 @@ namespace SparStelsel.Models
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
             SqlCommand cmdI = new SqlCommand("Select g.InvoiceNumber, g.GRVTypeID from t_GRVList g left join t_SparRecon sr on g.InvoiceNumber=sr.InvoiceNumber and g.GRVTypeID = sr.GRVTypeId "
-            + " where g.InvoiceDate BETWEEN  DATEADD(DAY, -7,'" + date.ToShortDateString() + "') AND '" + date.ToShortDateString() + "' and g.SupplierID = " + SupplierId 
+            + " where g.InvoiceDate BETWEEN  DATEADD(DAY, -7,'" + date.ToShortDateString() + "') AND '" + date.ToShortDateString() + "' and g.SupplierID = " + SupplierId
             + " and COALESCE(sr.SparReconId,0) = 0 and g.Removed =0", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();

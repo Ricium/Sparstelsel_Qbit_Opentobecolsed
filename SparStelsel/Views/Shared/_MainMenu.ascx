@@ -45,6 +45,7 @@
                          item.Add().Text("Payment Types").Url("~/Maintenance/CashTypes");
                          item.Add().Text("Comments").Url("~/Maintenance/Comment");
                          item.Add().Text("Products").Url("~/Products/Products");
+                         item.Add().Text("Cashiers").Url("~/Cashier/Cashier");
                      });
 
             items.Add()
@@ -119,23 +120,26 @@
                 });
 
             items.Add()
-                .Text("Cashier Cash-Office")
+                .Text("Cashier")
                 .Url("#")
                 .Items(item =>
                 {
-                    item.Add().Text("Cashier Day End").Url("~/Money/CashierDayEnd");
-                    item.Add().Text("Cashier Kwikpay").Url("~/Money/CashierKwikpay");
-                    item.Add().Text("Cashier InstantMoney").Url("~/Money/CashierInstantMoney");
-                    item.Add().Text("Cashier FNB").Url("~/Money/CashierFNB"); 
+                    item.Add().Text("Sigma Cashup").Url("~/Money/CashierDayEnd");
+                    item.Add().Text("Money Services").Url("#").Items(i =>
+                    {
+                        i.Add().Text("Kwikpay").Url("~/Money/CashierKwikpay");
+                        i.Add().Text("InstantMoney").Url("~/Money/CashierInstantMoney");
+                        i.Add().Text("FNB").Url("~/Money/CashierFNB"); 
+                    });
                 });
 
             items.Add()
-                .Text("Cash-up")
+                .Text("Cash Office")
                 .Url("#")
                 .Items(item =>
                 {
-                    item.Add().Text("Cashiers").Url("~/Cashier/Cashier");
-                    item.Add().Text("Cash-up").Url("~/Money/Cashup");
+                    
+                    item.Add().Text("Day End Cash Office").Url("~/Money/Cashup");
 
                     item.Add().Text("Live Cashier Status").Url("~/Money/CashierStatus");
                     

@@ -15,6 +15,7 @@ namespace SparStelsel.Controllers
     {
         public DropDownRepository DDRep = new DropDownRepository();
         public SparReconRepository ReconRep = new SparReconRepository();
+        public GRVListRepository GRVRep = new GRVListRepository();
 
         public ActionResult _GetInvoices(DateTime InvoiceDate, int SupplierId = 0)
         {
@@ -40,7 +41,7 @@ namespace SparStelsel.Controllers
             InvoiceNumberGRVType data = ReconRep.FilterInvoiceNumber(ins.InvoiceNumber);
             ins.InvoiceNumber = data.InvoiceNumber;
             ins.GRVTypeId = data.GRVTypeId;
-
+            GRVRep.UpdateStateDate(ins.GRVDate, ins.InvoiceNumber, ins.SupplierId, ins.GRVTypeId);
             SparInvoiceRecon ins2 = ReconRep.Insert(ins);
 
             //...Repopulate Grid...
@@ -58,8 +59,8 @@ namespace SparStelsel.Controllers
                 InvoiceNumberGRVType data = ReconRep.FilterInvoiceNumber(ins.InvoiceNumber);
                 ins.InvoiceNumber = data.InvoiceNumber;
                 ins.GRVTypeId = data.GRVTypeId;
-            }            
-
+            }
+            GRVRep.UpdateStateDate(ins.GRVDate, ins.InvoiceNumber,ins.SupplierId, ins.GRVTypeId);
             SparInvoiceRecon ins2 = ReconRep.Update(ins);
 
             //...Repopulate Grid...

@@ -12,8 +12,9 @@
             var supplierdd = $('#SupplierId').data('tDropDownList');
             var supplier = supplierdd.value();
 
-            var datepicker = $('#StateDate').data('tDatePicker');
+            var datepicker = $('#GRVDate').data('tDatePicker');
             var date = datepicker.inputValue;
+
 
             e.data = $.extend({}, e.data, { InvoiceDate: date, SupplierId: supplier });
         }
@@ -26,12 +27,12 @@
             var supplierdd = $('#SupplierId').data('tDropDownList');
             var supplier = supplierdd.value();
 
-            var datepicker = $('#StateDate').data('tDatePicker');
+            var datepicker = $('#GRVDate').data('tDatePicker');
             var date = datepicker.inputValue;
             $.post('/SparRecon/_GetInvoiceAmount/', { InvoiceDate: date, SupplierId: supplier, InvoiceNumber: invoicenumber }, function (data) {
-                var numberTextBox = $("#Amount").data("tTextBox");
-                var newValue = data
-                numberTextBox.value(newValue);
+                $('#Amount').attr('value', data);
+                $('#PaidAmount').attr('value', data);             
+
             });
         }
     </script>
@@ -53,10 +54,11 @@
                     .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add Payment"))
                     .Columns(columns =>
                     {
-                        columns.Bound(model => model.StateDate).Format("{0:yyyy-MM-dd}");
+                        columns.Bound(model => model.GRVDate).Format("{0:yyyy-MM-dd}");
                         //columns.Bound(model => model.SupplierId);
                         columns.Bound(model => model.InvoiceNumber);
-                        columns.Bound(model => model.Amount);
+                        columns.Bound(m => m.PaidAmount).Format("{0:c}").HtmlAttributes(new { style = "text-align:right" }); 
+                        columns.Bound(model => model.Amount).Format("{0:c}").HtmlAttributes(new { style = "text-align:right" }); 
                         columns.Bound(model => model.ModifiedDate).Format("{0:yyyy-MM-dd}");
                         columns.Bound(model => model.ModifiedBy);
                         columns.Bound(model => model.Status).Width(300);

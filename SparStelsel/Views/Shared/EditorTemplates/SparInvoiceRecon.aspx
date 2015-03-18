@@ -23,11 +23,11 @@
                     </tr>
                     <tr>
                         <td>
-                           <%: Html.LabelFor(m => m.StateDate) %>
+                           <%: Html.LabelFor(m => m.GRVDate) %>
                         </td>
                         <td>
-                            <%: Html.Telerik().DatePickerFor(m => m.StateDate).Value(DateTime.Today).TodayButton()  %>
-                            <%: Html.ValidationMessageFor(m => m.StateDate) %>
+                            <%: Html.Telerik().DatePickerFor(m => m.GRVDate).Value(DateTime.Today).TodayButton()  %>
+                            <%: Html.ValidationMessageFor(m => m.GRVDate) %>
                         </td>
                     </tr>
                     <tr>
@@ -48,9 +48,11 @@
                             
                             <%: Html.Telerik().AutoCompleteFor(m => m.InvoiceNumber) 
                                 .DataBinding(d => d.Ajax().Select("_GetInvoices", "SparRecon"))
-                                .AutoFill(true).Filterable(f => f.FilterMode(AutoCompleteFilterMode.StartsWith))
+                                .AutoFill(true).Filterable(f => f.FilterMode(AutoCompleteFilterMode.Contains))
                                 .Enable(true).HtmlAttributes(new { style = "width: 300px" })
-                                .ClientEvents(e => e.OnDataBinding("onAutoCompleteDataBinding").OnClose("onAutoComplete"))%>
+                                .ClientEvents(e => e.OnDataBinding("onAutoCompleteDataBinding").OnClose("onAutoComplete"))
+                                
+                                %>
                             <%: Html.ValidationMessageFor(m => m.InvoiceNumber) %>
                         </td>
                     </tr>
@@ -60,10 +62,19 @@
                            <%: Html.LabelFor(m => m.Amount)%>
                         </td>
                         <td>
-                           <%: Html.Telerik().CurrencyTextBoxFor(m => m.Amount).CurrencySymbol("R")%>
+                          R <%: Html.TextBoxFor(m => m.Amount)%>
                             <%: Html.ValidationMessageFor(model => model.Amount) %>
                         </td>
                     </tr>   
+                                       <tr>
+                     <td>
+                           <%: Html.LabelFor(m => m.PaidAmount)%>
+                        </td>
+                        <td>
+                          R <%: Html.TextBoxFor(m => m.PaidAmount)%>
+                            <%: Html.ValidationMessageFor(model => model.PaidAmount) %>
+                        </td>
+                    </tr> 
                  </table>    
 </body>
 </html>

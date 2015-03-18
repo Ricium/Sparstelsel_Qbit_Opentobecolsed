@@ -41,8 +41,14 @@ namespace SparStelsel.Models
         public string movementtype { get; set; }
         public int MovementTypeID { get; set; }
 
-        [DisplayName("Amount")]
+        [DisplayName("Total Sigma")]
         public decimal Amount { get; set; }
+
+        [DisplayName("Total Cash")]
+        public decimal Cash { get; set; }
+
+        [DisplayName("Total EFT")]
+        public decimal EFT { get; set; }
 
         [DisplayName("Modified Date")]
         public DateTime ModifiedDate { get; set; }

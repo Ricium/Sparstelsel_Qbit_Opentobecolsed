@@ -440,6 +440,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="Content\2013.2.611\Black\editor.png" />
     <Content Include="Content\2013.2.611\Black\imagebrowser.png" />
     <Content Include="Content\2013.2.611\Black\loading.gif" />
@@ -729,6 +730,7 @@
     <Content Include="Views\Money\MultiElectronic.aspx" />
     <Content Include="Views\Money\Transits.aspx" />
     <Content Include="Views\Money\_Cash.ascx" />
+    <Content Include="Views\Money\_CashBox.ascx" />
     <Content Include="Views\Money\_CashierDayEndReport.ascx" />
     <Content Include="Views\Money\_CashierFNBReportShow.ascx" />
     <Content Include="Views\Money\_CashierInstantMoneyReport.ascx" />
@@ -740,6 +742,8 @@
     <Content Include="Views\Money\_KwikPay.ascx" />
     <Content Include="Views\Money\_MultipleCashMovements.ascx" />
     <Content Include="Views\Money\_PickUps.ascx" />
+    <Content Include="Views\Money\_Coinmovement.ascx" />
+    <Content Include="Views\Money\_Transits.ascx" />
     <Content Include="Views\Orders\Orders.aspx" />
     <Content Include="Views\Orders\OrdervsGRVReport.aspx" />
     <Content Include="Views\Orders\ProductOrder.aspx" />

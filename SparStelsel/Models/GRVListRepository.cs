@@ -777,6 +777,29 @@ namespace SparStelsel.Models
 
         }
 
+        public void UpdateStateDate(DateTime Statedate, string InvoiceNumber, int SupplierID, int GRVTypeId)
+        {
+            //...Create New Instance of Object...
+            List<GRVList> list = new List<GRVList>();
+            GRVList ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("Update t_GRVList set StateDate= '"+Statedate+"'Where InvoiceNumber='"+InvoiceNumber+"' and SupplierID ='"+SupplierID+"' And GRVTypeID='"+GRVTypeId+"'" , con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+        }
+
         public GRVList UpdateFromImport(GRVList ins)
         {
             //...Get User and Date Data...

@@ -61,13 +61,13 @@
        .Name("TabStrip")
        .Items(tabstrip =>
            {
-               tabstrip.Add()
-                    .HtmlAttributes(new { id = "CashTab" })
-                    .Text("Cashier Day-end Cash")
-                    .Content(() =>
-                    {
-                        Html.RenderPartial("_Cash");
-                    });
+               //tabstrip.Add()
+               //     .HtmlAttributes(new { id = "CashTab" })
+               //     .Text("Cashier Day-end Cash")
+               //     .Content(() =>
+               //     {
+               //         Html.RenderPartial("_Cash");
+               //     });
                tabstrip.Add()
                    .HtmlAttributes(new { id = "ElectronicTab" })
                    .Text("Electronic Funds")
@@ -87,35 +87,56 @@
                
               tabstrip.Add()
                    .HtmlAttributes(new { id = "CashReconTab" })
-                   .Text("Cash Reconciliation")
+                   .Text("Floats")
                    .Content(() =>
                    {
                        Html.RenderPartial("_CashRecon");
                    });
-               
-               tabstrip.Add()
-                .HtmlAttributes(new { id = "InstantMoneyTab" })
-                .Text("Instant Money")
-                .Content(() =>
-                {
-                    Html.RenderPartial("_InstantMoney");
-                });
-               
-               tabstrip.Add()
-                  .HtmlAttributes(new { id = "FNBTab" })
-                  .Text("FNB")
+
+              tabstrip.Add()
+               .HtmlAttributes(new { id = "InstantMoneyTab" })
+               .Text("Instant Money")
+               .Content(() =>
+               {
+                   Html.RenderPartial("_InstantMoney");
+               });
+
+              tabstrip.Add()
+                 .HtmlAttributes(new { id = "FNBTab" })
+                 .Text("FNB")
+                 .Content(() =>
+                 {
+                     Html.RenderPartial("_FNB");
+                 });
+
+              tabstrip.Add()
+                 .HtmlAttributes(new { id = "KwikPayTab" })
+                 .Text("Kwik Pay")
+                 .Content(() =>
+                 {
+                     Html.RenderPartial("_KwikPay");
+                 });
+              tabstrip.Add()
+                  .HtmlAttributes(new { id = "TransitsTab" })
+                  .Text("Transits")
                   .Content(() =>
                   {
-                      Html.RenderPartial("_FNB");
+                      Html.RenderPartial("_Transits");
                   });
-               
-               tabstrip.Add()
-                  .HtmlAttributes(new { id = "KwikPayTab" })
-                  .Text("Kwik Pay")
-                  .Content(() =>
-                  {
-                      Html.RenderPartial("_KwikPay");
-                  });
+                              tabstrip.Add()
+                   .HtmlAttributes(new { id = "CoinmovementTab" })
+                   .Text("CoinMovement")
+                   .Content(() =>
+                   {
+                       Html.RenderPartial("_Coinmovement");
+                   });
+                              tabstrip.Add()
+                   .HtmlAttributes(new { id = "CashBoxTab" })
+                   .Text("Cash Box")
+                   .Content(() =>
+                   {
+                       Html.RenderPartial("_CashBox");
+                   });
            })
            .SelectedIndex(0)
            .Render();

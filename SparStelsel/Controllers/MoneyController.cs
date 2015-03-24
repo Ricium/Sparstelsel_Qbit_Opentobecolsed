@@ -636,6 +636,15 @@ namespace SparStelsel.Controllers
             return PartialView("_CashierDayEndReport",ins);
         }
 
+        [HttpPost]
+        public ActionResult _CashierDayEndReportPDF(int ReportEmployeeID, DateTime ReportActualDate)
+        {
+            CashierDayEnd report = new CashierDayEnd();
+            report.Report = RepRep.GetCashierReport(ReportActualDate, ReportEmployeeID);
+
+            return new Rotativa.ViewAsPdf("SigmaSalesReport", report);
+        }
+
         #endregion
 
         #region Cashier Kwikpay

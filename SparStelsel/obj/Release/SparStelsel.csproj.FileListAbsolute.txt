@@ -48,7 +48,6 @@ C:\dev\GitHub\Spar\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\obj\Release\SparS
 C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\bin\SparStelsel.dll.config
 C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\bin\SparStelsel.dll
 C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\bin\SparStelsel.pdb
-C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\bin\Antlr3.Runtime.dll
 C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\bin\DotNetOpenAuth.AspNet.dll
 C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\bin\DotNetOpenAuth.Core.dll
 C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\bin\DotNetOpenAuth.OAuth.Consumer.dll
@@ -246,3 +245,4 @@ C:\Users\RM\Desktop\Spar Nuut\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\obj\Re
 C:\Users\RM\Desktop\Spar Nuut\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\obj\Release\SparStelsel.csproj.ResolveComReference.cache
 C:\Users\RM\Desktop\Spar Nuut\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\obj\Release\SparStelsel.dll
 C:\Users\RM\Desktop\Spar Nuut\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\obj\Release\SparStelsel.pdb
+C:\dev\GitHub\Sparstelsel_Qbit_Opentobecolsed\SparStelsel\obj\Release\SparStelsel.csprojResolveAssemblyReference.cache

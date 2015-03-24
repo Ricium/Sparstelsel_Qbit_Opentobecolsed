@@ -728,6 +728,7 @@
     <Content Include="Views\Money\CoinMovement.aspx" />
     <Content Include="Views\Money\CashierKwikpay.aspx" />
     <Content Include="Views\Money\MultiElectronic.aspx" />
+    <Content Include="Views\Money\SigmaSalesReport.aspx" />
     <Content Include="Views\Money\Transits.aspx" />
     <Content Include="Views\Money\_Cash.ascx" />
     <Content Include="Views\Money\_CashBox.ascx" />

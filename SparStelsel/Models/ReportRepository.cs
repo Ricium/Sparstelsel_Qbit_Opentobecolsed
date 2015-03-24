@@ -372,13 +372,18 @@ namespace SparStelsel.Models
                             + " g.InvoiceNumber LIKE '%" + query.InvoiceNumber + "' "
                             + " and (g.PayDate >= '" + query.FromDate.ToShortDateString() + "' "
                             + " and g.PayDate <= '" + query.ToDate.ToShortDateString() + "' "
-                            + " and s.SupplierTypeID = 2 )"
+                            //+ " and s.SupplierTypeID = 2 )"
+                            + (query.Supplier.Equals("%") ? "" : " and g.SupplierID = " + query.Supplier)
+                            + ")"
                             + " or ( p.ActualDate >= '" + query.FromDate.ToShortDateString() + "' " 
                             + " and p.ActualDate <= '" + query.ToDate.ToShortDateString() + "' "
-                            + " and s.SupplierTypeID = 2 )"
+                            //+ " and s.SupplierTypeID = 2 )"
+                            + (query.Supplier.Equals("%") ? "" : " and g.SupplierID = " + query.Supplier)
+                            + ")"
                             + " and g.PinkSlipNumber LIKE '%" + query.PinkSlip + "' "
                             + " and COALESCE(p.CashTypeID,'') LIKE '%" + query.Paymenthod + "' "
-                            + " and g.SupplierID LIKE '%" + query.Supplier + "'"
+                            
+                            //+ " and g.SupplierID LIKE '%" + query.Supplier + "'"
                             
                             + " ORDER BY p.ActualDate DESC, s.Supplier", con);
             cmdI.Connection.Open();
@@ -885,7 +890,7 @@ namespace SparStelsel.Models
             return report;
         }
     
-     public CashierInstantMoneyReport GetCashierInstantMoneyReport(DateTime ActualDate, int EmployeeId)
+        public CashierInstantMoneyReport GetCashierInstantMoneyReport(DateTime ActualDate, int EmployeeId)
         {
             #region Repositories
             CashierRepository cashierrep = new CashierRepository();
@@ -960,7 +965,7 @@ namespace SparStelsel.Models
 
             return report;
         }
-     public CashierFNBReport GetCashierFNBReport(DateTime ActualDate, int EmployeeId)
+        public CashierFNBReport GetCashierFNBReport(DateTime ActualDate, int EmployeeId)
      {
          #region Repositories
          CashierRepository cashierrep = new CashierRepository();

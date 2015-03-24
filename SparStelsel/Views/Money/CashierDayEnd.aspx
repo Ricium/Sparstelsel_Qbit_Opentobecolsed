@@ -137,6 +137,8 @@
             EnableItem(2);
             SelectItem(2);
 
+            GotoReport();
+
             return false;
         }
 
@@ -210,11 +212,10 @@
         }
 
         function GotoReport() {
-            EnableItem(3);
-            SelectItem(3);
+            EnableItem(2);
+            SelectItem(2);
             DisableItem(0);
             DisableItem(1);
-            DisableItem(2);
 
             var form = $('#ReportForm').serialize();
             $.post('/Money/_CashierDayEndReportShow/', form, function (data) {
@@ -355,6 +356,15 @@
 
                     <% }).Enabled(false);
 
+            tab.Add().Text("Report").Content(() =>
+                    {
+                        %> 
+                            <form id="ReportForm">
+                                <%: Html.HiddenFor(m => m.ReportActualDate) %>
+                                <%: Html.HiddenFor(m => m.ReportEmployeeID) %>
+                            </form>
+                            <div id="Report"></div> <%
+                    }).Enabled(false);                
                      
             })
             .SelectedIndex(0).Effects(e => e.Expand())

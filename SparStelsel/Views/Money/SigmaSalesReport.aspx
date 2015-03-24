@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<CashierDayEnd>" %>
+﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<CashierDayEnd>"%>
 <%@ Import Namespace ="SparStelsel" %>
 <%@ Import Namespace="SparStelsel.Models" %>
 <%@ Import Namespace="SparStelsel.Controllers" %>
@@ -76,12 +76,25 @@
                     </td>
                 </tr>
             </table>
-            <% using (Html.BeginForm("_CashierDayEndReportPDF", "Money", FormMethod.Post, new { target = "new" }))
-               {%>
-            <%: Html.HiddenFor(m => m.ReportEmployeeID)%>
-            <%: Html.HiddenFor(m => m.ReportActualDate)%>
-            <button type="submit" class="t-button">Print</button>
-            <%} %>
+        </fieldset>
+        <fieldset>
+            <legend>Sign-Off</legend>
+            <table>
+                <tr>
+                    <td>
+                        Signed Off By: ___________________
+                    </td>
+                    <td>
+                        Signature: _______________________
+                    </td>
+                    <td>
+                        Date: ____________________________
+                    </td>
+                    <td>
+                        Time: ____________________________
+                    </td>
+                </tr>
+            </table>
         </fieldset>
     </body>    
 </html>

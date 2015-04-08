@@ -89,7 +89,7 @@
                             </fieldset>
                             <br />
                             <fieldset>
-                                <legend>Permissions</legend>
+                                <legend>Roles</legend>
                                 <div class="editor-field">
                                     <% List<string> ritems = (List<string>)ViewData["roleNames"];
                     
@@ -97,6 +97,33 @@
                                    {                       
                                        %> <input type="checkbox" name="roles" value ="<%: item %>" /> <%: item %> <%
                                    } %>
+                                </div>
+                            </fieldset>
+                            <br />
+                            <fieldset>
+                                <legend>Permissions</legend>
+                                <div class="editor-field">
+                                    <% List<string> pitems = (List<string>)ViewData["permissionNames"];
+                                       int count = 0;%>
+                                    <table>
+                                        <tr>
+                                            <% foreach (string item in pitems)
+                                   {
+                                       count++;
+                                       if(count%4 == 0)
+                                       {
+                                           %></tr><tr><%
+                                       }   
+                                       else
+                                       {
+                                          %> <td><input type="checkbox" name="roles" value ="<%: item %>" /> <%: item %> </td> <%
+                                       }      
+                                        
+                                   } %>
+                                        </tr>
+                                    </table>
+
+                                       
                                 </div>
                             </fieldset>
                         </td>

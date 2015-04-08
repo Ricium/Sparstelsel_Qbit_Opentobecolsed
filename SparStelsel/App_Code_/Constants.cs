@@ -30,6 +30,7 @@ namespace SparStelsel
         public static readonly string CashMovementUpdate = "f_Admin_Update_CashMovement";
 
         public static readonly string CashReconcilationInsert = "f_Admin_Insert_CashReconciliation";
+        public static readonly string CashReconcilationInsertMultiple = "f_Admin_Insert_MultipleCashReconciliation";
         public static readonly string CashReconcilationRemove = "f_Admin_Remove_CashReconciliation";
         public static readonly string CashReconcilationUpdate = "f_Admin_Update_CashReconciliation";
 

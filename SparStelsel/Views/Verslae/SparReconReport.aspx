@@ -19,6 +19,14 @@
                     <%: Html.Telerik().DatePickerFor(m => m.From) %>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    Select Supplier Type:
+                </td>
+                <td>
+                    <%: Html.Telerik().DropDownListFor(m => m.IntergerSelect).BindTo((IEnumerable<SelectListItem>)ViewData["SupplierTypes"]) %>
+                </td>
+            </tr>
         </table>
        <button type="submit" class="t-button">Get Report</button>      
     <% } %>

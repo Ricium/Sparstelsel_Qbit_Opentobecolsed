@@ -759,6 +759,7 @@
     <Content Include="Views\Shared\EditorTemplates\PickUp.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Product.aspx" />
     <Content Include="Views\Shared\EditorTemplates\SparInvoiceRecon.aspx" />
+    <Content Include="Views\SparRecon\MultiPayment.aspx" />
     <Content Include="Views\SparRecon\SparInvoiceRecon.aspx" />
     <Content Include="Views\Verslae\CashierReport.aspx" />
     <Content Include="Views\Verslae\CashierReportPDF.aspx" />

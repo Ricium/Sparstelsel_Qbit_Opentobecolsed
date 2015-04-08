@@ -83,5 +83,34 @@ namespace SparStelsel.Controllers
             ViewData["Suppliers"] = DDRep.GetSupplierList();
             return View();
         }
+
+        public ActionResult MultiPayment()
+        {
+            ViewData["Suppliers"] = DDRep.GetSupplierList();
+
+            return View("MultiPayment");
+        }
+         [HttpPost]
+        public ActionResult _InsertPaymentFromMulti(SparInvoiceRecon ins)
+        {
+            //...Fix InvoiceNumber
+            InvoiceNumberGRVType data = ReconRep.FilterInvoiceNumber(ins.InvoiceNumber);
+            ins.InvoiceNumber = data.InvoiceNumber;
+            ins.GRVTypeId = data.GRVTypeId;
+            GRVRep.UpdateStateDate(ins.GRVDate, ins.InvoiceNumber, ins.SupplierId, ins.GRVTypeId);
+            SparInvoiceRecon ins2 = ReconRep.Insert(ins);
+
+            string Status = ReconRep.GetReconStatus(ins2.SparReconId);
+            if (Status != "null")
+            {
+                return Content(Status.ToString()+" "+ins2.InvoiceNumber.ToString(), "text/html");
+            }
+            else
+            {
+                return Content("0", "text/html");
+            }
+
+        }
+        
     }
 }

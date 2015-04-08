@@ -539,7 +539,7 @@ namespace SparStelsel.Controllers
         }
         #endregion
 
-        #region Cashier Day End
+        #region Sigma Cashup
         public ActionResult CashierDayEnd()
         {
             ViewData["Employees"] = DDRep.GetEmployeeList();
@@ -616,7 +616,7 @@ namespace SparStelsel.Controllers
         [HttpPost]
         public ActionResult _SigmaCashier(CashierDayEnd ins)
         {
-            CashReconciliation ins2 = CRRep.Insert(ins.SigmaSale);
+            CashReconciliation ins2 = CRRep.InsertMultiple(ins.SigmaSale);
 
             if(ins2.CashReconciliationID != 0)
             {

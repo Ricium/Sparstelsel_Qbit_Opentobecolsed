@@ -61,13 +61,14 @@
        .Name("TabStrip")
        .Items(tabstrip =>
            {
-               //tabstrip.Add()
-               //     .HtmlAttributes(new { id = "CashTab" })
-               //     .Text("Cashier Day-end Cash")
-               //     .Content(() =>
-               //     {
-               //         Html.RenderPartial("_Cash");
-               //     });
+               tabstrip.Add()
+                   .HtmlAttributes(new { id = "CashTab" })
+                   .Text("Cash")
+                   .Content(() =>
+                   {
+                       Html.RenderPartial("_Cash");
+                   });
+               
                tabstrip.Add()
                    .HtmlAttributes(new { id = "ElectronicTab" })
                    .Text("Electronic Funds")

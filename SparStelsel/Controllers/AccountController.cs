@@ -70,26 +70,36 @@ namespace SparStelsel.Controllers
         //
         // GET: /Account/Register
 
-        //[Authorize(Roles="admin")]
+        //[Authorize(Roles="r_admin")]
         public ActionResult Register()
         {
             string[] allroles = Roles.GetAllRoles();
             List<string> companies = ac.GetCompaniesFromRoles(allroles,true);
             List<string> roles = ac.GetRolesOnly(allroles);
+            List<string> permissions = ac.GetPermissionsOnly(allroles);
 
             ViewData["roleNames"] = roles;
             ViewData["companyNames"] = companies;
+            ViewData["permissionNames"] = permissions;
             return View();
         }
 
         //
         // POST: /Account/Register
 
-        [Authorize(Roles="admin")]
+        [Authorize(Roles="r_admin")]
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
-            ViewData["roleNames"] = Roles.GetAllRoles();
+            string[] allroles = Roles.GetAllRoles();
+            List<string> companies = ac.GetCompaniesFromRoles(allroles, true);
+            List<string> roles = ac.GetRolesOnly(allroles);
+            List<string> permissions = ac.GetPermissionsOnly(allroles);
+
+            ViewData["roleNames"] = roles;
+            ViewData["companyNames"] = companies;
+            ViewData["permissionNames"] = permissions;
+
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
@@ -224,7 +234,7 @@ namespace SparStelsel.Controllers
             return View();
         }
 
-        [Authorize(Roles="superuser,admin")]
+        [Authorize(Roles="superuser,r_admin")]
         [HttpPost]
         public ActionResult RoleManagement(RoleModel model)
         {

@@ -704,6 +704,7 @@ namespace SparStelsel.Models
             cmdI.CommandText = "f_Admin_Report_SparRecon";
             cmdI.CommandType = System.Data.CommandType.StoredProcedure;
             cmdI.Parameters.AddWithValue("@SelectedDate", query.From);
+            cmdI.Parameters.AddWithValue("@SupplierType", query.IntergerSelect);
 
             cmdI.Connection.Open();
 
@@ -760,7 +761,7 @@ namespace SparStelsel.Models
 
             
             report.Cashier = cashierrep.GetCashier(EmployeeId);
-            report.CashMovements = cashmovementrep.GetCashMovementsPerEmployee(EmployeeId, ActualDate);
+            report.CashMovements = cashmovementrep.GetCashMovementsPerEmployeeReport(EmployeeId, ActualDate);
             report.ElectronicFunds = elecrep.GetElectronicFundsPerEmployee(EmployeeId, ActualDate);
             report.Pickups = pickuprep.GetPickUpsPerEmployee(EmployeeId, ActualDate);
             report.Recons = cashreconrep.GetCashReconcilationsPerEmployee(EmployeeId, ActualDate);
@@ -774,6 +775,11 @@ namespace SparStelsel.Models
             report.FloatTotal = 0;
             report.ExtraFloatTotal = 0;
             report.SigmaTotal = 0;
+            report.CashReconTotal = 0;
+            report.EFTReconTotal = 0;
+            report.EFTTotal = 0;
+            report.EFTFinal = 0;
+            report.CashFinal = 0;
             
             //...Get Totals
             foreach (CashMovement item in report.CashMovements)
@@ -803,8 +809,19 @@ namespace SparStelsel.Models
                     case 1: report.FloatTotal += item.Amount; break;
                     case 2: report.ExtraFloatTotal += item.Amount; break;
                     case 3: report.SigmaTotal += item.Amount; break;
+                    case 4: report.CashReconTotal += item.Amount; break;
+                    case 5: report.EFTReconTotal += item.Amount; break;
                 }
             }
+
+            report.Expected = report.FloatTotal + report.ExtraFloatTotal + report.SigmaTotal  - report.SassaTotal;
+            report.Declared = report.PickupTotal + report.CashTotal;
+            report.Final = report.Declared - report.Expected;
+
+            report.EFTTotal = report.CardsTotal + report.ChequeTotal;
+            report.EFTFinal = report.EFTTotal - report.EFTReconTotal;
+
+            report.CashFinal = report.CashTotal - report.CashReconTotal;
 
             return report;
         }

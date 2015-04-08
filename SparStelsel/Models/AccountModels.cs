@@ -136,12 +136,30 @@ namespace SparStelsel.Models
 
             foreach (string role in allroles)
             {
-                if (!((role[0].Equals('c')) && (role[1].Equals('_'))))
+                if (((role[0].Equals('r')) && (role[1].Equals('_'))))
                 {
                     if(!role.Equals("superuser"))
                     {
                         roles.Add(role); 
                     }                    
+                }
+            }
+
+            return roles;
+        }
+
+        public List<string> GetPermissionsOnly(string[] allroles)
+        {
+            List<string> roles = new List<string>();
+
+            foreach (string role in allroles)
+            {
+                if ((!((role[0].Equals('r')) && (role[1].Equals('_')))) && !((role[0].Equals('c')) && (role[1].Equals('_'))))
+                {
+                    if (!role.Equals("superuser"))
+                    {
+                        roles.Add(role);
+                    }
                 }
             }
 

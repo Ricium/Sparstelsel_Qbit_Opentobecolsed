@@ -327,6 +327,69 @@ namespace SparStelsel.Models
                 cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
                 cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
                 cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
+                //cmdI.Parameters.AddWithValue("@Cash", ins.Cash);
+                //cmdI.Parameters.AddWithValue("@EFT", ins.EFT);
+
+                //...Return new ID
+                ins.CashReconciliationID = (int)cmdI.ExecuteScalar();
+
+                trx.Commit();
+                cmdI.Connection.Close();
+            }
+            catch (SqlException ex)
+            {
+                if (trx != null) trx.Rollback();
+            }
+            finally
+            {
+                //Check for close and respond accordingly
+                if (con.State != ConnectionState.Closed)
+                {
+                    con.Close();
+                }
+                //Clean up
+                con.Dispose();
+                cmdI.Dispose();
+                trx.Dispose();
+            }
+            return ins;
+        }
+
+        public CashReconciliation InsertMultiple(CashReconciliation ins)
+        {
+            //...Get User and Date Data...
+            string ModifiedDate = string.Format("{0:yyyy-MM-dd hh:mm:ss}", DateTime.Now);
+            string EmployeeId = Convert.ToString(HttpContext.Current.Session["Username"]);
+            string strTrx = "CashReconcilationIns_" + EmployeeId;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            con.Open();
+
+            //...Command Interface...
+            SqlCommand cmdI = con.CreateCommand();
+            SqlTransaction trx;
+            trx = con.BeginTransaction(strTrx);
+            cmdI.Connection = con;
+            cmdI.Transaction = trx;
+
+            try
+            {
+                //...Insert Record...
+                cmdI.CommandText = StoredProcedures.CashReconcilationInsertMultiple;
+                cmdI.CommandType = System.Data.CommandType.StoredProcedure;
+                //cmdI.Parameters.AddWithValue("@CashReconcilationID", ins.CashReconcilationID);             
+                cmdI.Parameters.AddWithValue("@ActualDate", ins.ActualDate);
+                cmdI.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
+                cmdI.Parameters.AddWithValue("@MovementTypeID", ins.MovementTypeID);
+                cmdI.Parameters.AddWithValue("@EmployeeID", ins.EmployeeID);
+                cmdI.Parameters.AddWithValue("@UserID", EmployeeId);
+                cmdI.Parameters.AddWithValue("@CompanyID", ins.CompanyID);
+                cmdI.Parameters.AddWithValue("@ModifiedDate", ModifiedDate);
+                cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
+                cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
+                cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
                 cmdI.Parameters.AddWithValue("@Cash", ins.Cash);
                 cmdI.Parameters.AddWithValue("@EFT", ins.EFT);
 

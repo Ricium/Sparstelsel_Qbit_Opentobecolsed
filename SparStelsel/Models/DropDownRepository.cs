@@ -43,6 +43,38 @@ namespace SparStelsel.Models
             return obj;
         }
 
+        public List<SelectListItem> GetSupplierTypeListWithAll()
+        {
+            List<SelectListItem> obj = new List<SelectListItem>();
+
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI = new SqlCommand("SELECT * FROM l_SupplierType", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            var all = new SelectListItem();
+            all.Text = "All";
+            all.Value = "0";
+            obj.Add(all);
+
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    var result = new SelectListItem();
+                    result.Text = drI["SupplierType"].ToString();
+                    result.Value = drI["SupplierTypeID"].ToString();
+                    obj.Add(result);
+                }
+            }
+            drI.Close();
+            con.Close();
+            con.Dispose();
+
+            return obj;
+        }
+
         public List<SelectListItem> GetProductsList()
         {
             List<SelectListItem> obj = new List<SelectListItem>();
@@ -635,7 +667,7 @@ namespace SparStelsel.Models
             SqlConnection con = dbConn.SqlConn();
             SqlCommand cmdI;
 
-            if (roles.Contains("admin") || roles.Contains("cashadmin"))
+            if (roles.Contains("r_admin") || roles.Contains("r_cashadmin"))
             {
                 cmdI = new SqlCommand("SELECT EmployeeID,Name FROM Employee where Removed=0", con);
             }
@@ -811,7 +843,7 @@ namespace SparStelsel.Models
 
             DataBaseConnection dbConn = new DataBaseConnection();
             SqlConnection con = dbConn.SqlConn();
-            SqlCommand cmdI = new SqlCommand("SELECT * FROM Company WHERE CompanyId IN ('"+HttpContext.Current.Session["Companies"].ToString()+"')", con);
+            SqlCommand cmdI = new SqlCommand("SELECT * FROM Company WHERE CompanyId IN ("+HttpContext.Current.Session["Companies"].ToString()+")", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

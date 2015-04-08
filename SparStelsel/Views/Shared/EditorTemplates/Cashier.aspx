@@ -48,7 +48,7 @@
                     </tr>               
                     <tr>
                         <td>
-                            <b Class=asteriks>*</b> <%: Html.LabelFor(m => m.ModifiedBy) %>
+                            <b Class=asteriks>*</b> Username of Cashier
                         </td>
                         <td>
                             <%: Html.TextBoxFor(m => m.ModifiedBy) %>

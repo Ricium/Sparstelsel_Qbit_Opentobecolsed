@@ -73,6 +73,60 @@ namespace SparStelsel.Models
             return list;
         }
 
+        public string GetReconStatus(int ReconId)
+        {
+            //...Create New Instance of Object...
+            SparInvoiceRecon ins = new SparInvoiceRecon();
+
+            int GRVType = 0;
+            string GRVInvoice = "";
+            decimal GRVAmount = 0;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("select sr.*, COALESCE(g.InvoiceDate,0) as StateDate, COALESCE(g.IncludingVat,0) as GRVAmount, COALESCE(g.GRVTypeID,0) as GRVGRVType, COALESCE(g.InvoiceNumber,'No') as GRVInvoice "
+                                    + " from t_SparRecon sr left join t_GRVList g on sr.InvoiceNumber = g.InvoiceNumber and sr.GRVTypeId = g.GRVTypeID "
+            + " where sr.Removed = 0 and sr.SparReconId = " + ReconId + " order by g.StateDate DESC, sr.SparReconId DESC", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins.SparReconId = Convert.ToInt32(drI["SparReconId"]);
+                    ins.GRVDate = Convert.ToDateTime(drI["GRVDate"]);
+                    ins.InvoiceNumber = drI["InvoiceNumber"].ToString();
+                    ins.GRVTypeId = Convert.ToInt32(drI["GRVTypeId"]);
+                    ins.CompanyId = Convert.ToInt32(drI["CompanyId"]);
+                    ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.ModifiedBy = Convert.ToString(drI["ModifiedBy"]);
+                    ins.Removed = Convert.ToBoolean(drI["Removed"]);
+                    ins.SupplierId = Convert.ToInt32(drI["SupplierId"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.PaidAmount = Convert.ToDecimal(drI["PaidAmount"]);
+                    GRVInvoice = drI["GRVInvoice"].ToString();
+                    GRVType = Convert.ToInt32(drI["GRVGRVType"]);
+                    GRVAmount = Convert.ToDecimal(drI["GRVAmount"]);
+
+                    ins.Status = GetReconStatus(ins, GRVAmount, GRVType, GRVInvoice);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
+
+            //...Return...
+            return ins.Status;
+        }
+
         public string GetReconStatus(SparInvoiceRecon ins, decimal GRVAmount, int GRVType, string InvoiceNumber)
         {
             string ret = "Matched";
@@ -383,7 +437,7 @@ namespace SparStelsel.Models
             SqlConnection con = dbConn.SqlConn();
             SqlCommand cmdI = new SqlCommand("Select g.InvoiceNumber, g.GRVTypeID from t_GRVList g left join t_SparRecon sr on g.InvoiceNumber=sr.InvoiceNumber and g.GRVTypeID = sr.GRVTypeId "
             + " where g.InvoiceDate BETWEEN  DATEADD(DAY, -7,'" + date.ToShortDateString() + "') AND '" + date.ToShortDateString() + "' and g.SupplierID = " + SupplierId
-            + " and COALESCE(sr.SparReconId,0) = 0 and g.Removed =0", con);
+            + " and COALESCE(sr.SparReconId,0) = 0 and g.Removed =0 ", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

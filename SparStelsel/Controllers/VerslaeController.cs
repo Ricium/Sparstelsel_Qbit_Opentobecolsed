@@ -379,6 +379,7 @@ namespace SparStelsel.Controllers
 
         public ActionResult SparReconReport()
         {
+            ViewData["SupplierTypes"] = DDRep.GetSupplierTypeListWithAll();
             return View(new DateTimeFromToQuery());
         }
 

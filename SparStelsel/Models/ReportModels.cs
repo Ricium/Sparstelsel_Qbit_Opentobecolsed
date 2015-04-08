@@ -19,6 +19,7 @@ namespace SparStelsel.Models
     {
         public DateTime From { get; set; }
         public DateTime To { get; set; }
+        public int IntergerSelect { get; set; }
     }
 
     public class NumericalRangeQuery
@@ -172,7 +173,18 @@ namespace SparStelsel.Models
         public decimal PickupTotal { get; set; }
         public decimal FloatTotal { get; set; }
         public decimal ExtraFloatTotal { get; set; }
+
         public decimal SigmaTotal { get; set; }
+        public decimal CashReconTotal { get; set; }
+        public decimal EFTReconTotal { get; set; }
+        public decimal EFTTotal { get; set; }
+
+        public decimal Expected { get; set; }
+        public decimal Declared { get; set; }
+
+        public decimal Final { get; set; }
+        public decimal EFTFinal { get; set; }
+        public decimal CashFinal { get; set; }
         
         public int CashierId { get; set; }
         public DateTime ReportDate { get; set; }

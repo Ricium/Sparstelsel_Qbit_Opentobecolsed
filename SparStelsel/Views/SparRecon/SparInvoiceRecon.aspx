@@ -34,6 +34,7 @@
                 $('#PaidAmount').attr('value', data);             
 
             });
+
         }
     </script>
     <table>
@@ -51,7 +52,10 @@
                  Html.Telerik().Grid<SparInvoiceRecon>()
                     .Name("Recons")
                     .DataKeys(keys => keys.Add(s => s.SparReconId))
-                    .ToolBar(commands => commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add Payment"))
+                    .ToolBar(commands => {
+                        commands.Insert().ImageHtmlAttributes(new { style = "margin-left:0" }).ButtonType(GridButtonType.ImageAndText).Text("Add Payment");
+                        commands.Custom().ImageHtmlAttributes(new { style = "position:Relitive" }).ButtonType(GridButtonType.ImageAndText).Text("Add multiple Payments").Action("MultiPayment","SparRecon");
+                    })
                     .Columns(columns =>
                     {
                         columns.Bound(model => model.GRVDate).Format("{0:yyyy-MM-dd}");
@@ -97,5 +101,6 @@
             </td>
         </tr>
     </table>
+
 </asp:Content>
 

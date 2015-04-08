@@ -16,6 +16,9 @@
                         <%: Html.LabelFor(m => m.Report.CashTotal) %>
                     </td>
                     <td>
+                        R
+                    </td>
+                    <td style="text-align:right">
                         <%: Html.DisplayFor(m => m.Report.CashTotal) %>
                     </td>
                 </tr>
@@ -24,6 +27,9 @@
                         <%: Html.LabelFor(m => m.Report.SigmaTotal) %>
                     </td>
                     <td>
+                        R
+                    </td>
+                    <td style="text-align:right">
                         <%: Html.DisplayFor(m => m.Report.SigmaTotal) %>
                     </td>
                 </tr>
@@ -32,6 +38,9 @@
                         <%: Html.LabelFor(m => m.Report.SassaTotal) %>
                     </td>
                     <td>
+                        R
+                    </td>
+                    <td style="text-align:right">
                         <%: Html.DisplayFor(m => m.Report.SassaTotal) %>
                     </td>
                 </tr>
@@ -40,6 +49,9 @@
                         <%: Html.LabelFor(m => m.Report.CardsTotal) %>
                     </td>
                     <td>
+                        R
+                    </td>
+                    <td style="text-align:right">
                         <%: Html.DisplayFor(m => m.Report.CardsTotal) %>
                     </td>
                 </tr>
@@ -48,6 +60,9 @@
                         <%: Html.LabelFor(m => m.Report.ChequeTotal) %>
                     </td>
                     <td>
+                        R
+                    </td>
+                    <td style="text-align:right">
                         <%: Html.DisplayFor(m => m.Report.ChequeTotal) %>
                     </td>
                 </tr>
@@ -56,6 +71,9 @@
                         <%: Html.LabelFor(m => m.Report.PickupTotal) %>
                     </td>
                     <td>
+                        R
+                    </td>
+                    <td style="text-align:right">
                         <%: Html.DisplayFor(m => m.Report.PickupTotal) %>
                     </td>
                 </tr>
@@ -64,6 +82,9 @@
                         <%: Html.LabelFor(m => m.Report.FloatTotal) %>
                     </td>
                     <td>
+                        R
+                    </td>
+                    <td style="text-align:right">
                         <%: Html.DisplayFor(m => m.Report.FloatTotal) %>
                     </td>
                 </tr>
@@ -72,7 +93,21 @@
                         <%: Html.LabelFor(m => m.Report.ExtraFloatTotal) %>
                     </td>
                     <td>
+                        R
+                    </td>
+                    <td style="text-align:right">
                         <%: Html.DisplayFor(m => m.Report.ExtraFloatTotal) %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Day End Total
+                    </td>
+                    <td>
+                        R
+                    </td>
+                    <td style="text-align:right; border-top:solid; border-bottom:double">
+                        <%: Html.DisplayFor(m => m.Report.Final) %>
                     </td>
                 </tr>
             </table>

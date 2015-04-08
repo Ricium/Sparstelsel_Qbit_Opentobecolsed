@@ -256,10 +256,58 @@ namespace SparStelsel.Models
             drI.Close();
             con.Close();
 
+ 
+            //...Return...
+            return list;
+        }
+
+        public List<CashMovement> GetCashMovementsPerEmployeeReport(int EmployeeID, DateTime date)
+        {
+            //...Create New Instance of Object...
+            List<CashMovement> list = new List<CashMovement>();
+            CashMovement ins;
+
+            //...Database Connection...
+            DataBaseConnection dbConn = new DataBaseConnection();
+            SqlConnection con = dbConn.SqlConn();
+            SqlCommand cmdI;
+
+            //...SQL Commands...
+            cmdI = new SqlCommand("SELECT SUM(Amount) as Amount, ActualDate, MovementTypeID, c.MoneyUnitID, EmployeeID, m.MoneyUnit, (SUM(Amount) / m.Value) as Value "
+                + " FROM t_CashMovement c INNER JOIN l_MoneyUnit m on c.MoneyUnitID = m.MoneyUnitID WHERE EmployeeID = " 
+                + EmployeeID + " AND ActualDate = '" + date.ToShortDateString() + "' AND c.Removed=0 "
+                + "GROUP BY c.MoneyUnitID, MovementTypeID, ActualDate, EmployeeID, m.MoneyUnit, m.Value", con);
+            cmdI.Connection.Open();
+            SqlDataReader drI = cmdI.ExecuteReader();
+
+            //...Retrieve Data...
+            if (drI.HasRows)
+            {
+                while (drI.Read())
+                {
+                    ins = new CashMovement();
+                    //ins.CashMovementID = Convert.ToInt32(drI["CashMovementID"]);
+                    ins.ActualDate = Convert.ToDateTime(drI["ActualDate"]);
+                    //ins.ModifiedDate = Convert.ToDateTime(drI["ModifiedDate"]);
+                    ins.Amount = Convert.ToDecimal(drI["Amount"]);
+                    ins.EmployeeID = Convert.ToInt32(drI["EmployeeID"]);
+                    ins.MovementTypeID = Convert.ToInt32(drI["MovementTypeID"]);
+                    ins.MoneyUnitID = Convert.ToInt32(drI["MoneyUnitID"]);
+                    ins.moneyunit = drI["MoneyUnit"].ToString();
+                    ins.Count = Convert.ToInt32(drI["Value"]);
+                    list.Add(ins);
+                }
+            }
+
+            //...Close Connections...
+            drI.Close();
+            con.Close();
+
 
             //...Return...
             return list;
         }
+
         public List<CashMovement> GetCashMovementsPerEmployee(int EmployeeID, DateTime date,int MovementTypeID)
         {
             //...Create New Instance of Object...

@@ -90,7 +90,7 @@
                            <%: Html.LabelFor(m => m.ExcludingVat) %>
                         </td>
                         <td>
-                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.ExcludingVat) %>
+                          R  <%: Html.TextBoxFor(m => m.ExcludingVat) %>
                             <%: Html.ValidationMessageFor(m => m.ExcludingVat) %>
                         </td>
                    
@@ -101,7 +101,7 @@
                            <%: Html.LabelFor(m => m.IncludingVat) %>
                         </td>
                         <td>
-                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.IncludingVat) %>
+                           R  <%: Html.TextBoxFor(m => m.IncludingVat) %>
                             <%: Html.ValidationMessageFor(m => m.IncludingVat) %>
                         </td>
                     </tr>

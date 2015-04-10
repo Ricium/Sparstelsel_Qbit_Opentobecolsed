@@ -59,6 +59,7 @@
                     .Sortable()
                     .Scrollable(scrolling => scrolling.Height(250))
                     .Editable(editing => editing.Mode(GridEditMode.PopUp))
+                    .Filterable()
                     .Render();
                  
                  

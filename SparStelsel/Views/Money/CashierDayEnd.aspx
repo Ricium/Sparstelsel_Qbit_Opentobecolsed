@@ -322,8 +322,9 @@
                     <td>
                         <%: Html.LabelFor(m => m.SigmaSale.Amount) %>
                     </td>
+                    <td>R</td>
                     <td>
-                        <%: Html.Telerik().CurrencyTextBoxFor(m => m.SigmaSale.Amount) %>
+                        <%: Html.TextBoxFor(m => m.SigmaSale.Amount) %>
                         <%: Html.ValidationMessageFor(m => m.SigmaSale.Amount) %>
                     </td>
                 </tr>
@@ -331,17 +332,19 @@
                     <td>
                         <%: Html.LabelFor(m => m.SigmaSale.Cash) %>
                     </td>
+                     <td>R</td>
                     <td>
-                        <%: Html.Telerik().CurrencyTextBoxFor(m => m.SigmaSale.Cash) %>
+                        <%: Html.TextBoxFor(m => m.SigmaSale.Cash) %>
                         <%: Html.ValidationMessageFor(m => m.SigmaSale.Cash) %>
                     </td>
                 </tr>
-                                 <tr>
+                <tr>
                     <td>
                         <%: Html.LabelFor(m => m.SigmaSale.EFT) %>
                     </td>
+                    <td>R</td>
                     <td>
-                        <%: Html.Telerik().CurrencyTextBoxFor(m => m.SigmaSale.EFT) %>
+                        <%: Html.TextBoxFor(m => m.SigmaSale.EFT) %>
                         <%: Html.ValidationMessageFor(m => m.SigmaSale.EFT) %>
                     </td>
                 </tr>

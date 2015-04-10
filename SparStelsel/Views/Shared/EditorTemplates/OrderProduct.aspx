@@ -46,7 +46,7 @@
                 <%: Html.LabelFor(m => m.Price) %>
             </td>
             <td>
-                <%: Html.Telerik().CurrencyTextBoxFor(m => m.Price).CurrencySymbol("R") %>
+               R <%: Html.TextBoxFor(m => m.Price)  %>
             </td>
         </tr>
     </table>

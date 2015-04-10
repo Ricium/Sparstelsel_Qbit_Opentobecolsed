@@ -210,6 +210,11 @@ namespace SparStelsel.Models
         public decimal ElectricityTotal { get; set; }
         public decimal AirTimeTotal { get; set; }
         public decimal AccountPaymentTotal { get; set; }
+
+        public decimal ExpectedTotal { get; set; }
+        public decimal DeclaredTotal { get; set; }
+        public decimal Final { get; set; }
+
         public int CashierId { get; set; }
         public DateTime ReportDate { get; set; }
     }
@@ -232,9 +237,13 @@ namespace SparStelsel.Models
         public decimal ExtraFloatTotal { get; set; }
         public decimal SigmaTotal { get; set; }
 
-      
+        public decimal BigFloatTotal { get; set; }
         public decimal RecievedTotal { get; set; }
         public decimal PaidTotal { get; set; }
+
+        public decimal ExpectedTotal { get; set; }
+        public decimal DeclaredTotal { get; set; }
+        public decimal Final { get; set; }
 
         public int CashierId { get; set; }
         public DateTime ReportDate { get; set; }
@@ -258,6 +267,10 @@ namespace SparStelsel.Models
         public decimal ExtraFloatTotal { get; set; }
         public decimal ReferenceTotal { get; set; }
         public decimal RefundTotal { get; set; }
+
+        public decimal ExpectedTotal { get; set; }
+        public decimal DeclaredTotal { get; set; }
+        public decimal Final { get; set; }
 
 
         public int CashierId { get; set; }

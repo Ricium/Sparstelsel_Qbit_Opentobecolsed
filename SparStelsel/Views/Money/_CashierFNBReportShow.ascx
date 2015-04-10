@@ -15,7 +15,8 @@
                     <td>
                         <%: Html.LabelFor(m => m.Report.CashTotal) %>
                     </td>
-                    <td>
+                    <td>R</td>
+                    <td style="text-align: right;">
                         <%: Html.DisplayFor(m => m.Report.CashTotal) %>
                     </td>
                 </tr>
@@ -23,7 +24,8 @@
                     <td>
                         <%: Html.LabelFor(m => m.Report.ReferenceTotal) %>
                     </td>
-                    <td>
+                    <td>R</td>
+                    <td style="text-align: right;">
                         <%: Html.DisplayFor(m => m.Report.ReferenceTotal) %>
                     </td>
                 </tr>
@@ -31,7 +33,8 @@
                     <td>
                         <%: Html.LabelFor(m => m.Report.RefundTotal) %>
                     </td>
-                    <td>
+                    <td>R</td>
+                    <td style="text-align: right;">
                         <%: Html.DisplayFor(m => m.Report.RefundTotal) %>
                     </td>
                 </tr>
@@ -39,7 +42,8 @@
                     <td>
                         <%: Html.LabelFor(m => m.Report.CardsTotal) %>
                     </td>
-                    <td>
+                    <td>R</td>
+                    <td style="text-align: right;">
                         <%: Html.DisplayFor(m => m.Report.CardsTotal) %>
                     </td>
                 </tr>
@@ -47,12 +51,27 @@
                     <td>
                         <%: Html.LabelFor(m => m.Report.ChequeTotal) %>
                     </td>
-                    <td>
+                    <td>R</td>
+                    <td style="text-align: right;">
                         <%: Html.DisplayFor(m => m.Report.ChequeTotal) %>
                     </td>
                 </tr>
-        
+                <tr>
+                    <td>
+                        Day End Total
+                    </td>
+                    <td>R</td>
+                    <td style="text-align: right; width: 75px; border-bottom: double; border-top: solid">
+                        <%: Html.DisplayFor(m => m.Report.Final) %>
+                    </td>
+                </tr>
             </table>
+            <% using (Html.BeginForm("_FNBDayEndReportPDF", "Money", FormMethod.Post, new { target = "new" }))
+               {%>
+            <%: Html.HiddenFor(m => m.ReportEmployeeID)%>
+            <%: Html.HiddenFor(m => m.ReportActualDate)%>
+            <button type="submit" class="t-button">Print</button>
+            <%} %>
         </fieldset>
     </body>    
 </html>

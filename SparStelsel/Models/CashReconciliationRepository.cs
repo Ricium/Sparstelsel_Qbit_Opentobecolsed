@@ -447,8 +447,8 @@ namespace SparStelsel.Models
             cmdI.Parameters.AddWithValue("@ModifiedBy", EmployeeId);
             cmdI.Parameters.AddWithValue("@Removed", ins.Removed);
             cmdI.Parameters.AddWithValue("@Amount", ins.Amount);
-            cmdI.Parameters.AddWithValue("@Cash", ins.Cash);
-            cmdI.Parameters.AddWithValue("@EFT", ins.EFT);
+           // cmdI.Parameters.AddWithValue("@Cash", ins.Cash);
+           // cmdI.Parameters.AddWithValue("@EFT", ins.EFT);
       
 
             cmdI.ExecuteNonQuery();

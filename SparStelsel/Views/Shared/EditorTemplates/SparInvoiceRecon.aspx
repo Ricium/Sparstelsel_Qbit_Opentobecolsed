@@ -56,7 +56,14 @@
                             <%: Html.ValidationMessageFor(m => m.InvoiceNumber) %>
                         </td>
                     </tr>
-
+                    <tr>
+                        <td>
+                            <%: Html.RadioButton("GRV", "GRV", false, new { onChange = "SelectRadio(1)" })%> GRV
+                        </td>
+                        <td>
+                            <%: Html.RadioButton("CLM","CLM", false, new { onChange = "SelectRadio(2)" }) %> CLM
+                        </td>
+                    </tr>
                    <tr>
                      <td>
                            <%: Html.LabelFor(m => m.Amount)%>

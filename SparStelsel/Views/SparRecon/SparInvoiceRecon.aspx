@@ -36,6 +36,27 @@
             });
 
         }
+
+        function SelectRadio(e)
+        {
+            var suffix = '';
+            if(e == 1)
+            {
+                suffix = ' - GRV';
+                $('#CLM').prop('checked', false);
+            }
+            else
+            {
+                suffix = ' - CLM';
+                $('#GRV').prop('checked', false);
+            }
+
+            var autoComplete = $('#InvoiceNumber').data('tAutoComplete');
+            var invoicenumber = autoComplete.value();
+            invoicenumber = invoicenumber.concat(suffix);
+
+            autoComplete.value(invoicenumber);
+        }
     </script>
     <table>
         <tr>

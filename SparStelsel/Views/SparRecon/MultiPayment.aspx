@@ -24,11 +24,11 @@
                     $("#Amount").attr('value', '');
                     $("#PaidAmount").attr('value', '');
 
+                    $('#GRV').prop('checked', false);
+                    $('#CLM').prop('checked', false);
+
                     var autoComplete = $('#InvoiceNumber').data('tAutoComplete');
-                    autoComplete.reload();
-
-
-
+                    autoComplete.reload();               
                 }
             });
         }
@@ -94,6 +94,23 @@
 
                 }
             
+                function SelectRadio(e) {
+                    var suffix = '';
+                    if (e == 1) {
+                        suffix = ' - GRV';
+                        $('#CLM').prop('checked', false);
+                    }
+                    else {
+                        suffix = ' - CLM';
+                        $('#GRV').prop('checked', false);
+                    }
+
+                    var autoComplete = $('#InvoiceNumber').data('tAutoComplete');
+                    var invoicenumber = autoComplete.value();
+                    invoicenumber = invoicenumber.concat(suffix);
+
+                    autoComplete.value(invoicenumber);
+                }
         
     </script>
     <table>
@@ -151,7 +168,14 @@
                             <%: Html.ValidationMessageFor(m => m.InvoiceNumber) %>
                         </td>
                     </tr>
-
+                    <tr>
+                        <td>
+                            <%: Html.RadioButton("GRV", "GRV", false, new { onChange = "SelectRadio(1)" })%> GRV
+                        </td>
+                        <td>
+                            <%: Html.RadioButton("CLM","CLM", false, new { onChange = "SelectRadio(2)" }) %> CLM
+                        </td>
+                    </tr>
                    <tr>
                      <td>
                            <%: Html.LabelFor(m => m.Amount)%>

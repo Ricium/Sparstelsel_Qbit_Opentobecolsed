@@ -176,7 +176,7 @@
 
                         item.Add().Text("Day End Cash Office").Url("~/Money/Cashup");
 
-                        item.Add().Text("Live Cashier Status").Url("~/Money/CashierStatus");
+                       // item.Add().Text("Live Cashier Status").Url("~/Money/CashierStatus");
 
                         item.Add().Text("Cash Movements").Url("#").Items(i =>
                         {

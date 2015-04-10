@@ -430,8 +430,10 @@
                         </tr>
                     </table>
                 </form>
-          <button id="Save" onclick="Save()" class="t-button">Save</button>
                 <button type='button' class='t-button' id='InsertKwikpays' onclick='buttonInsertKwikpays()'>Insert</button>
+                <br />
+                <br />
+                <button id="Save" onclick="Save()" class="t-button">Next</button>
             </td>
             <td>
                 <div id="InsertedContentk">
@@ -539,7 +541,7 @@
                 <div id="BigTotalValue" style="font-size: large"></div>
             </td>
             <td>
-                <div id="DoneSelect" style="display: none">
+                <div id="DoneSelect">
                     <button id="DoneButton" onclick="GotoReport()" class="t-button">Go To Report</button>
                 </div>
             </td>

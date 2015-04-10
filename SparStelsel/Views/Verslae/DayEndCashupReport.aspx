@@ -24,7 +24,7 @@
                     Opening Balance for day:
                 </td>
                 <td>
-                    <%: Html.Telerik().CurrencyTextBoxFor(m => m.OpeningBalance).CurrencySymbol("R") %>
+                    <%: Html.TextBoxFor(m => m.OpeningBalance)  %>
                 </td>
             </tr>
             <tr>
@@ -32,7 +32,7 @@
                     Petty Cash for day:
                 </td>
                 <td>
-                    <%:  Html.Telerik().CurrencyTextBoxFor(m => m.PettyCash).CurrencySymbol("R") %>
+                    <%:  Html.Telerik().CurrencyTextBoxFor(m => m.PettyCash)  %>
                 </td>
             </tr>
             <tr>
@@ -40,7 +40,7 @@
                     Sigma Cards Expected for day:
                 </td>
                 <td>
-                    <%:  Html.Telerik().CurrencyTextBoxFor(m => m.SigmaCardsExpected).CurrencySymbol("R") %>
+                    <%:  Html.Telerik().CurrencyTextBoxFor(m => m.SigmaCardsExpected)  %>
                 </td>
             </tr>
 

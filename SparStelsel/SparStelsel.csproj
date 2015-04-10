@@ -727,6 +727,9 @@
     <Content Include="Views\Money\CashUp.aspx" />
     <Content Include="Views\Money\CoinMovement.aspx" />
     <Content Include="Views\Money\CashierKwikpay.aspx" />
+    <Content Include="Views\Money\FNBReport.aspx" />
+    <Content Include="Views\Money\IMReport.aspx" />
+    <Content Include="Views\Money\KwikpayReport.aspx" />
     <Content Include="Views\Money\MultiElectronic.aspx" />
     <Content Include="Views\Money\SigmaSalesReport.aspx" />
     <Content Include="Views\Money\Transits.aspx" />
@@ -1061,6 +1064,9 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

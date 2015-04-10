@@ -19,7 +19,7 @@
                           columns.Bound(model => model.RefNo);
                           columns.Bound(model => model.fnbtype);
                           columns.Bound(model => model.ActualDate).Format("{0:yyyy/MM/dd}");
-                          columns.Bound(model => model.Amount);         
+                          columns.Bound(model => model.Amount).Format("{0:c}");         
 
 
                           columns.Command(commands =>
@@ -47,6 +47,7 @@
                       .Sortable()
                       .Scrollable(scrolling => scrolling.Height(250))
                       .Editable(editing => editing.Mode(GridEditMode.PopUp))
+                      .Filterable()
                       .Render();             
                  %>
 

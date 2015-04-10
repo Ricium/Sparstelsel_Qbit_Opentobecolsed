@@ -52,7 +52,7 @@
                            <%: Html.LabelFor(m => m.BTW) %>
                         </td>
                         <td>
-                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.BTW).CurrencySymbol("R").MinValue(0) %>
+                            <%: Html.TextBoxFor(m => m.BTW) .MinValue(0) %>
                             <%: Html.ValidationMessageFor(m => m.BTW) %>
                         </td>
                     </tr>                    
@@ -61,7 +61,7 @@
                            <%: Html.LabelFor(m => m.Price) %>
                         </td>
                         <td>
-                            <%: Html.Telerik().CurrencyTextBoxFor(m => m.Price) %>
+                           R <%: Html.TextBoxFor(m => m.Price) %>
                             <%: Html.ValidationMessageFor(m => m.Price) %>
                         </td>
                      </tr>

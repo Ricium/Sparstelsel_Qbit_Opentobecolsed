@@ -667,13 +667,13 @@ namespace SparStelsel.Controllers
                 ins.Movements.Add(new CashMovement());
                 ins.Movements[i - 1].MoneyUnitID = i;
                 ins.Movements[i - 1].moneyunit = MuRep.GetMoneyUnitString(i);
-                ins.MovementTypeID = 2;
+                ins.MovementTypeID = 3;
             }
 
             CashierKwikpay model = new CashierKwikpay();
             model.CashMovements = ins;
             model.ElectronicFund = new ElectronicFund();
-            model.ElectronicFund.MovementTypeID = 2;
+            model.ElectronicFund.MovementTypeID = 3;
             model.KiwkPay = new KwikPay();
             
 
@@ -744,6 +744,15 @@ namespace SparStelsel.Controllers
             ins.Report = RepRep.GetCashierKwikpayReport(ins.ReportActualDate, ins.ReportEmployeeID);
             return PartialView("_CashierKwikPayReport", ins);
         }
+
+        [HttpPost]
+        public ActionResult _KwikpayDayEndReportPDF(int ReportEmployeeID, DateTime ReportActualDate)
+        {
+            CashierKwikpayReport report = new CashierKwikpayReport();
+            report = RepRep.GetCashierKwikpayReport(ReportActualDate, ReportEmployeeID);
+
+            return new Rotativa.ViewAsPdf("KwikpayReport", report);
+        }
         #endregion 
 
         #region Instant Money
@@ -766,13 +775,13 @@ namespace SparStelsel.Controllers
                 ins.Movements.Add(new CashMovement());
                 ins.Movements[i - 1].MoneyUnitID = i;
                 ins.Movements[i - 1].moneyunit = MuRep.GetMoneyUnitString(i);
-                ins.MovementTypeID = 3;
+                ins.MovementTypeID = 4;
             }
 
             CashierInstantMoney model = new CashierInstantMoney();
             model.CashMovements = ins;
             model.ElectronicFund = new ElectronicFund();
-            model.ElectronicFund.MovementTypeID = 3;
+            model.ElectronicFund.MovementTypeID = 4;
             model.InstantMoney = new InstantMoney();
 
 
@@ -843,6 +852,15 @@ namespace SparStelsel.Controllers
             ins.Report = RepRep.GetCashierInstantMoneyReport(ins.ReportActualDate, ins.ReportEmployeeID);
             return PartialView("_CashierInstantMoneyReport", ins);
         }
+
+        [HttpPost]
+        public ActionResult _IMDayEndReportPDF(int ReportEmployeeID, DateTime ReportActualDate)
+        {
+            CashierInstantMoneyReport report = new CashierInstantMoneyReport();
+            report = RepRep.GetCashierInstantMoneyReport(ReportActualDate, ReportEmployeeID);
+
+            return new Rotativa.ViewAsPdf("IMReport", report);
+        }
         #endregion
 
         #region Cashier FNB
@@ -865,13 +883,13 @@ namespace SparStelsel.Controllers
                 ins.Movements.Add(new CashMovement());
                 ins.Movements[i - 1].MoneyUnitID = i;
                 ins.Movements[i - 1].moneyunit = MuRep.GetMoneyUnitString(i);
-                ins.MovementTypeID = 4;
+                ins.MovementTypeID = 2;
             }
 
             CashierFNB model = new CashierFNB();
             model.CashMovements = ins;
             model.ElectronicFund = new ElectronicFund();
-            model.ElectronicFund.MovementTypeID = 4;
+            model.ElectronicFund.MovementTypeID = 2;
             model.FNB = new FNB();
 
 
@@ -941,6 +959,15 @@ namespace SparStelsel.Controllers
         {
             ins.Report = RepRep.GetCashierFNBReport(ins.ReportActualDate, ins.ReportEmployeeID);
             return PartialView("_CashierFNBReportShow", ins);
+        }
+
+        [HttpPost]
+        public ActionResult _FNBDayEndReportPDF(int ReportEmployeeID, DateTime ReportActualDate)
+        {
+            CashierFNBReport report = new CashierFNBReport();
+            report = RepRep.GetCashierFNBReport(ReportActualDate, ReportEmployeeID);
+
+            return new Rotativa.ViewAsPdf("FNBReport", report);
         }
         #endregion
     }

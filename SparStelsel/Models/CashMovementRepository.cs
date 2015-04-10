@@ -261,7 +261,7 @@ namespace SparStelsel.Models
             return list;
         }
 
-        public List<CashMovement> GetCashMovementsPerEmployeeReport(int EmployeeID, DateTime date)
+        public List<CashMovement> GetCashMovementsPerEmployeeReport(int EmployeeID, DateTime date, int MovementType)
         {
             //...Create New Instance of Object...
             List<CashMovement> list = new List<CashMovement>();
@@ -275,8 +275,8 @@ namespace SparStelsel.Models
             //...SQL Commands...
             cmdI = new SqlCommand("SELECT SUM(Amount) as Amount, ActualDate, MovementTypeID, c.MoneyUnitID, EmployeeID, m.MoneyUnit, (SUM(Amount) / m.Value) as Value "
                 + " FROM t_CashMovement c INNER JOIN l_MoneyUnit m on c.MoneyUnitID = m.MoneyUnitID WHERE EmployeeID = " 
-                + EmployeeID + " AND ActualDate = '" + date.ToShortDateString() + "' AND c.Removed=0 "
-                + "GROUP BY c.MoneyUnitID, MovementTypeID, ActualDate, EmployeeID, m.MoneyUnit, m.Value", con);
+                + EmployeeID + " AND ActualDate = '" + date.ToShortDateString() + "' AND c.Removed=0 AND c.MovementTypeID = " + MovementType 
+                + " GROUP BY c.MoneyUnitID, MovementTypeID, ActualDate, EmployeeID, m.MoneyUnit, m.Value", con);
             cmdI.Connection.Open();
             SqlDataReader drI = cmdI.ExecuteReader();
 

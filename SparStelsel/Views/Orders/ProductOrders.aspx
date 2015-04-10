@@ -51,7 +51,7 @@
                         columns.Bound(model => model.OrderDate).Format("{0:yyyy/MM/dd}");
                         columns.Bound(model => model.ExpectedDeliveryDate).Format("{0:yyyy/MM/dd}");
                         columns.Bound(model => model.PinkSlipNumber);
-                        columns.Bound(model => model.Amount).Format("{0:c}"); 
+                        columns.Bound(model => model.Amount).Format("{0:c}");
                         columns.Bound(model => model.OrderID)
                             .ClientTemplate("<a href='../Orders/ProductOrder?OrderId=<#=OrderID#>'><button type='button' class='t-button'>Update</button></a>")
                             .Width(90).Title("");                                                 

@@ -89,7 +89,7 @@
                     {
                         columns.Bound(model => model.ProductID);
                         columns.Bound(model => model.Quantity);
-                        columns.Bound(model => model.Price).Format("{0:c}");
+                        columns.Bound(model => model.Price).Format("{0:c}").Aggregate(aggregates => aggregates.Sum()).Width(80).HtmlAttributes(new { style = "text-align:right" }).ClientFooterTemplate("<#= $.telerik.formatString('{0:c}', Sum) #>").FooterHtmlAttributes(new { style = "text-align:right" });
                         columns.Bound(model => model.ModifiedDate).Format("{0:yyyy-MM-dd}");
                         columns.Bound(model => model.ModifiedBy);
 
